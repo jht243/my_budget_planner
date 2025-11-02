@@ -218,6 +218,23 @@
         color: rgba(226, 232, 240, 0.6);
       }
 
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pulse-animate {
+        animation: pulse 0.4s ease-in-out;
+      }
+
       @media (max-width: 560px) {
         body {
           padding: 18px;
@@ -261,12 +278,8 @@
             <input type="number" id="down_payment_value" min="0" step="1000" />
           </label>
           <label>
-            Down payment (decimal)
-            <input type="number" id="down_payment_pct" min="0" max="1" step="0.01" />
-          </label>
-          <label>
-            Rate (APR decimal)
-            <input type="number" id="rate_apr" min="0" step="0.0001" />
+            Rate (APR %)
+            <input type="number" id="rate_apr" min="0" step="0.001" />
           </label>
           <label>
             Term (years)
@@ -306,15 +319,15 @@
         <div class="grid">
           <label>
             PMI (% annual, conventional)
-            <input type="number" id="pmi_pct" min="0" step="0.0001" />
+            <input type="number" id="pmi_pct" min="0" step="0.01" />
           </label>
           <label>
             Upfront fee (% base loan)
-            <input type="number" id="upfront_fee_pct" min="0" step="0.0001" />
+            <input type="number" id="upfront_fee_pct" min="0" step="0.01" />
           </label>
           <label>
             Annual MI fee (% of balance)
-            <input type="number" id="annual_mi_pct" min="0" step="0.0001" />
+            <input type="number" id="annual_mi_pct" min="0" step="0.01" />
           </label>
           <label>
             Finance upfront fee?
@@ -806,8 +819,7 @@
           loan_type: "conventional",
           home_value: 450000,
           down_payment_value: 90000,
-          down_payment_pct: 0.2,
-          rate_apr: 0.0675,
+          rate_apr: 6.75,
           term_years: 30,
           start_month: 2,
           start_year: new Date().getFullYear(),
@@ -819,21 +831,20 @@
           finance_upfront_fee: false,
           extra_principal_monthly: 0,
           extra_start_month_index: 0,
-          pmi_pct: 0.005,
+          pmi_pct: 0.5,
         };
 
         const programDefaults = {
-          conventional: { pmi_pct: 0.005, upfront_fee_pct: 0, annual_mi_pct: 0, finance_upfront_fee: false },
-          FHA: { pmi_pct: 0, upfront_fee_pct: 0.0175, annual_mi_pct: 0.0085, finance_upfront_fee: true },
-          VA: { pmi_pct: 0, upfront_fee_pct: 0.023, annual_mi_pct: 0, finance_upfront_fee: true },
-          USDA: { pmi_pct: 0, upfront_fee_pct: 0.01, annual_mi_pct: 0.0035, finance_upfront_fee: true },
+          conventional: { pmi_pct: 0.5, upfront_fee_pct: 0, annual_mi_pct: 0, finance_upfront_fee: false },
+          FHA: { pmi_pct: 0, upfront_fee_pct: 1.75, annual_mi_pct: 0.85, finance_upfront_fee: true },
+          VA: { pmi_pct: 0, upfront_fee_pct: 2.3, annual_mi_pct: 0, finance_upfront_fee: true },
+          USDA: { pmi_pct: 0, upfront_fee_pct: 1.0, annual_mi_pct: 0.35, finance_upfront_fee: true },
         };
 
         const inputs = {
           loan_type: $("loan_type"),
           home_value: $("home_value"),
           down_payment_value: $("down_payment_value"),
-          down_payment_pct: $("down_payment_pct"),
           rate_apr: $("rate_apr"),
           term_years: $("term_years"),
           start_month: $("start_month"),
@@ -891,20 +902,20 @@
           loan_type: inputs.loan_type.value,
           home_value: toNumber(inputs.home_value.value),
           down_payment_value: toNumber(inputs.down_payment_value.value),
-          down_payment_pct: toNumber(inputs.down_payment_pct.value),
-          rate_apr: toNumber(inputs.rate_apr.value),
+          down_payment_pct: 0,
+          rate_apr: toNumber(inputs.rate_apr.value) / 100,
           term_years: toNumber(inputs.term_years.value),
           start_month: toNumber(inputs.start_month.value),
           start_year: toNumber(inputs.start_year.value),
           property_tax_input: toNumber(inputs.property_tax_input.value),
           homeowners_insurance_yearly: toNumber(inputs.homeowners_insurance_yearly.value),
           hoa_monthly: toNumber(inputs.hoa_monthly.value),
-          upfront_fee_pct: toNumber(inputs.upfront_fee_pct.value),
-          annual_mi_pct: toNumber(inputs.annual_mi_pct.value),
+          upfront_fee_pct: toNumber(inputs.upfront_fee_pct.value) / 100,
+          annual_mi_pct: toNumber(inputs.annual_mi_pct.value) / 100,
           finance_upfront_fee: Boolean(inputs.finance_upfront_fee.checked),
           extra_principal_monthly: toNumber(inputs.extra_principal_monthly.value),
           extra_start_month_index: toNumber(inputs.extra_start_month_index.value),
-          pmi_pct: toNumber(inputs.pmi_pct.value),
+          pmi_pct: toNumber(inputs.pmi_pct.value) / 100,
         });
 
         const divideSafe = (numerator, denominator) =>
@@ -918,7 +929,11 @@
             ? `${monthNames[normalizeMonth(payoff_date.month) - 1]} ${payoff_date.year}`
             : "—";
 
-          outputs.total_monthly_0.textContent = formatCurrency(derived.total_monthly_0);
+          const monthlyPaymentEl = outputs.total_monthly_0;
+          monthlyPaymentEl.textContent = formatCurrency(derived.total_monthly_0);
+          monthlyPaymentEl.classList.remove("pulse-animate");
+          void monthlyPaymentEl.offsetWidth;
+          monthlyPaymentEl.classList.add("pulse-animate");
           outputs.p_and_i.textContent = formatCurrency(derived.p_and_i);
           outputs.total_interest.textContent = formatCurrency(totals.total_interest);
           outputs.payoff_date.textContent = payoffLabel;
