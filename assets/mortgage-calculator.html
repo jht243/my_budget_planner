@@ -44,24 +44,70 @@
       }
 
       .section-title {
-        font-size: 12px;
-        letter-spacing: 0.14em;
-        color: rgba(226, 232, 240, 0.48);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        color: rgba(226, 232, 240, 0.72);
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
       }
 
       .section-summary {
-        font-size: 12px;
-        letter-spacing: 0.14em;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        color: rgba(226, 232, 240, 0.72);
         text-transform: uppercase;
-        color: rgba(226, 232, 240, 0.48);
         display: flex;
         align-items: center;
+        gap: 12px;
+      }
+
+      .section-summary::after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid rgba(226, 232, 240, 0.58);
+        border-bottom: 2px solid rgba(226, 232, 240, 0.58);
+        transform: rotate(45deg);
+        margin-left: auto;
+        transition: transform 0.24s ease, border-color 0.24s ease;
+      }
+
+      details[open] .section-summary::after {
+        transform: rotate(-135deg);
+      }
+
+      .section-summary:hover::after,
+      .section-summary:focus-visible::after {
+        border-color: #38bdf8;
       }
 
       .collapsible-content {
-        margin-top: 18px;
+        padding: 0 20px 22px;
+        margin-top: 12px;
+        border-top: 1px solid rgba(148, 163, 184, 0.22);
+      }
+
+      .section-block {
+        border-radius: 16px;
+        border: 1px solid rgba(148, 163, 184, 0.24);
+        background: rgba(10, 16, 28, 0.58);
+        padding: 20px;
+        display: grid;
+        gap: 16px;
+      }
+
+      details.section-block {
+        padding: 0;
+      }
+
+      details.section-block > summary {
+        padding: 18px 20px;
+      }
+
+      details.section-block > .collapsible-content {
+        padding-bottom: 20px;
       }
 
       .grid {
@@ -103,6 +149,7 @@
       }
 
       input[type="number"],
+      input[type="text"],
       select {
         border: none;
         border-bottom: 1px solid rgba(148, 163, 184, 0.35);
@@ -112,6 +159,10 @@
         font-size: 16px;
         padding: 8px 4px;
         transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      input::placeholder {
+        color: rgba(226, 232, 240, 0.38);
       }
 
       input[type="checkbox"] {
@@ -141,6 +192,56 @@
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 16px;
         row-gap: 20px;
+      }
+
+      .result-carousel {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .carousel-nav {
+        width: 36px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.24);
+        background: rgba(10, 16, 28, 0.65);
+        color: rgba(226, 232, 240, 0.72);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+      }
+
+      .carousel-nav[disabled] {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .carousel-nav:not([disabled]):hover,
+      .carousel-nav:not([disabled]):focus-visible {
+        background: rgba(30, 64, 175, 0.35);
+        border-color: rgba(56, 189, 248, 0.45);
+        color: #38bdf8;
+        outline: none;
+      }
+
+      .carousel-window {
+        overflow: hidden;
+        border-radius: 18px;
+      }
+
+      .carousel-track {
+        display: flex;
+        width: 100%;
+        transition: transform 0.35s ease-in-out;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        padding: 6px 0;
+        display: grid;
+        gap: 18px;
       }
 
       .result-card {
@@ -242,23 +343,9 @@
         color: #f9fafb;
       }
 
-      details {
-        border-radius: 14px;
-        border: 1px solid rgba(148, 163, 184, 0.16);
-        background: rgba(11, 18, 32, 0.55);
-        padding: 16px 18px;
-      }
-
       details summary {
         cursor: pointer;
-        font-weight: 600;
-        color: rgba(226, 232, 240, 0.88);
         outline: none;
-      }
-
-      details summary.section-summary {
-        font-weight: 500;
-        color: rgba(226, 232, 240, 0.62);
       }
 
       table {
@@ -330,7 +417,7 @@
         <p>Compare loan programs, see monthly costs, and preview payoff timing. Adjust the inputs to explore scenarios.</p>
       </header>
 
-      <section>
+      <section class="section-block">
         <div class="section-title">Loan basics</div>
         <div class="grid">
           <label>
@@ -361,7 +448,7 @@
         </div>
       </section>
 
-      <section>
+      <section class="section-block">
         <div class="section-title">My information</div>
         <div class="grid">
           <label>
@@ -383,7 +470,7 @@
         </div>
       </section>
 
-      <details class="collapsible">
+      <details class="section-block collapsible">
         <summary class="section-summary">Property information</summary>
         <div class="collapsible-content">
           <div class="grid">
@@ -403,7 +490,7 @@
         </div>
       </details>
 
-      <details class="collapsible">
+      <details class="section-block collapsible">
         <summary class="section-summary">Mortgage insurance & fees</summary>
         <div class="collapsible-content">
           <div class="grid">
@@ -427,7 +514,7 @@
         </div>
       </details>
 
-      <details class="advanced-options">
+      <details class="section-block advanced-options">
         <summary class="section-summary">Advanced options</summary>
         <div class="collapsible-content">
           <div class="grid">
@@ -456,39 +543,47 @@
         <button class="secondary" id="resetBtn" type="button">Reset defaults</button>
       </div>
 
-      <section>
-        <div class="cards">
-          <div class="result-card primary" id="monthlyPaymentCard">
-            <span class="label">Monthly payment (month 0)</span>
-            <span class="value" id="total_monthly_0">$0</span>
-            <span class="hint">Includes P&I, MI, taxes, insurance, HOA (excludes extra principal).</span>
-          </div>
-          <div class="result-card secondary">
-            <span class="label">Scheduled principal & interest</span>
-            <span class="value" id="p_and_i">$0</span>
-            <span class="hint">Level payment before extra principal or add-ons.</span>
-          </div>
-          <div class="result-card secondary">
-            <span class="label">Total interest over loan</span>
-            <span class="value" id="total_interest">$0</span>
-            <span class="hint" id="interest_hint"></span>
-          </div>
-          <div class="result-card secondary">
-            <span class="label">Estimated payoff date</span>
-            <span class="value" id="payoff_date">—</span>
-            <span class="hint" id="term_hint"></span>
+      <section class="result-carousel">
+        <button class="carousel-nav" id="cardPrev" aria-label="Previous card">&#x2039;</button>
+        <div class="carousel-window">
+          <div class="carousel-track" id="resultTrack">
+            <div class="carousel-slide" data-card="summary">
+              <div class="cards">
+                <div class="result-card primary" id="monthlyPaymentCard">
+                  <span class="label">Monthly payment (month 0)</span>
+                  <span class="value" id="total_monthly_0">$0</span>
+                  <span class="hint">Includes P&I, MI, taxes, insurance, HOA (excludes extra principal).</span>
+                </div>
+                <div class="result-card secondary">
+                  <span class="label">Scheduled principal & interest</span>
+                  <span class="value" id="p_and_i">$0</span>
+                  <span class="hint">Level payment before extra principal or add-ons.</span>
+                </div>
+                <div class="result-card secondary">
+                  <span class="label">Total interest over loan</span>
+                  <span class="value" id="total_interest">$0</span>
+                  <span class="hint" id="interest_hint"></span>
+                </div>
+                <div class="result-card secondary">
+                  <span class="label">Estimated payoff date</span>
+                  <span class="value" id="payoff_date">—</span>
+                  <span class="hint" id="term_hint"></span>
+                </div>
+              </div>
+              <section class="summary" id="summaryText"></section>
+            </div>
+            <div class="carousel-slide" data-card="amortization">
+              <details class="section-block" open>
+                <summary>Amortization & totals</summary>
+                <div id="totalsBreakdown" style="margin-top: 14px; font-size: 13px; line-height: 1.8;"></div>
+                <div id="schedulePreview"></div>
+                <div class="schedule-note" id="scheduleNote"></div>
+              </details>
+            </div>
           </div>
         </div>
+        <button class="carousel-nav" id="cardNext" aria-label="Next card">&#x203A;</button>
       </section>
-
-      <section class="summary" id="summaryText"></section>
-
-      <details>
-        <summary>Amortization & totals</summary>
-        <div id="totalsBreakdown" style="margin-top: 14px; font-size: 13px; line-height: 1.8;"></div>
-        <div id="schedulePreview"></div>
-        <div class="schedule-note" id="scheduleNote"></div>
-      </details>
     </div>
 
     <script type="module">
@@ -1003,6 +1098,13 @@
           scheduleNote: $("scheduleNote"),
         };
         const monthlyPaymentCard = $("monthlyPaymentCard");
+        const carousel = {
+          track: $("resultTrack"),
+          prev: $("cardPrev"),
+          next: $("cardNext"),
+          slides: Array.from(document.querySelectorAll(".carousel-slide")),
+          index: 0,
+        };
 
         const setDefaults = (preset = baseDefaults) => {
           Object.entries(preset).forEach(([key, value]) => {
@@ -1145,6 +1247,30 @@
           renderSummary(calc);
         };
 
+        const updateCarousel = () => {
+          if (!carousel.track) return;
+          const clamped = Math.max(0, Math.min(carousel.index, carousel.slides.length - 1));
+          carousel.index = clamped;
+          const offsetPercent = -(clamped * 100);
+          carousel.track.style.transform = `translateX(${offsetPercent}%)`;
+          if (carousel.prev) carousel.prev.disabled = clamped === 0;
+          if (carousel.next) carousel.next.disabled = clamped === carousel.slides.length - 1;
+        };
+
+        if (carousel.prev) {
+          carousel.prev.addEventListener("click", () => {
+            carousel.index -= 1;
+            updateCarousel();
+          });
+        }
+
+        if (carousel.next) {
+          carousel.next.addEventListener("click", () => {
+            carousel.index += 1;
+            updateCarousel();
+          });
+        }
+
         const resetButton = $("resetBtn");
         if (resetButton) {
           resetButton.addEventListener("click", () => {
@@ -1165,6 +1291,7 @@
         });
 
         updateMiVisibility();
+        updateCarousel();
 
         Object.values(inputs).forEach((el) => {
           const handler = () => {
