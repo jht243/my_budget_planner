@@ -382,8 +382,8 @@
 
       .breakdown-layout {
         display: grid;
-        grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
-        gap: 32px;
+        grid-template-columns: 1fr;
+        gap: 20px;
         align-items: start;
       }
 
@@ -995,7 +995,7 @@
                           <span class="label">Property tax</span>
                           <span class="hint">Monthly property tax</span>
                         </div>
-                        <input type="number" id="breakdown_tax_input" min="0" step="1" placeholder="0" />
+                        <span class="value" id="breakdown_tax">$0</span>
                       </div>
                       <div class="breakdown-row">
                         <div class="breakdown-pill accent">🛡️</div>
@@ -1003,7 +1003,7 @@
                           <span class="label">Homeowner's insurance</span>
                           <span class="hint">Monthly insurance cost</span>
                         </div>
-                        <input type="number" id="breakdown_ins_input" min="0" step="1" placeholder="0" />
+                        <span class="value" id="breakdown_ins">$0</span>
                       </div>
                       <div class="breakdown-row">
                         <div class="breakdown-pill subtle">🏘️</div>
@@ -1011,7 +1011,7 @@
                           <span class="label">HOA dues</span>
                           <span class="hint">Monthly association fees</span>
                         </div>
-                        <input type="number" id="breakdown_hoa_input" min="0" step="1" placeholder="0" />
+                        <span class="value" id="breakdown_hoa">$0</span>
                       </div>
                       <div class="breakdown-row" id="breakdown_mi_row">
                         <div class="breakdown-pill subtle">🔒</div>
@@ -1797,7 +1797,11 @@
 
         const breakdownOutputs = {
           p_and_i: $("breakdown_p_and_i"),
+          tax: $("breakdown_tax"),
+          ins: $("breakdown_ins"),
+          hoa: $("breakdown_hoa"),
           mi: $("breakdown_mi"),
+          mi_row: $("breakdown_mi_row"),
           chartTotal: $("chartTotal"),
           canvas: $("breakdownChart"),
         };
@@ -1851,20 +1855,20 @@
             breakdownOutputs.p_and_i.textContent = formatCurrency(p_and_i);
           }
           
+          if (breakdownOutputs.tax) {
+            breakdownOutputs.tax.textContent = formatCurrency(tax_monthly);
+          }
+          if (breakdownOutputs.ins) {
+            breakdownOutputs.ins.textContent = formatCurrency(ins_monthly);
+          }
+          if (breakdownOutputs.hoa) {
+            breakdownOutputs.hoa.textContent = formatCurrency(hoa_monthly);
+          }
           if (breakdownOutputs.mi) {
             breakdownOutputs.mi.textContent = formatCurrency(mi);
           }
-          
-          if (breakdownInputs.tax) {
-            breakdownInputs.tax.value = Math.round(tax_monthly);
-          }
-          
-          if (breakdownInputs.ins) {
-            breakdownInputs.ins.value = Math.round(ins_monthly);
-          }
-          
-          if (breakdownInputs.hoa) {
-            breakdownInputs.hoa.value = Math.round(hoa_monthly);
+          if (breakdownOutputs.mi_row) {
+            breakdownOutputs.mi_row.classList.toggle("is-hidden", mi <= 0);
           }
           
           if (breakdownOutputs.chartTotal) {
@@ -2080,17 +2084,7 @@
           }
         });
 
-        Object.values(breakdownInputs).forEach((el) => {
-          if (!el) return;
-          const handler = () => {
-            syncBreakdownToMain();
-            calculateAndRender();
-          };
-          el.addEventListener("change", handler);
-          el.addEventListener("keyup", (evt) => {
-            if (evt.key === "Enter") handler();
-          });
-        });
+        // Breakdown list is read-only; no input listeners needed.
 
         setDefaults(baseDefaults);
         mergeProgramDefaults();
