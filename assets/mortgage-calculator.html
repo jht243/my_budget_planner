@@ -356,6 +356,7 @@
         display: flex;
         transition: transform 0.35s ease-in-out;
         will-change: transform;
+        align-items: flex-start;
       }
 
       .carousel-slide {
@@ -364,6 +365,7 @@
         padding: 4px 0;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
         box-sizing: border-box;
       }
 
@@ -373,6 +375,7 @@
         margin: 0 auto;
         display: grid;
         gap: 16px;
+        align-content: start;
       }
 
       .slide-content.tight {
@@ -380,20 +383,28 @@
       }
 
       .slide-content.breakdown {
-        gap: 12px;
+        gap: 4px;
       }
 
       .breakdown-card {
         display: grid;
-        gap: 24px;
+        gap: 12px;
         grid-template-columns: minmax(0, 1fr);
+      }
+
+      /* Make breakdown-card qualify as a section-block without adding chrome */
+      .section-block.breakdown-card {
+        padding: 0;
+        border: none;
+        background: none;
+        box-shadow: none;
       }
 
       .breakdown-layout {
         display: grid;
         grid-template-columns: 0.9fr 1.1fr;
         gap: 16px;
-        align-items: stretch;
+        align-items: start;
       }
 
       .breakdown-panel {
@@ -401,7 +412,7 @@
         background: radial-gradient(circle at top, rgba(46, 54, 94, 0.72), rgba(21, 24, 45, 0.88));
         border: 1px solid rgba(88, 116, 182, 0.28);
         border-radius: 14px;
-        padding: 18px 20px 20px;
+        padding: 12px 20px 20px;
         box-shadow: 0 14px 34px rgba(13, 18, 33, 0.38);
         touch-action: pan-y;
       }
@@ -410,10 +421,12 @@
         position: relative;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         background: transparent;
         border: none;
         box-shadow: none;
+        max-width: 280px;
+        margin: 0 auto;
       }
 
       .breakdown-chart canvas {
@@ -425,13 +438,16 @@
 
       .breakdown-chart .chart-value {
         position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
         color: #f8fafc;
         font-weight: 700;
-        font-size: clamp(26px, 3vw, 34px);
+        font-size: clamp(22px, 3vw, 34px);
         letter-spacing: -0.015em;
         pointer-events: none;
-        transform: translateY(-4px);
+        z-index: 1;
       }
 
       .breakdown-chart .chart-value span {
@@ -553,6 +569,8 @@
       }
       .slide-header {
         position: relative;
+        margin: 0;
+        padding: 0;
       }
 
       .slide-header p {
@@ -702,6 +720,23 @@
 .carousel-slide[data-card="breakdown"] #breakdownChart,
 
 .carousel-slide[data-card="breakdown"] canvas#breakdownChart { margin-top: 0 !important; }
+
+      /* Root-cause fix: prevent this slide from stretching to tallest slide height */
+      .carousel-slide[data-card="breakdown"] { align-items: flex-start; }
+
+      /* Ensure the internal grid packs to the top, no vertical distribution */
+      .carousel-slide[data-card="breakdown"] .slide-content.breakdown {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        align-content: flex-start;
+        row-gap: 8px;
+      }
+
+      /* Remove any accidental margins on the first content block */
+      .carousel-slide[data-card="breakdown"] .slide-content.breakdown > *:first-child { margin-top: 0 !important; }
+      .carousel-slide[data-card="breakdown"] .breakdown-card { margin-top: 0 !important; }
+      .carousel-slide[data-card="breakdown"] .slide-content.breakdown > * { margin-block-start: 0 !important; }
 
       .totals-list {
         display: grid;
@@ -1162,9 +1197,9 @@
                   <h2>Monthly payment breakdown</h2>
                   <p>Visualize the components of your monthly payment.</p>
                 </header>
-                <div class="breakdown-card" data-openai-component="breakdown-chart">
+                <div class="breakdown-card section-block">
                   <div class="breakdown-panel breakdown-layout">
-                    <div class="breakdown-chart">
+                    <div class="breakdown-chart" data-openai-component="breakdown-chart">
                       <canvas id="breakdownChart"></canvas>
                       <div class="chart-value" id="chartTotal">
                         $0<span>/mo</span>
@@ -2134,6 +2169,7 @@
           const calc = mortgageCalculator.calculate_mortgage(params);
           renderSummary(calc);
           renderBreakdown(calc);
+          updateCarousel();
         };
 
         const CAROUSEL_STORAGE_KEY = "mortgage-carousel-index";
@@ -2187,6 +2223,16 @@
             if (isCurrent) slide.setAttribute("aria-current", "true");
             else slide.removeAttribute("aria-current");
           });
+
+          const windowEl = document.querySelector('.carousel-window');
+          if (windowEl) {
+            requestAnimationFrame(() => {
+              const cur = carousel.slides[clamped];
+              const content = cur ? cur.querySelector('.slide-content') : null;
+              const h = content ? Math.ceil(content.getBoundingClientRect().height) : 0;
+              if (h > 0) windowEl.style.height = `${h}px`;
+            });
+          }
 
           persistCarouselIndex();
 
@@ -2321,10 +2367,30 @@
         // Notify Me When Rates Drop
         const notifyBtn = document.getElementById("notifyRatesBtn");
 
+        const SUBSCRIBE_KEY = "mc_rates_subscribed";
+        const markSubscribed = () => {
+          try { localStorage.setItem(SUBSCRIBE_KEY, "1"); } catch (_) {}
+          try {
+            if (window?.openai?.setWidgetState) {
+              const s = window.openai.widgetState || {};
+              window.openai.setWidgetState({ ...s, hasSubscribedRates: true });
+            }
+          } catch (_) {}
+          if (notifyBtn) notifyBtn.style.display = "none";
+        };
+        const isSubscribed = (() => {
+          try {
+            if (window?.openai?.widgetState?.hasSubscribedRates) return true;
+            const v = localStorage.getItem(SUBSCRIBE_KEY);
+            return v === "1" || v === "true";
+          } catch (_) { return false; }
+        })();
+        if (notifyBtn && isSubscribed) { notifyBtn.style.display = "none"; }
+
         const centerNotifyUnderRate = () => {
           const header = document.querySelector('.carousel-slide[data-card="summary"] .slide-header');
           const badge = header ? header.querySelector('.rate-badge') : null;
-          if (!header || !badge || !notifyBtn) return;
+          if (!header || !badge || !notifyBtn || notifyBtn.style.display === 'none') return;
           const headerRect = header.getBoundingClientRect();
           const badgeRect = badge.getBoundingClientRect();
           const btnRect = notifyBtn.getBoundingClientRect();
@@ -2398,6 +2464,7 @@
               if (resp.ok && (data?.success || data?.id)) {
                 const code = Math.random().toString(36).slice(2, 8).toUpperCase();
                 statusEl.textContent = data.message || "You're subscribed!";
+                markSubscribed();
                 overlay.style.display = 'none';
                 window.setTimeout(() => window.alert(`${data.message || "You're subscribed!"}\nConfirmation: ${code}`), 50);
               } else {
