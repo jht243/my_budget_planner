@@ -447,23 +447,33 @@ const toolInputSchema = {
     loan_type: {
       type: "string",
       enum: ["conventional", "FHA", "VA", "USDA"],
-      description: "Loan program type. Choose one of: conventional, FHA, VA, USDA.",
+      description: "Loan program type. Choose one of: conventional, FHA, VA, USDA. Natural language hints: 'FHA loan', 'VA mortgage'.",
+      examples: ["conventional", "FHA"],
     },
     home_value: {
       type: "number",
-      description: "Home purchase price in dollars. Example: 600000.",
+      description: "Home purchase price (a.k.a. home price, house price, property price, purchase price, list price). Extract dollar amounts like '$500,000', '500k', '0.5m'.",
+      examples: [500000, 350000, 875000],
     },
     down_payment_value: {
       type: "number",
-      description: "Down payment in dollars (not percent). Example: 120000.",
+      description: "Down payment in dollars (not percent). If the user says '20% down' and home_value is known, compute value = home_value * 0.20. Accept '$25,000 down', '25k down'.",
+      examples: [100000, 25000, 90000],
     },
     rate_apr: {
       type: "number",
-      description: "Annual percentage rate, e.g., 6.5 for 6.5%.",
+      description: "Interest rate APR as a percentage number, e.g., 6.5 for 6.5%. Extract from phrasing like 'rate 5.75%', 'APR 6.2', 'at 6%'.",
+      examples: [6.5, 5.75, 6.2],
     },
     term_years: {
       type: "number",
-      description: "Loan term in years. Common values: 30, 20, 15, 10.",
+      description: "Loan term in years. Extract from phrases like '30-year fixed', '15 yr', '20 year'.",
+      examples: [30, 15, 20],
+    },
+    zip_code: {
+      type: "string",
+      description: "Optional ZIP/postal code. Prefer 5-digit US ZIP if present in the user text.",
+      examples: ["94110", "11215"],
     },
   },
   required: [],
@@ -714,6 +724,7 @@ function createMortgageCalculatorServer(): Server {
         // If ChatGPT didn't pass structured arguments, try to infer key numbers from freeform text in meta
         try {
           const candidates: any[] = [
+            meta["openai/subject"],
             meta["openai/userPrompt"],
             meta["openai/userText"],
             meta["openai/lastUserMessage"],
@@ -843,8 +854,8 @@ function createMortgageCalculatorServer(): Server {
           userAgent,
         });
 
-        // Generate fresh URI with timestamp on every tool call to bust ChatGPT's cache
-        const widgetMetadata = widgetMeta(widget, true);
+        // Use a stable template URI so toolOutput reliably hydrates the component
+        const widgetMetadata = widgetMeta(widget, false);
         console.log(`[MCP] Tool called: ${request.params.name}, returning templateUri: ${(widgetMetadata as any)["openai/outputTemplate"]}`);
 
         return {
