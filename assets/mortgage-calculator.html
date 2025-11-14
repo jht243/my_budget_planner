@@ -1978,6 +1978,7 @@
 
         const scenarioBar = document.getElementById("scenarioBar");
         const copyPaymentBtn = document.getElementById("copyPaymentBtn");
+        let didUserEdit = false;
 
         const miVisibilityPrograms = new Set(["FHA", "USDA"]);
         const miOnlyElements = Array.from(document.querySelectorAll("[data-mi-only]"));
@@ -3052,32 +3053,65 @@
           try { emitTelemetry("rate_fetch_failed", {}); } catch (_) {}
         };
 
-        // Read parameters from ChatGPT tool call if available (only take defined values)
-        const toolOutput = window?.openai?.toolOutput;
-        const providedParams = (() => {
-          if (!toolOutput) return {};
+        // Read parameters from ChatGPT tool call if available (robust fallbacks)
+        const DEBUG_HYDRATION = true;
+        const pickProvided = (src) => {
+          if (!src || typeof src !== 'object') return {};
           const out = {};
-          const setIf = (k, v) => { if (v !== undefined && v !== null) out[k] = v; };
-          setIf('loan_type', toolOutput.loan_type);
-          setIf('home_value', toolOutput.home_value);
-          setIf('down_payment_value', toolOutput.down_payment_value);
-          setIf('rate_apr', toolOutput.rate_apr);
-          setIf('term_years', toolOutput.term_years);
-          setIf('zip_code', toolOutput.zip_code);
-          setIf('credit_score', toolOutput.credit_score);
-          setIf('property_tax_input', toolOutput.property_tax_input);
-          setIf('homeowners_insurance_yearly', toolOutput.homeowners_insurance_yearly);
-          setIf('hoa_monthly', toolOutput.hoa_monthly);
-          setIf('pmi_pct', toolOutput.pmi_pct);
-          setIf('annual_mi_pct', toolOutput.annual_mi_pct);
-          setIf('upfront_fee_pct', toolOutput.upfront_fee_pct);
-          setIf('finance_upfront_fee', toolOutput.finance_upfront_fee);
-          setIf('start_month', toolOutput.start_month);
-          setIf('start_year', toolOutput.start_year);
-          setIf('extra_principal_monthly', toolOutput.extra_principal_monthly);
-          setIf('extra_start_month_index', toolOutput.extra_start_month_index);
+          const parseNumberish = (v) => {
+            if (typeof v === 'number') return v;
+            if (typeof v === 'string') {
+              const cleaned = v.replace(/[$,\s]/g, '');
+              const n = Number(cleaned);
+              if (Number.isFinite(n)) return n;
+            }
+            return v;
+          };
+          const setIf = (k, v) => {
+            if (v !== undefined && v !== null) {
+              const keysNeedingNum = new Set(['home_value','down_payment_value','rate_apr','term_years','property_tax_input','homeowners_insurance_yearly','hoa_monthly','pmi_pct','annual_mi_pct','upfront_fee_pct','start_month','start_year','extra_principal_monthly','extra_start_month_index']);
+              out[k] = keysNeedingNum.has(k) ? parseNumberish(v) : v;
+            }
+          };
+          setIf('loan_type', src.loan_type);
+          setIf('home_value', src.home_value);
+          setIf('down_payment_value', src.down_payment_value);
+          setIf('rate_apr', src.rate_apr);
+          setIf('term_years', src.term_years);
+          setIf('zip_code', src.zip_code);
+          setIf('credit_score', src.credit_score);
+          setIf('property_tax_input', src.property_tax_input);
+          setIf('homeowners_insurance_yearly', src.homeowners_insurance_yearly);
+          setIf('hoa_monthly', src.hoa_monthly);
+          setIf('pmi_pct', src.pmi_pct);
+          setIf('annual_mi_pct', src.annual_mi_pct);
+          setIf('upfront_fee_pct', src.upfront_fee_pct);
+          setIf('finance_upfront_fee', src.finance_upfront_fee);
+          setIf('start_month', src.start_month);
+          setIf('start_year', src.start_year);
+          setIf('extra_principal_monthly', src.extra_principal_monthly);
+          setIf('extra_start_month_index', src.extra_start_month_index);
           return out;
-        })();
+        };
+        const readProvidedParams = () => {
+          const oa = (window && window.openai) ? window.openai : {};
+          const candidates = [
+            oa.toolOutput,
+            oa.structuredContent,
+            oa.result?.structuredContent,
+            oa.toolInput,
+          ];
+          for (const c of candidates) {
+            const p = pickProvided(c);
+            if (Object.keys(p).length) {
+              if (DEBUG_HYDRATION) console.debug('[Hydration] Found provided params source:', c === oa.toolOutput ? 'toolOutput' : (c === oa.structuredContent ? 'structuredContent' : (c === oa.toolInput ? 'toolInput' : 'result.structuredContent')), p);
+              return p;
+            }
+          }
+          if (DEBUG_HYDRATION) console.debug('[Hydration] No provided params found. openai keys:', Object.keys(oa || {}));
+          return {};
+        };
+        const providedParams = readProvidedParams();
         
         // Merge provided parameters with base defaults
         setDefaults(baseDefaults);
@@ -3089,6 +3123,39 @@
           setDefaults(providedParams);
         }
         calculateAndRender();
+
+        // Late overlay retry in case window.openai is attached slightly after execution
+        let retries = 0;
+        const tryLateOverlay = () => {
+          if (didUserEdit) return;
+          const late = readProvidedParams();
+          if (late && Object.keys(late).length > 0) {
+            if (DEBUG_HYDRATION) console.debug('[Hydration] Late overlay with provided params', late);
+            if (late.loan_type) { try { inputs.loan_type.value = late.loan_type; mergeProgramDefaults(); } catch(_){} }
+            setDefaults(late);
+            calculateAndRender();
+            return true;
+          }
+          return false;
+        };
+        setTimeout(() => { if (!tryLateOverlay()) {
+          const id = setInterval(() => {
+            retries += 1;
+            if (tryLateOverlay() || retries >= 6) clearInterval(id);
+          }, 200);
+        } }, 50);
+
+        window.addEventListener('openai:set_globals', (ev) => {
+          if (didUserEdit) return;
+          const globals = ev?.detail?.globals || {};
+          const props = pickProvided(globals.toolOutput || globals.structuredContent || globals.toolInput || {});
+          if (props && Object.keys(props).length > 0) {
+            if (DEBUG_HYDRATION) console.debug('[Hydration] Event overlay from set_globals', props);
+            if (props.loan_type) { try { inputs.loan_type.value = props.loan_type; mergeProgramDefaults(); } catch(_){} }
+            setDefaults(props);
+            calculateAndRender();
+          }
+        }, { passive: true });
 
         // Fetch and display the latest daily rate from server (FRED + 0.5%)
         let rateBadgeRefreshing = false;
