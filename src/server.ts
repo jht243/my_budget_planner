@@ -363,9 +363,12 @@ function readWidgetHtml(componentName: string): string {
   return htmlContents;
 }
 
+// Use git commit hash for deterministic cache-busting across deploys
+const VERSION = process.env.RENDER_GIT_COMMIT?.slice(0, 7) || Date.now().toString();
+
 function widgetMeta(widget: MortgageWidget, bustCache: boolean = false) {
   const templateUri = bustCache
-    ? `ui://widget/rental-property-calculator.html?v=${Date.now()}`
+    ? `ui://widget/rental-property-calculator.html?v=${VERSION}`
     : widget.templateUri;
 
   return {
@@ -430,7 +433,7 @@ const widgets: MortgageWidget[] = [
   {
     id: "rental-property-calculator",
     title: "Rental Property Calculator — calculate ROI on rental property, cash‑on‑cash return, IRR, cap rate, NOI, and 20‑year projections for single‑family and multi‑family rentals",
-    templateUri: `ui://widget/rental-property-calculator.html?v=${Date.now()}`,
+    templateUri: `ui://widget/rental-property-calculator.html?v=${VERSION}`,
     invoking:
       "Opening the Rental Property Calculator with inputs for purchase, financing, income, and expenses to compute ROI on rental property, cash‑on‑cash return, IRR, cap rate, NOI, cash flow, and 20‑year projections...",
     invoked:
