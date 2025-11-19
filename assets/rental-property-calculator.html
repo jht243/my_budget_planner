@@ -2016,6 +2016,9 @@
                 </div>
               </div>
               <p>Annual rollup of income, expenses, cash flow, returns, and equity.</p>
+              <div class="button-row">
+                <button type="button" class="cta-button secondary" id="backToBreakdownBtn">&larr; Back to Breakdown</button>
+              </div>
             </header>
             <section class="section-block">
               <table class="yearly-table" id="overTimeTable">
@@ -4260,6 +4263,7 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
         const showSummaryBtn = document.getElementById('showSummaryBtn');
         const showAmortizationBtn = document.getElementById('showAmortizationBtn');
         const showAmortizationSummaryBtn = document.getElementById('showAmortizationSummaryBtn');
+        const backToBreakdownBtn = document.getElementById('backToBreakdownBtn');
 
         const showView = (viewToShow) => {
           [summaryView, breakdownView, amortizationView].forEach(view => {
@@ -4269,10 +4273,36 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
           if (showAmortizationSummaryBtn) showAmortizationSummaryBtn.classList.toggle('is-hidden', viewToShow === 'summaryView');
         };
 
-        if (showBreakdownBtn) showBreakdownBtn.addEventListener('click', () => showView('breakdownView'));
-        if (showAmortizationBtn) showAmortizationBtn.addEventListener('click', () => showView('amortizationView'));
-        if (showSummaryBtn) showSummaryBtn.addEventListener('click', () => showView('summaryView'));
-        if (showAmortizationSummaryBtn) showAmortizationSummaryBtn.addEventListener('click', () => showView('summaryView'));
+        if (showBreakdownBtn) {
+          showBreakdownBtn.addEventListener('click', () => {
+            showView('breakdownView');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+        if (showAmortizationBtn) {
+          showAmortizationBtn.addEventListener('click', () => {
+            showView('amortizationView');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+        if (showSummaryBtn) {
+          showSummaryBtn.addEventListener('click', () => {
+            showView('summaryView');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+        if (showAmortizationSummaryBtn) {
+          showAmortizationSummaryBtn.addEventListener('click', () => {
+            showView('summaryView');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+        if (backToBreakdownBtn) {
+          backToBreakdownBtn.addEventListener('click', () => {
+            showView('breakdownView');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
 
         // Show summary view by default
         showView('summaryView');
