@@ -357,7 +357,14 @@
       .result-split .split-col .label { margin-bottom: 4px; }
       .result-split .split-col .value { margin-top: 0; }
       .result-split .split-col .hint { margin-top: 4px; opacity: 0.8; }
-      @media (max-width: 720px) { .result-split { flex-direction: column; gap: 18px; } .result-split::before { display: none; } }
+      @media (max-width: 720px) {
+        .result-split {
+          flex-direction: column;
+          gap: 18px;
+          align-items: center;
+        }
+        .result-split::before { display: none; }
+      }
       /* Align lone vacancy label with the two inline pairs in Income */
       [data-openai-component="income-details"] .grid.trio-columns > label.percent-field {
         align-self: start;
@@ -1459,7 +1466,7 @@
 
             <header class="slide-header">
               <h1>Rental Property Calculator</h1>
-              <p>Compare loan programs, see monthly costs, and preview payoff timing.<br />Adjust the inputs to explore scenarios.</p>
+              <p>Compare loan programs and see monthly costs.<br />Preview payoff timing and adjust the inputs to explore scenarios.</p>
               <div class="rate-cta-stack">
                 <span class="rate-badge" data-openai-component="rate-badge">
                   <span class="rate-label">TODAY'S AVERAGE RATE</span>
@@ -1588,7 +1595,7 @@
         </div>
         <div class="inline-pair">
           <label class="pair-col">
-            Other Monthly Income ($)
+            Other income ($/month)
             <input type="number" id="other_monthly_income" min="0" step="25" />
           </label>
           <label class="pair-col percent-compact">
@@ -4662,9 +4669,9 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
         // Hydrate from saved widget/local state BEFORE applying derived defaults
         const hadSavedState = !!hydrateInputsFromState();
 
-        // Apply rental defaults only if nothing was previously saved
+        // Apply rental defaults on first load when there is no previously saved state
         if (!hadSavedState) {
-          setRentalDefaultsIfEmpty(false);
+          setRentalDefaultsIfEmpty(true);
         }
 
         // Ensure visibility and computed labels reflect hydrated/defaulted state
