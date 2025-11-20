@@ -3847,8 +3847,13 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
         };
 
         const hydrateInputsFromState = () => {
+          console.log('[Debug] Starting hydrateInputsFromState...');
           const state = loadUserInputsState();
-          if (!state) return false;
+          if (!state) {
+            console.log('[Debug] loadUserInputsState returned null. No saved state found.');
+            return false;
+          }
+          console.log('[Debug] Found saved state:', state);
 
           const entries = Object.entries(state.inputs || {});
           const hasMeaningfulInput = entries.some(([, val]) => {
@@ -3856,7 +3861,11 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
             return s !== '';
           });
           // If everything saved was blank, treat as no prior state so defaults can apply
-          if (!hasMeaningfulInput) return false;
+          if (!hasMeaningfulInput) {
+            console.log('[Debug] State has no meaningful input. Ignoring and applying defaults.');
+            return false;
+          }
+          console.log('[Debug] State has meaningful input. Proceeding to hydrate inputs.');
 
           // Fill inputs
           entries.forEach(([id, val]) => {
@@ -4274,8 +4283,9 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
         // Breakdown list is read-only; no input listeners needed.
 
         // Notify Me When Rates Drop
-        const notifyBtn = document.getElementById("notifyRatesBtn");
-        const notifyBtnBottom = document.getElementById("notifyRatesBtnBottom");
+        const notifyBtn = document.getElementById('notify-btn');
+        const notifyBtnBottom = document.getElementById('notify-btn-bottom');
+
 
         const SUBSCRIBE_KEY = "mc_rates_subscribed";
         const markSubscribed = () => {
@@ -4356,6 +4366,18 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
         showView('summaryView');
 
         if (notifyBtn) {
+          const centerNotifyUnderRate = () => {
+            const ratePill = document.querySelector('.rate-pill-stack .rate-pill');
+            const notifyButton = document.querySelector('.rate-pill-stack .notify-button');
+            if (!ratePill || !notifyButton) return;
+            const rateRect = ratePill.getBoundingClientRect();
+            const buttonRect = notifyButton.getBoundingClientRect();
+            const offset = (rateRect.width / 2) - (buttonRect.width / 2);
+            notifyButton.style.transform = `translateX(${offset}px)`;
+          };
+
+          requestAnimationFrame(centerNotifyUnderRate);
+          window.addEventListener('resize', centerNotifyUnderRate);
           let overlay, emailInput, statusEl, cancelBtn, submitBtn;
 
           const ensureNotifyModal = () => {
@@ -4468,8 +4490,7 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
       notifyBtnBottom.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
     }
 
-          requestAnimationFrame(centerNotifyUnderRate);
-          window.addEventListener('resize', centerNotifyUnderRate);
+ 
         }
 
         // Load daily rate (FRED + 0.5%) and robustly update badge with retries and guard
@@ -4677,10 +4698,12 @@ if (outputs.term_hint) outputs.term_hint.textContent = `Original term ${normaliz
 
         // Hydrate from saved widget/local state BEFORE applying derived defaults
         const hadSavedState = !!hydrateInputsFromState();
-
-        // Apply rental defaults on first load when there is no previously saved state
+        console.log(`[Debug] Result of hydrateInputsFromState: ${hadSavedState}`);
         if (!hadSavedState) {
+          console.log('[Debug] No saved state was hydrated. Applying rental defaults.');
           setRentalDefaultsIfEmpty(true);
+        } else {
+          console.log('[Debug] Saved state was hydrated. Skipping rental defaults.');
         }
 
         // Ensure visibility and computed labels reflect hydrated/defaulted state
