@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Auto Loan Calculator — calculate ROI on rental property, cash‑on‑cash return, IRR, cap rate for single‑family and multi‑family rentals</title>
-    <meta name="description" content="Auto Loan Calculator to calculate return on rental properties. Analyze single‑family and multi‑family rentals: ROI on rental property, cash‑on‑cash return, IRR, cap rate, NOI, mortgage P&I, expenses, and a 20‑year investment summary with profit when sold." />
-    <meta property="og:title" content="Auto Loan Calculator — calculate return on rental properties (ROI), cash‑on‑cash, IRR, cap rate" />
-    <meta property="og:description" content="Human‑readable Auto Loan Calculator that helps you calculate multi‑family returns and single‑family ROI: cash‑on‑cash return, internal rate of return (IRR), capitalization rate (cap rate), NOI, expenses, and 20‑year projections." />
-    <meta name="keywords" content="auto loan calculator, calculate return on rental properties, ROI on rental property, calculate multi family returns, cash on cash return, IRR, cap rate, net operating income, rental analysis, 20 year investment summary" />
+    <title>Auto Loan Calculator — Monthly Payment, Total Interest, and Amortization</title>
+    <meta name="description" content="An interactive auto loan calculator that helps you determine your monthly car payment, total interest paid, and see a full amortization schedule. Adjust vehicle price, down payment, APR, and term to see how it affects your loan." />
+    <meta property="og:title" content="Auto Loan Calculator — Estimate Your Car Payments" />
+    <meta property="og:description" content="Use this simple and powerful auto loan calculator to figure out your monthly payments and total loan cost." />
+    <meta name="keywords" content="auto loan calculator, car payment calculator, vehicle financing, auto loan interest, car loan amortization" />
     <style>
       *, *::before, *::after {
         box-sizing: border-box;
@@ -3938,6 +3938,8 @@
 
             numEl.addEventListener('input', updateFromNum);
             sliderEl.addEventListener('input', updateFromSlider);
+            // Initial sync on load
+            updateFromNum();
             // Initialize display and position
             updateFromNum();
           };
