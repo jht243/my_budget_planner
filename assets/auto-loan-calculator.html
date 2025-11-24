@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Auto Loan Calculator — Monthly Payment, Total Interest, and Amortization</title>
-    <meta name="description" content="An interactive auto loan calculator that helps you determine your monthly car payment, total interest paid, and see a full amortization schedule. Adjust vehicle price, down payment, APR, and term to see how it affects your loan." />
-    <meta property="og:title" content="Auto Loan Calculator — Estimate Your Car Payments" />
-    <meta property="og:description" content="Use this simple and powerful auto loan calculator to figure out your monthly payments and total loan cost." />
-    <meta name="keywords" content="auto loan calculator, car payment calculator, vehicle financing, auto loan interest, car loan amortization" />
+    <title>Auto Loan & Lease Calculator — Monthly Payment, Lease Estimates, and Amortization</title>
+    <meta name="description" content="An interactive auto loan & lease calculator that helps you determine your monthly car payment, lease costs, total interest paid, and see a full amortization schedule. Adjust vehicle price, down payment, APR/money factor, and term to see how it affects your financing." />
+    <meta property="og:title" content="Auto Loan & Lease Calculator — Estimate Your Car Payments" />
+    <meta property="og:description" content="Use this simple and powerful auto loan & lease calculator to figure out your monthly payments and total financing cost." />
+    <meta name="keywords" content="auto loan calculator, auto lease calculator, car payment calculator, vehicle financing, lease vs buy, car lease, residual value, auto loan interest" />
     <script>
       window.__TURNSTILE_LOADED__ = false;
       window.onTurnstileLoad = function () {
@@ -2563,49 +2563,49 @@
           // Prevent saving to local storage while setting defaults
           isSettingDefaults = true;
           try {
-            const rateFromPill = getRateFromPill();
-            if (rateFromPill != null) autoDefaults.interest_rate_pct = rateFromPill;
-            const setIfEmpty = (id, val) => {
-              const el = document.getElementById(id);
-              if (!el) return;
-              if (el.type === 'checkbox') {
-                if (force || el.checked === false) el.checked = Boolean(val);
-                return;
+          const rateFromPill = getRateFromPill();
+          if (rateFromPill != null) autoDefaults.interest_rate_pct = rateFromPill;
+          const setIfEmpty = (id, val) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.type === 'checkbox') {
+              if (force || el.checked === false) el.checked = Boolean(val);
+              return;
+            }
+            const cur = String(el.value || '').trim();
+            const asNum = Number(cur);
+            if (force || cur === '' || (!Number.isNaN(asNum) && asNum === 0)) {
+              el.value = String(val ?? '');
+            }
+          };
+          // Down payment default: 10% of auto price when value is empty, zero, non-numeric, or exceeds price
+          try {
+            const priceEl = document.getElementById('auto_price');
+            const dpEl = document.getElementById('down_payment_value');
+            let basePrice = autoDefaults.auto_price;
+            if (priceEl) {
+              const parsed = Number(priceEl.value || '');
+              if (Number.isFinite(parsed) && parsed > 0) basePrice = parsed;
+            }
+            const dpDefault = Math.round(basePrice * 0.10);
+            if (dpEl) {
+              const curStr = String(dpEl.value || '').trim();
+              const curNum = Number(curStr || '0');
+              const invalid = !Number.isFinite(curNum) || curNum <= 0 || (basePrice > 0 && curNum > basePrice);
+              if (force || invalid) {
+                dpEl.value = String(dpDefault);
               }
-              const cur = String(el.value || '').trim();
-              const asNum = Number(cur);
-              if (force || cur === '' || (!Number.isNaN(asNum) && asNum === 0)) {
-                el.value = String(val ?? '');
-              }
-            };
-            // Down payment default: 10% of auto price when value is empty, zero, non-numeric, or exceeds price
-            try {
-              const priceEl = document.getElementById('auto_price');
-              const dpEl = document.getElementById('down_payment_value');
-              let basePrice = autoDefaults.auto_price;
-              if (priceEl) {
-                const parsed = Number(priceEl.value || '');
-                if (Number.isFinite(parsed) && parsed > 0) basePrice = parsed;
-              }
-              const dpDefault = Math.round(basePrice * 0.10);
-              if (dpEl) {
-                const curStr = String(dpEl.value || '').trim();
-                const curNum = Number(curStr || '0');
-                const invalid = !Number.isFinite(curNum) || curNum <= 0 || (basePrice > 0 && curNum > basePrice);
-                if (force || invalid) {
-                  dpEl.value = String(dpDefault);
-                }
-              } else {
-                setIfEmpty('down_payment_value', dpDefault);
-              }
-            } catch (_) {}
-            Object.entries(autoDefaults).forEach(([k,v]) => {
-              if (k === 'down_payment_value') return;
-              setIfEmpty(k, v);
-            });
+            } else {
+              setIfEmpty('down_payment_value', dpDefault);
+            }
+          } catch (_) {}
+          Object.entries(autoDefaults).forEach(([k,v]) => {
+            if (k === 'down_payment_value') return;
+            setIfEmpty(k, v);
+          });
             
             // Sync sliders after defaults
-            const dpEl = document.getElementById('down_payment_value');
+          const dpEl = document.getElementById('down_payment_value');
             if (dpEl) { try { dpEl.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {} }
             
             const mpEl = document.getElementById('monthly_payment');
@@ -3203,8 +3203,8 @@
               const topLabel = monthlyPaymentCard.querySelector('.split-col:first-child .label');
               if (topLabel) topLabel.textContent = inputs.is_lease ? 'Monthly Payment (Lease)' : 'Monthly Payment (P&I)';
             }
-            safeSet(outputs.year1_income_value, formatCurrency(payment));
-            safeSet(outputs.year1_income_monthly_sub, '/mo');
+          safeSet(outputs.year1_income_value, formatCurrency(payment));
+          safeSet(outputs.year1_income_monthly_sub, '/mo');
           }
 
           if (inputs.is_lease) {
@@ -3226,8 +3226,8 @@
                 if (bottomLabel) bottomLabel.textContent = 'Loan Amount';
                 if (bottomHint) bottomHint.textContent = 'Principal financed at origination';
              }
-             safeSet(outputs.year1_cashflow_value, formatCurrency(principal0));
-             safeSet(outputs.year1_cashflow_monthly_sub, payoffLabel);
+          safeSet(outputs.year1_cashflow_value, formatCurrency(principal0));
+          safeSet(outputs.year1_cashflow_monthly_sub, payoffLabel);
           }
 
           if (monthlyPaymentCard) {
@@ -3246,8 +3246,8 @@
           } else {
             // Normal mode: Show Monthly Payment
             if (kpiLabel1) kpiLabel1.textContent = inputs.is_lease ? 'Monthly Lease Payment' : 'Monthly Payment';
-            safeSet(outputs.kpi_cashflow_annual, formatCurrency(payment));
-            safeSet(outputs.kpi_cashflow_monthly, '/mo');
+          safeSet(outputs.kpi_cashflow_annual, formatCurrency(payment));
+          safeSet(outputs.kpi_cashflow_monthly, '/mo');
           }
 
           // Second KPI: Loan Amount / Adj Cap Cost

@@ -30,7 +30,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
-type AutoLoanWidget = {
+type AutoLoanLeaseWidget = {
   id: string;
   title: string;
   templateUri: string;
@@ -419,7 +419,7 @@ function readWidgetHtml(componentName: string): string {
 // Added timestamp suffix to force cache invalidation for width fix
 const VERSION = (process.env.RENDER_GIT_COMMIT?.slice(0, 7) || Date.now().toString()) + '-' + Date.now();
 
-function widgetMeta(widget: AutoLoanWidget, bustCache: boolean = false) {
+function widgetMeta(widget: AutoLoanLeaseWidget, bustCache: boolean = false) {
   const templateUri = bustCache
     ? `ui://widget/auto-loan-calculator.html?v=${VERSION}`
     : widget.templateUri;
@@ -427,21 +427,26 @@ function widgetMeta(widget: AutoLoanWidget, bustCache: boolean = false) {
   return {
     "openai/outputTemplate": templateUri,
     "openai/widgetDescription":
-      "Auto Loan Calculator for analyzing vehicle loans. Enter purchase price, down payment, and financing details to see a full amortization schedule, total interest paid, and monthly payment breakdowns.",
+      "Auto Loan & Lease Calculator for analyzing vehicle financing. Compare buying vs. leasing, calculate monthly payments, view amortization schedules, and breakdown total costs for loans and leases.",
     "openai/componentDescriptions": {
       "rate-indicator": "Header indicator showing a relevant auto loan interest rate for market context; includes a refresh control.",
       "rate-badge": "Badge showing a recent auto loan interest rate reference; updates when refreshed.",
       "manual-refresh-button": "Refresh to pull a new auto loan interest rate reference.",
-      "loan-input-form": "Auto loan financing inputs—vehicle price, down payment, interest rate, and term—used to compute the monthly payment and total interest.",
-      "monthly-summary-card": "A summary of the calculated auto loan, including monthly payment and total loan amount.",
-      "quick-metrics": "Key auto loan metrics including total principal, interest, and total payments.",
-      "breakdown-chart": "A chart visualizing the breakdown of principal vs. interest over the life of the loan.",
-      "amortization-section": "A year-by-year and month-by-month amortization schedule showing the loan balance over time.",
-      "notification-cta": "Optional call-to-action for rate-drop updates to revisit auto loan terms when interest rates move.",
+      "loan-input-form": "Vehicle financing inputs—price, down payment, interest rate/money factor, and term—for both loans and leases.",
+      "monthly-summary-card": "A summary of the calculated monthly payment, whether for a loan or a lease.",
+      "quick-metrics": "Key metrics including total principal, interest/rent charge, and total payments.",
+      "breakdown-chart": "A chart visualizing the cost breakdown (principal vs. interest for loans; depreciation vs. rent/tax for leases).",
+      "amortization-section": "A schedule showing the loan balance over time (hidden for leases).",
+      "notification-cta": "Optional call-to-action for rate-drop updates to revisit financing terms when interest rates move.",
     },
     "openai/widgetKeywords": [
       "auto loan calculator",
+      "auto lease calculator",
       "car payment calculator",
+      "lease vs buy",
+      "car lease",
+      "residual value",
+      "money factor",
       "auto loan analysis",
       "auto loan monthly payment",
       "auto loan total interest",
@@ -449,12 +454,14 @@ function widgetMeta(widget: AutoLoanWidget, bustCache: boolean = false) {
     ],
     "openai/sampleConversations": [
       { "user": "Calculate my auto loan payment for a $45,000 car.", "assistant": "Here is the auto loan calculator with your inputs applied." },
+      { "user": "How much is a lease on a $50k car with $5k down?", "assistant": "I've set up the lease calculator for a $50k vehicle with your down payment." },
       { "user": "What is my total interest paid on a $30k loan at 5% for 60 months?", "assistant": "I’ll compute the total interest paid over the life of the loan." }
     ],
     "openai/starterPrompts": [
       "Show an auto loan calculator.",
-      "Analyze my auto loan.",
-      "Calculate my car payment.",
+      "Calculate a car lease.",
+      "Analyze my car payment.",
+      "Lease vs loan comparison.",
     ],
     "openai/widgetPrefersBorder": true,
     "openai/widgetCSP": {
@@ -474,21 +481,21 @@ function widgetMeta(widget: AutoLoanWidget, bustCache: boolean = false) {
   } as const;
 }
 
-const widgets: AutoLoanWidget[] = [
+const widgets: AutoLoanLeaseWidget[] = [
   {
     id: "auto-loan-calculator",
-    title: "Auto Loan Calculator — calculate monthly payments, total interest, and view amortization schedules for vehicle loans",
+    title: "Auto Loan & Lease Calculator — analyze monthly payments, leasing scenarios, and total costs",
     templateUri: `ui://widget/auto-loan-calculator.html?v=${VERSION}`,
     invoking:
-      "Opening the Auto Loan Calculator...",
+      "Opening the Auto Loan & Lease Calculator...",
     invoked:
-      "Here is the Auto Loan Calculator. You can adjust the inputs to see different loan scenarios.",
+      "Here is the Auto Loan & Lease Calculator. You can compare loan and lease options and adjust inputs.",
     html: readWidgetHtml("auto-loan-calculator"),
   },
 ];
 
-const widgetsById = new Map<string, AutoLoanWidget>();
-const widgetsByUri = new Map<string, AutoLoanWidget>();
+const widgetsById = new Map<string, AutoLoanLeaseWidget>();
+const widgetsByUri = new Map<string, AutoLoanLeaseWidget>();
 
 widgets.forEach((widget) => {
   widgetsById.set(widget.id, widget);
@@ -581,7 +588,7 @@ const resources: Resource[] = widgets.map((widget) => ({
   uri: widget.templateUri,
   name: widget.title,
   description:
-    "HTML template for the Auto Loan Calculator widget.",
+    "HTML template for the Auto Loan & Lease Calculator widget.",
   mimeType: "text/html+skybridge",
   _meta: widgetMeta(widget),
 }));
@@ -590,7 +597,7 @@ const resourceTemplates: ResourceTemplate[] = widgets.map((widget) => ({
   uriTemplate: widget.templateUri,
   name: widget.title,
   description:
-    "Template descriptor for the Auto Loan Calculator widget.",
+    "Template descriptor for the Auto Loan & Lease Calculator widget.",
   mimeType: "text/html+skybridge",
   _meta: widgetMeta(widget),
 }));
@@ -601,7 +608,7 @@ function createAutoLoanCalculatorServer(): Server {
       name: "auto-loan-calculator",
       version: "0.1.0",
       description:
-        "Auto Loan Calculator is a comprehensive app for analyzing vehicle loans. It calculates monthly payments, total interest, and provides a full amortization schedule. It opens with sensible defaults and supports general prompts like ‘show an auto loan calculator’.",
+        "Auto Loan & Lease Calculator is a comprehensive app for analyzing vehicle financing. It calculates monthly payments for loans and leases, total interest, and amortization. It opens with sensible defaults and supports prompts like ‘calculate car lease’.",
     },
     {
       capabilities: {
