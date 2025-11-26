@@ -1749,7 +1749,7 @@ const httpServer = createServer(
     }
 
     // Serve alias for legacy loader path -> our main widget HTML
-    if (req.method === "GET" && url.pathname === "/assets/mortgage-calculator-2d2b.html") {
+    if (req.method === "GET" && url.pathname === "/assets/bmi-health-calculator.html") {
       const mainAssetPath = path.join(ASSETS_DIR, "bmi-health-calculator.html");
       if (fs.existsSync(mainAssetPath) && fs.statSync(mainAssetPath).isFile()) {
         res.writeHead(200, {
