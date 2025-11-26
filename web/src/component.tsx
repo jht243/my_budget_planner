@@ -1008,7 +1008,6 @@ export default function Calculator({ initialData }: { initialData?: any }) {
       maxWidth: "600px",
       margin: "0 auto",
       backgroundColor: COLORS.bg,
-      minHeight: "100vh",
       fontFamily: "'Inter', sans-serif",
       padding: "20px",
       boxSizing: "border-box" as const
