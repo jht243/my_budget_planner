@@ -25883,9 +25883,12 @@ function Calculator({ initialData: initialData2 }) {
       paddingLeft: "4px"
     },
     productGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-      gap: "16px"
+      display: "flex",
+      overflowX: "auto",
+      gap: "16px",
+      paddingBottom: "16px",
+      scrollSnapType: "x mandatory",
+      WebkitOverflowScrolling: "touch"
     },
     productCard: {
       backgroundColor: "white",
@@ -25896,7 +25899,9 @@ function Calculator({ initialData: initialData2 }) {
       flexDirection: "column",
       alignItems: "center",
       transition: "transform 0.2s",
-      cursor: "pointer"
+      cursor: "pointer",
+      minWidth: "160px",
+      scrollSnapAlign: "start"
     },
     productImageArea: {
       width: "100%",
@@ -26490,7 +26495,7 @@ function Calculator({ initialData: initialData2 }) {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: "32px" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: styles.sectionTitle, children: "Suggested Supplements" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: styles.productGrid, children: SUPPLEMENTS.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: styles.productCard, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: styles.productGrid, className: "hide-scrollbar", children: SUPPLEMENTS.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: styles.productCard, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: styles.productImageArea, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             "img",
             {
@@ -26618,6 +26623,13 @@ function Calculator({ initialData: initialData2 }) {
           .no-print {
             display: none !important;
           }
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       ` })
   ] });

@@ -1437,9 +1437,12 @@ export default function Calculator({ initialData }: { initialData?: any }) {
       paddingLeft: "4px"
     },
     productGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-      gap: "16px"
+      display: "flex",
+      overflowX: "auto" as const,
+      gap: "16px",
+      paddingBottom: "16px",
+      scrollSnapType: "x mandatory",
+      WebkitOverflowScrolling: "touch" as const,
     },
     productCard: {
       backgroundColor: "white",
@@ -1450,7 +1453,9 @@ export default function Calculator({ initialData }: { initialData?: any }) {
       flexDirection: "column" as const,
       alignItems: "center",
       transition: "transform 0.2s",
-      cursor: "pointer"
+      cursor: "pointer",
+      minWidth: "160px",
+      scrollSnapAlign: "start" as const
     },
     productImageArea: {
       width: "100%",
@@ -2093,7 +2098,7 @@ export default function Calculator({ initialData }: { initialData?: any }) {
 
         <div style={{marginTop: "32px"}}>
             <div style={styles.sectionTitle}>Suggested Supplements</div>
-            <div style={styles.productGrid}>
+            <div style={styles.productGrid} className="hide-scrollbar">
                 {SUPPLEMENTS.map(product => (
                 <div key={product.id} style={styles.productCard}>
                     <div style={styles.productImageArea}>
@@ -2261,6 +2266,13 @@ export default function Calculator({ initialData }: { initialData?: any }) {
           .no-print {
             display: none !important;
           }
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </div>
