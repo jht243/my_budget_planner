@@ -208,7 +208,7 @@ function widgetMeta(widget: RetirementCalculatorWidget, bustCache: boolean = fal
   return {
     "openai/outputTemplate": templateUri,
     "openai/widgetDescription":
-      "A comprehensive retirement calculator for Retirement planning. Opens immediately and calculates retirement metrics when provided with income, savings, and age.",
+      "A comprehensive retirement calculator for Retirement planning. Call this tool immediately with NO arguments to let the user enter their data manually. Only provide arguments if the user has explicitly stated them.",
     "openai/componentDescriptions": {
       "metrics-form": "Input form for income, savings, and age.",
       "retirement-card": "Card displaying the calculated Retirement and retirement category.",
@@ -319,7 +319,7 @@ const toolInputParser = z.object({
 const tools: Tool[] = widgets.map((widget) => ({
   name: widget.id,
   description:
-    "Use this for Retirement planning. Opens immediately and calculates retirement metrics when provided with income, savings, and age.",
+    "Use this for Retirement planning. Call this tool immediately with NO arguments to let the user enter their data manually. Only provide arguments if the user has explicitly stated them.",
   inputSchema: toolInputSchema,
   outputSchema: {
     type: "object",
