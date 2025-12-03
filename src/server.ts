@@ -251,7 +251,7 @@ function widgetMeta(widget: RetirementCalculatorWidget, bustCache: boolean = fal
       ],
       resource_domains: [],
     },
-    "openai/widgetDomain": "https://chatgpt.com",
+    "openai/widgetDomain": "https://web-sandbox.oaiusercontent.com",
     "openai/toolInvocation/invoking": widget.invoking,
     "openai/toolInvocation/invoked": widget.invoked,
     "openai/widgetAccessible": true,
@@ -349,6 +349,7 @@ const tools: Tool[] = widgets.map((widget) => ({
   securitySchemes: [{ type: "noauth" }],
   _meta: {
     ...widgetMeta(widget),
+    "openai/visibility": "public",
     securitySchemes: [{ type: "noauth" }],
   },
   annotations: {
