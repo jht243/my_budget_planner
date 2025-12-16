@@ -26196,6 +26196,11 @@ function TravelChecklist({ initialData: initialData2 }) {
       if (!startDate && initialData2.trip_month) {
         startDate = getFirstOfMonth(initialData2.trip_month);
       }
+      if (!startDate && (initialData2.trip_duration || initialData2.trip_weeks)) {
+        const today = /* @__PURE__ */ new Date();
+        startDate = new Date(today);
+        startDate.setDate(today.getDate() + 1);
+      }
       if (startDate && !endDate) {
         endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + tripDurationDays - 1);

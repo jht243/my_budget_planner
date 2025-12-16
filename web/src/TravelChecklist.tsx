@@ -1525,6 +1525,13 @@ export default function TravelChecklist({ initialData }: { initialData?: any }) 
         startDate = getFirstOfMonth(initialData.trip_month);
       }
       
+      // Priority 4: If we have trip_duration but no start date, default to starting tomorrow
+      if (!startDate && (initialData.trip_duration || initialData.trip_weeks)) {
+        const today = new Date();
+        startDate = new Date(today);
+        startDate.setDate(today.getDate() + 1); // Start tomorrow
+      }
+      
       // Calculate end date if we have a start date but no end date
       if (startDate && !endDate) {
         endDate = new Date(startDate);
