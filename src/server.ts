@@ -686,12 +686,13 @@ function createTravelChecklistServer(): Server {
           }
         } catch {}
 
-        // Return empty content to suppress extra text after widget
-        // The widget provides all necessary UI - no narration needed
+        // TEXT SUPPRESSION: Return empty content array to prevent ChatGPT from adding
+        // any text after the widget. The widget provides all necessary UI.
+        // See: content: [] means no text content, only the widget is shown.
         return {
-          content: [],
+          content: [],  // Empty array = no text after widget
           structuredContent: structured,
-          _meta: metaForReturn,
+          _meta: metaForReturn,  // Contains openai/resultCanProduceWidget: true
         };
       } catch (error: any) {
         logAnalytics("tool_call_error", {
