@@ -26097,6 +26097,18 @@ function TravelChecklist({ initialData: initialData2 }) {
     }
     console.log("[TravelChecklist] Hydrating from initialData:", initialData2);
     try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(SAVED_CHECKLISTS_KEY);
+      console.log("[TravelChecklist] Cleared old localStorage data for fresh hydration");
+    } catch (e) {
+      console.warn("[TravelChecklist] Could not clear localStorage:", e);
+    }
+    setChecklist([]);
+    setIndividualChecklists({});
+    setIndividualPrefs({});
+    setChecklistGenerated(false);
+    setSelectedTab("shared");
+    try {
       const updates = {};
       if (initialData2.destination) {
         updates.destination = String(initialData2.destination);

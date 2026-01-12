@@ -1682,9 +1682,13 @@ export default function TravelChecklist({ initialData }: { initialData?: any }) 
   // Calculate duration from dates
   const calculatedDuration = useMemo(() => {
     if (profile.startDate && profile.endDate) {
-      const start = new Date(profile.startDate);
-      const end = new Date(profile.endDate);
-      const diff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+      // Parse dates as local time to avoid timezone issues
+      // Date strings like "2026-01-12" are parsed as UTC, which can shift days
+      const [startYear, startMonth, startDay] = profile.startDate.split('-').map(Number);
+      const [endYear, endMonth, endDay] = profile.endDate.split('-').map(Number);
+      const start = new Date(startYear, startMonth - 1, startDay);
+      const end = new Date(endYear, endMonth - 1, endDay);
+      const diff = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
       return diff > 0 ? diff : profile.tripDuration;
     }
     return profile.tripDuration;
