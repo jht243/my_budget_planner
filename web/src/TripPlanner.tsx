@@ -557,8 +557,8 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
         const checkOut = new Date(checkOutDate + "T00:00:00");
         const current = new Date(checkIn);
         let isFirst = true;
-        // Show hotel on all days from check-in up to (but not including) check-out
-        while (current < checkOut) {
+        // Show hotel on all days from check-in through check-out (inclusive)
+        while (current <= checkOut) {
           const dateStr = current.toISOString().split("T")[0];
           if (groups[dateStr]) {
             groups[dateStr].hotels.push({ leg, isContinuation: !isFirst });
