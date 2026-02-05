@@ -615,32 +615,45 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
         const transportBooked = dayData.transport.some(t => t.status === "booked");
         const activityBooked = dayData.activities.some(a => a.status === "booked");
         
-        const hasAny = dayData.flights.length > 0 || dayData.hotels.length > 0 || 
-                       dayData.transport.length > 0 || dayData.activities.length > 0;
-        const allBooked = hasAny && 
-          (dayData.flights.length === 0 || flightBooked) &&
-          (dayData.hotels.length === 0 || hotelBooked) &&
-          (dayData.transport.length === 0 || transportBooked) &&
-          (dayData.activities.length === 0 || activityBooked);
+        // Calculate completion status for day card styling
+        const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+        const hasTransport = dayData.transport.length > 0;
+        const hasUserInfo = (leg: TripLeg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+        const displayedCategories: boolean[] = [
+          dayData.hotels.length > 0 && dayData.hotels.some(h => h.leg.hotelName || h.leg.title),
+          dayData.activities.length > 0,
+        ];
+        if (isTravelDay || hasTransport) {
+          displayedCategories.push(dayData.transport.some(t => hasUserInfo(t)));
+        }
+        if (isTravelDay) {
+          displayedCategories.push(dayData.flights.some(f => hasUserInfo(f) || f.flightNumber));
+        }
+        const completed = displayedCategories.filter(c => c).length;
+        const total = displayedCategories.length;
+        
+        // Determine day status color: red (0), yellow (partial), green (all)
+        const dayStatusColor = completed === 0 ? "#EF4444" : completed === total ? COLORS.booked : COLORS.pending;
+        const dayStatusBg = completed === 0 ? "#FEE2E2" : completed === total ? COLORS.bookedBg : COLORS.pendingBg;
         
         return (
           <div key={date} style={{ 
             marginBottom: 12, 
             backgroundColor: COLORS.card, 
             borderRadius: 12, 
-            border: `1px solid ${allBooked ? COLORS.booked : COLORS.border}`,
+            border: `1px solid ${dayStatusColor}`,
             overflow: "hidden"
           }}>
             {/* Day Header */}
             <div style={{ 
               display: "flex", alignItems: "center", gap: 10, 
               padding: "10px 14px",
-              backgroundColor: allBooked ? COLORS.bookedBg : COLORS.borderLight,
+              backgroundColor: dayStatusBg,
               borderBottom: `1px solid ${COLORS.border}`
             }}>
               <div style={{ 
                 width: 28, height: 28, borderRadius: "50%", 
-                backgroundColor: allBooked ? COLORS.booked : hasAny ? COLORS.pending : COLORS.textMuted, 
+                backgroundColor: dayStatusColor, 
                 color: "white",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontWeight: 700, fontSize: 12
@@ -650,41 +663,15 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               <span style={{ fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }}>
                 {formatDayHeader(date, idx + 1)}
               </span>
-              {/* Completion counter - items complete when user has added meaningful info */}
-              {(() => {
-                const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
-                const hasTransport = dayData.transport.length > 0;
-                // Helper: check if leg has user-added info (not just auto-generated)
-                const hasUserInfo = (leg: TripLeg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
-                // Build list of displayed categories - complete means user added info
-                const displayedCategories: boolean[] = [
-                  // Lodging - complete if hotel exists with name
-                  dayData.hotels.length > 0 && dayData.hotels.some(h => h.leg.hotelName || h.leg.title),
-                  // Activities - complete if activity exists
-                  dayData.activities.length > 0,
-                ];
-                // Transportation - on travel days OR any day with transport
-                if (isTravelDay || hasTransport) {
-                  displayedCategories.push(dayData.transport.some(t => hasUserInfo(t)));
-                }
-                // Flights - only on travel days
-                if (isTravelDay) {
-                  displayedCategories.push(dayData.flights.some(f => hasUserInfo(f) || f.flightNumber));
-                }
-                // Count completed vs total displayed icons
-                const completed = displayedCategories.filter(c => c).length;
-                const total = displayedCategories.length;
-                return (
-                  <span style={{ 
-                    fontSize: 12, fontWeight: 600,
-                    color: completed === total ? COLORS.booked : COLORS.pending,
-                    backgroundColor: completed === total ? COLORS.bookedBg : COLORS.pendingBg,
-                    padding: "2px 8px", borderRadius: 10
-                  }}>
-                    {completed}/{total}
-                  </span>
-                );
-              })()}
+              {/* Completion counter */}
+              <span style={{ 
+                fontSize: 12, fontWeight: 600,
+                color: dayStatusColor,
+                backgroundColor: dayStatusBg,
+                padding: "2px 8px", borderRadius: 10
+              }}>
+                {completed}/{total}
+              </span>
             </div>
             
             {/* Horizontal Icon Guide - fixed 4-column grid for consistent alignment */}

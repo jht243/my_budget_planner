@@ -25180,13 +25180,28 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
     const hotelBooked = dayData.hotels.some((h) => h.leg.status === "booked");
     const transportBooked = dayData.transport.some((t) => t.status === "booked");
     const activityBooked = dayData.activities.some((a) => a.status === "booked");
-    const hasAny = dayData.flights.length > 0 || dayData.hotels.length > 0 || dayData.transport.length > 0 || dayData.activities.length > 0;
-    const allBooked = hasAny && (dayData.flights.length === 0 || flightBooked) && (dayData.hotels.length === 0 || hotelBooked) && (dayData.transport.length === 0 || transportBooked) && (dayData.activities.length === 0 || activityBooked);
+    const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+    const hasTransport = dayData.transport.length > 0;
+    const hasUserInfo = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+    const displayedCategories = [
+      dayData.hotels.length > 0 && dayData.hotels.some((h) => h.leg.hotelName || h.leg.title),
+      dayData.activities.length > 0
+    ];
+    if (isTravelDay || hasTransport) {
+      displayedCategories.push(dayData.transport.some((t) => hasUserInfo(t)));
+    }
+    if (isTravelDay) {
+      displayedCategories.push(dayData.flights.some((f) => hasUserInfo(f) || f.flightNumber));
+    }
+    const completed = displayedCategories.filter((c) => c).length;
+    const total = displayedCategories.length;
+    const dayStatusColor = completed === 0 ? "#EF4444" : completed === total ? COLORS.booked : COLORS.pending;
+    const dayStatusBg = completed === 0 ? "#FEE2E2" : completed === total ? COLORS.bookedBg : COLORS.pendingBg;
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       marginBottom: 12,
       backgroundColor: COLORS.card,
       borderRadius: 12,
-      border: `1px solid ${allBooked ? COLORS.booked : COLORS.border}`,
+      border: `1px solid ${dayStatusColor}`,
       overflow: "hidden"
     }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
@@ -25194,14 +25209,14 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
         alignItems: "center",
         gap: 10,
         padding: "10px 14px",
-        backgroundColor: allBooked ? COLORS.bookedBg : COLORS.borderLight,
+        backgroundColor: dayStatusBg,
         borderBottom: `1px solid ${COLORS.border}`
       }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
           width: 28,
           height: 28,
           borderRadius: "50%",
-          backgroundColor: allBooked ? COLORS.booked : hasAny ? COLORS.pending : COLORS.textMuted,
+          backgroundColor: dayStatusColor,
           color: "white",
           display: "flex",
           alignItems: "center",
@@ -25210,45 +25225,26 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           fontSize: 12
         }, children: idx + 1 }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }, children: formatDayHeader(date, idx + 1) }),
-        (() => {
-          const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
-          const hasTransport = dayData.transport.length > 0;
-          const hasUserInfo = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
-          const displayedCategories = [
-            // Lodging - complete if hotel exists with name
-            dayData.hotels.length > 0 && dayData.hotels.some((h) => h.leg.hotelName || h.leg.title),
-            // Activities - complete if activity exists
-            dayData.activities.length > 0
-          ];
-          if (isTravelDay || hasTransport) {
-            displayedCategories.push(dayData.transport.some((t) => hasUserInfo(t)));
-          }
-          if (isTravelDay) {
-            displayedCategories.push(dayData.flights.some((f) => hasUserInfo(f) || f.flightNumber));
-          }
-          const completed = displayedCategories.filter((c) => c).length;
-          const total = displayedCategories.length;
-          return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: {
-            fontSize: 12,
-            fontWeight: 600,
-            color: completed === total ? COLORS.booked : COLORS.pending,
-            backgroundColor: completed === total ? COLORS.bookedBg : COLORS.pendingBg,
-            padding: "2px 8px",
-            borderRadius: 10
-          }, children: [
-            completed,
-            "/",
-            total
-          ] });
-        })()
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: {
+          fontSize: 12,
+          fontWeight: 600,
+          color: dayStatusColor,
+          backgroundColor: dayStatusBg,
+          padding: "2px 8px",
+          borderRadius: 10
+        }, children: [
+          completed,
+          "/",
+          total
+        ] })
       ] }),
       (() => {
-        const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
-        const hasUserInfo = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+        const isTravelDay2 = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+        const hasUserInfo2 = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
         const hotelComplete = dayData.hotels.length > 0 && dayData.hotels.some((h) => h.leg.hotelName || h.leg.title);
         const activityComplete = dayData.activities.length > 0;
-        const transportComplete = dayData.transport.some((t) => hasUserInfo(t));
-        const flightComplete = dayData.flights.some((f) => hasUserInfo(f) || f.flightNumber);
+        const transportComplete = dayData.transport.some((t) => hasUserInfo2(t));
+        const flightComplete = dayData.flights.some((f) => hasUserInfo2(f) || f.flightNumber);
         return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
@@ -25276,7 +25272,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               onClick: () => toggleCategory(date, "activity")
             }
           ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: (isTravelDay || dayData.transport.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: (isTravelDay2 || dayData.transport.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             CategoryIcon,
             {
               type: "transport",
@@ -25286,7 +25282,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               onClick: () => toggleCategory(date, "transport")
             }
           ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay2 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             CategoryIcon,
             {
               type: "flight",
