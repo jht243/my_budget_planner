@@ -25520,6 +25520,7 @@ function TripPlanner({ initialData: initialData2 }) {
       }
     }
   }, [trip.legs.filter((l) => l.type === "flight").map((f) => f.date).join(",")]);
+  const processedFlightsRef = import_react3.default.useRef(/* @__PURE__ */ new Set());
   (0, import_react3.useEffect)(() => {
     const flights = trip.legs.filter((l) => l.type === "flight");
     const transports = trip.legs.filter((l) => l.type === "car");
@@ -25530,6 +25531,8 @@ function TripPlanner({ initialData: initialData2 }) {
       if (!flightDate) return;
       const origin = flight.from;
       const destination = flight.to;
+      const flightKey = `${flight.id}-${flightDate}-${origin}-${destination}`;
+      if (processedFlightsRef.current.has(flightKey)) return;
       const hasToAirport = transports.some(
         (t) => t.date === flightDate && t.to?.toLowerCase().includes("airport") && (origin ? t.to?.toLowerCase().includes(origin.toLowerCase()) : true)
       );
@@ -25555,6 +25558,9 @@ function TripPlanner({ initialData: initialData2 }) {
           from: `${destination} Airport`,
           date: flightDate
         });
+      }
+      if (!hasToAirport || !hasFromAirport) {
+        processedFlightsRef.current.add(flightKey);
       }
     });
     if (newTransports.length > 0) {

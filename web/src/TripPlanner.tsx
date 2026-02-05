@@ -1007,6 +1007,9 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   }, [trip.legs.filter(l => l.type === "flight").map(f => f.date).join(",")]);
 
   // Auto-add transport legs for each flight (2 per flight: to airport + from airport)
+  // Use a ref to track which flights have already had transports created
+  const processedFlightsRef = React.useRef<Set<string>>(new Set());
+  
   useEffect(() => {
     const flights = trip.legs.filter(l => l.type === "flight");
     const transports = trip.legs.filter(l => l.type === "car");
@@ -1021,6 +1024,12 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       
       const origin = flight.from;
       const destination = flight.to;
+      
+      // Create a unique key for this flight's transport needs
+      const flightKey = `${flight.id}-${flightDate}-${origin}-${destination}`;
+      
+      // Skip if we've already processed this flight
+      if (processedFlightsRef.current.has(flightKey)) return;
       
       // Check if transport TO airport exists for this flight
       const hasToAirport = transports.some(t => 
@@ -1058,6 +1067,11 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
           from: `${destination} Airport`,
           date: flightDate
         });
+      }
+      
+      // Mark this flight as processed
+      if (!hasToAirport || !hasFromAirport) {
+        processedFlightsRef.current.add(flightKey);
       }
     });
     
