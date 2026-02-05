@@ -1006,6 +1006,66 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     }
   }, [trip.legs.filter(l => l.type === "flight").map(f => f.date).join(",")]);
 
+  // Auto-add transport legs for each flight (2 per flight: to airport + from airport)
+  useEffect(() => {
+    const flights = trip.legs.filter(l => l.type === "flight");
+    const transports = trip.legs.filter(l => l.type === "car");
+    
+    if (flights.length === 0) return;
+    
+    const newTransports: TripLeg[] = [];
+    
+    flights.forEach(flight => {
+      const flightDate = flight.date;
+      if (!flightDate) return;
+      
+      const origin = flight.from;
+      const destination = flight.to;
+      
+      // Check if transport TO airport exists for this flight
+      const hasToAirport = transports.some(t => 
+        t.date === flightDate && 
+        t.to?.toLowerCase().includes("airport") &&
+        (origin ? t.to?.toLowerCase().includes(origin.toLowerCase()) : true)
+      );
+      
+      // Check if transport FROM airport exists for this flight
+      const hasFromAirport = transports.some(t => 
+        t.date === flightDate && 
+        t.from?.toLowerCase().includes("airport") &&
+        (destination ? t.from?.toLowerCase().includes(destination.toLowerCase()) : true)
+      );
+      
+      // Add transport TO airport if missing
+      if (!hasToAirport && origin) {
+        newTransports.push({
+          id: generateId(),
+          type: "car",
+          status: "pending",
+          title: `Transport to ${origin} Airport`,
+          to: `${origin} Airport`,
+          date: flightDate
+        });
+      }
+      
+      // Add transport FROM airport if missing
+      if (!hasFromAirport && destination) {
+        newTransports.push({
+          id: generateId(),
+          type: "car",
+          status: "pending",
+          title: `Transport from ${destination} Airport`,
+          from: `${destination} Airport`,
+          date: flightDate
+        });
+      }
+    });
+    
+    if (newTransports.length > 0) {
+      setTrip(t => ({ ...t, legs: [...t.legs, ...newTransports], updatedAt: Date.now() }));
+    }
+  }, [trip.legs.filter(l => l.type === "flight").map(f => `${f.id}-${f.date}-${f.from}-${f.to}`).join(",")]);
+
   // Calculate missing info - SMART logic
   const missingInfo = useMemo(() => {
     const items: MissingInfo[] = [];

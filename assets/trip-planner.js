@@ -25520,6 +25520,47 @@ function TripPlanner({ initialData: initialData2 }) {
       }
     }
   }, [trip.legs.filter((l) => l.type === "flight").map((f) => f.date).join(",")]);
+  (0, import_react3.useEffect)(() => {
+    const flights = trip.legs.filter((l) => l.type === "flight");
+    const transports = trip.legs.filter((l) => l.type === "car");
+    if (flights.length === 0) return;
+    const newTransports = [];
+    flights.forEach((flight) => {
+      const flightDate = flight.date;
+      if (!flightDate) return;
+      const origin = flight.from;
+      const destination = flight.to;
+      const hasToAirport = transports.some(
+        (t) => t.date === flightDate && t.to?.toLowerCase().includes("airport") && (origin ? t.to?.toLowerCase().includes(origin.toLowerCase()) : true)
+      );
+      const hasFromAirport = transports.some(
+        (t) => t.date === flightDate && t.from?.toLowerCase().includes("airport") && (destination ? t.from?.toLowerCase().includes(destination.toLowerCase()) : true)
+      );
+      if (!hasToAirport && origin) {
+        newTransports.push({
+          id: generateId(),
+          type: "car",
+          status: "pending",
+          title: `Transport to ${origin} Airport`,
+          to: `${origin} Airport`,
+          date: flightDate
+        });
+      }
+      if (!hasFromAirport && destination) {
+        newTransports.push({
+          id: generateId(),
+          type: "car",
+          status: "pending",
+          title: `Transport from ${destination} Airport`,
+          from: `${destination} Airport`,
+          date: flightDate
+        });
+      }
+    });
+    if (newTransports.length > 0) {
+      setTrip((t) => ({ ...t, legs: [...t.legs, ...newTransports], updatedAt: Date.now() }));
+    }
+  }, [trip.legs.filter((l) => l.type === "flight").map((f) => `${f.id}-${f.date}-${f.from}-${f.to}`).join(",")]);
   const missingInfo = (0, import_react3.useMemo)(() => {
     const items = [];
     const flights = trip.legs.filter((l) => l.type === "flight");
