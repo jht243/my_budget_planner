@@ -820,6 +820,12 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                 >
                                   <Edit2 size={12} />
                                 </button>
+                                <button 
+                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(toAirportLeg.id); }}
+                                  style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#EF4444", fontSize: 11, cursor: "pointer" }}
+                                >
+                                  <Trash2 size={12} />
+                                </button>
                               </div>
                             ) : null}
                           </div>
@@ -923,6 +929,12 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                   style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" }}
                                 >
                                   <Edit2 size={12} />
+                                </button>
+                                <button 
+                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(fromAirportLeg.id); }}
+                                  style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#EF4444", fontSize: 11, cursor: "pointer" }}
+                                >
+                                  <Trash2 size={12} />
                                 </button>
                               </div>
                             ) : null}

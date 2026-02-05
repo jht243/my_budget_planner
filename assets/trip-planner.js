@@ -25365,6 +25365,16 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                       style: { padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" },
                       children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 12 })
                     }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                    "button",
+                    {
+                      onClick: () => {
+                        if (confirm("Delete this transport?")) onDeleteLeg(toAirportLeg.id);
+                      },
+                      style: { padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#EF4444", fontSize: 11, cursor: "pointer" },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { size: 12 })
+                    }
                   )
                 ] }) : null
               ] }),
@@ -25505,6 +25515,16 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                       },
                       style: { padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" },
                       children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 12 })
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                    "button",
+                    {
+                      onClick: () => {
+                        if (confirm("Delete this transport?")) onDeleteLeg(fromAirportLeg.id);
+                      },
+                      style: { padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#EF4444", fontSize: 11, cursor: "pointer" },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { size: 12 })
                     }
                   )
                 ] }) : null
