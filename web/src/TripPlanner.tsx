@@ -476,10 +476,11 @@ const CategoryIcon = ({
 };
 
 // Day-by-Day View Component - Horizontal icon guide layout
-const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExpand, departureDate, returnDate }: { 
+const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, toggleLegExpand, departureDate, returnDate }: { 
   legs: TripLeg[]; 
   onUpdateLeg: (id: string, u: Partial<TripLeg>) => void; 
   onDeleteLeg: (id: string) => void;
+  onAddLeg: (leg: Partial<TripLeg>) => void;
   expandedLegs: Set<string>;
   toggleLegExpand: (id: string) => void;
   departureDate?: string;
@@ -599,25 +600,49 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegE
               }}>
                 {idx + 1}
               </div>
-              <span style={{ fontWeight: 600, fontSize: 14, color: COLORS.textMain }}>
+              <span style={{ fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }}>
                 {formatDayHeader(date, idx + 1)}
               </span>
-              {allBooked && <CheckCircle2 size={18} color={COLORS.booked} style={{ marginLeft: "auto" }} />}
+              {/* Completion counter */}
+              {(() => {
+                const categories = [
+                  dayData.flights.length > 0 ? flightBooked : null,
+                  dayData.hotels.length > 0 ? hotelBooked : null,
+                  dayData.transport.length > 0 ? transportBooked : null,
+                  dayData.activities.length > 0 ? activityBooked : null
+                ].filter(x => x !== null);
+                const completed = categories.filter(x => x === true).length;
+                const total = categories.length;
+                if (total === 0) return <span style={{ fontSize: 12, color: COLORS.textMuted }}>No items</span>;
+                return (
+                  <span style={{ 
+                    fontSize: 12, fontWeight: 600,
+                    color: completed === total ? COLORS.booked : COLORS.pending,
+                    backgroundColor: completed === total ? COLORS.bookedBg : COLORS.pendingBg,
+                    padding: "2px 8px", borderRadius: 10
+                  }}>
+                    {completed}/{total}
+                  </span>
+                );
+              })()}
             </div>
             
-            {/* Horizontal Icon Guide */}
+            {/* Horizontal Icon Guide - only show icons for relevant categories */}
             <div style={{ 
               display: "flex", justifyContent: "space-around", 
               padding: "12px 8px",
               borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
             }}>
-              <CategoryIcon 
-                type="flight" 
-                hasItem={dayData.flights.length > 0}
-                isBooked={flightBooked}
-                isExpanded={expanded === "flight"}
-                onClick={() => toggleCategory(date, "flight")}
-              />
+              {/* Only show Flight icon if there's a flight on this day */}
+              {dayData.flights.length > 0 && (
+                <CategoryIcon 
+                  type="flight" 
+                  hasItem={true}
+                  isBooked={flightBooked}
+                  isExpanded={expanded === "flight"}
+                  onClick={() => toggleCategory(date, "flight")}
+                />
+              )}
               <CategoryIcon 
                 type="hotel" 
                 hasItem={dayData.hotels.length > 0}
@@ -645,26 +670,52 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegE
             {/* Expanded Details */}
             {expanded && (
               <div style={{ padding: "8px 12px" }}>
-                {expanded === "flight" && (dayData.flights.length > 0 ? dayData.flights.map(leg => (
-                  <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No flight scheduled for this day</div>)}
-                {expanded === "hotel" && (dayData.hotels.length > 0 ? dayData.hotels.map(({ leg, isContinuation }) => (
-                  isContinuation ? (
-                    <div key={`${leg.id}-${date}`} style={{ padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }}>
-                      <Hotel size={18} color={COLORS.hotel} />
-                      <span style={{ fontSize: 13, color: COLORS.hotel, fontWeight: 500 }}>Staying at {leg.hotelName || leg.location || "hotel"}</span>
-                      {leg.status === "booked" && <CheckCircle2 size={14} color={COLORS.booked} style={{ marginLeft: "auto" }} />}
-                    </div>
-                  ) : (
-                    <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                  )
-                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No hotel for this day</div>)}
-                {expanded === "transport" && (dayData.transport.length > 0 ? dayData.transport.map(leg => (
-                  <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No transport scheduled</div>)}
-                {expanded === "activity" && (dayData.activities.length > 0 ? dayData.activities.map(leg => (
-                  <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No activities planned</div>)}
+                {expanded === "flight" && (
+                  <>
+                    {dayData.flights.map(leg => (
+                      <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
+                    ))}
+                  </>
+                )}
+                {expanded === "hotel" && (
+                  <>
+                    {dayData.hotels.length > 0 ? dayData.hotels.map(({ leg, isContinuation }) => (
+                      isContinuation ? (
+                        <div key={`${leg.id}-${date}`} style={{ padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                          <Hotel size={18} color={COLORS.hotel} />
+                          <span style={{ fontSize: 13, color: COLORS.hotel, fontWeight: 500 }}>Staying at {leg.hotelName || leg.location || "hotel"}</span>
+                          {leg.status === "booked" && <CheckCircle2 size={14} color={COLORS.booked} style={{ marginLeft: "auto" }} />}
+                        </div>
+                      ) : (
+                        <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
+                      )
+                    )) : (
+                      <button onClick={() => onAddLeg({ type: "hotel", date, status: "pending", title: "", location: "" })} style={{ width: "100%", padding: 12, borderRadius: 10, border: `2px dashed ${COLORS.hotel}`, backgroundColor: COLORS.hotelBg, color: COLORS.hotel, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                        <Plus size={16} /> Add Hotel
+                      </button>
+                    )}
+                  </>
+                )}
+                {expanded === "transport" && (
+                  <>
+                    {dayData.transport.map(leg => (
+                      <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
+                    ))}
+                    <button onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "" })} style={{ width: "100%", padding: 12, borderRadius: 10, border: `2px dashed ${COLORS.transport}`, backgroundColor: COLORS.transportBg, color: COLORS.transport, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: dayData.transport.length > 0 ? 8 : 0 }}>
+                      <Plus size={16} /> Add Transport
+                    </button>
+                  </>
+                )}
+                {expanded === "activity" && (
+                  <>
+                    {dayData.activities.map(leg => (
+                      <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
+                    ))}
+                    <button onClick={() => onAddLeg({ type: "other", date, status: "pending", title: "" })} style={{ width: "100%", padding: 12, borderRadius: 10, border: `2px dashed #EC4899`, backgroundColor: "#FCE7F3", color: "#EC4899", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: dayData.activities.length > 0 ? 8 : 0 }}>
+                      <Plus size={16} /> Add Activity
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -1365,7 +1416,8 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
             <DayByDayView 
               legs={trip.legs} 
               onUpdateLeg={handleUpdateLeg} 
-              onDeleteLeg={handleDeleteLeg} 
+              onDeleteLeg={handleDeleteLeg}
+              onAddLeg={handleAddLeg}
               expandedLegs={expandedLegs} 
               toggleLegExpand={toggleLegExpand}
               departureDate={trip.departureDate}
