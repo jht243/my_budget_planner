@@ -1509,39 +1509,92 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
               onSaveEdit={handleSaveEdit}
             />
             
-            {/* Trip Summary Bar */}
-            <div style={{ 
-              backgroundColor: COLORS.card, 
-              borderRadius: 12, 
-              padding: "14px 16px", 
-              marginBottom: 16,
-              border: `1px solid ${COLORS.border}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: 12
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <Users size={16} color={COLORS.textSecondary} />
-                  <span style={{ fontSize: 13, color: COLORS.textMain }}>{trip.travelers} traveler{trip.travelers !== 1 ? "s" : ""}</span>
+            {/* Trip Summary & Checklist */}
+            {(() => {
+              const flights = trip.legs.filter(l => l.type === "flight");
+              const hotels = trip.legs.filter(l => l.type === "hotel");
+              const transport = trip.legs.filter(l => !["flight", "hotel"].includes(l.type));
+              
+              // Calculate trip length
+              const tripDays = trip.departureDate && trip.returnDate 
+                ? Math.ceil((new Date(trip.returnDate).getTime() - new Date(trip.departureDate).getTime()) / (1000 * 60 * 60 * 24)) + 1
+                : 0;
+              
+              // Calculate number of cities (unique destinations from flights)
+              const cities = new Set<string>();
+              flights.forEach(f => { if (f.to) cities.add(f.to); if (f.from) cities.add(f.from); });
+              
+              // Checklist status
+              const flightsBooked = flights.length > 0 && flights.every(f => f.status === "booked" || f.flightNumber);
+              const lodgingBooked = hotels.length > 0 && hotels.every(h => h.status === "booked" || h.confirmationNumber);
+              const transportBooked = transport.length > 0 && transport.every(t => t.status === "booked" || t.confirmationNumber);
+              
+              return (
+                <div style={{ 
+                  backgroundColor: COLORS.card, 
+                  borderRadius: 12, 
+                  padding: "16px", 
+                  marginBottom: 16,
+                  border: `1px solid ${COLORS.border}`
+                }}>
+                  {/* Static Info Row */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: 16, flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <Users size={16} color={COLORS.textSecondary} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain, fontWeight: 500 }}>{trip.travelers} traveler{trip.travelers !== 1 ? "s" : ""}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <MapPin size={16} color={COLORS.textSecondary} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain, fontWeight: 500 }}>{cities.size} cit{cities.size !== 1 ? "ies" : "y"}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <Calendar size={16} color={COLORS.textSecondary} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain, fontWeight: 500 }}>{tripDays > 0 ? `${tripDays} day${tripDays !== 1 ? "s" : ""}` : "Set dates"}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Checklist */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ 
+                        width: 20, height: 20, borderRadius: 4, 
+                        backgroundColor: flightsBooked ? COLORS.booked : "transparent",
+                        border: `2px solid ${flightsBooked ? COLORS.booked : COLORS.border}`,
+                        display: "flex", alignItems: "center", justifyContent: "center"
+                      }}>
+                        {flightsBooked && <Check size={14} color="white" />}
+                      </div>
+                      <Plane size={16} color={flightsBooked ? COLORS.booked : COLORS.textMuted} />
+                      <span style={{ fontSize: 13, color: flightsBooked ? COLORS.booked : COLORS.textMain }}>Flights booked</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ 
+                        width: 20, height: 20, borderRadius: 4, 
+                        backgroundColor: lodgingBooked ? COLORS.booked : "transparent",
+                        border: `2px solid ${lodgingBooked ? COLORS.booked : COLORS.border}`,
+                        display: "flex", alignItems: "center", justifyContent: "center"
+                      }}>
+                        {lodgingBooked && <Check size={14} color="white" />}
+                      </div>
+                      <Hotel size={16} color={lodgingBooked ? COLORS.booked : COLORS.textMuted} />
+                      <span style={{ fontSize: 13, color: lodgingBooked ? COLORS.booked : COLORS.textMain }}>Lodging booked</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ 
+                        width: 20, height: 20, borderRadius: 4, 
+                        backgroundColor: transportBooked ? COLORS.booked : "transparent",
+                        border: `2px solid ${transportBooked ? COLORS.booked : COLORS.border}`,
+                        display: "flex", alignItems: "center", justifyContent: "center"
+                      }}>
+                        {transportBooked && <Check size={14} color="white" />}
+                      </div>
+                      <Car size={16} color={transportBooked ? COLORS.booked : COLORS.textMuted} />
+                      <span style={{ fontSize: 13, color: transportBooked ? COLORS.booked : COLORS.textMain }}>Transportation booked</span>
+                    </div>
+                  </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <Plane size={16} color={COLORS.flight} />
-                  <span style={{ fontSize: 13, color: COLORS.textMain }}>{trip.legs.filter(l => l.type === "flight").length} flight{trip.legs.filter(l => l.type === "flight").length !== 1 ? "s" : ""}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <Hotel size={16} color={COLORS.hotel} />
-                  <span style={{ fontSize: 13, color: COLORS.textMain }}>{trip.legs.filter(l => l.type === "hotel").length} hotel{trip.legs.filter(l => l.type === "hotel").length !== 1 ? "s" : ""}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <Car size={16} color={COLORS.transport} />
-                  <span style={{ fontSize: 13, color: COLORS.textMain }}>{trip.legs.filter(l => !["flight", "hotel"].includes(l.type)).length} transport</span>
-                </div>
-              </div>
-              <button onClick={() => setShowAddModal(true)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}><Plus size={16} /> Add Flight, Hotel, etc.</button>
-            </div>
+              );
+            })()}
             
             {/* Day-by-Day View */}
             <DayByDayView 
