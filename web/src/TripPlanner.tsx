@@ -1166,10 +1166,24 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
         location: ""
       };
       setTrip(t => ({ ...t, legs: [...t.legs, newHotel], updatedAt: Date.now() }));
+    } else if (item.type === "departure_date" && item.legId) {
+      // Update flight date AND trip departure date
+      setTrip(t => ({
+        ...t,
+        departureDate: editValue,
+        legs: t.legs.map(l => l.id === item.legId ? { ...l, date: editValue } : l),
+        updatedAt: Date.now()
+      }));
+    } else if (item.type === "return_date" && item.legId) {
+      // Update return flight date AND trip return date
+      setTrip(t => ({
+        ...t,
+        returnDate: editValue,
+        legs: t.legs.map(l => l.id === item.legId ? { ...l, date: editValue } : l),
+        updatedAt: Date.now()
+      }));
     } else if (item.legId) {
       const updates: Partial<TripLeg> = {};
-      if (item.type === "departure_date") updates.date = editValue;
-      if (item.type === "return_date") updates.endDate = editValue;
       if (item.type === "flight_number") updates.flightNumber = editValue;
       if (item.type === "hotel_name") {
         updates.hotelName = editValue;
