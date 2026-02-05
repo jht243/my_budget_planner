@@ -516,6 +516,8 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
   returnDate?: string;
 }) => {
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
+  const [editingTransport, setEditingTransport] = useState<string | null>(null); // "to-{date}" or "from-{date}"
+  const [transportForm, setTransportForm] = useState({ type: "uber", notes: "", rentalCompany: "" });
 
   // Generate all days between departure and return
   const allDays = useMemo(() => {
@@ -765,14 +767,15 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                     {(() => {
                       const toAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("to airport") || t.to?.toLowerCase().includes("airport"));
                       const toAirportComplete = toAirportLeg?.status === "booked";
+                      const isEditing = editingTransport === `to-${date}`;
                       return (
                         <div style={{ marginBottom: 12, padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: toAirportLeg ? 8 : 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (toAirportLeg || isEditing) ? 8 : 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                               <ArrowRight size={16} color={COLORS.transport} />
                               <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Transportation to Airport</span>
                             </div>
-                            {!toAirportLeg ? (
+                            {!toAirportLeg && !isEditing ? (
                               <div style={{ display: "flex", gap: 6 }}>
                                 <button 
                                   onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "To Airport", notes: "Quick complete" })}
@@ -781,13 +784,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                   <Check size={12} /> Done
                                 </button>
                                 <button 
-                                  onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "To Airport" })}
+                                  onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: "uber", notes: "", rentalCompany: "" }); }}
                                   style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                 >
                                   <Plus size={12} /> Add Details
                                 </button>
                               </div>
-                            ) : (
+                            ) : toAirportLeg && !isEditing ? (
                               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                                 {toAirportComplete ? (
                                   <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
@@ -799,11 +802,46 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                     <Check size={12} /> Mark Done
                                   </button>
                                 )}
+                                <button 
+                                  onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: toAirportLeg.notes?.includes("Uber") ? "uber" : toAirportLeg.rentalCompany ? "rental" : "other", notes: toAirportLeg.notes || "", rentalCompany: toAirportLeg.rentalCompany || "" }); }}
+                                  style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" }}
+                                >
+                                  <Edit2 size={12} />
+                                </button>
                               </div>
-                            )}
+                            ) : null}
                           </div>
-                          {toAirportLeg && (
-                            <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
+                          {isEditing ? (
+                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                              <div style={{ display: "flex", gap: 6 }}>
+                                {["uber", "rental", "other"].map(t => (
+                                  <button key={t} onClick={() => setTransportForm(f => ({ ...f, type: t }))}
+                                    style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${transportForm.type === t ? COLORS.transport : COLORS.border}`, backgroundColor: transportForm.type === t ? COLORS.transportBg : "white", color: transportForm.type === t ? COLORS.transport : COLORS.textSecondary, fontSize: 12, fontWeight: 500, cursor: "pointer" }}>
+                                    {t === "uber" ? "🚕 Uber/Lyft" : t === "rental" ? "🚗 Rental Car" : "📝 Other"}
+                                  </button>
+                                ))}
+                              </div>
+                              {transportForm.type === "rental" && (
+                                <input placeholder="Rental company (e.g., Hertz, Enterprise)" value={transportForm.rentalCompany} onChange={e => setTransportForm(f => ({ ...f, rentalCompany: e.target.value }))}
+                                  style={{ padding: "8px 10px", borderRadius: 6, border: `1px solid ${COLORS.border}`, fontSize: 12, outline: "none" }} />
+                              )}
+                              <input placeholder="Notes (optional)" value={transportForm.notes} onChange={e => setTransportForm(f => ({ ...f, notes: e.target.value }))}
+                                style={{ padding: "8px 10px", borderRadius: 6, border: `1px solid ${COLORS.border}`, fontSize: 12, outline: "none" }} />
+                              <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
+                                <button onClick={() => setEditingTransport(null)} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", color: COLORS.textSecondary, fontSize: 12, cursor: "pointer" }}>Cancel</button>
+                                <button onClick={() => {
+                                  const notes = transportForm.type === "uber" ? "Uber/Lyft" : transportForm.type === "rental" ? `Rental: ${transportForm.rentalCompany}` : transportForm.notes;
+                                  if (toAirportLeg) {
+                                    onUpdateLeg(toAirportLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                  } else {
+                                    onAddLeg({ type: "car", date, status: "pending", title: "To Airport", notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                  }
+                                  setEditingTransport(null);
+                                }} style={{ padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Save</button>
+                              </div>
+                            </div>
+                          ) : toAirportLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: toAirportLeg.notes?.includes("Uber") ? "uber" : toAirportLeg.rentalCompany ? "rental" : "other", notes: toAirportLeg.notes || "", rentalCompany: toAirportLeg.rentalCompany || "" }); }}>
                               {toAirportLeg.notes === "Quick complete" ? "Marked complete" : (
                                 <>
                                   {toAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {toAirportLeg.rentalCompany}</span>}
@@ -823,14 +861,15 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                     {(() => {
                       const fromAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("from airport") || t.from?.toLowerCase().includes("airport"));
                       const fromAirportComplete = fromAirportLeg?.status === "booked";
+                      const isEditing = editingTransport === `from-${date}`;
                       return (
                         <div style={{ padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: fromAirportLeg ? 8 : 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (fromAirportLeg || isEditing) ? 8 : 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                               <ArrowRight size={16} color={COLORS.transport} style={{ transform: "rotate(180deg)" }} />
                               <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Transportation from Airport</span>
                             </div>
-                            {!fromAirportLeg ? (
+                            {!fromAirportLeg && !isEditing ? (
                               <div style={{ display: "flex", gap: 6 }}>
                                 <button 
                                   onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "From Airport", notes: "Quick complete" })}
@@ -839,13 +878,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                   <Check size={12} /> Done
                                 </button>
                                 <button 
-                                  onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "From Airport" })}
+                                  onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: "uber", notes: "", rentalCompany: "" }); }}
                                   style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                 >
                                   <Plus size={12} /> Add Details
                                 </button>
                               </div>
-                            ) : (
+                            ) : fromAirportLeg && !isEditing ? (
                               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                                 {fromAirportComplete ? (
                                   <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
@@ -857,11 +896,46 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                     <Check size={12} /> Mark Done
                                   </button>
                                 )}
+                                <button 
+                                  onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: fromAirportLeg.notes?.includes("Uber") ? "uber" : fromAirportLeg.rentalCompany ? "rental" : "other", notes: fromAirportLeg.notes || "", rentalCompany: fromAirportLeg.rentalCompany || "" }); }}
+                                  style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" }}
+                                >
+                                  <Edit2 size={12} />
+                                </button>
                               </div>
-                            )}
+                            ) : null}
                           </div>
-                          {fromAirportLeg && (
-                            <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
+                          {isEditing ? (
+                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                              <div style={{ display: "flex", gap: 6 }}>
+                                {["uber", "rental", "other"].map(t => (
+                                  <button key={t} onClick={() => setTransportForm(f => ({ ...f, type: t }))}
+                                    style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${transportForm.type === t ? COLORS.transport : COLORS.border}`, backgroundColor: transportForm.type === t ? COLORS.transportBg : "white", color: transportForm.type === t ? COLORS.transport : COLORS.textSecondary, fontSize: 12, fontWeight: 500, cursor: "pointer" }}>
+                                    {t === "uber" ? "🚕 Uber/Lyft" : t === "rental" ? "🚗 Rental Car" : "📝 Other"}
+                                  </button>
+                                ))}
+                              </div>
+                              {transportForm.type === "rental" && (
+                                <input placeholder="Rental company (e.g., Hertz, Enterprise)" value={transportForm.rentalCompany} onChange={e => setTransportForm(f => ({ ...f, rentalCompany: e.target.value }))}
+                                  style={{ padding: "8px 10px", borderRadius: 6, border: `1px solid ${COLORS.border}`, fontSize: 12, outline: "none" }} />
+                              )}
+                              <input placeholder="Notes (optional)" value={transportForm.notes} onChange={e => setTransportForm(f => ({ ...f, notes: e.target.value }))}
+                                style={{ padding: "8px 10px", borderRadius: 6, border: `1px solid ${COLORS.border}`, fontSize: 12, outline: "none" }} />
+                              <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
+                                <button onClick={() => setEditingTransport(null)} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", color: COLORS.textSecondary, fontSize: 12, cursor: "pointer" }}>Cancel</button>
+                                <button onClick={() => {
+                                  const notes = transportForm.type === "uber" ? "Uber/Lyft" : transportForm.type === "rental" ? `Rental: ${transportForm.rentalCompany}` : transportForm.notes;
+                                  if (fromAirportLeg) {
+                                    onUpdateLeg(fromAirportLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                  } else {
+                                    onAddLeg({ type: "car", date, status: "pending", title: "From Airport", notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                  }
+                                  setEditingTransport(null);
+                                }} style={{ padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Save</button>
+                              </div>
+                            </div>
+                          ) : fromAirportLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: fromAirportLeg.notes?.includes("Uber") ? "uber" : fromAirportLeg.rentalCompany ? "rental" : "other", notes: fromAirportLeg.notes || "", rentalCompany: fromAirportLeg.rentalCompany || "" }); }}>
                               {fromAirportLeg.notes === "Quick complete" ? "Marked complete" : (
                                 <>
                                   {fromAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {fromAirportLeg.rentalCompany}</span>}
