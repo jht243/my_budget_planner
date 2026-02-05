@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import {
   Plane, Hotel, Car, Train, Bus, Ship, MapPin, Calendar, Clock, 
   CheckCircle2, Circle, AlertCircle, Plus, X, ChevronDown, ChevronUp,
-  Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2
+  Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2, Check, FileText, Users
 } from "lucide-react";
 
 // Add spinner animation
@@ -71,8 +71,18 @@ interface Trip {
   id: string;
   name: string;
   legs: TripLeg[];
+  travelers: number;
   createdAt: number;
   updatedAt: number;
+}
+
+interface MissingInfo {
+  id: string;
+  type: "departure_date" | "return_date" | "travelers" | "flight_number" | "hotel_name" | "confirmation" | "transport";
+  label: string;
+  icon: React.ReactNode;
+  legId?: string;
+  priority: number;
 }
 
 const STORAGE_KEY = "TRIP_PLANNER_DATA";
@@ -548,18 +558,215 @@ const AddLegModal = ({ onAdd, onClose }: { onAdd: (l: Partial<TripLeg>) => void;
   );
 };
 
+// Missing Info Prompt Bar Component
+const MissingInfoBar = ({ 
+  missingItems, 
+  onAddInfo,
+  editingItem,
+  setEditingItem,
+  editValue,
+  setEditValue,
+  onSaveEdit
+}: { 
+  missingItems: MissingInfo[];
+  onAddInfo: (item: MissingInfo) => void;
+  editingItem: string | null;
+  setEditingItem: (id: string | null) => void;
+  editValue: string;
+  setEditValue: (v: string) => void;
+  onSaveEdit: () => void;
+}) => {
+  if (missingItems.length === 0) return null;
+  
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        gap: 8, 
+        marginBottom: 8,
+        color: COLORS.pending
+      }}>
+        <AlertCircle size={16} />
+        <span style={{ fontSize: 13, fontWeight: 600 }}>Complete your itinerary:</span>
+      </div>
+      <div style={{ 
+        display: "flex", 
+        gap: 8, 
+        overflowX: "auto", 
+        paddingBottom: 8,
+        WebkitOverflowScrolling: "touch"
+      }}>
+        {missingItems.map(item => (
+          <div key={item.id} style={{ flexShrink: 0 }}>
+            {editingItem === item.id ? (
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "8px 12px",
+                backgroundColor: COLORS.card,
+                borderRadius: 10,
+                border: `2px solid ${COLORS.primary}`,
+                minWidth: 180
+              }}>
+                <input
+                  type={item.type.includes("date") ? "date" : item.type === "travelers" ? "number" : "text"}
+                  value={editValue}
+                  onChange={e => setEditValue(e.target.value)}
+                  placeholder={item.label}
+                  autoFocus
+                  min={item.type === "travelers" ? "1" : undefined}
+                  style={{
+                    flex: 1,
+                    border: "none",
+                    outline: "none",
+                    fontSize: 13,
+                    padding: 0,
+                    width: item.type.includes("date") ? 130 : 80,
+                    backgroundColor: "transparent"
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") onSaveEdit();
+                    if (e.key === "Escape") setEditingItem(null);
+                  }}
+                />
+                <button 
+                  onClick={onSaveEdit}
+                  style={{ 
+                    background: "none", border: "none", cursor: "pointer", 
+                    color: COLORS.primary, padding: 2 
+                  }}
+                >
+                  <Check size={16} />
+                </button>
+                <button 
+                  onClick={() => setEditingItem(null)}
+                  style={{ 
+                    background: "none", border: "none", cursor: "pointer", 
+                    color: COLORS.textMuted, padding: 2 
+                  }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setEditingItem(item.id);
+                  setEditValue("");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "8px 14px",
+                  backgroundColor: COLORS.pendingBg,
+                  border: `1px solid ${COLORS.pending}`,
+                  borderRadius: 10,
+                  color: COLORS.pending,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                <Plus size={14} />
+                {item.label}
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function TripPlanner({ initialData }: { initialData?: any }) {
   const [trip, setTrip] = useState<Trip>(() => {
     try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const d = JSON.parse(s); if (d.trip) return d.trip; } } catch {}
-    return { id: generateId(), name: "My Trip", legs: [], createdAt: Date.now(), updatedAt: Date.now() };
+    return { id: generateId(), name: "My Trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() };
   });
   const [tripDescription, setTripDescription] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [expandedLegs, setExpandedLegs] = useState<Set<string>>(new Set());
   const [inputMode, setInputMode] = useState<"freeform" | "manual">("freeform");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [editingItem, setEditingItem] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState("");
 
   useEffect(() => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ trip, timestamp: Date.now() })); } catch {} }, [trip]);
+  
+  // Calculate missing info
+  const missingInfo = useMemo(() => {
+    const items: MissingInfo[] = [];
+    const flights = trip.legs.filter(l => l.type === "flight");
+    const hotels = trip.legs.filter(l => l.type === "hotel");
+    
+    // Check for travelers
+    if (!trip.travelers || trip.travelers < 1) {
+      items.push({ id: "travelers", type: "travelers", label: "Add travelers", icon: <Circle size={14} />, priority: 1 });
+    }
+    
+    // Check flights for missing dates
+    flights.forEach(f => {
+      if (!f.date) {
+        items.push({ id: `date-${f.id}`, type: "departure_date", label: `Add date for ${f.title.split(":")[1]?.trim() || "flight"}`, icon: <Calendar size={14} />, legId: f.id, priority: 2 });
+      }
+      if (!f.flightNumber) {
+        items.push({ id: `flight-${f.id}`, type: "flight_number", label: `Add flight #`, icon: <Plane size={14} />, legId: f.id, priority: 4 });
+      }
+      if (!f.confirmationNumber && f.status !== "pending") {
+        items.push({ id: `conf-${f.id}`, type: "confirmation", label: `Add confirmation #`, icon: <FileText size={14} />, legId: f.id, priority: 5 });
+      }
+    });
+    
+    // Check hotels
+    hotels.forEach(h => {
+      if (!h.date) {
+        items.push({ id: `checkin-${h.id}`, type: "departure_date", label: `Add check-in date`, icon: <Calendar size={14} />, legId: h.id, priority: 2 });
+      }
+      if (!h.endDate) {
+        items.push({ id: `checkout-${h.id}`, type: "return_date", label: `Add check-out date`, icon: <Calendar size={14} />, legId: h.id, priority: 3 });
+      }
+      if (!h.hotelName) {
+        items.push({ id: `hotel-${h.id}`, type: "hotel_name", label: `Add hotel name`, icon: <Hotel size={14} />, legId: h.id, priority: 4 });
+      }
+    });
+    
+    return items.sort((a, b) => a.priority - b.priority).slice(0, 5);
+  }, [trip]);
+  
+  // Handle saving inline edits
+  const handleSaveEdit = () => {
+    if (!editingItem || !editValue.trim()) {
+      setEditingItem(null);
+      return;
+    }
+    
+    const item = missingInfo.find(i => i.id === editingItem);
+    if (!item) return;
+    
+    if (item.type === "travelers") {
+      setTrip(t => ({ ...t, travelers: parseInt(editValue) || 1, updatedAt: Date.now() }));
+    } else if (item.legId) {
+      const updates: Partial<TripLeg> = {};
+      if (item.type === "departure_date") updates.date = editValue;
+      if (item.type === "return_date") updates.endDate = editValue;
+      if (item.type === "flight_number") updates.flightNumber = editValue;
+      if (item.type === "hotel_name") updates.hotelName = editValue;
+      if (item.type === "confirmation") updates.confirmationNumber = editValue;
+      
+      setTrip(t => ({
+        ...t,
+        legs: t.legs.map(l => l.id === item.legId ? { ...l, ...updates } : l),
+        updatedAt: Date.now()
+      }));
+    }
+    
+    setEditingItem(null);
+    setEditValue("");
+  };
 
   const handleParseDescription = async () => {
     if (!tripDescription.trim() || isAnalyzing) return;
@@ -617,7 +824,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   const handleUpdateLeg = (legId: string, updates: Partial<TripLeg>) => setTrip(t => ({ ...t, legs: t.legs.map(l => l.id === legId ? { ...l, ...updates } : l), updatedAt: Date.now() }));
   const handleDeleteLeg = (legId: string) => { setTrip(t => ({ ...t, legs: t.legs.filter(l => l.id !== legId), updatedAt: Date.now() })); setExpandedLegs(p => { const n = new Set(p); n.delete(legId); return n; }); };
   const toggleLegExpand = (legId: string) => setExpandedLegs(p => { const n = new Set(p); n.has(legId) ? n.delete(legId) : n.add(legId); return n; });
-  const handleReset = () => { if (confirm("Clear all trip data?")) { setTrip({ id: generateId(), name: "My Trip", legs: [], createdAt: Date.now(), updatedAt: Date.now() }); setTripDescription(""); setExpandedLegs(new Set()); } };
+  const handleReset = () => { if (confirm("Clear all trip data?")) { setTrip({ id: generateId(), name: "My Trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() }); setTripDescription(""); setExpandedLegs(new Set()); } };
 
   const sortedLegs = useMemo(() => [...trip.legs].sort((a, b) => { if (!a.date && !b.date) return 0; if (!a.date) return 1; if (!b.date) return -1; return a.date.localeCompare(b.date); }), [trip.legs]);
 
@@ -650,11 +857,52 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
           </div>
         ) : (
           <>
-            <ProgressSummary legs={trip.legs} />
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: COLORS.textMain }}>Day-by-Day Itinerary</h3>
-              <button onClick={() => setShowAddModal(true)} style={{ padding: "10px 16px", borderRadius: 10, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}><Plus size={18} /> Add Leg</button>
+            {/* Missing Info Prompts - horizontal scroll */}
+            <MissingInfoBar 
+              missingItems={missingInfo}
+              onAddInfo={() => {}}
+              editingItem={editingItem}
+              setEditingItem={setEditingItem}
+              editValue={editValue}
+              setEditValue={setEditValue}
+              onSaveEdit={handleSaveEdit}
+            />
+            
+            {/* Quick Stats Bar */}
+            <div style={{ 
+              backgroundColor: COLORS.card, 
+              borderRadius: 12, 
+              padding: "12px 16px", 
+              marginBottom: 16,
+              border: `1px solid ${COLORS.border}`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 12
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <Users size={16} color={COLORS.textSecondary} />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>{trip.travelers}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <Plane size={16} color={COLORS.flight} />
+                  <span style={{ fontSize: 13, color: COLORS.textSecondary }}>{trip.legs.filter(l => l.type === "flight").length}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <Hotel size={16} color={COLORS.hotel} />
+                  <span style={{ fontSize: 13, color: COLORS.textSecondary }}>{trip.legs.filter(l => l.type === "hotel").length}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <Car size={16} color={COLORS.transport} />
+                  <span style={{ fontSize: 13, color: COLORS.textSecondary }}>{trip.legs.filter(l => !["flight", "hotel"].includes(l.type)).length}</span>
+                </div>
+              </div>
+              <button onClick={() => setShowAddModal(true)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}><Plus size={16} /> Add</button>
             </div>
+            
+            {/* Day-by-Day View */}
             <DayByDayView 
               legs={trip.legs} 
               onUpdateLeg={handleUpdateLeg} 

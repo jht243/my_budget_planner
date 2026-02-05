@@ -24572,42 +24572,62 @@ var __iconNode4 = [
 ];
 var Car = createLucideIcon("car", __iconNode4);
 
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/check.js
+var __iconNode5 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("check", __iconNode5);
+
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/chevron-down.js
-var __iconNode5 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-var ChevronDown = createLucideIcon("chevron-down", __iconNode5);
+var __iconNode6 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+var ChevronDown = createLucideIcon("chevron-down", __iconNode6);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/chevron-up.js
-var __iconNode6 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-var ChevronUp = createLucideIcon("chevron-up", __iconNode6);
+var __iconNode7 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+var ChevronUp = createLucideIcon("chevron-up", __iconNode7);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/circle-alert.js
-var __iconNode7 = [
+var __iconNode8 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
   ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
 ];
-var CircleAlert = createLucideIcon("circle-alert", __iconNode7);
+var CircleAlert = createLucideIcon("circle-alert", __iconNode8);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/circle-check.js
-var __iconNode8 = [
+var __iconNode9 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-var CircleCheck = createLucideIcon("circle-check", __iconNode8);
+var CircleCheck = createLucideIcon("circle-check", __iconNode9);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/circle.js
-var __iconNode9 = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
-var Circle = createLucideIcon("circle", __iconNode9);
+var __iconNode10 = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+var Circle = createLucideIcon("circle", __iconNode10);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/clock.js
-var __iconNode10 = [
+var __iconNode11 = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-var Clock = createLucideIcon("clock", __iconNode10);
+var Clock = createLucideIcon("clock", __iconNode11);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/file-text.js
+var __iconNode12 = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+var FileText = createLucideIcon("file-text", __iconNode12);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/hotel.js
-var __iconNode11 = [
+var __iconNode13 = [
   ["path", { d: "M10 22v-6.57", key: "1wmca3" }],
   ["path", { d: "M12 11h.01", key: "z322tv" }],
   ["path", { d: "M12 7h.01", key: "1ivr5q" }],
@@ -24619,10 +24639,10 @@ var __iconNode11 = [
   ["path", { d: "M8 7h.01", key: "1vti4s" }],
   ["rect", { x: "4", y: "2", width: "16", height: "20", rx: "2", key: "1uxh74" }]
 ];
-var Hotel = createLucideIcon("hotel", __iconNode11);
+var Hotel = createLucideIcon("hotel", __iconNode13);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/map-pin.js
-var __iconNode12 = [
+var __iconNode14 = [
   [
     "path",
     {
@@ -24632,10 +24652,10 @@ var __iconNode12 = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-var MapPin = createLucideIcon("map-pin", __iconNode12);
+var MapPin = createLucideIcon("map-pin", __iconNode14);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/pen-line.js
-var __iconNode13 = [
+var __iconNode15 = [
   ["path", { d: "M13 21h8", key: "1jsn5i" }],
   [
     "path",
@@ -24645,10 +24665,10 @@ var __iconNode13 = [
     }
   ]
 ];
-var PenLine = createLucideIcon("pen-line", __iconNode13);
+var PenLine = createLucideIcon("pen-line", __iconNode15);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/plane.js
-var __iconNode14 = [
+var __iconNode16 = [
   [
     "path",
     {
@@ -24657,24 +24677,24 @@ var __iconNode14 = [
     }
   ]
 ];
-var Plane = createLucideIcon("plane", __iconNode14);
+var Plane = createLucideIcon("plane", __iconNode16);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode15 = [
+var __iconNode17 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode15);
+var Plus = createLucideIcon("plus", __iconNode17);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode16 = [
+var __iconNode18 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode16);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode18);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode17 = [
+var __iconNode19 = [
   [
     "path",
     {
@@ -24685,10 +24705,10 @@ var __iconNode17 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode17);
+var Save = createLucideIcon("save", __iconNode19);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/ship.js
-var __iconNode18 = [
+var __iconNode20 = [
   ["path", { d: "M12 10.189V14", key: "1p8cqu" }],
   ["path", { d: "M12 2v3", key: "qbqxhf" }],
   ["path", { d: "M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6", key: "qpkstq" }],
@@ -24707,10 +24727,10 @@ var __iconNode18 = [
     }
   ]
 ];
-var Ship = createLucideIcon("ship", __iconNode18);
+var Ship = createLucideIcon("ship", __iconNode20);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/sparkles.js
-var __iconNode19 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -24722,10 +24742,10 @@ var __iconNode19 = [
   ["path", { d: "M22 4h-4", key: "gwowj6" }],
   ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
 ];
-var Sparkles = createLucideIcon("sparkles", __iconNode19);
+var Sparkles = createLucideIcon("sparkles", __iconNode21);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/tram-front.js
-var __iconNode20 = [
+var __iconNode22 = [
   ["rect", { width: "16", height: "16", x: "4", y: "3", rx: "2", key: "1wxw4b" }],
   ["path", { d: "M4 11h16", key: "mpoxn0" }],
   ["path", { d: "M12 3v8", key: "1h2ygw" }],
@@ -24734,24 +24754,33 @@ var __iconNode20 = [
   ["path", { d: "M8 15h.01", key: "a7atzg" }],
   ["path", { d: "M16 15h.01", key: "rnfrdf" }]
 ];
-var TramFront = createLucideIcon("tram-front", __iconNode20);
+var TramFront = createLucideIcon("tram-front", __iconNode22);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode21 = [
+var __iconNode23 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode21);
+var Trash2 = createLucideIcon("trash-2", __iconNode23);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/users.js
+var __iconNode24 = [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+];
+var Users = createLucideIcon("users", __iconNode24);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode22 = [
+var __iconNode25 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode22);
+var X = createLucideIcon("x", __iconNode25);
 
 // src/TripPlanner.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -24947,68 +24976,6 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand }) => {
     ] })
   ] });
 };
-var ProgressSummary = ({ legs }) => {
-  const stats = (0, import_react3.useMemo)(() => {
-    const total = legs.length, booked = legs.filter((l) => l.status === "booked").length, pending = legs.filter((l) => l.status === "pending").length, urgent = legs.filter((l) => l.status === "urgent").length;
-    const flights = legs.filter((l) => l.type === "flight"), hotels = legs.filter((l) => l.type === "hotel"), transport = legs.filter((l) => !["flight", "hotel"].includes(l.type));
-    return { total, booked, pending, urgent, flights, hotels, transport };
-  }, [legs]);
-  if (stats.total === 0) return null;
-  const pct = stats.booked / stats.total * 100;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 20, marginBottom: 20, border: `1px solid ${COLORS.border}` }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 16, fontWeight: 700 }, children: "Booking Progress" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 24, fontWeight: 700, color: pct === 100 ? COLORS.booked : COLORS.primary }, children: [
-        Math.round(pct),
-        "%"
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: 8, backgroundColor: COLORS.borderLight, borderRadius: 4, overflow: "hidden", marginBottom: 16 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: "100%", width: `${pct}%`, backgroundColor: pct === 100 ? COLORS.booked : COLORS.primary, borderRadius: 4, transition: "width 0.3s" } }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 12, borderRadius: 10, backgroundColor: COLORS.bookedBg, textAlign: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 700, color: COLORS.booked }, children: stats.booked }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.booked, textTransform: "uppercase" }, children: "Booked" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 12, borderRadius: 10, backgroundColor: COLORS.pendingBg, textAlign: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 700, color: COLORS.pending }, children: stats.pending }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.pending, textTransform: "uppercase" }, children: "Pending" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 12, borderRadius: 10, backgroundColor: COLORS.urgentBg, textAlign: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 700, color: COLORS.urgent }, children: stats.urgent }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.urgent, textTransform: "uppercase" }, children: "Urgent" })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 16, marginTop: 16, justifyContent: "center" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 16, color: COLORS.flight }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: [
-          stats.flights.filter((f) => f.status === "booked").length,
-          "/",
-          stats.flights.length,
-          " flights"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 16, color: COLORS.hotel }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: [
-          stats.hotels.filter((h) => h.status === "booked").length,
-          "/",
-          stats.hotels.length,
-          " hotels"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Car, { size: 16, color: COLORS.transport }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: [
-          stats.transport.filter((t) => t.status === "booked").length,
-          "/",
-          stats.transport.length,
-          " transport"
-        ] })
-      ] })
-    ] })
-  ] });
-};
 var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExpand }) => {
   const legsByDate = (0, import_react3.useMemo)(() => {
     const groups = {};
@@ -25164,6 +25131,124 @@ var AddLegModal = ({ onAdd, onClose }) => {
     ] })
   ] }) });
 };
+var MissingInfoBar = ({
+  missingItems,
+  onAddInfo,
+  editingItem,
+  setEditingItem,
+  editValue,
+  setEditValue,
+  onSaveEdit
+}) => {
+  if (missingItems.length === 0) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 16 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      marginBottom: 8,
+      color: COLORS.pending
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { size: 16 }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600 }, children: "Complete your itinerary:" })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
+      display: "flex",
+      gap: 8,
+      overflowX: "auto",
+      paddingBottom: 8,
+      WebkitOverflowScrolling: "touch"
+    }, children: missingItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { flexShrink: 0 }, children: editingItem === item.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      padding: "8px 12px",
+      backgroundColor: COLORS.card,
+      borderRadius: 10,
+      border: `2px solid ${COLORS.primary}`,
+      minWidth: 180
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "input",
+        {
+          type: item.type.includes("date") ? "date" : item.type === "travelers" ? "number" : "text",
+          value: editValue,
+          onChange: (e) => setEditValue(e.target.value),
+          placeholder: item.label,
+          autoFocus: true,
+          min: item.type === "travelers" ? "1" : void 0,
+          style: {
+            flex: 1,
+            border: "none",
+            outline: "none",
+            fontSize: 13,
+            padding: 0,
+            width: item.type.includes("date") ? 130 : 80,
+            backgroundColor: "transparent"
+          },
+          onKeyDown: (e) => {
+            if (e.key === "Enter") onSaveEdit();
+            if (e.key === "Escape") setEditingItem(null);
+          }
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "button",
+        {
+          onClick: onSaveEdit,
+          style: {
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: COLORS.primary,
+            padding: 2
+          },
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 16 })
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "button",
+        {
+          onClick: () => setEditingItem(null),
+          style: {
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: COLORS.textMuted,
+            padding: 2
+          },
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 16 })
+        }
+      )
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+      "button",
+      {
+        onClick: () => {
+          setEditingItem(item.id);
+          setEditValue("");
+        },
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+          padding: "8px 14px",
+          backgroundColor: COLORS.pendingBg,
+          border: `1px solid ${COLORS.pending}`,
+          borderRadius: 10,
+          color: COLORS.pending,
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: "pointer",
+          whiteSpace: "nowrap"
+        },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
+          item.label
+        ]
+      }
+    ) }, item.id)) })
+  ] });
+};
 function TripPlanner({ initialData: initialData2 }) {
   const [trip, setTrip] = (0, import_react3.useState)(() => {
     try {
@@ -25174,19 +25259,77 @@ function TripPlanner({ initialData: initialData2 }) {
       }
     } catch {
     }
-    return { id: generateId(), name: "My Trip", legs: [], createdAt: Date.now(), updatedAt: Date.now() };
+    return { id: generateId(), name: "My Trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() };
   });
   const [tripDescription, setTripDescription] = (0, import_react3.useState)("");
   const [showAddModal, setShowAddModal] = (0, import_react3.useState)(false);
   const [expandedLegs, setExpandedLegs] = (0, import_react3.useState)(/* @__PURE__ */ new Set());
   const [inputMode, setInputMode] = (0, import_react3.useState)("freeform");
   const [isAnalyzing, setIsAnalyzing] = (0, import_react3.useState)(false);
+  const [editingItem, setEditingItem] = (0, import_react3.useState)(null);
+  const [editValue, setEditValue] = (0, import_react3.useState)("");
   (0, import_react3.useEffect)(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ trip, timestamp: Date.now() }));
     } catch {
     }
   }, [trip]);
+  const missingInfo = (0, import_react3.useMemo)(() => {
+    const items = [];
+    const flights = trip.legs.filter((l) => l.type === "flight");
+    const hotels = trip.legs.filter((l) => l.type === "hotel");
+    if (!trip.travelers || trip.travelers < 1) {
+      items.push({ id: "travelers", type: "travelers", label: "Add travelers", icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Circle, { size: 14 }), priority: 1 });
+    }
+    flights.forEach((f) => {
+      if (!f.date) {
+        items.push({ id: `date-${f.id}`, type: "departure_date", label: `Add date for ${f.title.split(":")[1]?.trim() || "flight"}`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar, { size: 14 }), legId: f.id, priority: 2 });
+      }
+      if (!f.flightNumber) {
+        items.push({ id: `flight-${f.id}`, type: "flight_number", label: `Add flight #`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 14 }), legId: f.id, priority: 4 });
+      }
+      if (!f.confirmationNumber && f.status !== "pending") {
+        items.push({ id: `conf-${f.id}`, type: "confirmation", label: `Add confirmation #`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FileText, { size: 14 }), legId: f.id, priority: 5 });
+      }
+    });
+    hotels.forEach((h) => {
+      if (!h.date) {
+        items.push({ id: `checkin-${h.id}`, type: "departure_date", label: `Add check-in date`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar, { size: 14 }), legId: h.id, priority: 2 });
+      }
+      if (!h.endDate) {
+        items.push({ id: `checkout-${h.id}`, type: "return_date", label: `Add check-out date`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar, { size: 14 }), legId: h.id, priority: 3 });
+      }
+      if (!h.hotelName) {
+        items.push({ id: `hotel-${h.id}`, type: "hotel_name", label: `Add hotel name`, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 14 }), legId: h.id, priority: 4 });
+      }
+    });
+    return items.sort((a, b) => a.priority - b.priority).slice(0, 5);
+  }, [trip]);
+  const handleSaveEdit = () => {
+    if (!editingItem || !editValue.trim()) {
+      setEditingItem(null);
+      return;
+    }
+    const item = missingInfo.find((i) => i.id === editingItem);
+    if (!item) return;
+    if (item.type === "travelers") {
+      setTrip((t) => ({ ...t, travelers: parseInt(editValue) || 1, updatedAt: Date.now() }));
+    } else if (item.legId) {
+      const updates = {};
+      if (item.type === "departure_date") updates.date = editValue;
+      if (item.type === "return_date") updates.endDate = editValue;
+      if (item.type === "flight_number") updates.flightNumber = editValue;
+      if (item.type === "hotel_name") updates.hotelName = editValue;
+      if (item.type === "confirmation") updates.confirmationNumber = editValue;
+      setTrip((t) => ({
+        ...t,
+        legs: t.legs.map((l) => l.id === item.legId ? { ...l, ...updates } : l),
+        updatedAt: Date.now()
+      }));
+    }
+    setEditingItem(null);
+    setEditValue("");
+  };
   const handleParseDescription = async () => {
     if (!tripDescription.trim() || isAnalyzing) return;
     setIsAnalyzing(true);
@@ -25248,7 +25391,7 @@ function TripPlanner({ initialData: initialData2 }) {
   });
   const handleReset = () => {
     if (confirm("Clear all trip data?")) {
-      setTrip({ id: generateId(), name: "My Trip", legs: [], createdAt: Date.now(), updatedAt: Date.now() });
+      setTrip({ id: generateId(), name: "My Trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() });
       setTripDescription("");
       setExpandedLegs(/* @__PURE__ */ new Set());
     }
@@ -25300,12 +25443,52 @@ function TripPlanner({ initialData: initialData2 }) {
         " Add First Trip Leg"
       ] })
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProgressSummary, { legs: trip.legs }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 16, fontWeight: 700, color: COLORS.textMain }, children: "Day-by-Day Itinerary" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setShowAddModal(true), style: { padding: "10px 16px", borderRadius: 10, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 18 }),
-          " Add Leg"
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        MissingInfoBar,
+        {
+          missingItems: missingInfo,
+          onAddInfo: () => {
+          },
+          editingItem,
+          setEditingItem,
+          editValue,
+          setEditValue,
+          onSaveEdit: handleSaveEdit
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+        backgroundColor: COLORS.card,
+        borderRadius: 12,
+        padding: "12px 16px",
+        marginBottom: 16,
+        border: `1px solid ${COLORS.border}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 12
+      }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 16 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Users, { size: 16, color: COLORS.textSecondary }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: trip.travelers })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 16, color: COLORS.flight }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: trip.legs.filter((l) => l.type === "flight").length })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 16, color: COLORS.hotel }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: trip.legs.filter((l) => l.type === "hotel").length })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Car, { size: 16, color: COLORS.transport }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: trip.legs.filter((l) => !["flight", "hotel"].includes(l.type)).length })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setShowAddModal(true), style: { padding: "8px 14px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 16 }),
+          " Add"
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25554,6 +25737,14 @@ lucide-react/dist/esm/icons/car.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/check.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/chevron-down.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -25595,6 +25786,14 @@ lucide-react/dist/esm/icons/circle.js:
    *)
 
 lucide-react/dist/esm/icons/clock.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/file-text.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
@@ -25683,6 +25882,14 @@ lucide-react/dist/esm/icons/tram-front.js:
    *)
 
 lucide-react/dist/esm/icons/trash-2.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/users.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
