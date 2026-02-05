@@ -25010,12 +25010,19 @@ var CategoryIcon = ({
   label
 }) => {
   const config = {
-    flight: { icon: Plane, color: COLORS.flight, bg: COLORS.flightBg, name: "Flight" },
-    hotel: { icon: Hotel, color: COLORS.hotel, bg: COLORS.hotelBg, name: "Hotel" },
-    transport: { icon: Car, color: COLORS.transport, bg: COLORS.transportBg, name: "Transport" },
-    activity: { icon: MapPin, color: "#EC4899", bg: "#FCE7F3", name: "Activity" }
+    flight: { icon: Plane, color: COLORS.flight, bg: COLORS.flightBg, name: "Flight", priority: true },
+    hotel: { icon: Hotel, color: COLORS.hotel, bg: COLORS.hotelBg, name: "Hotel", priority: true },
+    transport: { icon: Car, color: COLORS.transport, bg: COLORS.transportBg, name: "Transport", priority: false },
+    activity: { icon: MapPin, color: "#EC4899", bg: "#FCE7F3", name: "Activity", priority: false }
   };
-  const { icon: Icon2, color, bg, name } = config[type];
+  const { icon: Icon2, color, bg, name, priority } = config[type];
+  const getStatusColor2 = () => {
+    if (hasItem && isBooked) return COLORS.booked;
+    if (hasItem && !isBooked && priority) return "#EF4444";
+    if (hasItem && !isBooked) return COLORS.pending;
+    return COLORS.textMuted;
+  };
+  const statusColor = getStatusColor2();
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     "div",
     {
@@ -25024,37 +25031,39 @@ var CategoryIcon = ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
-        cursor: hasItem ? "pointer" : "default",
-        opacity: hasItem ? 1 : 0.3
+        gap: 2,
+        cursor: "pointer"
       },
       children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-          width: 44,
-          height: 44,
+          width: 48,
+          height: 48,
           borderRadius: 12,
           backgroundColor: hasItem ? bg : COLORS.borderLight,
           border: isExpanded ? `2px solid ${color}` : `1px solid ${hasItem ? color : COLORS.border}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          position: "relative"
+          position: "relative",
+          opacity: hasItem ? 1 : 0.6
         }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon2, { size: 20, color: hasItem ? color : COLORS.textMuted }),
-          hasItem && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon2, { size: 22, color: hasItem ? color : COLORS.textMuted }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
             position: "absolute",
             top: -4,
             right: -4,
-            width: 16,
-            height: 16,
+            width: 14,
+            height: 14,
             borderRadius: "50%",
-            backgroundColor: isBooked ? COLORS.booked : COLORS.pending,
+            backgroundColor: statusColor,
+            border: "2px solid white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center"
-          }, children: isBooked ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 10, color: "white" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Circle, { size: 8, color: "white" }) })
+          }, children: hasItem && isBooked && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 8, color: "white" }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 10, color: hasItem ? COLORS.textMain : COLORS.textMuted, fontWeight: 500 }, children: label || name })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 10, color: COLORS.textMain, fontWeight: 500 }, children: label || name }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 12, color: isExpanded ? color : COLORS.textMuted, style: { marginTop: -2 } })
       ]
     }
   );
@@ -25171,7 +25180,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExp
               hasItem: dayData.flights.length > 0,
               isBooked: flightBooked,
               isExpanded: expanded === "flight",
-              onClick: () => dayData.flights.length > 0 && toggleCategory(date, "flight")
+              onClick: () => toggleCategory(date, "flight")
             }
           ),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25181,7 +25190,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExp
               hasItem: dayData.hotels.length > 0,
               isBooked: hotelBooked,
               isExpanded: expanded === "hotel",
-              onClick: () => dayData.hotels.length > 0 && toggleCategory(date, "hotel"),
+              onClick: () => toggleCategory(date, "hotel"),
               label: dayData.hotels.some((h) => h.isContinuation) ? "Staying" : "Hotel"
             }
           ),
@@ -25192,7 +25201,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExp
               hasItem: dayData.transport.length > 0,
               isBooked: transportBooked,
               isExpanded: expanded === "transport",
-              onClick: () => dayData.transport.length > 0 && toggleCategory(date, "transport")
+              onClick: () => toggleCategory(date, "transport")
             }
           ),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25202,22 +25211,22 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegExp
               hasItem: dayData.activities.length > 0,
               isBooked: activityBooked,
               isExpanded: expanded === "activity",
-              onClick: () => dayData.activities.length > 0 && toggleCategory(date, "activity")
+              onClick: () => toggleCategory(date, "activity")
             }
           )
         ] }),
         expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 12px" }, children: [
-          expanded === "flight" && dayData.flights.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)),
-          expanded === "hotel" && dayData.hotels.map(({ leg, isContinuation }) => isContinuation ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }, children: [
+          expanded === "flight" && (dayData.flights.length > 0 ? dayData.flights.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }, children: "No flight scheduled for this day" })),
+          expanded === "hotel" && (dayData.hotels.length > 0 ? dayData.hotels.map(({ leg, isContinuation }) => isContinuation ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 18, color: COLORS.hotel }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.hotel, fontWeight: 500 }, children: [
               "Staying at ",
               leg.hotelName || leg.location || "hotel"
             ] }),
             leg.status === "booked" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { size: 14, color: COLORS.booked, style: { marginLeft: "auto" } })
-          ] }, `${leg.id}-${date}`) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)),
-          expanded === "transport" && dayData.transport.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)),
-          expanded === "activity" && dayData.activities.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id))
+          ] }, `${leg.id}-${date}`) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }, children: "No hotel for this day" })),
+          expanded === "transport" && (dayData.transport.length > 0 ? dayData.transport.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }, children: "No transport scheduled" })),
+          expanded === "activity" && (dayData.activities.length > 0 ? dayData.activities.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }, children: "No activities planned" }))
         ] })
       ] }, date);
     }),

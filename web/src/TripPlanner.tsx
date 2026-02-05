@@ -424,44 +424,55 @@ const CategoryIcon = ({
   label?: string;
 }) => {
   const config = {
-    flight: { icon: Plane, color: COLORS.flight, bg: COLORS.flightBg, name: "Flight" },
-    hotel: { icon: Hotel, color: COLORS.hotel, bg: COLORS.hotelBg, name: "Hotel" },
-    transport: { icon: Car, color: COLORS.transport, bg: COLORS.transportBg, name: "Transport" },
-    activity: { icon: MapPin, color: "#EC4899", bg: "#FCE7F3", name: "Activity" }
+    flight: { icon: Plane, color: COLORS.flight, bg: COLORS.flightBg, name: "Flight", priority: true },
+    hotel: { icon: Hotel, color: COLORS.hotel, bg: COLORS.hotelBg, name: "Hotel", priority: true },
+    transport: { icon: Car, color: COLORS.transport, bg: COLORS.transportBg, name: "Transport", priority: false },
+    activity: { icon: MapPin, color: "#EC4899", bg: "#FCE7F3", name: "Activity", priority: false }
   };
-  const { icon: Icon, color, bg, name } = config[type];
+  const { icon: Icon, color, bg, name, priority } = config[type];
+  
+  // Status dot color: green=booked, red=pending important, orange=pending non-priority, gray=nothing
+  const getStatusColor = () => {
+    if (hasItem && isBooked) return COLORS.booked; // Green
+    if (hasItem && !isBooked && priority) return "#EF4444"; // Red for important pending
+    if (hasItem && !isBooked) return COLORS.pending; // Orange for non-priority pending
+    return COLORS.textMuted; // Gray for empty
+  };
+  const statusColor = getStatusColor();
   
   return (
     <div 
       onClick={onClick}
       style={{ 
-        display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
-        cursor: hasItem ? "pointer" : "default",
-        opacity: hasItem ? 1 : 0.3
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
+        cursor: "pointer"
       }}
     >
       <div style={{ 
-        width: 44, height: 44, borderRadius: 12,
+        width: 48, height: 48, borderRadius: 12,
         backgroundColor: hasItem ? bg : COLORS.borderLight,
         border: isExpanded ? `2px solid ${color}` : `1px solid ${hasItem ? color : COLORS.border}`,
         display: "flex", alignItems: "center", justifyContent: "center",
-        position: "relative"
+        position: "relative",
+        opacity: hasItem ? 1 : 0.6
       }}>
-        <Icon size={20} color={hasItem ? color : COLORS.textMuted} />
-        {hasItem && (
-          <div style={{ 
-            position: "absolute", top: -4, right: -4,
-            width: 16, height: 16, borderRadius: "50%",
-            backgroundColor: isBooked ? COLORS.booked : COLORS.pending,
-            display: "flex", alignItems: "center", justifyContent: "center"
-          }}>
-            {isBooked ? <Check size={10} color="white" /> : <Circle size={8} color="white" />}
-          </div>
-        )}
+        <Icon size={22} color={hasItem ? color : COLORS.textMuted} />
+        {/* Status dot - always visible */}
+        <div style={{ 
+          position: "absolute", top: -4, right: -4,
+          width: 14, height: 14, borderRadius: "50%",
+          backgroundColor: statusColor,
+          border: "2px solid white",
+          display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
+          {hasItem && isBooked && <Check size={8} color="white" />}
+        </div>
       </div>
-      <span style={{ fontSize: 10, color: hasItem ? COLORS.textMain : COLORS.textMuted, fontWeight: 500 }}>
+      <span style={{ fontSize: 10, color: COLORS.textMain, fontWeight: 500 }}>
         {label || name}
       </span>
+      {/* Expand arrow indicator */}
+      <ChevronDown size={12} color={isExpanded ? color : COLORS.textMuted} style={{ marginTop: -2 }} />
     </div>
   );
 };
@@ -607,14 +618,14 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegE
                 hasItem={dayData.flights.length > 0}
                 isBooked={flightBooked}
                 isExpanded={expanded === "flight"}
-                onClick={() => dayData.flights.length > 0 && toggleCategory(date, "flight")}
+                onClick={() => toggleCategory(date, "flight")}
               />
               <CategoryIcon 
                 type="hotel" 
                 hasItem={dayData.hotels.length > 0}
                 isBooked={hotelBooked}
                 isExpanded={expanded === "hotel"}
-                onClick={() => dayData.hotels.length > 0 && toggleCategory(date, "hotel")}
+                onClick={() => toggleCategory(date, "hotel")}
                 label={dayData.hotels.some(h => h.isContinuation) ? "Staying" : "Hotel"}
               />
               <CategoryIcon 
@@ -622,24 +633,24 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegE
                 hasItem={dayData.transport.length > 0}
                 isBooked={transportBooked}
                 isExpanded={expanded === "transport"}
-                onClick={() => dayData.transport.length > 0 && toggleCategory(date, "transport")}
+                onClick={() => toggleCategory(date, "transport")}
               />
               <CategoryIcon 
                 type="activity" 
                 hasItem={dayData.activities.length > 0}
                 isBooked={activityBooked}
                 isExpanded={expanded === "activity"}
-                onClick={() => dayData.activities.length > 0 && toggleCategory(date, "activity")}
+                onClick={() => toggleCategory(date, "activity")}
               />
             </div>
             
             {/* Expanded Details */}
             {expanded && (
               <div style={{ padding: "8px 12px" }}>
-                {expanded === "flight" && dayData.flights.map(leg => (
+                {expanded === "flight" && (dayData.flights.length > 0 ? dayData.flights.map(leg => (
                   <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                ))}
-                {expanded === "hotel" && dayData.hotels.map(({ leg, isContinuation }) => (
+                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No flight scheduled for this day</div>)}
+                {expanded === "hotel" && (dayData.hotels.length > 0 ? dayData.hotels.map(({ leg, isContinuation }) => (
                   isContinuation ? (
                     <div key={`${leg.id}-${date}`} style={{ padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }}>
                       <Hotel size={18} color={COLORS.hotel} />
@@ -649,13 +660,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, expandedLegs, toggleLegE
                   ) : (
                     <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
                   )
-                ))}
-                {expanded === "transport" && dayData.transport.map(leg => (
+                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No hotel for this day</div>)}
+                {expanded === "transport" && (dayData.transport.length > 0 ? dayData.transport.map(leg => (
                   <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                ))}
-                {expanded === "activity" && dayData.activities.map(leg => (
+                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No transport scheduled</div>)}
+                {expanded === "activity" && (dayData.activities.length > 0 ? dayData.activities.map(leg => (
                   <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} />
-                ))}
+                )) : <div style={{ padding: "16px", textAlign: "center", color: COLORS.textMuted, fontSize: 13 }}>No activities planned</div>)}
               </div>
             )}
           </div>
