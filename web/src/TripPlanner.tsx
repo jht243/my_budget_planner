@@ -459,11 +459,11 @@ const CategoryIcon = ({
   };
   const { icon: Icon, color, bg, name, priority } = config[type];
   
-  // Status dot color: green=booked, red=pending/empty important, orange=pending/empty non-priority (NEVER GRAY)
+  // Status dot color: green=hasItem (complete), red=empty important, orange=empty non-priority
   const getStatusColor = () => {
-    if (hasItem && isBooked) return COLORS.booked; // Green - booked
-    if (priority) return "#EF4444"; // Red for important (flight/hotel) - pending or empty
-    return COLORS.pending; // Orange for non-priority (transport/activity) - pending or empty
+    if (hasItem) return COLORS.booked; // Green - has item (complete)
+    if (priority) return "#EF4444"; // Red for important (flight/hotel) - empty
+    return COLORS.pending; // Orange for non-priority (transport/activity) - empty
   };
   const statusColor = getStatusColor();
   
@@ -635,25 +635,25 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               <span style={{ fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }}>
                 {formatDayHeader(date, idx + 1)}
               </span>
-              {/* Completion counter - counts only displayed icons */}
+              {/* Completion counter - counts items that exist (hasItem = complete) */}
               {(() => {
                 const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
-                // Build list of displayed categories with their booked status
-                const displayedCategories: { hasItem: boolean; isBooked: boolean }[] = [
+                // Build list of displayed categories - hasItem means complete
+                const displayedCategories: boolean[] = [
                   // Lodging - always displayed
-                  { hasItem: dayData.hotels.length > 0, isBooked: hotelBooked },
+                  dayData.hotels.length > 0,
                   // Activities - always displayed
-                  { hasItem: dayData.activities.length > 0, isBooked: activityBooked },
+                  dayData.activities.length > 0,
                 ];
                 // Transportation and Flights - only on travel days
                 if (isTravelDay) {
                   displayedCategories.push(
-                    { hasItem: dayData.transport.length > 0, isBooked: transportBooked },
-                    { hasItem: dayData.flights.length > 0, isBooked: flightBooked }
+                    dayData.transport.length > 0,
+                    dayData.flights.length > 0
                   );
                 }
-                // Count completed (has item AND booked) vs total displayed icons
-                const completed = displayedCategories.filter(c => c.hasItem && c.isBooked).length;
+                // Count completed (hasItem = true) vs total displayed icons
+                const completed = displayedCategories.filter(c => c).length;
                 const total = displayedCategories.length;
                 return (
                   <span style={{ 

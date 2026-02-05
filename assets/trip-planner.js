@@ -25038,7 +25038,7 @@ var CategoryIcon = ({
   };
   const { icon: Icon2, color, bg, name, priority } = config[type];
   const getStatusColor2 = () => {
-    if (hasItem && isBooked) return COLORS.booked;
+    if (hasItem) return COLORS.booked;
     if (priority) return "#EF4444";
     return COLORS.pending;
   };
@@ -25190,17 +25190,17 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
             const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
             const displayedCategories = [
               // Lodging - always displayed
-              { hasItem: dayData.hotels.length > 0, isBooked: hotelBooked },
+              dayData.hotels.length > 0,
               // Activities - always displayed
-              { hasItem: dayData.activities.length > 0, isBooked: activityBooked }
+              dayData.activities.length > 0
             ];
             if (isTravelDay) {
               displayedCategories.push(
-                { hasItem: dayData.transport.length > 0, isBooked: transportBooked },
-                { hasItem: dayData.flights.length > 0, isBooked: flightBooked }
+                dayData.transport.length > 0,
+                dayData.flights.length > 0
               );
             }
-            const completed = displayedCategories.filter((c) => c.hasItem && c.isBooked).length;
+            const completed = displayedCategories.filter((c) => c).length;
             const total = displayedCategories.length;
             return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: {
               fontSize: 12,
