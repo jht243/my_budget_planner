@@ -25868,6 +25868,7 @@ function TripPlanner({ initialData: initialData2 }) {
   const [renamingTripId, setRenamingTripId] = (0, import_react3.useState)(null);
   const [renameValue, setRenameValue] = (0, import_react3.useState)("");
   const [isAnalyzing, setIsAnalyzing] = (0, import_react3.useState)(false);
+  const [isEditingDates, setIsEditingDates] = (0, import_react3.useState)(false);
   const [editingItem, setEditingItem] = (0, import_react3.useState)(null);
   const [editValue, setEditValue] = (0, import_react3.useState)("");
   (0, import_react3.useEffect)(() => {
@@ -26336,12 +26337,12 @@ function TripPlanner({ initialData: initialData2 }) {
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
       (() => {
         const datesComplete = trip.departureDate && (trip.tripType === "one_way" || trip.returnDate);
-        return datesComplete ? (
+        return datesComplete && !isEditingDates ? (
           // Collapsed view - just show summary
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
             "div",
             {
-              onClick: () => setTrip((t) => ({ ...t, departureDate: void 0, returnDate: void 0, updatedAt: Date.now() })),
+              onClick: () => setIsEditingDates(true),
               style: {
                 backgroundColor: COLORS.card,
                 borderRadius: 12,
@@ -26482,7 +26483,26 @@ function TripPlanner({ initialData: initialData2 }) {
                   }
                 )
               ] })
-            ] })
+            ] }),
+            trip.departureDate && (trip.tripType === "one_way" || trip.returnDate) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "button",
+              {
+                onClick: () => setIsEditingDates(false),
+                style: {
+                  width: "100%",
+                  marginTop: 12,
+                  padding: 10,
+                  borderRadius: 8,
+                  border: "none",
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer"
+                },
+                children: "Done"
+              }
+            )
           ] })
         );
       })(),

@@ -1270,6 +1270,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   const [renamingTripId, setRenamingTripId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isEditingDates, setIsEditingDates] = useState(false);
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
 
@@ -1769,10 +1770,10 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
             {/* Trip Type & Dates Selector - Collapsible when filled */}
             {(() => {
               const datesComplete = trip.departureDate && (trip.tripType === "one_way" || trip.returnDate);
-              return datesComplete ? (
+              return (datesComplete && !isEditingDates) ? (
                 // Collapsed view - just show summary
                 <div 
-                  onClick={() => setTrip(t => ({ ...t, departureDate: undefined, returnDate: undefined, updatedAt: Date.now() }))}
+                  onClick={() => setIsEditingDates(true)}
                   style={{ 
                     backgroundColor: COLORS.card, 
                     borderRadius: 12, 
@@ -1932,6 +1933,26 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                   </div>
                 )}
               </div>
+              {/* Done button to close editor */}
+              {trip.departureDate && (trip.tripType === "one_way" || trip.returnDate) && (
+                <button 
+                  onClick={() => setIsEditingDates(false)}
+                  style={{ 
+                    width: "100%", 
+                    marginTop: 12, 
+                    padding: 10, 
+                    borderRadius: 8, 
+                    border: "none", 
+                    backgroundColor: COLORS.primary, 
+                    color: "white", 
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    cursor: "pointer" 
+                  }}
+                >
+                  Done
+                </button>
+              )}
             </div>
               );
             })()}
