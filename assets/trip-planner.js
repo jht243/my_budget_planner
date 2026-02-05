@@ -25219,12 +25219,12 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
         (() => {
           const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
           return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-            display: "flex",
-            justifyContent: "space-around",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
             padding: "12px 8px",
             borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
           }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               CategoryIcon,
               {
                 type: "hotel",
@@ -25234,8 +25234,8 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                 onClick: () => toggleCategory(date, "hotel"),
                 label: "Lodging"
               }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               CategoryIcon,
               {
                 type: "activity",
@@ -25244,8 +25244,8 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                 isExpanded: expanded === "activity",
                 onClick: () => toggleCategory(date, "activity")
               }
-            ),
-            isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               CategoryIcon,
               {
                 type: "transport",
@@ -25254,8 +25254,8 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                 isExpanded: expanded === "transport",
                 onClick: () => toggleCategory(date, "transport")
               }
-            ),
-            isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               CategoryIcon,
               {
                 type: "flight",
@@ -25264,7 +25264,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                 isExpanded: expanded === "flight",
                 onClick: () => toggleCategory(date, "flight")
               }
-            )
+            ) })
           ] });
         })(),
         expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 12px" }, children: [

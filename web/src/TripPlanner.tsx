@@ -668,53 +668,62 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               })()}
             </div>
             
-            {/* Horizontal Icon Guide - consistent order: Lodging, Activities, Transportation, Flights */}
-            {/* Transportation and Flights only show on travel days (first and last day) */}
+            {/* Horizontal Icon Guide - fixed 4-column grid for consistent alignment */}
+            {/* All 4 slots always present, Transport/Flight only clickable on travel days */}
             {(() => {
               const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
               return (
                 <div style={{ 
-                  display: "flex", justifyContent: "space-around", 
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4, 1fr)",
                   padding: "12px 8px",
                   borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
                 }}>
-                  {/* 1. Lodging */}
-                  <CategoryIcon 
-                    type="hotel" 
-                    hasItem={dayData.hotels.length > 0}
-                    isBooked={hotelBooked}
-                    isExpanded={expanded === "hotel"}
-                    onClick={() => toggleCategory(date, "hotel")}
-                    label="Lodging"
-                  />
-                  {/* 2. Activities */}
-                  <CategoryIcon 
-                    type="activity" 
-                    hasItem={dayData.activities.length > 0}
-                    isBooked={activityBooked}
-                    isExpanded={expanded === "activity"}
-                    onClick={() => toggleCategory(date, "activity")}
-                  />
-                  {/* 3. Transportation - only on travel days */}
-                  {isTravelDay && (
+                  {/* 1. Lodging - always shown */}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <CategoryIcon 
-                      type="transport" 
-                      hasItem={dayData.transport.length > 0}
-                      isBooked={transportBooked}
-                      isExpanded={expanded === "transport"}
-                      onClick={() => toggleCategory(date, "transport")}
+                      type="hotel" 
+                      hasItem={dayData.hotels.length > 0}
+                      isBooked={hotelBooked}
+                      isExpanded={expanded === "hotel"}
+                      onClick={() => toggleCategory(date, "hotel")}
+                      label="Lodging"
                     />
-                  )}
-                  {/* 4. Flights - only on travel days */}
-                  {isTravelDay && (
+                  </div>
+                  {/* 2. Activities - always shown */}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <CategoryIcon 
-                      type="flight" 
-                      hasItem={dayData.flights.length > 0}
-                      isBooked={flightBooked}
-                      isExpanded={expanded === "flight"}
-                      onClick={() => toggleCategory(date, "flight")}
+                      type="activity" 
+                      hasItem={dayData.activities.length > 0}
+                      isBooked={activityBooked}
+                      isExpanded={expanded === "activity"}
+                      onClick={() => toggleCategory(date, "activity")}
                     />
-                  )}
+                  </div>
+                  {/* 3. Transportation - only on travel days, empty placeholder otherwise */}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    {isTravelDay && (
+                      <CategoryIcon 
+                        type="transport" 
+                        hasItem={dayData.transport.length > 0}
+                        isBooked={transportBooked}
+                        isExpanded={expanded === "transport"}
+                        onClick={() => toggleCategory(date, "transport")}
+                      />
+                    )}
+                  </div>
+                  {/* 4. Flights - only on travel days, empty placeholder otherwise */}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    {isTravelDay && (
+                      <CategoryIcon 
+                        type="flight" 
+                        hasItem={dayData.flights.length > 0}
+                        isBooked={flightBooked}
+                        isExpanded={expanded === "flight"}
+                        onClick={() => toggleCategory(date, "flight")}
+                      />
+                    )}
+                  </div>
                 </div>
               );
             })()}
