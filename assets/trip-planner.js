@@ -25130,7 +25130,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
         const checkOut = /* @__PURE__ */ new Date(checkOutDate + "T00:00:00");
         const current = new Date(checkIn);
         let isFirst = true;
-        while (current < checkOut) {
+        while (current <= checkOut) {
           const dateStr = current.toISOString().split("T")[0];
           if (groups[dateStr]) {
             groups[dateStr].hotels.push({ leg, isContinuation: !isFirst });
