@@ -276,13 +276,41 @@ const parseTripDescription = (text: string): Partial<TripLeg>[] => {
   return legs;
 };
 
-const StatusBadge = ({ status, onClick }: { status: BookingStatus; onClick?: () => void }) => {
+// Small status icon (not a button)
+const StatusIcon = ({ status }: { status: BookingStatus }) => {
   const colors = getStatusColor(status);
-  const labels = { booked: "Booked", pending: "Pending", urgent: "Urgent" };
-  const icons = { booked: <CheckCircle2 size={14} />, pending: <Circle size={14} />, urgent: <AlertCircle size={14} /> };
+  const icons = { 
+    booked: <CheckCircle2 size={18} />, 
+    pending: <Circle size={18} />, 
+    urgent: <AlertCircle size={18} /> 
+  };
   return (
-    <button onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 20, backgroundColor: colors.bg, color: colors.main, border: `1px solid ${colors.main}`, fontSize: 12, fontWeight: 600, cursor: onClick ? "pointer" : "default" }}>
-      {icons[status]} {labels[status]}
+    <div style={{ color: colors.main }} title={status}>
+      {icons[status]}
+    </div>
+  );
+};
+
+// "Add details" CTA button
+const AddDetailsButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button 
+      onClick={onClick} 
+      style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        gap: 4, 
+        padding: "6px 12px", 
+        borderRadius: 8, 
+        backgroundColor: COLORS.primary, 
+        color: "white", 
+        border: "none", 
+        fontSize: 12, 
+        fontWeight: 600, 
+        cursor: "pointer" 
+      }}
+    >
+      <Plus size={14} /> Add details
     </button>
   );
 };
@@ -332,7 +360,8 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand }: { 
             {leg.flightNumber && <span style={{ fontSize: 13, color: legColors.main, fontWeight: 600 }}>{leg.flightNumber}</span>}
           </div>
         </div>
-        <StatusBadge status={leg.status} onClick={() => cycleStatus()} />
+        <StatusIcon status={leg.status} />
+        {leg.status === "pending" && <AddDetailsButton onClick={() => setIsEditing(true)} />}
         <div style={{ color: COLORS.textSecondary }}>{isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}</div>
       </div>
       {isExpanded && (
@@ -949,6 +978,126 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
           </div>
         ) : (
           <>
+            {/* Trip Type & Dates Selector */}
+            <div style={{ 
+              backgroundColor: COLORS.card, 
+              borderRadius: 16, 
+              padding: 16, 
+              marginBottom: 16,
+              border: `1px solid ${COLORS.border}`
+            }}>
+              {/* Trip Type Toggle */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+                {[
+                  { value: "one_way", label: "One Way" },
+                  { value: "round_trip", label: "Round Trip" },
+                  { value: "multi_city", label: "Multi-City" }
+                ].map(opt => (
+                  <button
+                    key={opt.value}
+                    onClick={() => setTrip(t => ({ ...t, tripType: opt.value as TripType, updatedAt: Date.now() }))}
+                    style={{
+                      flex: 1,
+                      padding: "10px 12px",
+                      borderRadius: 10,
+                      border: trip.tripType === opt.value ? `2px solid ${COLORS.primary}` : `1px solid ${COLORS.border}`,
+                      backgroundColor: trip.tripType === opt.value ? COLORS.accentLight : "white",
+                      color: trip.tripType === opt.value ? COLORS.primaryDark : COLORS.textSecondary,
+                      fontWeight: 600,
+                      fontSize: 13,
+                      cursor: "pointer"
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              
+              {/* Date Pickers */}
+              <div style={{ display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>
+                    Departure Date
+                  </label>
+                  <input
+                    type="date"
+                    value={trip.departureDate || ""}
+                    onChange={e => {
+                      const newDate = e.target.value;
+                      // Update trip departure date and sync to outbound flight
+                      setTrip(t => {
+                        const updatedLegs = t.legs.map((leg, idx) => {
+                          if (leg.type === "flight" && idx === 0) {
+                            return { ...leg, date: newDate };
+                          }
+                          if (leg.type === "hotel") {
+                            return { ...leg, date: newDate };
+                          }
+                          // Transport to airport on departure day
+                          if (leg.type === "car" && leg.title.includes("to") && leg.title.includes("Airport") && idx < t.legs.length / 2) {
+                            return { ...leg, date: newDate };
+                          }
+                          return leg;
+                        });
+                        return { ...t, departureDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
+                      });
+                    }}
+                    style={{
+                      width: "100%",
+                      padding: 12,
+                      borderRadius: 10,
+                      border: `1px solid ${COLORS.border}`,
+                      fontSize: 14,
+                      boxSizing: "border-box"
+                    }}
+                  />
+                </div>
+                
+                {trip.tripType !== "one_way" && (
+                  <div>
+                    <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>
+                      Return Date
+                    </label>
+                    <input
+                      type="date"
+                      value={trip.returnDate || ""}
+                      onChange={e => {
+                        const newDate = e.target.value;
+                        // Update trip return date and sync to return flight
+                        setTrip(t => {
+                          const flights = t.legs.filter(l => l.type === "flight");
+                          const updatedLegs = t.legs.map((leg, idx) => {
+                            // Return flight (last flight)
+                            if (leg.type === "flight" && flights.length > 1 && leg.id === flights[flights.length - 1].id) {
+                              return { ...leg, date: newDate };
+                            }
+                            // Hotel checkout
+                            if (leg.type === "hotel") {
+                              return { ...leg, endDate: newDate };
+                            }
+                            // Transport on return day
+                            if (leg.type === "car" && idx >= t.legs.length / 2) {
+                              return { ...leg, date: newDate };
+                            }
+                            return leg;
+                          });
+                          return { ...t, returnDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
+                        });
+                      }}
+                      style={{
+                        width: "100%",
+                        padding: 12,
+                        borderRadius: 10,
+                        border: `1px solid ${COLORS.border}`,
+                        fontSize: 14,
+                        boxSizing: "border-box"
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+            
             {/* Missing Info Prompts - horizontal scroll */}
             <MissingInfoBar 
               missingItems={missingInfo}

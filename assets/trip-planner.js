@@ -24869,15 +24869,39 @@ var getStatusColor = (status) => {
       return { main: COLORS.urgent, bg: COLORS.urgentBg };
   }
 };
-var StatusBadge = ({ status, onClick }) => {
+var StatusIcon = ({ status }) => {
   const colors = getStatusColor(status);
-  const labels = { booked: "Booked", pending: "Pending", urgent: "Urgent" };
-  const icons = { booked: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { size: 14 }), pending: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Circle, { size: 14 }), urgent: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { size: 14 }) };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick, style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 20, backgroundColor: colors.bg, color: colors.main, border: `1px solid ${colors.main}`, fontSize: 12, fontWeight: 600, cursor: onClick ? "pointer" : "default" }, children: [
-    icons[status],
-    " ",
-    labels[status]
-  ] });
+  const icons = {
+    booked: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { size: 18 }),
+    pending: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Circle, { size: 18 }),
+    urgent: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { size: 18 })
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { color: colors.main }, title: status, children: icons[status] });
+};
+var AddDetailsButton = ({ onClick }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    "button",
+    {
+      onClick,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 4,
+        padding: "6px 12px",
+        borderRadius: 8,
+        backgroundColor: COLORS.primary,
+        color: "white",
+        border: "none",
+        fontSize: 12,
+        fontWeight: 600,
+        cursor: "pointer"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
+        " Add details"
+      ]
+    }
+  );
 };
 var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand }) => {
   const [isEditing, setIsEditing] = (0, import_react3.useState)(false);
@@ -24933,7 +24957,8 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand }) => {
           leg.flightNumber && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: legColors.main, fontWeight: 600 }, children: leg.flightNumber })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatusBadge, { status: leg.status, onClick: () => cycleStatus() }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatusIcon, { status: leg.status }),
+      leg.status === "pending" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AddDetailsButton, { onClick: () => setIsEditing(true) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { color: COLORS.textSecondary }, children: isExpanded ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { size: 20 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 20 }) })
     ] }),
     isExpanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "0 20px 16px", borderTop: `1px solid ${COLORS.borderLight}`, paddingTop: 16 }, children: [
@@ -25514,6 +25539,112 @@ function TripPlanner({ initialData: initialData2 }) {
         " Add First Trip Leg"
       ] })
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+        backgroundColor: COLORS.card,
+        borderRadius: 16,
+        padding: 16,
+        marginBottom: 16,
+        border: `1px solid ${COLORS.border}`
+      }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 8, marginBottom: 16 }, children: [
+          { value: "one_way", label: "One Way" },
+          { value: "round_trip", label: "Round Trip" },
+          { value: "multi_city", label: "Multi-City" }
+        ].map((opt) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setTrip((t) => ({ ...t, tripType: opt.value, updatedAt: Date.now() })),
+            style: {
+              flex: 1,
+              padding: "10px 12px",
+              borderRadius: 10,
+              border: trip.tripType === opt.value ? `2px solid ${COLORS.primary}` : `1px solid ${COLORS.border}`,
+              backgroundColor: trip.tripType === opt.value ? COLORS.accentLight : "white",
+              color: trip.tripType === opt.value ? COLORS.primaryDark : COLORS.textSecondary,
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: "pointer"
+            },
+            children: opt.label
+          },
+          opt.value
+        )) }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Departure Date" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "date",
+                value: trip.departureDate || "",
+                onChange: (e) => {
+                  const newDate = e.target.value;
+                  setTrip((t) => {
+                    const updatedLegs = t.legs.map((leg, idx) => {
+                      if (leg.type === "flight" && idx === 0) {
+                        return { ...leg, date: newDate };
+                      }
+                      if (leg.type === "hotel") {
+                        return { ...leg, date: newDate };
+                      }
+                      if (leg.type === "car" && leg.title.includes("to") && leg.title.includes("Airport") && idx < t.legs.length / 2) {
+                        return { ...leg, date: newDate };
+                      }
+                      return leg;
+                    });
+                    return { ...t, departureDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
+                  });
+                },
+                style: {
+                  width: "100%",
+                  padding: 12,
+                  borderRadius: 10,
+                  border: `1px solid ${COLORS.border}`,
+                  fontSize: 14,
+                  boxSizing: "border-box"
+                }
+              }
+            )
+          ] }),
+          trip.tripType !== "one_way" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Return Date" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "date",
+                value: trip.returnDate || "",
+                onChange: (e) => {
+                  const newDate = e.target.value;
+                  setTrip((t) => {
+                    const flights = t.legs.filter((l) => l.type === "flight");
+                    const updatedLegs = t.legs.map((leg, idx) => {
+                      if (leg.type === "flight" && flights.length > 1 && leg.id === flights[flights.length - 1].id) {
+                        return { ...leg, date: newDate };
+                      }
+                      if (leg.type === "hotel") {
+                        return { ...leg, endDate: newDate };
+                      }
+                      if (leg.type === "car" && idx >= t.legs.length / 2) {
+                        return { ...leg, date: newDate };
+                      }
+                      return leg;
+                    });
+                    return { ...t, returnDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
+                  });
+                },
+                style: {
+                  width: "100%",
+                  padding: 12,
+                  borderRadius: 10,
+                  border: `1px solid ${COLORS.border}`,
+                  fontSize: 14,
+                  boxSizing: "border-box"
+                }
+              }
+            )
+          ] })
+        ] })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         MissingInfoBar,
         {
