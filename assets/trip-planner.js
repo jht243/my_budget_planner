@@ -25188,16 +25188,17 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }, children: formatDayHeader(date, idx + 1) }),
           (() => {
             const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+            const hasUserInfo = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
             const displayedCategories = [
-              // Lodging - always displayed
-              dayData.hotels.length > 0,
-              // Activities - always displayed
+              // Lodging - complete if hotel exists with name
+              dayData.hotels.length > 0 && dayData.hotels.some((h) => h.leg.hotelName || h.leg.title),
+              // Activities - complete if activity exists
               dayData.activities.length > 0
             ];
             if (isTravelDay) {
               displayedCategories.push(
-                dayData.transport.length > 0,
-                dayData.flights.length > 0
+                dayData.transport.some((t) => hasUserInfo(t)),
+                dayData.flights.some((f) => hasUserInfo(f) || f.flightNumber)
               );
             }
             const completed = displayedCategories.filter((c) => c).length;
@@ -25218,6 +25219,11 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
         ] }),
         (() => {
           const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+          const hasUserInfo = (leg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+          const hotelComplete = dayData.hotels.length > 0 && dayData.hotels.some((h) => h.leg.hotelName || h.leg.title);
+          const activityComplete = dayData.activities.length > 0;
+          const transportComplete = dayData.transport.some((t) => hasUserInfo(t));
+          const flightComplete = dayData.flights.some((f) => hasUserInfo(f) || f.flightNumber);
           return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
@@ -25228,7 +25234,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               CategoryIcon,
               {
                 type: "hotel",
-                hasItem: dayData.hotels.length > 0,
+                hasItem: hotelComplete,
                 isBooked: hotelBooked,
                 isExpanded: expanded === "hotel",
                 onClick: () => toggleCategory(date, "hotel"),
@@ -25239,7 +25245,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               CategoryIcon,
               {
                 type: "activity",
-                hasItem: dayData.activities.length > 0,
+                hasItem: activityComplete,
                 isBooked: activityBooked,
                 isExpanded: expanded === "activity",
                 onClick: () => toggleCategory(date, "activity")
@@ -25249,7 +25255,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               CategoryIcon,
               {
                 type: "transport",
-                hasItem: dayData.transport.length > 0,
+                hasItem: transportComplete,
                 isBooked: transportBooked,
                 isExpanded: expanded === "transport",
                 onClick: () => toggleCategory(date, "transport")
@@ -25259,7 +25265,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               CategoryIcon,
               {
                 type: "flight",
-                hasItem: dayData.flights.length > 0,
+                hasItem: flightComplete,
                 isBooked: flightBooked,
                 isExpanded: expanded === "flight",
                 onClick: () => toggleCategory(date, "flight")

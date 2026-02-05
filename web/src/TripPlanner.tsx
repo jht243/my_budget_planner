@@ -635,24 +635,26 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               <span style={{ fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }}>
                 {formatDayHeader(date, idx + 1)}
               </span>
-              {/* Completion counter - counts items that exist (hasItem = complete) */}
+              {/* Completion counter - items complete when user has added meaningful info */}
               {(() => {
                 const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
-                // Build list of displayed categories - hasItem means complete
+                // Helper: check if leg has user-added info (not just auto-generated)
+                const hasUserInfo = (leg: TripLeg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+                // Build list of displayed categories - complete means user added info
                 const displayedCategories: boolean[] = [
-                  // Lodging - always displayed
-                  dayData.hotels.length > 0,
-                  // Activities - always displayed
+                  // Lodging - complete if hotel exists with name
+                  dayData.hotels.length > 0 && dayData.hotels.some(h => h.leg.hotelName || h.leg.title),
+                  // Activities - complete if activity exists
                   dayData.activities.length > 0,
                 ];
-                // Transportation and Flights - only on travel days
+                // Transportation and Flights - only on travel days, complete if user added info
                 if (isTravelDay) {
                   displayedCategories.push(
-                    dayData.transport.length > 0,
-                    dayData.flights.length > 0
+                    dayData.transport.some(t => hasUserInfo(t)),
+                    dayData.flights.some(f => hasUserInfo(f) || f.flightNumber)
                   );
                 }
-                // Count completed (hasItem = true) vs total displayed icons
+                // Count completed vs total displayed icons
                 const completed = displayedCategories.filter(c => c).length;
                 const total = displayedCategories.length;
                 return (
@@ -672,6 +674,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
             {/* All 4 slots always present, Transport/Flight only clickable on travel days */}
             {(() => {
               const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+              // Helper: check if leg has user-added info (not just auto-generated)
+              const hasUserInfo = (leg: TripLeg) => leg.status === "booked" || leg.confirmationNumber || leg.notes;
+              // Complete status for each category
+              const hotelComplete = dayData.hotels.length > 0 && dayData.hotels.some(h => h.leg.hotelName || h.leg.title);
+              const activityComplete = dayData.activities.length > 0;
+              const transportComplete = dayData.transport.some(t => hasUserInfo(t));
+              const flightComplete = dayData.flights.some(f => hasUserInfo(f) || f.flightNumber);
               return (
                 <div style={{ 
                   display: "grid",
@@ -683,7 +692,7 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <CategoryIcon 
                       type="hotel" 
-                      hasItem={dayData.hotels.length > 0}
+                      hasItem={hotelComplete}
                       isBooked={hotelBooked}
                       isExpanded={expanded === "hotel"}
                       onClick={() => toggleCategory(date, "hotel")}
@@ -694,7 +703,7 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <CategoryIcon 
                       type="activity" 
-                      hasItem={dayData.activities.length > 0}
+                      hasItem={activityComplete}
                       isBooked={activityBooked}
                       isExpanded={expanded === "activity"}
                       onClick={() => toggleCategory(date, "activity")}
@@ -705,7 +714,7 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                     {isTravelDay && (
                       <CategoryIcon 
                         type="transport" 
-                        hasItem={dayData.transport.length > 0}
+                        hasItem={transportComplete}
                         isBooked={transportBooked}
                         isExpanded={expanded === "transport"}
                         onClick={() => toggleCategory(date, "transport")}
@@ -717,7 +726,7 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                     {isTravelDay && (
                       <CategoryIcon 
                         type="flight" 
-                        hasItem={dayData.flights.length > 0}
+                        hasItem={flightComplete}
                         isBooked={flightBooked}
                         isExpanded={expanded === "flight"}
                         onClick={() => toggleCategory(date, "flight")}
