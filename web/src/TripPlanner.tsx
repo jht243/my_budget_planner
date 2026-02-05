@@ -1589,13 +1589,13 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ 
                         fontSize: 12, fontWeight: 600, minWidth: 32,
-                        color: getStatusColor(hotelsBookedCount, hotels.length),
-                        backgroundColor: `${getStatusColor(hotelsBookedCount, hotels.length)}15`,
+                        color: hotels.length > 0 ? COLORS.booked : "#EF4444",
+                        backgroundColor: hotels.length > 0 ? `${COLORS.booked}15` : "#EF444415",
                         padding: "2px 6px", borderRadius: 4
                       }}>
-                        {hotels.length > 0 ? `${hotelsBookedCount}/${hotels.length}` : "—"}
+                        {hotels.length > 0 ? "Yes" : "No"}
                       </span>
-                      <Hotel size={16} color={getStatusColor(hotelsBookedCount, hotels.length)} />
+                      <Hotel size={16} color={hotels.length > 0 ? COLORS.booked : "#EF4444"} />
                       <span style={{ fontSize: 13, color: COLORS.textMain }}>Lodging booked</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

@@ -26069,12 +26069,12 @@ function TripPlanner({ initialData: initialData2 }) {
                 fontSize: 12,
                 fontWeight: 600,
                 minWidth: 32,
-                color: getStatusColor2(hotelsBookedCount, hotels.length),
-                backgroundColor: `${getStatusColor2(hotelsBookedCount, hotels.length)}15`,
+                color: hotels.length > 0 ? COLORS.booked : "#EF4444",
+                backgroundColor: hotels.length > 0 ? `${COLORS.booked}15` : "#EF444415",
                 padding: "2px 6px",
                 borderRadius: 4
-              }, children: hotels.length > 0 ? `${hotelsBookedCount}/${hotels.length}` : "\u2014" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 16, color: getStatusColor2(hotelsBookedCount, hotels.length) }),
+              }, children: hotels.length > 0 ? "Yes" : "No" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 16, color: hotels.length > 0 ? COLORS.booked : "#EF4444" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: "Lodging booked" })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
