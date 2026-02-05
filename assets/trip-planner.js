@@ -25625,7 +25625,12 @@ function TripPlanner({ initialData: initialData2 }) {
       const response = await fetch("/api/parse-trip", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: tripDescription })
+        body: JSON.stringify({
+          text: tripDescription,
+          departureDate: trip.departureDate,
+          returnDate: trip.returnDate,
+          tripType: trip.tripType
+        })
       });
       if (!response.ok) {
         throw new Error("Failed to analyze trip");
@@ -25633,22 +25638,38 @@ function TripPlanner({ initialData: initialData2 }) {
       const data = await response.json();
       const parsed = data.legs || [];
       if (parsed.length > 0) {
-        const newLegs = parsed.map((l) => ({
-          id: generateId(),
-          type: l.type || "other",
-          status: l.status || "pending",
-          title: l.title || "",
-          date: l.date || "",
-          time: l.time,
-          endDate: l.endDate,
-          from: l.from,
-          to: l.to,
-          location: l.location,
-          flightNumber: l.flightNumber,
-          airline: l.airline,
-          hotelName: l.hotelName,
-          confirmationNumber: l.confirmationNumber
-        }));
+        const newLegs = parsed.map((l, idx) => {
+          let legDate = l.date || "";
+          let legEndDate = l.endDate;
+          if (!legDate) {
+            if (l.type === "flight") {
+              const flightIndex = parsed.filter((p, i) => p.type === "flight" && i < idx).length;
+              legDate = flightIndex === 0 ? trip.departureDate || "" : trip.returnDate || "";
+            } else if (l.type === "hotel") {
+              legDate = trip.departureDate || "";
+              legEndDate = legEndDate || trip.returnDate;
+            } else if (l.type === "car") {
+              const isOutbound = l.title?.toLowerCase().includes(parsed.find((p) => p.type === "flight")?.from?.toLowerCase() || "");
+              legDate = isOutbound ? trip.departureDate || "" : trip.returnDate || "";
+            }
+          }
+          return {
+            id: generateId(),
+            type: l.type || "other",
+            status: l.status || "pending",
+            title: l.title || "",
+            date: legDate,
+            time: l.time,
+            endDate: legEndDate,
+            from: l.from,
+            to: l.to,
+            location: l.location,
+            flightNumber: l.flightNumber,
+            airline: l.airline,
+            hotelName: l.hotelName,
+            confirmationNumber: l.confirmationNumber
+          };
+        });
         setTrip((t) => ({ ...t, legs: [...t.legs, ...newLegs], updatedAt: Date.now() }));
         setTripDescription("");
       }

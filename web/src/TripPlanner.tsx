@@ -1134,11 +1134,16 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     setIsAnalyzing(true);
     
     try {
-      // Call AI-powered parsing endpoint
+      // Call AI-powered parsing endpoint, include trip dates if set
       const response = await fetch("/api/parse-trip", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: tripDescription })
+        body: JSON.stringify({ 
+          text: tripDescription,
+          departureDate: trip.departureDate,
+          returnDate: trip.returnDate,
+          tripType: trip.tripType
+        })
       });
       
       if (!response.ok) {
@@ -1149,22 +1154,44 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       const parsed = data.legs || [];
       
       if (parsed.length > 0) {
-        const newLegs: TripLeg[] = parsed.map((l: any) => ({ 
-          id: generateId(), 
-          type: l.type || "other", 
-          status: l.status || "pending", 
-          title: l.title || "", 
-          date: l.date || "", 
-          time: l.time,
-          endDate: l.endDate,
-          from: l.from, 
-          to: l.to, 
-          location: l.location,
-          flightNumber: l.flightNumber,
-          airline: l.airline,
-          hotelName: l.hotelName,
-          confirmationNumber: l.confirmationNumber
-        }));
+        // Use trip dates as fallback if leg dates are empty
+        const newLegs: TripLeg[] = parsed.map((l: any, idx: number) => {
+          let legDate = l.date || "";
+          let legEndDate = l.endDate;
+          
+          // If no date from API, use trip dates based on leg type
+          if (!legDate) {
+            if (l.type === "flight") {
+              // First flight uses departure date, subsequent flights use return date
+              const flightIndex = parsed.filter((p: any, i: number) => p.type === "flight" && i < idx).length;
+              legDate = flightIndex === 0 ? (trip.departureDate || "") : (trip.returnDate || "");
+            } else if (l.type === "hotel") {
+              legDate = trip.departureDate || "";
+              legEndDate = legEndDate || trip.returnDate;
+            } else if (l.type === "car") {
+              // Transport dates based on title (to airport = departure, from airport at destination = departure, etc.)
+              const isOutbound = l.title?.toLowerCase().includes(parsed.find((p: any) => p.type === "flight")?.from?.toLowerCase() || "");
+              legDate = isOutbound ? (trip.departureDate || "") : (trip.returnDate || "");
+            }
+          }
+          
+          return { 
+            id: generateId(), 
+            type: l.type || "other", 
+            status: l.status || "pending", 
+            title: l.title || "", 
+            date: legDate,
+            time: l.time,
+            endDate: legEndDate,
+            from: l.from, 
+            to: l.to, 
+            location: l.location,
+            flightNumber: l.flightNumber,
+            airline: l.airline,
+            hotelName: l.hotelName,
+            confirmationNumber: l.confirmationNumber
+          };
+        });
         setTrip(t => ({ ...t, legs: [...t.legs, ...newLegs], updatedAt: Date.now() }));
         setTripDescription("");
       }
