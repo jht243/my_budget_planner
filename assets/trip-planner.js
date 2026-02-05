@@ -25627,12 +25627,27 @@ function TripPlanner({ initialData: initialData2 }) {
     if (!item) return;
     if (item.type === "travelers") {
       setTrip((t) => ({ ...t, travelers: parseInt(editValue) || 1, updatedAt: Date.now() }));
+    } else if (item.id === "add-hotel") {
+      const newHotel = {
+        id: generateId(),
+        type: "hotel",
+        status: "pending",
+        title: editValue,
+        hotelName: editValue,
+        date: trip.departureDate || "",
+        endDate: trip.returnDate || "",
+        location: ""
+      };
+      setTrip((t) => ({ ...t, legs: [...t.legs, newHotel], updatedAt: Date.now() }));
     } else if (item.legId) {
       const updates = {};
       if (item.type === "departure_date") updates.date = editValue;
       if (item.type === "return_date") updates.endDate = editValue;
       if (item.type === "flight_number") updates.flightNumber = editValue;
-      if (item.type === "hotel_name") updates.hotelName = editValue;
+      if (item.type === "hotel_name") {
+        updates.hotelName = editValue;
+        updates.title = editValue;
+      }
       if (item.type === "confirmation") updates.confirmationNumber = editValue;
       setTrip((t) => ({
         ...t,
