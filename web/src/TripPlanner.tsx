@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import {
   Plane, Hotel, Car, Train, Bus, Ship, MapPin, Calendar, Clock, 
   CheckCircle2, Circle, AlertCircle, Plus, X, ChevronDown, ChevronUp,
-  Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2, Check, FileText, Users
+  Edit2, Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2, Check, FileText, Users
 } from "lucide-react";
 
 // Add spinner animation
@@ -1524,10 +1524,18 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
               const cities = new Set<string>();
               flights.forEach(f => { if (f.to) cities.add(f.to); if (f.from) cities.add(f.from); });
               
-              // Checklist status
-              const flightsBooked = flights.length > 0 && flights.every(f => f.status === "booked" || f.flightNumber);
-              const lodgingBooked = hotels.length > 0 && hotels.every(h => h.status === "booked" || h.confirmationNumber);
-              const transportBooked = transport.length > 0 && transport.every(t => t.status === "booked" || t.confirmationNumber);
+              // Count booked items
+              const flightsBookedCount = flights.filter(f => f.status === "booked" || f.flightNumber).length;
+              const hotelsBookedCount = hotels.filter(h => h.status === "booked" || h.confirmationNumber).length;
+              const transportBookedCount = transport.filter(t => t.status === "booked" || t.confirmationNumber).length;
+              
+              // Color helper: red=0, orange=partial, green=all
+              const getStatusColor = (booked: number, total: number) => {
+                if (total === 0) return COLORS.textMuted;
+                if (booked === 0) return "#EF4444"; // red
+                if (booked < total) return COLORS.pending; // orange
+                return COLORS.booked; // green
+              };
               
               return (
                 <div style={{ 
@@ -1542,6 +1550,17 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                       <Users size={16} color={COLORS.textSecondary} />
                       <span style={{ fontSize: 13, color: COLORS.textMain, fontWeight: 500 }}>{trip.travelers} traveler{trip.travelers !== 1 ? "s" : ""}</span>
+                      <button 
+                        onClick={() => {
+                          const newCount = prompt("Number of travelers:", String(trip.travelers));
+                          if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
+                            setTrip(t => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
+                          }
+                        }}
+                        style={{ background: "none", border: "none", cursor: "pointer", padding: 2 }}
+                      >
+                        <Edit2 size={12} color={COLORS.textMuted} />
+                      </button>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                       <MapPin size={16} color={COLORS.textSecondary} />
@@ -1553,43 +1572,43 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     </div>
                   </div>
                   
-                  {/* Checklist */}
+                  {/* Booking Status */}
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ 
-                        width: 20, height: 20, borderRadius: 4, 
-                        backgroundColor: flightsBooked ? COLORS.booked : "transparent",
-                        border: `2px solid ${flightsBooked ? COLORS.booked : COLORS.border}`,
-                        display: "flex", alignItems: "center", justifyContent: "center"
+                      <span style={{ 
+                        fontSize: 12, fontWeight: 600, minWidth: 32,
+                        color: getStatusColor(flightsBookedCount, flights.length),
+                        backgroundColor: `${getStatusColor(flightsBookedCount, flights.length)}15`,
+                        padding: "2px 6px", borderRadius: 4
                       }}>
-                        {flightsBooked && <Check size={14} color="white" />}
-                      </div>
-                      <Plane size={16} color={flightsBooked ? COLORS.booked : COLORS.textMuted} />
-                      <span style={{ fontSize: 13, color: flightsBooked ? COLORS.booked : COLORS.textMain }}>Flights booked</span>
+                        {flights.length > 0 ? `${flightsBookedCount}/${flights.length}` : "—"}
+                      </span>
+                      <Plane size={16} color={getStatusColor(flightsBookedCount, flights.length)} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain }}>Flights booked</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ 
-                        width: 20, height: 20, borderRadius: 4, 
-                        backgroundColor: lodgingBooked ? COLORS.booked : "transparent",
-                        border: `2px solid ${lodgingBooked ? COLORS.booked : COLORS.border}`,
-                        display: "flex", alignItems: "center", justifyContent: "center"
+                      <span style={{ 
+                        fontSize: 12, fontWeight: 600, minWidth: 32,
+                        color: getStatusColor(hotelsBookedCount, hotels.length),
+                        backgroundColor: `${getStatusColor(hotelsBookedCount, hotels.length)}15`,
+                        padding: "2px 6px", borderRadius: 4
                       }}>
-                        {lodgingBooked && <Check size={14} color="white" />}
-                      </div>
-                      <Hotel size={16} color={lodgingBooked ? COLORS.booked : COLORS.textMuted} />
-                      <span style={{ fontSize: 13, color: lodgingBooked ? COLORS.booked : COLORS.textMain }}>Lodging booked</span>
+                        {hotels.length > 0 ? `${hotelsBookedCount}/${hotels.length}` : "—"}
+                      </span>
+                      <Hotel size={16} color={getStatusColor(hotelsBookedCount, hotels.length)} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain }}>Lodging booked</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ 
-                        width: 20, height: 20, borderRadius: 4, 
-                        backgroundColor: transportBooked ? COLORS.booked : "transparent",
-                        border: `2px solid ${transportBooked ? COLORS.booked : COLORS.border}`,
-                        display: "flex", alignItems: "center", justifyContent: "center"
+                      <span style={{ 
+                        fontSize: 12, fontWeight: 600, minWidth: 32,
+                        color: getStatusColor(transportBookedCount, transport.length),
+                        backgroundColor: `${getStatusColor(transportBookedCount, transport.length)}15`,
+                        padding: "2px 6px", borderRadius: 4
                       }}>
-                        {transportBooked && <Check size={14} color="white" />}
-                      </div>
-                      <Car size={16} color={transportBooked ? COLORS.booked : COLORS.textMuted} />
-                      <span style={{ fontSize: 13, color: transportBooked ? COLORS.booked : COLORS.textMain }}>Transportation booked</span>
+                        {transport.length > 0 ? `${transportBookedCount}/${transport.length}` : "—"}
+                      </span>
+                      <Car size={16} color={getStatusColor(transportBookedCount, transport.length)} />
+                      <span style={{ fontSize: 13, color: COLORS.textMain }}>Transportation booked</span>
                     </div>
                   </div>
                 </div>
