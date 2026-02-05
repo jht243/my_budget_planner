@@ -1696,6 +1696,9 @@ function fallbackParseTripText(text: string): any[] {
   const fromToMatch = lower.match(/from\s+([a-z\s]+?)\s+to\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
   const toFromMatch = lower.match(/to\s+([a-z\s]+?)\s+from\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
   
+  // Check for return/round trip
+  const isRoundTrip = /return|round\s*trip|coming back|fly back|back to/i.test(lower);
+  
   let fromCity = "";
   let toCity = "";
   
@@ -1708,7 +1711,7 @@ function fallbackParseTripText(text: string): any[] {
   }
   
   if (fromCity && toCity) {
-    // Add flight
+    // Add outbound flight
     legs.push({
       type: "flight",
       status: "pending",
@@ -1727,7 +1730,7 @@ function fallbackParseTripText(text: string): any[] {
       date: ""
     });
     
-    // Add transport
+    // Outbound transport: to departure airport
     legs.push({
       type: "car",
       status: "pending",
@@ -1736,6 +1739,7 @@ function fallbackParseTripText(text: string): any[] {
       date: ""
     });
     
+    // Outbound transport: from arrival airport to hotel
     legs.push({
       type: "car",
       status: "pending",
@@ -1743,6 +1747,37 @@ function fallbackParseTripText(text: string): any[] {
       from: `${toCity} Airport`,
       date: ""
     });
+    
+    // If round trip, add return flight and transports
+    if (isRoundTrip) {
+      // Return flight
+      legs.push({
+        type: "flight",
+        status: "pending",
+        title: `Flight: ${toCity} → ${fromCity}`,
+        from: toCity,
+        to: fromCity,
+        date: ""
+      });
+      
+      // Return transport: from hotel to departure airport
+      legs.push({
+        type: "car",
+        status: "pending",
+        title: `Transport to ${toCity} Airport`,
+        to: `${toCity} Airport`,
+        date: ""
+      });
+      
+      // Return transport: from arrival airport to home
+      legs.push({
+        type: "car",
+        status: "pending",
+        title: `Transport from ${fromCity} Airport`,
+        from: `${fromCity} Airport`,
+        date: ""
+      });
+    }
   }
   
   return legs;
