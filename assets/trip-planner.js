@@ -25164,15 +25164,21 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           }, children: idx + 1 }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 600, fontSize: 14, color: COLORS.textMain, flex: 1 }, children: formatDayHeader(date, idx + 1) }),
           (() => {
-            const categories = [
-              dayData.flights.length > 0 ? flightBooked : null,
-              dayData.hotels.length > 0 ? hotelBooked : null,
-              dayData.transport.length > 0 ? transportBooked : null,
-              dayData.activities.length > 0 ? activityBooked : null
-            ].filter((x) => x !== null);
-            const completed = categories.filter((x) => x === true).length;
-            const total = categories.length;
-            if (total === 0) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, color: COLORS.textMuted }, children: "No items" });
+            const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+            const displayedCategories = [
+              // Lodging - always displayed
+              { hasItem: dayData.hotels.length > 0, isBooked: hotelBooked },
+              // Activities - always displayed
+              { hasItem: dayData.activities.length > 0, isBooked: activityBooked }
+            ];
+            if (isTravelDay) {
+              displayedCategories.push(
+                { hasItem: dayData.transport.length > 0, isBooked: transportBooked },
+                { hasItem: dayData.flights.length > 0, isBooked: flightBooked }
+              );
+            }
+            const completed = displayedCategories.filter((c) => c.hasItem && c.isBooked).length;
+            const total = displayedCategories.length;
             return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: {
               fontSize: 12,
               fontWeight: 600,
@@ -25187,54 +25193,57 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
             ] });
           })()
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-          display: "flex",
-          justifyContent: "space-around",
-          padding: "12px 8px",
-          borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
-        }, children: [
-          dayData.flights.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryIcon,
-            {
-              type: "flight",
-              hasItem: true,
-              isBooked: flightBooked,
-              isExpanded: expanded === "flight",
-              onClick: () => toggleCategory(date, "flight")
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryIcon,
-            {
-              type: "hotel",
-              hasItem: dayData.hotels.length > 0,
-              isBooked: hotelBooked,
-              isExpanded: expanded === "hotel",
-              onClick: () => toggleCategory(date, "hotel"),
-              label: dayData.hotels.some((h) => h.isContinuation) ? "Staying" : "Hotel"
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryIcon,
-            {
-              type: "transport",
-              hasItem: dayData.transport.length > 0,
-              isBooked: transportBooked,
-              isExpanded: expanded === "transport",
-              onClick: () => toggleCategory(date, "transport")
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryIcon,
-            {
-              type: "activity",
-              hasItem: dayData.activities.length > 0,
-              isBooked: activityBooked,
-              isExpanded: expanded === "activity",
-              onClick: () => toggleCategory(date, "activity")
-            }
-          )
-        ] }),
+        (() => {
+          const isTravelDay = idx === 0 || idx === legsByDate.sortedDates.length - 1;
+          return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+            display: "flex",
+            justifyContent: "space-around",
+            padding: "12px 8px",
+            borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
+          }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              CategoryIcon,
+              {
+                type: "hotel",
+                hasItem: dayData.hotels.length > 0,
+                isBooked: hotelBooked,
+                isExpanded: expanded === "hotel",
+                onClick: () => toggleCategory(date, "hotel"),
+                label: dayData.hotels.some((h) => h.isContinuation) ? "Staying" : "Lodging"
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              CategoryIcon,
+              {
+                type: "activity",
+                hasItem: dayData.activities.length > 0,
+                isBooked: activityBooked,
+                isExpanded: expanded === "activity",
+                onClick: () => toggleCategory(date, "activity")
+              }
+            ),
+            isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              CategoryIcon,
+              {
+                type: "transport",
+                hasItem: dayData.transport.length > 0,
+                isBooked: transportBooked,
+                isExpanded: expanded === "transport",
+                onClick: () => toggleCategory(date, "transport")
+              }
+            ),
+            isTravelDay && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              CategoryIcon,
+              {
+                type: "flight",
+                hasItem: dayData.flights.length > 0,
+                isBooked: flightBooked,
+                isExpanded: expanded === "flight",
+                onClick: () => toggleCategory(date, "flight")
+              }
+            )
+          ] });
+        })(),
         expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 12px" }, children: [
           expanded === "flight" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: dayData.flights.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id) }, leg.id)) }),
           expanded === "hotel" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: dayData.hotels.length > 0 ? dayData.hotels.map(({ leg, isContinuation }) => isContinuation ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 14px", backgroundColor: COLORS.hotelBg, borderRadius: 10, display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }, children: [
