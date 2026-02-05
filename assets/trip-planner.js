@@ -25291,11 +25291,120 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           " Add Hotel"
         ] }) }),
         expanded === "transport" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-          dayData.transport.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id), tripDepartureDate: departureDate, tripReturnDate: returnDate }, leg.id)),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => onAddLeg({ type: "car", date, status: "pending", title: "" }), style: { width: "100%", padding: 12, borderRadius: 10, border: `2px dashed ${COLORS.transport}`, backgroundColor: COLORS.transportBg, color: COLORS.transport, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: dayData.transport.length > 0 ? 8 : 0 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 16 }),
-            " Add Transport"
-          ] })
+          (() => {
+            const toAirportLeg = dayData.transport.find((t) => t.title?.toLowerCase().includes("to airport") || t.to?.toLowerCase().includes("airport"));
+            const toAirportComplete = toAirportLeg?.status === "booked";
+            return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 12, padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: toAirportLeg ? 8 : 0 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 16, color: COLORS.transport }),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: "Transportation to Airport" })
+                ] }),
+                !toAirportLeg ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                    "button",
+                    {
+                      onClick: () => onAddLeg({ type: "car", date, status: "booked", title: "To Airport", notes: "Quick complete" }),
+                      style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                        " Done"
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                    "button",
+                    {
+                      onClick: () => onAddLeg({ type: "car", date, status: "pending", title: "To Airport" }),
+                      style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 12 }),
+                        " Add Details"
+                      ]
+                    }
+                  )
+                ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: toAirportComplete ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                  " Complete"
+                ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                  "button",
+                  {
+                    onClick: () => onUpdateLeg(toAirportLeg.id, { status: "booked" }),
+                    style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                      " Mark Done"
+                    ]
+                  }
+                ) })
+              ] }),
+              toAirportLeg && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.textSecondary }, children: toAirportLeg.notes === "Quick complete" ? "Marked complete" : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+                toAirportLeg.rentalCompany && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { marginRight: 8 }, children: [
+                  "\u{1F697} ",
+                  toAirportLeg.rentalCompany
+                ] }),
+                toAirportLeg.notes && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: toAirportLeg.notes }),
+                !toAirportLeg.rentalCompany && !toAirportLeg.notes && toAirportLeg.status !== "booked" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.pending }, children: "Click to add details (Rental car, Uber, etc.)" })
+              ] }) })
+            ] });
+          })(),
+          (() => {
+            const fromAirportLeg = dayData.transport.find((t) => t.title?.toLowerCase().includes("from airport") || t.from?.toLowerCase().includes("airport"));
+            const fromAirportComplete = fromAirportLeg?.status === "booked";
+            return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: fromAirportLeg ? 8 : 0 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 16, color: COLORS.transport, style: { transform: "rotate(180deg)" } }),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: "Transportation from Airport" })
+                ] }),
+                !fromAirportLeg ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                    "button",
+                    {
+                      onClick: () => onAddLeg({ type: "car", date, status: "booked", title: "From Airport", notes: "Quick complete" }),
+                      style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                        " Done"
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                    "button",
+                    {
+                      onClick: () => onAddLeg({ type: "car", date, status: "pending", title: "From Airport" }),
+                      style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 12 }),
+                        " Add Details"
+                      ]
+                    }
+                  )
+                ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: fromAirportComplete ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                  " Complete"
+                ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                  "button",
+                  {
+                    onClick: () => onUpdateLeg(fromAirportLeg.id, { status: "booked" }),
+                    style: { padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 },
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 12 }),
+                      " Mark Done"
+                    ]
+                  }
+                ) })
+              ] }),
+              fromAirportLeg && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.textSecondary }, children: fromAirportLeg.notes === "Quick complete" ? "Marked complete" : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+                fromAirportLeg.rentalCompany && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { marginRight: 8 }, children: [
+                  "\u{1F697} ",
+                  fromAirportLeg.rentalCompany
+                ] }),
+                fromAirportLeg.notes && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: fromAirportLeg.notes }),
+                !fromAirportLeg.rentalCompany && !fromAirportLeg.notes && fromAirportLeg.status !== "booked" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.pending }, children: "Click to add details (Rental car, Uber, etc.)" })
+              ] }) })
+            ] });
+          })()
         ] }),
         expanded === "activity" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
           dayData.activities.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id), tripDepartureDate: departureDate, tripReturnDate: returnDate }, leg.id)),

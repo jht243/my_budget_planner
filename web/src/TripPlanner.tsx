@@ -65,6 +65,7 @@ interface TripLeg {
   flightNumber?: string;
   airline?: string;
   hotelName?: string;
+  rentalCompany?: string;
 }
 
 type TripType = "one_way" | "round_trip" | "multi_city";
@@ -760,12 +761,121 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                 )}
                 {expanded === "transport" && (
                   <>
-                    {dayData.transport.map(leg => (
-                      <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} tripDepartureDate={departureDate} tripReturnDate={returnDate} />
-                    ))}
-                    <button onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "" })} style={{ width: "100%", padding: 12, borderRadius: 10, border: `2px dashed ${COLORS.transport}`, backgroundColor: COLORS.transportBg, color: COLORS.transport, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: dayData.transport.length > 0 ? 8 : 0 }}>
-                      <Plus size={16} /> Add Transport
-                    </button>
+                    {/* To Airport Section */}
+                    {(() => {
+                      const toAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("to airport") || t.to?.toLowerCase().includes("airport"));
+                      const toAirportComplete = toAirportLeg?.status === "booked";
+                      return (
+                        <div style={{ marginBottom: 12, padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: toAirportLeg ? 8 : 0 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <ArrowRight size={16} color={COLORS.transport} />
+                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Transportation to Airport</span>
+                            </div>
+                            {!toAirportLeg ? (
+                              <div style={{ display: "flex", gap: 6 }}>
+                                <button 
+                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "To Airport", notes: "Quick complete" })}
+                                  style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                >
+                                  <Check size={12} /> Done
+                                </button>
+                                <button 
+                                  onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "To Airport" })}
+                                  style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                >
+                                  <Plus size={12} /> Add Details
+                                </button>
+                              </div>
+                            ) : (
+                              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                {toAirportComplete ? (
+                                  <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
+                                ) : (
+                                  <button 
+                                    onClick={() => onUpdateLeg(toAirportLeg.id, { status: "booked" })}
+                                    style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                  >
+                                    <Check size={12} /> Mark Done
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {toAirportLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
+                              {toAirportLeg.notes === "Quick complete" ? "Marked complete" : (
+                                <>
+                                  {toAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {toAirportLeg.rentalCompany}</span>}
+                                  {toAirportLeg.notes && <span>{toAirportLeg.notes}</span>}
+                                  {!toAirportLeg.rentalCompany && !toAirportLeg.notes && toAirportLeg.status !== "booked" && (
+                                    <span style={{ color: COLORS.pending }}>Click to add details (Rental car, Uber, etc.)</span>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
+                    
+                    {/* From Airport Section */}
+                    {(() => {
+                      const fromAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("from airport") || t.from?.toLowerCase().includes("airport"));
+                      const fromAirportComplete = fromAirportLeg?.status === "booked";
+                      return (
+                        <div style={{ padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: fromAirportLeg ? 8 : 0 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <ArrowRight size={16} color={COLORS.transport} style={{ transform: "rotate(180deg)" }} />
+                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Transportation from Airport</span>
+                            </div>
+                            {!fromAirportLeg ? (
+                              <div style={{ display: "flex", gap: 6 }}>
+                                <button 
+                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "From Airport", notes: "Quick complete" })}
+                                  style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                >
+                                  <Check size={12} /> Done
+                                </button>
+                                <button 
+                                  onClick={() => onAddLeg({ type: "car", date, status: "pending", title: "From Airport" })}
+                                  style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.transport}`, backgroundColor: "white", color: COLORS.transport, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                >
+                                  <Plus size={12} /> Add Details
+                                </button>
+                              </div>
+                            ) : (
+                              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                {fromAirportComplete ? (
+                                  <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
+                                ) : (
+                                  <button 
+                                    onClick={() => onUpdateLeg(fromAirportLeg.id, { status: "booked" })}
+                                    style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
+                                  >
+                                    <Check size={12} /> Mark Done
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {fromAirportLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
+                              {fromAirportLeg.notes === "Quick complete" ? "Marked complete" : (
+                                <>
+                                  {fromAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {fromAirportLeg.rentalCompany}</span>}
+                                  {fromAirportLeg.notes && <span>{fromAirportLeg.notes}</span>}
+                                  {!fromAirportLeg.rentalCompany && !fromAirportLeg.notes && fromAirportLeg.status !== "booked" && (
+                                    <span style={{ color: COLORS.pending }}>Click to add details (Rental car, Uber, etc.)</span>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </>
                 )}
                 {expanded === "activity" && (
