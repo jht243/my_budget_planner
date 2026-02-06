@@ -93,6 +93,7 @@ interface TripLeg {
   hotelName?: string;
   rentalCompany?: string;
   passengerTickets?: { passenger: number; confirmationNumber?: string; seatNumber?: string; ticketNumber?: string; booked: boolean }[];
+  cost?: number;
 }
 
 type TripType = "one_way" | "round_trip" | "multi_city";
@@ -607,6 +608,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                   </div>
                   <input value={editData.location || ""} onClick={stop} onChange={e => setEditData({ ...editData, location: e.target.value })} placeholder="Address" style={fullStyle} />
                   <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={fullStyle} />
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes" style={fullStyle} />
                 </>
               )}
@@ -642,6 +647,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                       <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={inpStyle} />
                     </div>
                   )}
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. terminal, gate, seat)" style={fullStyle} />
                 </>
               )}
@@ -672,6 +681,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                     <label style={lblStyle}>Return Date</label>
                     <PickerPopover type="date" value={editData.endDate || ""} onClick={stop} onChange={val => setEditData({ ...editData, endDate: val })} />
                   </div>
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. car type, insurance, extras)" style={fullStyle} />
                 </>
               )}
@@ -699,6 +712,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                       <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={inpStyle} />
                     </div>
                   )}
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. platform, car #, seat)" style={fullStyle} />
                 </>
               )}
@@ -726,6 +743,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                       <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={inpStyle} />
                     </div>
                   )}
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. bus line, platform, seat)" style={fullStyle} />
                 </>
               )}
@@ -753,6 +774,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                       <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={inpStyle} />
                     </div>
                   )}
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. cabin #, deck, meal plan)" style={fullStyle} />
                 </>
               )}
@@ -776,6 +801,10 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                     </div>
                   </div>
                   <input value={editData.location || ""} onClick={stop} onChange={e => setEditData({ ...editData, location: e.target.value })} placeholder="Location" autoComplete="off" data-form-type="other" data-lpignore="true" data-1p-ignore style={fullStyle} />
+                  <div>
+                    <label style={lblStyle}>Cost</label>
+                    <input type="number" min="0" step="0.01" value={editData.cost ?? ""} onClick={stop} onChange={e => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : undefined })} placeholder="$ 0.00" style={inpStyle} />
+                  </div>
                   <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes / Confirmation #" autoComplete="off" data-form-type="other" data-lpignore="true" data-1p-ignore style={fullStyle} />
                 </>
               )}
@@ -2890,7 +2919,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
                 }}>
                   {/* Static Info Row */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }}>
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Travelers</div>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
@@ -2931,6 +2960,13 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Days</div>
                       <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{tripDays > 0 ? tripDays : "—"}</span>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Total Cost</div>
+                      <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{(() => {
+                        const total = trip.legs.reduce((sum, l) => sum + (l.cost || 0), 0);
+                        return total > 0 ? `$${total.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : "—";
+                      })()}</span>
                     </div>
                   </div>
                   

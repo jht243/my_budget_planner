@@ -25230,6 +25230,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.location || "", onClick: stop, onChange: (e) => setEditData({ ...editData, location: e.target.value }), placeholder: "Address", style: fullStyle }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: stop, onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: fullStyle }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes", style: fullStyle })
           ] }),
           leg.type === "flight" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
@@ -25258,6 +25262,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Confirmation #" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: stop, onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: inpStyle })
             ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. terminal, gate, seat)", style: fullStyle })
           ] }),
           leg.type === "car" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
@@ -25283,6 +25291,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Return Date" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PickerPopover, { type: "date", value: editData.endDate || "", onClick: stop, onChange: (val) => setEditData({ ...editData, endDate: val }) })
             ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. car type, insurance, extras)", style: fullStyle })
           ] }),
           leg.type === "train" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
@@ -25302,6 +25314,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
             !showPerPassenger && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Confirmation #" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: stop, onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: inpStyle })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. platform, car #, seat)", style: fullStyle })
           ] }),
@@ -25323,6 +25339,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Confirmation #" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: stop, onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: inpStyle })
             ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. bus line, platform, seat)", style: fullStyle })
           ] }),
           leg.type === "ferry" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
@@ -25343,6 +25363,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Confirmation #" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: stop, onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: inpStyle })
             ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. cabin #, deck, meal plan)", style: fullStyle })
           ] }),
           !["hotel", "flight", "car", "train", "bus", "ferry"].includes(leg.type) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
@@ -25362,6 +25386,10 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               ] })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.location || "", onClick: stop, onChange: (e) => setEditData({ ...editData, location: e.target.value }), placeholder: "Location", autoComplete: "off", "data-form-type": "other", "data-lpignore": "true", "data-1p-ignore": true, style: fullStyle }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: lblStyle, children: "Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "number", min: "0", step: "0.01", value: editData.cost ?? "", onClick: stop, onChange: (e) => setEditData({ ...editData, cost: e.target.value ? parseFloat(e.target.value) : void 0 }), placeholder: "$ 0.00", style: inpStyle })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onClick: stop, onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes / Confirmation #", autoComplete: "off", "data-form-type": "other", "data-lpignore": "true", "data-1p-ignore": true, style: fullStyle })
           ] })
         ] }),
@@ -27381,7 +27409,7 @@ function TripPlanner({ initialData: initialData2 }) {
           border: `1px solid ${COLORS.border}`,
           boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
         }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Travelers" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }, children: editingTravelers ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -27421,6 +27449,13 @@ function TripPlanner({ initialData: initialData2 }) {
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Days" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: tripDays > 0 ? tripDays : "\u2014" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Total Cost" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: (() => {
+                const total = trip.legs.reduce((sum, l) => sum + (l.cost || 0), 0);
+                return total > 0 ? `$${total.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : "\u2014";
+              })() })
             ] })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 16px" }, children: [
