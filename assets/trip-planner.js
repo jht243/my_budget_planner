@@ -26118,7 +26118,33 @@ function TripPlanner({ initialData: initialData2 }) {
         priority: 1
       });
     }
-    if (hotels.length === 0) {
+    if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
+      const sortedLegs2 = [...trip.multiCityLegs].filter((l) => l.date && l.to).sort((a, b) => a.date.localeCompare(b.date));
+      for (let i = 0; i < sortedLegs2.length; i++) {
+        const leg = sortedLegs2[i];
+        const nextLeg = sortedLegs2[i + 1];
+        const city = leg.to;
+        const startDate = leg.date;
+        const endDate = nextLeg ? (() => {
+          const d = /* @__PURE__ */ new Date(nextLeg.date + "T00:00:00");
+          d.setDate(d.getDate() - 1);
+          return d.toISOString().split("T")[0];
+        })() : startDate;
+        const hasHotelForCity = hotels.some((h) => h.location === city || h.hotelName?.toLowerCase().includes(city.toLowerCase()));
+        if (!hasHotelForCity && city) {
+          items.push({
+            id: `add-hotel-${city}`,
+            type: "hotel_name",
+            label: `Add hotel (${city})`,
+            icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hotel, { size: 14 }),
+            priority: 2,
+            city,
+            startDate,
+            endDate
+          });
+        }
+      }
+    } else if (hotels.length === 0) {
       items.push({
         id: "add-hotel",
         type: "hotel_name",
@@ -26197,16 +26223,16 @@ function TripPlanner({ initialData: initialData2 }) {
     if (!item) return;
     if (item.type === "travelers") {
       setTrip((t) => ({ ...t, travelers: parseInt(editValue) || 1, updatedAt: Date.now() }));
-    } else if (item.id === "add-hotel") {
+    } else if (item.id === "add-hotel" || item.id.startsWith("add-hotel-")) {
       const newHotel = {
         id: generateId(),
         type: "hotel",
         status: "pending",
         title: editValue,
         hotelName: editValue,
-        date: trip.departureDate || "",
-        endDate: trip.returnDate || "",
-        location: ""
+        date: item.startDate || trip.departureDate || "",
+        endDate: item.endDate || trip.returnDate || "",
+        location: item.city || ""
       };
       setTrip((t) => ({ ...t, legs: [...t.legs, newHotel], updatedAt: Date.now() }));
     } else if (item.type === "departure_date" && item.legId) {

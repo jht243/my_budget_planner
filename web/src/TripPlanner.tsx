@@ -109,6 +109,9 @@ interface MissingInfo {
   icon: React.ReactNode;
   legId?: string;
   priority: number;
+  city?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 const STORAGE_KEY = "TRIP_PLANNER_DATA";
@@ -1578,8 +1581,41 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       });
     }
     
-    // 2. Hotel - prompt to add if no hotels exist
-    if (hotels.length === 0) {
+    // 2. Hotel - for multi-city, prompt for each city segment without a hotel
+    if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
+      // Calculate city segments (date ranges for each destination city)
+      const sortedLegs = [...trip.multiCityLegs].filter(l => l.date && l.to).sort((a, b) => a.date.localeCompare(b.date));
+      
+      for (let i = 0; i < sortedLegs.length; i++) {
+        const leg = sortedLegs[i];
+        const nextLeg = sortedLegs[i + 1];
+        const city = leg.to;
+        const startDate = leg.date;
+        // End date is day before next leg departs, or same as start if last leg
+        const endDate = nextLeg ? (() => {
+          const d = new Date(nextLeg.date + "T00:00:00");
+          d.setDate(d.getDate() - 1);
+          return d.toISOString().split("T")[0];
+        })() : startDate;
+        
+        // Check if there's already a hotel for this city
+        const hasHotelForCity = hotels.some(h => h.location === city || h.hotelName?.toLowerCase().includes(city.toLowerCase()));
+        
+        if (!hasHotelForCity && city) {
+          items.push({ 
+            id: `add-hotel-${city}`, 
+            type: "hotel_name", 
+            label: `Add hotel (${city})`, 
+            icon: <Hotel size={14} />, 
+            priority: 2,
+            city: city,
+            startDate: startDate,
+            endDate: endDate
+          });
+        }
+      }
+    } else if (hotels.length === 0) {
+      // For non-multi-city, just show generic "Add hotel"
       items.push({ 
         id: "add-hotel", 
         type: "hotel_name", 
@@ -1673,17 +1709,18 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     
     if (item.type === "travelers") {
       setTrip(t => ({ ...t, travelers: parseInt(editValue) || 1, updatedAt: Date.now() }));
-    } else if (item.id === "add-hotel") {
-      // Create a new hotel with the entered name and trip dates
+    } else if (item.id === "add-hotel" || item.id.startsWith("add-hotel-")) {
+      // Create a new hotel with the entered name
+      // For multi-city, use city-specific dates; otherwise use trip dates
       const newHotel: TripLeg = {
         id: generateId(),
         type: "hotel",
         status: "pending",
         title: editValue,
         hotelName: editValue,
-        date: trip.departureDate || "",
-        endDate: trip.returnDate || "",
-        location: ""
+        date: item.startDate || trip.departureDate || "",
+        endDate: item.endDate || trip.returnDate || "",
+        location: item.city || ""
       };
       setTrip(t => ({ ...t, legs: [...t.legs, newHotel], updatedAt: Date.now() }));
     } else if (item.type === "departure_date" && item.legId) {
