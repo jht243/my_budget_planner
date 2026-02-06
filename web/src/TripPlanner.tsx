@@ -2186,6 +2186,11 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
               const primaryModeLabel = getModeLabelPlural(primaryMode);
               const primaryModeIcon = getModeIcon(primaryMode, 16);
               
+              // Calculate expected number of legs based on trip type
+              const expectedLegsCount = trip.tripType === "one_way" ? 1 
+                : trip.tripType === "round_trip" ? 2 
+                : (trip.multiCityLegs || []).length;
+              
               // Calculate trip length
               const tripDays = trip.departureDate && trip.returnDate 
                 ? Math.ceil((new Date(trip.returnDate).getTime() - new Date(trip.departureDate).getTime()) / (1000 * 60 * 60 * 24)) + 1
@@ -2248,11 +2253,11 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ 
                         fontSize: 12, fontWeight: 600, minWidth: 32,
-                        color: getStatusColor(flightsBookedCount, flights.length),
-                        backgroundColor: `${getStatusColor(flightsBookedCount, flights.length)}15`,
+                        color: getStatusColor(flightsBookedCount, expectedLegsCount),
+                        backgroundColor: `${getStatusColor(flightsBookedCount, expectedLegsCount)}15`,
                         padding: "2px 6px", borderRadius: 4
                       }}>
-                        {flights.length > 0 ? `${flightsBookedCount}/${flights.length}` : "—"}
+                        {expectedLegsCount > 0 ? `${flightsBookedCount}/${expectedLegsCount}` : "—"}
                       </span>
                       {primaryModeIcon}
                       <span style={{ fontSize: 13, color: COLORS.textMain }}>{primaryModeLabel} booked</span>

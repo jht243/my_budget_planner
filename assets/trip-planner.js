@@ -26750,6 +26750,7 @@ function TripPlanner({ initialData: initialData2 }) {
         const primaryMode = trip.departureMode || "plane";
         const primaryModeLabel = getModeLabelPlural(primaryMode);
         const primaryModeIcon = getModeIcon(primaryMode, 16);
+        const expectedLegsCount = trip.tripType === "one_way" ? 1 : trip.tripType === "round_trip" ? 2 : (trip.multiCityLegs || []).length;
         const tripDays = trip.departureDate && trip.returnDate ? Math.ceil((new Date(trip.returnDate).getTime() - new Date(trip.departureDate).getTime()) / (1e3 * 60 * 60 * 24)) + 1 : 0;
         const cities = /* @__PURE__ */ new Set();
         flights.forEach((f) => {
@@ -26813,11 +26814,11 @@ function TripPlanner({ initialData: initialData2 }) {
                 fontSize: 12,
                 fontWeight: 600,
                 minWidth: 32,
-                color: getStatusColor2(flightsBookedCount, flights.length),
-                backgroundColor: `${getStatusColor2(flightsBookedCount, flights.length)}15`,
+                color: getStatusColor2(flightsBookedCount, expectedLegsCount),
+                backgroundColor: `${getStatusColor2(flightsBookedCount, expectedLegsCount)}15`,
                 padding: "2px 6px",
                 borderRadius: 4
-              }, children: flights.length > 0 ? `${flightsBookedCount}/${flights.length}` : "\u2014" }),
+              }, children: expectedLegsCount > 0 ? `${flightsBookedCount}/${expectedLegsCount}` : "\u2014" }),
               primaryModeIcon,
               /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: [
                 primaryModeLabel,
