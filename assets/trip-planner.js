@@ -25391,6 +25391,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
   const legsByDate = (0, import_react3.useMemo)(() => {
     const groups = {};
     const noDateLegs = [];
+    const primaryLegIds = new Set(multiCityLegs?.map((l) => l.id) || []);
     allDays.forEach((day) => {
       groups[day] = { flights: [], hotels: [], transport: [], activities: [] };
     });
@@ -25410,7 +25411,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           current.setDate(current.getDate() + 1);
           isFirst = false;
         }
-      } else if (["car", "train", "bus", "ferry"].includes(leg.type) && leg.date && leg.endDate) {
+      } else if (["car", "train", "bus", "ferry"].includes(leg.type) && !primaryLegIds.has(leg.id) && leg.date && leg.endDate) {
         const startDate = /* @__PURE__ */ new Date(leg.date + "T00:00:00");
         const endDate = /* @__PURE__ */ new Date(leg.endDate + "T00:00:00");
         const current = new Date(startDate);
@@ -25422,7 +25423,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
           current.setDate(current.getDate() + 1);
         }
       } else if (leg.date && groups[leg.date]) {
-        if (leg.type === "flight") groups[leg.date].flights.push(leg);
+        if (leg.type === "flight" || primaryLegIds.has(leg.id)) groups[leg.date].flights.push(leg);
         else if (["car", "train", "bus", "ferry"].includes(leg.type)) groups[leg.date].transport.push(leg);
         else groups[leg.date].activities.push(leg);
       } else if (!leg.date) {
@@ -25430,7 +25431,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
       }
     });
     return { groups, sortedDates: allDays, noDateLegs };
-  }, [legs, allDays]);
+  }, [legs, allDays, multiCityLegs]);
   const formatDayHeader = (dateStr, dayNum) => {
     try {
       const date = /* @__PURE__ */ new Date(dateStr + "T00:00:00");
@@ -25441,7 +25442,19 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
   };
   const getTravelDayIcon = (flights) => {
     if (flights.length === 0) return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 14, color: "white" });
+    const leg = flights[0];
+    switch (leg.type) {
+      case "car":
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Car, { size: 14, color: "white" });
+      case "train":
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TramFront, { size: 14, color: "white" });
+      case "bus":
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bus, { size: 14, color: "white" });
+      case "ferry":
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ship, { size: 14, color: "white" });
+      default:
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 14, color: "white" });
+    }
   };
   const getCityForDate = (dateStr) => {
     if (!multiCityLegs || multiCityLegs.length === 0) return null;
@@ -25609,17 +25622,21 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
               partialComplete: transportPartial
             }
           ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay2 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryIcon,
-            {
-              type: "flight",
-              hasItem: flightComplete,
-              isBooked: flightBooked,
-              isExpanded: expanded === "flight",
-              onClick: () => toggleCategory(date, "flight"),
-              transportMode: primaryTransportMode
-            }
-          ) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center" }, children: isTravelDay2 && (() => {
+            const dayLeg = dayData.flights[0];
+            const dayMode = dayLeg ? dayLeg.type === "car" ? "car" : dayLeg.type === "train" ? "rail" : dayLeg.type === "bus" ? "bus" : dayLeg.type === "ferry" ? "other" : "plane" : primaryTransportMode || "plane";
+            return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              CategoryIcon,
+              {
+                type: "flight",
+                hasItem: flightComplete,
+                isBooked: flightBooked,
+                isExpanded: expanded === "flight",
+                onClick: () => toggleCategory(date, "flight"),
+                transportMode: dayMode
+              }
+            );
+          })() })
         ] });
       })(),
       expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 12px", overflow: "hidden", maxWidth: "100%", boxSizing: "border-box" }, children: [
@@ -26182,22 +26199,43 @@ function TripPlanner({ initialData: initialData2 }) {
   }, [trip]);
   (0, import_react3.useEffect)(() => {
     if (trip.tripType === "multi_city" && trip.multiCityLegs && trip.multiCityLegs.length > 0) {
-      const newFlightLegs = trip.multiCityLegs.filter((leg) => leg.from && leg.to && leg.date).map((leg) => ({
-        id: leg.id,
-        type: "flight",
-        status: "pending",
-        title: `${getModeLabel(leg.mode || "plane")}: ${leg.from} \u2192 ${leg.to}`,
-        from: leg.from,
-        to: leg.to,
-        date: leg.date
-      }));
-      const nonFlightLegs = trip.legs.filter((l) => l.type !== "flight");
-      const currentFlightLegs = trip.legs.filter((l) => l.type === "flight");
-      const flightLegsChanged = JSON.stringify(newFlightLegs.map((l) => ({ id: l.id, from: l.from, to: l.to, date: l.date }))) !== JSON.stringify(currentFlightLegs.map((l) => ({ id: l.id, from: l.from, to: l.to, date: l.date })));
-      if (flightLegsChanged && newFlightLegs.length > 0) {
+      const modeToLegType = (mode) => {
+        switch (mode) {
+          case "car":
+            return "car";
+          case "rail":
+            return "train";
+          case "bus":
+            return "bus";
+          case "other":
+            return "ferry";
+          default:
+            return "flight";
+        }
+      };
+      const multiCityLegIds = new Set(trip.multiCityLegs.map((l) => l.id));
+      const newTransportLegs = trip.multiCityLegs.filter((leg) => leg.from && leg.to && leg.date).map((leg) => {
+        const legType = modeToLegType(leg.mode || "plane");
+        const existing = trip.legs.find((l) => l.id === leg.id);
+        return {
+          id: leg.id,
+          type: legType,
+          status: existing?.status || "pending",
+          title: `${getModeLabel(leg.mode || "plane")}: ${leg.from} \u2192 ${leg.to}`,
+          from: leg.from,
+          to: leg.to,
+          date: leg.date,
+          ...existing?.confirmationNumber ? { confirmationNumber: existing.confirmationNumber } : {},
+          ...existing?.passengerTickets ? { passengerTickets: existing.passengerTickets } : {}
+        };
+      });
+      const otherLegs = trip.legs.filter((l) => !multiCityLegIds.has(l.id));
+      const currentTransportLegs = trip.legs.filter((l) => multiCityLegIds.has(l.id));
+      const legsChanged = JSON.stringify(newTransportLegs.map((l) => ({ id: l.id, type: l.type, from: l.from, to: l.to, date: l.date, title: l.title }))) !== JSON.stringify(currentTransportLegs.map((l) => ({ id: l.id, type: l.type, from: l.from, to: l.to, date: l.date, title: l.title })));
+      if (legsChanged && newTransportLegs.length > 0) {
         setTrip((t) => ({
           ...t,
-          legs: [...newFlightLegs, ...nonFlightLegs],
+          legs: [...newTransportLegs, ...otherLegs],
           updatedAt: Date.now()
         }));
       }

@@ -786,6 +786,9 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
     }> = {};
     const noDateLegs: TripLeg[] = [];
     
+    // Track which leg IDs are primary inter-city legs (from multiCityLegs)
+    const primaryLegIds = new Set(multiCityLegs?.map(l => l.id) || []);
+    
     allDays.forEach(day => { 
       groups[day] = { flights: [], hotels: [], transport: [], activities: [] }; 
     });
@@ -808,8 +811,8 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
           current.setDate(current.getDate() + 1);
           isFirst = false;
         }
-      } else if (["car", "train", "bus", "ferry"].includes(leg.type) && leg.date && leg.endDate) {
-        // Rental car or transport with date range - show on all days
+      } else if (["car", "train", "bus", "ferry"].includes(leg.type) && !primaryLegIds.has(leg.id) && leg.date && leg.endDate) {
+        // Rental car or transport with date range (NOT a primary multi-city leg) - show on all days
         const startDate = new Date(leg.date + "T00:00:00");
         const endDate = new Date(leg.endDate + "T00:00:00");
         const current = new Date(startDate);
@@ -821,7 +824,8 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
           current.setDate(current.getDate() + 1);
         }
       } else if (leg.date && groups[leg.date]) {
-        if (leg.type === "flight") groups[leg.date].flights.push(leg);
+        // Primary inter-city legs (flights or multi-city legs of any mode) go into "flights" slot
+        if (leg.type === "flight" || primaryLegIds.has(leg.id)) groups[leg.date].flights.push(leg);
         else if (["car", "train", "bus", "ferry"].includes(leg.type)) groups[leg.date].transport.push(leg);
         else groups[leg.date].activities.push(leg);
       } else if (!leg.date) {
@@ -830,7 +834,7 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
     });
     
     return { groups, sortedDates: allDays, noDateLegs };
-  }, [legs, allDays]);
+  }, [legs, allDays, multiCityLegs]);
 
   const formatDayHeader = (dateStr: string, dayNum: number): string => {
     try {
@@ -842,8 +846,14 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
   // Get travel day indicator icon based on transport mode
   const getTravelDayIcon = (flights: TripLeg[]) => {
     if (flights.length === 0) return null;
-    // Could be enhanced to check leg mode, for now use plane
-    return <Plane size={14} color="white" />;
+    const leg = flights[0];
+    switch (leg.type) {
+      case "car": return <Car size={14} color="white" />;
+      case "train": return <Train size={14} color="white" />;
+      case "bus": return <Bus size={14} color="white" />;
+      case "ferry": return <Ship size={14} color="white" />;
+      default: return <Plane size={14} color="white" />;
+    }
   };
   
   // Get which city the user is in on a given date (for multi-city trips)
@@ -1040,18 +1050,28 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                       />
                     )}
                   </div>
-                  {/* 4. Flights - only on travel days, empty placeholder otherwise */}
+                  {/* 4. Flights/Primary Transport - only on travel days, empty placeholder otherwise */}
                   <div style={{ display: "flex", justifyContent: "center" }}>
-                    {isTravelDay && (
-                      <CategoryIcon 
-                        type="flight" 
-                        hasItem={flightComplete}
-                        isBooked={flightBooked}
-                        isExpanded={expanded === "flight"}
-                        onClick={() => toggleCategory(date, "flight")}
-                        transportMode={primaryTransportMode}
-                      />
-                    )}
+                    {isTravelDay && (() => {
+                      // Derive transport mode from the day's actual primary leg type
+                      const dayLeg = dayData.flights[0];
+                      const dayMode: TransportMode = dayLeg ? (
+                        dayLeg.type === "car" ? "car" :
+                        dayLeg.type === "train" ? "rail" :
+                        dayLeg.type === "bus" ? "bus" :
+                        dayLeg.type === "ferry" ? "other" : "plane"
+                      ) : (primaryTransportMode || "plane");
+                      return (
+                        <CategoryIcon 
+                          type="flight" 
+                          hasItem={flightComplete}
+                          isBooked={flightBooked}
+                          isExpanded={expanded === "flight"}
+                          onClick={() => toggleCategory(date, "flight")}
+                          transportMode={dayMode}
+                        />
+                      );
+                    })()}
                   </div>
                 </div>
               );
@@ -1564,31 +1584,50 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   // Sync multi-city legs to trip.legs when in multi-city mode
   useEffect(() => {
     if (trip.tripType === "multi_city" && trip.multiCityLegs && trip.multiCityLegs.length > 0) {
-      // Build flight legs from multiCityLegs
-      const newFlightLegs: TripLeg[] = trip.multiCityLegs
+      // Map transport mode to leg type
+      const modeToLegType = (mode: string): LegType => {
+        switch (mode) {
+          case "car": return "car";
+          case "rail": return "train";
+          case "bus": return "bus";
+          case "other": return "ferry";
+          default: return "flight";
+        }
+      };
+
+      // Build transport legs from multiCityLegs
+      const multiCityLegIds = new Set(trip.multiCityLegs.map(l => l.id));
+      const newTransportLegs: TripLeg[] = trip.multiCityLegs
         .filter(leg => leg.from && leg.to && leg.date)
-        .map(leg => ({
-          id: leg.id,
-          type: "flight" as const,
-          status: "pending" as const,
-          title: `${getModeLabel(leg.mode || "plane")}: ${leg.from} → ${leg.to}`,
-          from: leg.from,
-          to: leg.to,
-          date: leg.date
-        }));
+        .map(leg => {
+          const legType = modeToLegType(leg.mode || "plane");
+          // Preserve existing status if leg already exists
+          const existing = trip.legs.find(l => l.id === leg.id);
+          return {
+            id: leg.id,
+            type: legType,
+            status: existing?.status || ("pending" as const),
+            title: `${getModeLabel(leg.mode || "plane")}: ${leg.from} → ${leg.to}`,
+            from: leg.from,
+            to: leg.to,
+            date: leg.date,
+            ...(existing?.confirmationNumber ? { confirmationNumber: existing.confirmationNumber } : {}),
+            ...(existing?.passengerTickets ? { passengerTickets: existing.passengerTickets } : {}),
+          };
+        });
       
-      // Get non-flight legs (hotels, transport, activities)
-      const nonFlightLegs = trip.legs.filter(l => l.type !== "flight");
+      // Get legs NOT generated from multiCityLegs (hotels, manual transport, activities)
+      const otherLegs = trip.legs.filter(l => !multiCityLegIds.has(l.id));
       
-      // Check if flight legs need updating
-      const currentFlightLegs = trip.legs.filter(l => l.type === "flight");
-      const flightLegsChanged = JSON.stringify(newFlightLegs.map(l => ({ id: l.id, from: l.from, to: l.to, date: l.date }))) !== 
-                                JSON.stringify(currentFlightLegs.map(l => ({ id: l.id, from: l.from, to: l.to, date: l.date })));
+      // Check if transport legs need updating
+      const currentTransportLegs = trip.legs.filter(l => multiCityLegIds.has(l.id));
+      const legsChanged = JSON.stringify(newTransportLegs.map(l => ({ id: l.id, type: l.type, from: l.from, to: l.to, date: l.date, title: l.title }))) !== 
+                           JSON.stringify(currentTransportLegs.map(l => ({ id: l.id, type: l.type, from: l.from, to: l.to, date: l.date, title: l.title })));
       
-      if (flightLegsChanged && newFlightLegs.length > 0) {
+      if (legsChanged && newTransportLegs.length > 0) {
         setTrip(t => ({ 
           ...t, 
-          legs: [...newFlightLegs, ...nonFlightLegs],
+          legs: [...newTransportLegs, ...otherLegs],
           updatedAt: Date.now() 
         }));
       }
