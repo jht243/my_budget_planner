@@ -25186,7 +25186,22 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
           ] }),
           leg.time && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { display: "flex", alignItems: "center", gap: 4, fontSize: 13, color: COLORS.textSecondary }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 14 }),
-            leg.time
+            (() => {
+              const [h, m] = leg.time.split(":").map(Number);
+              const ampm = h >= 12 ? "PM" : "AM";
+              const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+              return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
+            })(),
+            leg.endTime ? (() => {
+              const [h, m] = leg.endTime.split(":").map(Number);
+              const ampm = h >= 12 ? "PM" : "AM";
+              const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+              return ` \u2013 ${h12}:${String(m).padStart(2, "0")} ${ampm}`;
+            })() : ""
+          ] }),
+          leg.location && !["hotel", "flight", "car", "train", "bus", "ferry"].includes(leg.type) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { display: "flex", alignItems: "center", gap: 4, fontSize: 13, color: COLORS.textSecondary }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { size: 14 }),
+            leg.location
           ] }),
           leg.flightNumber && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: legColors.main, fontWeight: 600 }, children: leg.flightNumber })
         ] })
