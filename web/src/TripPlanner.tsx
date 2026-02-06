@@ -2342,13 +2342,18 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                 tripDays = 1;
               }
               
-              // Calculate number of cities (unique destinations from flights or multi-city legs)
+              // Calculate number of cities (unique destinations only - exclude starting city)
               const cities = new Set<string>();
+              let startingCity: string | null = null;
               if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
-                trip.multiCityLegs.forEach(l => { if (l.to) cities.add(l.to); if (l.from) cities.add(l.from); });
+                startingCity = trip.multiCityLegs[0]?.from || null;
+                trip.multiCityLegs.forEach(l => { if (l.to) cities.add(l.to); });
               } else {
-                flights.forEach(f => { if (f.to) cities.add(f.to); if (f.from) cities.add(f.from); });
+                startingCity = flights[0]?.from || null;
+                flights.forEach(f => { if (f.to) cities.add(f.to); });
               }
+              // Remove starting city from count if it appears as a destination (round trip back home)
+              if (startingCity) cities.delete(startingCity);
               
               // Count booked items
               const flightsBookedCount = flights.filter(f => f.status === "booked" || f.flightNumber).length;

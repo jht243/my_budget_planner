@@ -26845,17 +26845,19 @@ function TripPlanner({ initialData: initialData2 }) {
           tripDays = 1;
         }
         const cities = /* @__PURE__ */ new Set();
+        let startingCity = null;
         if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
+          startingCity = trip.multiCityLegs[0]?.from || null;
           trip.multiCityLegs.forEach((l) => {
             if (l.to) cities.add(l.to);
-            if (l.from) cities.add(l.from);
           });
         } else {
+          startingCity = flights[0]?.from || null;
           flights.forEach((f) => {
             if (f.to) cities.add(f.to);
-            if (f.from) cities.add(f.from);
           });
         }
+        if (startingCity) cities.delete(startingCity);
         const flightsBookedCount = flights.filter((f) => f.status === "booked" || f.flightNumber).length;
         const hotelsBookedCount = hotels.filter((h) => h.status === "booked" || h.confirmationNumber).length;
         const transportBookedCount = transport.filter((t) => t.status === "booked" || t.confirmationNumber).length;
