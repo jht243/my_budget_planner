@@ -24892,20 +24892,6 @@ var getModeLabel = (mode) => {
       return "Cruise";
   }
 };
-var getModeLabelPlural = (mode) => {
-  switch (mode) {
-    case "plane":
-      return "Flights";
-    case "car":
-      return "Drives";
-    case "rail":
-      return "Trains";
-    case "bus":
-      return "Buses";
-    case "other":
-      return "Cruises";
-  }
-};
 var getModeConfirmationLabel = (mode) => {
   switch (mode) {
     case "plane":
@@ -26827,10 +26813,24 @@ function TripPlanner({ initialData: initialData2 }) {
         const flights = trip.legs.filter((l) => l.type === "flight");
         const hotels = trip.legs.filter((l) => l.type === "hotel");
         const transport = trip.legs.filter((l) => !["flight", "hotel"].includes(l.type));
+        let flightLegsCount = 0;
+        let trainLegsCount = 0;
+        let busLegsCount = 0;
+        let otherLegsCount = 0;
+        if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
+          trip.multiCityLegs.forEach((leg) => {
+            const mode = leg.mode || "plane";
+            if (mode === "plane") flightLegsCount++;
+            else if (mode === "rail") trainLegsCount++;
+            else if (mode === "bus") busLegsCount++;
+            else otherLegsCount++;
+          });
+        } else {
+          flightLegsCount = trip.tripType === "one_way" ? 1 : 2;
+        }
         const primaryMode = trip.departureMode || "plane";
-        const primaryModeLabel = getModeLabelPlural(primaryMode);
-        const primaryModeIcon = getModeIcon(primaryMode, 16);
         const expectedLegsCount = trip.tripType === "one_way" ? 1 : trip.tripType === "round_trip" ? 2 : (trip.multiCityLegs || []).length;
+        const expectedTransportCount = expectedLegsCount * 2;
         let tripDays = 0;
         if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
           const sortedDates = trip.multiCityLegs.filter((l) => l.date).map((l) => l.date).sort();
@@ -26908,21 +26908,44 @@ function TripPlanner({ initialData: initialData2 }) {
             ] })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+            flightLegsCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: {
                 fontSize: 12,
                 fontWeight: 600,
                 minWidth: 32,
-                color: getStatusColor2(flightsBookedCount, expectedLegsCount),
-                backgroundColor: `${getStatusColor2(flightsBookedCount, expectedLegsCount)}15`,
+                color: getStatusColor2(flightsBookedCount, flightLegsCount),
+                backgroundColor: `${getStatusColor2(flightsBookedCount, flightLegsCount)}15`,
                 padding: "2px 6px",
                 borderRadius: 4
-              }, children: expectedLegsCount > 0 ? `${flightsBookedCount}/${expectedLegsCount}` : "\u2014" }),
-              primaryModeIcon,
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: [
-                primaryModeLabel,
-                " booked"
-              ] })
+              }, children: `${flightsBookedCount}/${flightLegsCount}` }),
+              getModeIcon("plane", 16),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: "Flights booked" })
+            ] }),
+            trainLegsCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: {
+                fontSize: 12,
+                fontWeight: 600,
+                minWidth: 32,
+                color: getStatusColor2(0, trainLegsCount),
+                backgroundColor: `${getStatusColor2(0, trainLegsCount)}15`,
+                padding: "2px 6px",
+                borderRadius: 4
+              }, children: `0/${trainLegsCount}` }),
+              getModeIcon("rail", 16),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: "Trains booked" })
+            ] }),
+            busLegsCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: {
+                fontSize: 12,
+                fontWeight: 600,
+                minWidth: 32,
+                color: getStatusColor2(0, busLegsCount),
+                backgroundColor: `${getStatusColor2(0, busLegsCount)}15`,
+                padding: "2px 6px",
+                borderRadius: 4
+              }, children: `0/${busLegsCount}` }),
+              getModeIcon("bus", 16),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: "Buses booked" })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: {
@@ -26942,12 +26965,12 @@ function TripPlanner({ initialData: initialData2 }) {
                 fontSize: 12,
                 fontWeight: 600,
                 minWidth: 32,
-                color: getStatusColor2(transportBookedCount, transport.length),
-                backgroundColor: `${getStatusColor2(transportBookedCount, transport.length)}15`,
+                color: getStatusColor2(transportBookedCount, expectedTransportCount),
+                backgroundColor: `${getStatusColor2(transportBookedCount, expectedTransportCount)}15`,
                 padding: "2px 6px",
                 borderRadius: 4
-              }, children: transport.length > 0 ? `${transportBookedCount}/${transport.length}` : "\u2014" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Car, { size: 16, color: getStatusColor2(transportBookedCount, transport.length) }),
+              }, children: expectedTransportCount > 0 ? `${transportBookedCount}/${expectedTransportCount}` : "\u2014" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Car, { size: 16, color: getStatusColor2(transportBookedCount, expectedTransportCount) }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textMain }, children: "Transportation booked" })
             ] })
           ] })

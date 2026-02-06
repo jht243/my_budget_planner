@@ -2297,15 +2297,35 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
               const hotels = trip.legs.filter(l => l.type === "hotel");
               const transport = trip.legs.filter(l => !["flight", "hotel"].includes(l.type));
               
+              // For multi-city, count by actual transport mode from multiCityLegs
+              let flightLegsCount = 0;
+              let trainLegsCount = 0;
+              let busLegsCount = 0;
+              let otherLegsCount = 0;
+              
+              if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
+                trip.multiCityLegs.forEach(leg => {
+                  const mode = leg.mode || "plane";
+                  if (mode === "plane") flightLegsCount++;
+                  else if (mode === "rail") trainLegsCount++;
+                  else if (mode === "bus") busLegsCount++;
+                  else otherLegsCount++;
+                });
+              } else {
+                // For one-way/round-trip, use expectedLegsCount as flights
+                flightLegsCount = trip.tripType === "one_way" ? 1 : 2;
+              }
+              
               // Get primary transport mode for the trip
               const primaryMode: TransportMode = trip.departureMode || "plane";
-              const primaryModeLabel = getModeLabelPlural(primaryMode);
-              const primaryModeIcon = getModeIcon(primaryMode, 16);
               
-              // Calculate expected number of legs based on trip type
+              // Calculate expected number of travel legs (for transport calculation)
               const expectedLegsCount = trip.tripType === "one_way" ? 1 
                 : trip.tripType === "round_trip" ? 2 
                 : (trip.multiCityLegs || []).length;
+              
+              // Expected transport = 2 per travel leg (to terminal + from terminal)
+              const expectedTransportCount = expectedLegsCount * 2;
               
               // Calculate trip length - use multi-city dates if applicable
               let tripDays = 0;
@@ -2380,18 +2400,51 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                   
                   {/* Booking Status */}
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ 
-                        fontSize: 12, fontWeight: 600, minWidth: 32,
-                        color: getStatusColor(flightsBookedCount, expectedLegsCount),
-                        backgroundColor: `${getStatusColor(flightsBookedCount, expectedLegsCount)}15`,
-                        padding: "2px 6px", borderRadius: 4
-                      }}>
-                        {expectedLegsCount > 0 ? `${flightsBookedCount}/${expectedLegsCount}` : "—"}
-                      </span>
-                      {primaryModeIcon}
-                      <span style={{ fontSize: 13, color: COLORS.textMain }}>{primaryModeLabel} booked</span>
-                    </div>
+                    {/* Show flights if any */}
+                    {flightLegsCount > 0 && (
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ 
+                          fontSize: 12, fontWeight: 600, minWidth: 32,
+                          color: getStatusColor(flightsBookedCount, flightLegsCount),
+                          backgroundColor: `${getStatusColor(flightsBookedCount, flightLegsCount)}15`,
+                          padding: "2px 6px", borderRadius: 4
+                        }}>
+                          {`${flightsBookedCount}/${flightLegsCount}`}
+                        </span>
+                        {getModeIcon("plane", 16)}
+                        <span style={{ fontSize: 13, color: COLORS.textMain }}>Flights booked</span>
+                      </div>
+                    )}
+                    {/* Show trains if any */}
+                    {trainLegsCount > 0 && (
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ 
+                          fontSize: 12, fontWeight: 600, minWidth: 32,
+                          color: getStatusColor(0, trainLegsCount),
+                          backgroundColor: `${getStatusColor(0, trainLegsCount)}15`,
+                          padding: "2px 6px", borderRadius: 4
+                        }}>
+                          {`0/${trainLegsCount}`}
+                        </span>
+                        {getModeIcon("rail", 16)}
+                        <span style={{ fontSize: 13, color: COLORS.textMain }}>Trains booked</span>
+                      </div>
+                    )}
+                    {/* Show buses if any */}
+                    {busLegsCount > 0 && (
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ 
+                          fontSize: 12, fontWeight: 600, minWidth: 32,
+                          color: getStatusColor(0, busLegsCount),
+                          backgroundColor: `${getStatusColor(0, busLegsCount)}15`,
+                          padding: "2px 6px", borderRadius: 4
+                        }}>
+                          {`0/${busLegsCount}`}
+                        </span>
+                        {getModeIcon("bus", 16)}
+                        <span style={{ fontSize: 13, color: COLORS.textMain }}>Buses booked</span>
+                      </div>
+                    )}
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ 
                         fontSize: 12, fontWeight: 600, minWidth: 32,
@@ -2407,13 +2460,13 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ 
                         fontSize: 12, fontWeight: 600, minWidth: 32,
-                        color: getStatusColor(transportBookedCount, transport.length),
-                        backgroundColor: `${getStatusColor(transportBookedCount, transport.length)}15`,
+                        color: getStatusColor(transportBookedCount, expectedTransportCount),
+                        backgroundColor: `${getStatusColor(transportBookedCount, expectedTransportCount)}15`,
                         padding: "2px 6px", borderRadius: 4
                       }}>
-                        {transport.length > 0 ? `${transportBookedCount}/${transport.length}` : "—"}
+                        {expectedTransportCount > 0 ? `${transportBookedCount}/${expectedTransportCount}` : "—"}
                       </span>
-                      <Car size={16} color={getStatusColor(transportBookedCount, transport.length)} />
+                      <Car size={16} color={getStatusColor(transportBookedCount, expectedTransportCount)} />
                       <span style={{ fontSize: 13, color: COLORS.textMain }}>Transportation booked</span>
                     </div>
                   </div>
