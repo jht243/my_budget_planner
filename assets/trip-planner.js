@@ -26084,6 +26084,7 @@ function TripPlanner({ initialData: initialData2 }) {
   const [isEditingDates, setIsEditingDates] = (0, import_react3.useState)(false);
   const [editingItem, setEditingItem] = (0, import_react3.useState)(null);
   const [editValue, setEditValue] = (0, import_react3.useState)("");
+  const [editingTravelers, setEditingTravelers] = (0, import_react3.useState)(false);
   const [showSubscribeModal, setShowSubscribeModal] = (0, import_react3.useState)(false);
   const [subscribeEmail, setSubscribeEmail] = (0, import_react3.useState)("");
   const [subscribeStatus, setSubscribeStatus] = (0, import_react3.useState)("idle");
@@ -27044,22 +27045,35 @@ function TripPlanner({ initialData: initialData2 }) {
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Travelers" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }, children: editingTravelers ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                "input",
+                {
+                  type: "number",
+                  min: 1,
+                  defaultValue: trip.travelers,
+                  autoFocus: true,
+                  style: { width: 48, fontSize: 18, fontWeight: 700, color: COLORS.textMain, textAlign: "center", border: `1px solid ${COLORS.primary}`, borderRadius: 6, outline: "none", padding: "2px 4px", background: COLORS.inputBg },
+                  onBlur: (e) => {
+                    const val = parseInt(e.target.value);
+                    if (!isNaN(val) && val > 0) setTrip((t) => ({ ...t, travelers: val, updatedAt: Date.now() }));
+                    setEditingTravelers(false);
+                  },
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") e.target.blur();
+                    if (e.key === "Escape") setEditingTravelers(false);
+                  }
+                }
+              ) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: trip.travelers }),
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
                   "button",
                   {
-                    onClick: () => {
-                      const newCount = prompt("Number of travelers:", String(trip.travelers));
-                      if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
-                        setTrip((t) => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
-                      }
-                    },
+                    onClick: () => setEditingTravelers(true),
                     style: { background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" },
                     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 11, color: COLORS.textMuted })
                   }
                 )
-              ] })
+              ] }) })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Cities" }),

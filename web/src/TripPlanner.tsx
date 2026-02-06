@@ -1478,6 +1478,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   const [isEditingDates, setIsEditingDates] = useState(false);
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
+  const [editingTravelers, setEditingTravelers] = useState(false);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState("");
   const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -2511,18 +2512,34 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Travelers</div>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
-                        <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{trip.travelers}</span>
-                        <button 
-                          onClick={() => {
-                            const newCount = prompt("Number of travelers:", String(trip.travelers));
-                            if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
-                              setTrip(t => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
-                            }
-                          }}
-                          style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }}
-                        >
-                          <Edit2 size={11} color={COLORS.textMuted} />
-                        </button>
+                        {editingTravelers ? (
+                          <input
+                            type="number"
+                            min={1}
+                            defaultValue={trip.travelers}
+                            autoFocus
+                            style={{ width: 48, fontSize: 18, fontWeight: 700, color: COLORS.textMain, textAlign: "center", border: `1px solid ${COLORS.primary}`, borderRadius: 6, outline: "none", padding: "2px 4px", background: COLORS.inputBg }}
+                            onBlur={(e) => {
+                              const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val > 0) setTrip(t => ({ ...t, travelers: val, updatedAt: Date.now() }));
+                              setEditingTravelers(false);
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                              if (e.key === "Escape") setEditingTravelers(false);
+                            }}
+                          />
+                        ) : (
+                          <>
+                            <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{trip.travelers}</span>
+                            <button
+                              onClick={() => setEditingTravelers(true)}
+                              style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }}
+                            >
+                              <Edit2 size={11} color={COLORS.textMuted} />
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
                     <div>
