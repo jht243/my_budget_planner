@@ -81,6 +81,7 @@ interface TripLeg {
   title: string;
   date: string;
   time?: string;
+  endTime?: string;
   endDate?: string;
   from?: string;
   to?: string;
@@ -684,13 +685,18 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                     <label style={lblStyle}>Date</label>
                     <input type="date" value={editData.date} onClick={stop} onChange={e => setEditData({ ...editData, date: e.target.value })} style={inpStyle} />
                   </div>
-                  <div>
-                    <label style={lblStyle}>Time</label>
-                    <input type="time" value={editData.time || ""} onClick={stop} onChange={e => setEditData({ ...editData, time: e.target.value })} style={inpStyle} />
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div>
+                      <label style={lblStyle}>Start Time</label>
+                      <input type="time" value={editData.time || ""} onClick={stop} onChange={e => setEditData({ ...editData, time: e.target.value })} style={inpStyle} />
+                    </div>
+                    <div>
+                      <label style={lblStyle}>End Time</label>
+                      <input type="time" value={editData.endTime || ""} onClick={stop} onChange={e => setEditData({ ...editData, endTime: e.target.value })} style={inpStyle} />
+                    </div>
                   </div>
                   <input value={editData.location || ""} onClick={stop} onChange={e => setEditData({ ...editData, location: e.target.value })} placeholder="Location" autoComplete="off" data-form-type="other" data-lpignore="true" data-1p-ignore style={fullStyle} />
-                  <input value={editData.confirmationNumber || ""} onClick={stop} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation / Booking #" autoComplete="off" data-form-type="other" data-lpignore="true" data-1p-ignore style={fullStyle} />
-                  <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes" style={fullStyle} />
+                  <input value={editData.notes || ""} onClick={stop} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes / Confirmation #" autoComplete="off" data-form-type="other" data-lpignore="true" data-1p-ignore style={fullStyle} />
                 </>
               )}
             </div>
@@ -2159,7 +2165,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   };
 
   const handleAddLeg = (legData: Partial<TripLeg>) => {
-    const newLeg: TripLeg = { id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "", time: legData.time, endDate: legData.endDate, from: legData.from, to: legData.to, location: legData.location, confirmationNumber: legData.confirmationNumber, flightNumber: legData.flightNumber, airline: legData.airline, hotelName: legData.hotelName, notes: legData.notes };
+    const newLeg: TripLeg = { id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "", time: legData.time, endTime: legData.endTime, endDate: legData.endDate, from: legData.from, to: legData.to, location: legData.location, confirmationNumber: legData.confirmationNumber, flightNumber: legData.flightNumber, airline: legData.airline, hotelName: legData.hotelName, notes: legData.notes };
     setTrip(t => ({ ...t, legs: [...t.legs, newLeg], updatedAt: Date.now() }));
     setExpandedLegs(p => new Set(p).add(newLeg.id));
   };
