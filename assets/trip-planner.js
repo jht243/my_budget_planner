@@ -25087,7 +25087,12 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
           ] }),
           leg.time && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { display: "flex", alignItems: "center", gap: 4, fontSize: 13, color: COLORS.textSecondary }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 14 }),
-            leg.time
+            leg.time,
+            leg.endTime ? ` \u2013 ${leg.endTime}` : ""
+          ] }),
+          leg.location && !["hotel", "flight"].includes(leg.type) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { display: "flex", alignItems: "center", gap: 4, fontSize: 13, color: COLORS.textSecondary }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { size: 14 }),
+            leg.location
           ] }),
           leg.flightNumber && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: legColors.main, fontWeight: 600 }, children: leg.flightNumber })
         ] })
