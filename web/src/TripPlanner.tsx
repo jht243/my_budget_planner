@@ -1204,11 +1204,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               // ORIGINAL logic restored exactly from pre-redesign (commit 960007c)
               const hotelComplete = dayData.hotels.length > 0 && dayData.hotels.some(h => h.leg.hotelName || h.leg.title);
               const activityComplete = dayData.activities.length > 0;
-              // Transport: on travel days, need both "to airport" and "from airport"
-              const toAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("to airport") || t.to?.toLowerCase().includes("airport"));
-              const fromAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("from airport") || t.from?.toLowerCase().includes("airport"));
-              const toAirportBooked = toAirportLeg && hasUserInfo(toAirportLeg);
-              const fromAirportBooked = fromAirportLeg && hasUserInfo(fromAirportLeg);
+              // Transport: on travel days, need both "to hub" and "from hub"
+              const isToHub = (t: TripLeg) => t.title?.toLowerCase().startsWith("to ") || t.to?.toLowerCase().includes("airport") || t.to?.toLowerCase().includes("station") || t.to?.toLowerCase().includes("port");
+              const isFromHub = (t: TripLeg) => t.title?.toLowerCase().startsWith("from ") || t.from?.toLowerCase().includes("airport") || t.from?.toLowerCase().includes("station") || t.from?.toLowerCase().includes("port");
+              const toHubLeg = dayData.transport.find(isToHub);
+              const fromHubLeg = dayData.transport.find(isFromHub);
+              const toAirportBooked = toHubLeg && hasUserInfo(toHubLeg);
+              const fromAirportBooked = fromHubLeg && hasUserInfo(fromHubLeg);
               // For travel days: need both transports. Count how many are booked.
               const transportNeeded = isTravelDay ? 2 : (dayData.transport.length > 0 ? dayData.transport.length : 0);
               const transportBookedCount = isTravelDay 
@@ -1294,24 +1296,40 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                     )}
                   </>
                 )}
-                {expanded === "transport" && (
+                {expanded === "transport" && (() => {
+                  // Determine hub name based on the day's primary travel mode
+                  const dayLeg = dayData.flights[0];
+                  const hubName = dayLeg ? (
+                    dayLeg.type === "train" ? "Train Station" :
+                    dayLeg.type === "bus" ? "Bus Station" :
+                    dayLeg.type === "ferry" ? "Ship" :
+                    dayLeg.type === "car" ? "Rental Car Pickup" :
+                    "Airport"
+                  ) : "Airport";
+                  // Search pattern: match any existing transport leg with "To ..." or "From ..." in title
+                  const isToHubLeg = (t: TripLeg) => t.title?.toLowerCase().startsWith("to ") || t.to?.toLowerCase().includes("airport") || t.to?.toLowerCase().includes("station") || t.to?.toLowerCase().includes("port");
+                  const isFromHubLeg = (t: TripLeg) => t.title?.toLowerCase().startsWith("from ") || t.from?.toLowerCase().includes("airport") || t.from?.toLowerCase().includes("station") || t.from?.toLowerCase().includes("port");
+                  const toHubLeg = dayData.transport.find(isToHubLeg);
+                  const fromHubLeg = dayData.transport.find(isFromHubLeg);
+                  const toTitle = `To ${hubName}`;
+                  const fromTitle = `From ${hubName}`;
+                  return (
                   <>
-                    {/* To Airport Section */}
+                    {/* Getting to hub Section */}
                     {(() => {
-                      const toAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("to airport") || t.to?.toLowerCase().includes("airport"));
-                      const toAirportComplete = toAirportLeg?.status === "booked";
+                      const toHubComplete = toHubLeg?.status === "booked";
                       const isEditing = editingTransport === `to-${date}`;
                       return (
                         <div style={{ marginBottom: 12, padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (toAirportLeg || isEditing) ? 8 : 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (toHubLeg || isEditing) ? 8 : 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                               <ArrowRight size={16} color={COLORS.transport} />
-                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Getting to Airport</span>
+                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Getting to {hubName}</span>
                             </div>
-                            {!toAirportLeg && !isEditing ? (
+                            {!toHubLeg && !isEditing ? (
                               <div style={{ display: "flex", gap: 6 }}>
                                 <button 
-                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "To Airport", notes: "Quick complete" })}
+                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: toTitle, notes: "Quick complete" })}
                                   style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                 >
                                   <Check size={12} /> Mark Complete
@@ -1323,26 +1341,26 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                   <Plus size={12} /> Add Details
                                 </button>
                               </div>
-                            ) : toAirportLeg && !isEditing ? (
+                            ) : toHubLeg && !isEditing ? (
                               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                                {toAirportComplete ? (
+                                {toHubComplete ? (
                                   <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
                                 ) : (
                                   <button 
-                                    onClick={() => onUpdateLeg(toAirportLeg.id, { status: "booked" })}
+                                    onClick={() => onUpdateLeg(toHubLeg.id, { status: "booked" })}
                                     style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                   >
                                     <Check size={12} /> Mark Done
                                   </button>
                                 )}
                                 <button 
-                                  onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: (toAirportLeg.rentalCompany || toAirportLeg.notes?.startsWith("Rental")) ? "rental" : toAirportLeg.notes?.includes("Uber") ? "uber" : "other", notes: toAirportLeg.notes || "", rentalCompany: toAirportLeg.rentalCompany || "", startDate: toAirportLeg.date || date, endDate: toAirportLeg.endDate || date }); }}
+                                  onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: (toHubLeg.rentalCompany || toHubLeg.notes?.startsWith("Rental")) ? "rental" : toHubLeg.notes?.includes("Uber") ? "uber" : "other", notes: toHubLeg.notes || "", rentalCompany: toHubLeg.rentalCompany || "", startDate: toHubLeg.date || date, endDate: toHubLeg.endDate || date }); }}
                                   style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" }}
                                 >
                                   <Edit2 size={12} />
                                 </button>
                                 <button 
-                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(toAirportLeg.id); }}
+                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(toHubLeg.id); }}
                                   style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#C0392B", fontSize: 11, cursor: "pointer" }}
                                 >
                                   <Trash2 size={12} />
@@ -1378,22 +1396,22 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                 <button onClick={() => setEditingTransport(null)} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", color: COLORS.textSecondary, fontSize: 12, cursor: "pointer" }}>Cancel</button>
                                 <button onClick={() => {
                                   const notes = transportForm.type === "uber" ? "Uber/Lyft" : transportForm.type === "rental" ? `Rental: ${transportForm.rentalCompany}` : transportForm.notes;
-                                  if (toAirportLeg) {
-                                    onUpdateLeg(toAirportLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany, date: transportForm.startDate, endDate: transportForm.endDate, status: "booked", title: "To Airport" });
+                                  if (toHubLeg) {
+                                    onUpdateLeg(toHubLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany, date: transportForm.startDate, endDate: transportForm.endDate, status: "booked", title: toTitle });
                                   } else {
-                                    onAddLeg({ type: "car", date: transportForm.startDate || date, endDate: transportForm.endDate, status: "booked", title: "To Airport", notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                    onAddLeg({ type: "car", date: transportForm.startDate || date, endDate: transportForm.endDate, status: "booked", title: toTitle, notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
                                   }
                                   setEditingTransport(null);
                                 }} style={{ padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Save</button>
                               </div>
                             </div>
-                          ) : toAirportLeg && (
-                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: (toAirportLeg.rentalCompany || toAirportLeg.notes?.startsWith("Rental")) ? "rental" : toAirportLeg.notes?.includes("Uber") ? "uber" : "other", notes: toAirportLeg.notes || "", rentalCompany: toAirportLeg.rentalCompany || "", startDate: toAirportLeg.date || date, endDate: toAirportLeg.endDate || date }); }}>
-                              {toAirportLeg.notes === "Quick complete" ? "Marked complete" : (
+                          ) : toHubLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`to-${date}`); setTransportForm({ type: (toHubLeg.rentalCompany || toHubLeg.notes?.startsWith("Rental")) ? "rental" : toHubLeg.notes?.includes("Uber") ? "uber" : "other", notes: toHubLeg.notes || "", rentalCompany: toHubLeg.rentalCompany || "", startDate: toHubLeg.date || date, endDate: toHubLeg.endDate || date }); }}>
+                              {toHubLeg.notes === "Quick complete" ? "Marked complete" : (
                                 <>
-                                  {toAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {toAirportLeg.rentalCompany}</span>}
-                                  {toAirportLeg.notes && <span>{toAirportLeg.notes}</span>}
-                                  {!toAirportLeg.rentalCompany && !toAirportLeg.notes && toAirportLeg.status !== "booked" && (
+                                  {toHubLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {toHubLeg.rentalCompany}</span>}
+                                  {toHubLeg.notes && <span>{toHubLeg.notes}</span>}
+                                  {!toHubLeg.rentalCompany && !toHubLeg.notes && toHubLeg.status !== "booked" && (
                                     <span style={{ color: COLORS.pending }}>Click to add details (Rental car, Uber, etc.)</span>
                                   )}
                                 </>
@@ -1404,22 +1422,21 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                       );
                     })()}
                     
-                    {/* From Airport Section */}
+                    {/* Leaving from hub Section */}
                     {(() => {
-                      const fromAirportLeg = dayData.transport.find(t => t.title?.toLowerCase().includes("from airport") || t.from?.toLowerCase().includes("airport"));
-                      const fromAirportComplete = fromAirportLeg?.status === "booked";
+                      const fromHubComplete = fromHubLeg?.status === "booked";
                       const isEditing = editingTransport === `from-${date}`;
                       return (
                         <div style={{ padding: 12, backgroundColor: COLORS.transportBg, borderRadius: 10, border: `1px solid ${COLORS.transport}30` }}>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (fromAirportLeg || isEditing) ? 8 : 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: (fromHubLeg || isEditing) ? 8 : 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                               <ArrowRight size={16} color={COLORS.transport} style={{ transform: "rotate(180deg)" }} />
-                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Getting from Airport</span>
+                              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Leaving from {hubName}</span>
                             </div>
-                            {!fromAirportLeg && !isEditing ? (
+                            {!fromHubLeg && !isEditing ? (
                               <div style={{ display: "flex", gap: 6 }}>
                                 <button 
-                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: "From Airport", notes: "Quick complete" })}
+                                  onClick={() => onAddLeg({ type: "car", date, status: "booked", title: fromTitle, notes: "Quick complete" })}
                                   style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                 >
                                   <Check size={12} /> Mark Complete
@@ -1431,26 +1448,26 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                   <Plus size={12} /> Add Details
                                 </button>
                               </div>
-                            ) : fromAirportLeg && !isEditing ? (
+                            ) : fromHubLeg && !isEditing ? (
                               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                                {fromAirportComplete ? (
+                                {fromHubComplete ? (
                                   <span style={{ fontSize: 11, color: COLORS.booked, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}><Check size={12} /> Complete</span>
                                 ) : (
                                   <button 
-                                    onClick={() => onUpdateLeg(fromAirportLeg.id, { status: "booked" })}
+                                    onClick={() => onUpdateLeg(fromHubLeg.id, { status: "booked" })}
                                     style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${COLORS.booked}`, backgroundColor: `${COLORS.booked}15`, color: COLORS.booked, fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}
                                   >
                                     <Check size={12} /> Mark Done
                                   </button>
                                 )}
                                 <button 
-                                  onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: (fromAirportLeg.rentalCompany || fromAirportLeg.notes?.startsWith("Rental")) ? "rental" : fromAirportLeg.notes?.includes("Uber") ? "uber" : "other", notes: fromAirportLeg.notes || "", rentalCompany: fromAirportLeg.rentalCompany || "", startDate: fromAirportLeg.date || date, endDate: fromAirportLeg.endDate || date }); }}
+                                  onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: (fromHubLeg.rentalCompany || fromHubLeg.notes?.startsWith("Rental")) ? "rental" : fromHubLeg.notes?.includes("Uber") ? "uber" : "other", notes: fromHubLeg.notes || "", rentalCompany: fromHubLeg.rentalCompany || "", startDate: fromHubLeg.date || date, endDate: fromHubLeg.endDate || date }); }}
                                   style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11, cursor: "pointer" }}
                                 >
                                   <Edit2 size={12} />
                                 </button>
                                 <button 
-                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(fromAirportLeg.id); }}
+                                  onClick={() => { if (confirm("Delete this transport?")) onDeleteLeg(fromHubLeg.id); }}
                                   style={{ padding: "4px 8px", borderRadius: 6, border: "none", backgroundColor: "transparent", color: "#C0392B", fontSize: 11, cursor: "pointer" }}
                                 >
                                   <Trash2 size={12} />
@@ -1486,22 +1503,22 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                                 <button onClick={() => setEditingTransport(null)} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", color: COLORS.textSecondary, fontSize: 12, cursor: "pointer" }}>Cancel</button>
                                 <button onClick={() => {
                                   const notes = transportForm.type === "uber" ? "Uber/Lyft" : transportForm.type === "rental" ? `Rental: ${transportForm.rentalCompany}` : transportForm.notes;
-                                  if (fromAirportLeg) {
-                                    onUpdateLeg(fromAirportLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany, date: transportForm.startDate, endDate: transportForm.endDate, status: "booked", title: "From Airport" });
+                                  if (fromHubLeg) {
+                                    onUpdateLeg(fromHubLeg.id, { notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany, date: transportForm.startDate, endDate: transportForm.endDate, status: "booked", title: fromTitle });
                                   } else {
-                                    onAddLeg({ type: "car", date: transportForm.startDate || date, endDate: transportForm.endDate, status: "booked", title: "From Airport", notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
+                                    onAddLeg({ type: "car", date: transportForm.startDate || date, endDate: transportForm.endDate, status: "booked", title: fromTitle, notes: transportForm.notes || notes, rentalCompany: transportForm.rentalCompany });
                                   }
                                   setEditingTransport(null);
                                 }} style={{ padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Save</button>
                               </div>
                             </div>
-                          ) : fromAirportLeg && (
-                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: (fromAirportLeg.rentalCompany || fromAirportLeg.notes?.startsWith("Rental")) ? "rental" : fromAirportLeg.notes?.includes("Uber") ? "uber" : "other", notes: fromAirportLeg.notes || "", rentalCompany: fromAirportLeg.rentalCompany || "", startDate: fromAirportLeg.date || date, endDate: fromAirportLeg.endDate || date }); }}>
-                              {fromAirportLeg.notes === "Quick complete" ? "Marked complete" : (
+                          ) : fromHubLeg && (
+                            <div style={{ fontSize: 12, color: COLORS.textSecondary, cursor: "pointer" }} onClick={() => { setEditingTransport(`from-${date}`); setTransportForm({ type: (fromHubLeg.rentalCompany || fromHubLeg.notes?.startsWith("Rental")) ? "rental" : fromHubLeg.notes?.includes("Uber") ? "uber" : "other", notes: fromHubLeg.notes || "", rentalCompany: fromHubLeg.rentalCompany || "", startDate: fromHubLeg.date || date, endDate: fromHubLeg.endDate || date }); }}>
+                              {fromHubLeg.notes === "Quick complete" ? "Marked complete" : (
                                 <>
-                                  {fromAirportLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {fromAirportLeg.rentalCompany}</span>}
-                                  {fromAirportLeg.notes && <span>{fromAirportLeg.notes}</span>}
-                                  {!fromAirportLeg.rentalCompany && !fromAirportLeg.notes && fromAirportLeg.status !== "booked" && (
+                                  {fromHubLeg.rentalCompany && <span style={{ marginRight: 8 }}>🚗 {fromHubLeg.rentalCompany}</span>}
+                                  {fromHubLeg.notes && <span>{fromHubLeg.notes}</span>}
+                                  {!fromHubLeg.rentalCompany && !fromHubLeg.notes && fromHubLeg.status !== "booked" && (
                                     <span style={{ color: COLORS.pending }}>Click to add details (Rental car, Uber, etc.)</span>
                                   )}
                                 </>
@@ -1512,7 +1529,8 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                       );
                     })()}
                   </>
-                )}
+                  );
+                })()}
                 {expanded === "activity" && (
                   <>
                     {dayData.activities.map(leg => (
