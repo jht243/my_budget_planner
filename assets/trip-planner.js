@@ -25103,12 +25103,14 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
   };
   if (isEditing) {
     const isHotel = leg.type === "hotel";
-    const isTransport = ["car", "train", "bus", "ferry"].includes(leg.type);
+    const isPrimaryTransport = ["car", "train", "bus", "ferry"].includes(leg.type) && leg.from && leg.to;
+    const isManualTransport = ["car", "train", "bus", "ferry"].includes(leg.type) && !leg.from && !leg.to;
+    const editTitle = leg.type === "ferry" ? "Cruise" : leg.type === "car" ? "Drive" : leg.type.charAt(0).toUpperCase() + leg.type.slice(1);
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 16, border: `2px solid ${legColors.main}`, padding: 20, marginBottom: 12 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", marginBottom: 16 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontWeight: 700, fontSize: 16 }, children: [
           "Edit ",
-          leg.type
+          editTitle
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => {
@@ -25122,8 +25124,8 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.title, onChange: (e) => setEditData({ ...editData, title: e.target.value }), placeholder: isHotel ? "Hotel Name" : "Title", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } }),
         isHotel ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.title, onChange: (e) => setEditData({ ...editData, title: e.target.value }), placeholder: "Hotel Name", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }, children: "Check-in Date" }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "date", value: editData.date, onChange: (e) => setEditData({ ...editData, date: e.target.value }), style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
@@ -25133,15 +25135,31 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "date", value: editData.endDate || "", onChange: (e) => setEditData({ ...editData, endDate: e.target.value }), style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.location || "", onChange: (e) => setEditData({ ...editData, location: e.target.value }), placeholder: "Address", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } })
+        ] }) : isPrimaryTransport ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { gridColumn: "1 / -1", padding: "8px 12px", borderRadius: 8, backgroundColor: COLORS.inputBg, fontSize: 13, color: COLORS.textSecondary }, children: [
+            editData.from,
+            " \u2192 ",
+            editData.to
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }, children: "Departure Time" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "time", value: editData.time || "", onChange: (e) => setEditData({ ...editData, time: e.target.value }), style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }, children: "Confirmation #" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.notes || "", onChange: (e) => setEditData({ ...editData, notes: e.target.value }), placeholder: "Notes (e.g. platform, terminal, seat)", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } })
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.title, onChange: (e) => setEditData({ ...editData, title: e.target.value }), placeholder: "Title", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "date", value: editData.date, onChange: (e) => setEditData({ ...editData, date: e.target.value }), style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` } }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "time", value: editData.time || "", onChange: (e) => setEditData({ ...editData, time: e.target.value }), style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` } }),
-          isTransport && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+          isManualTransport && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.from || "", onChange: (e) => setEditData({ ...editData, from: e.target.value }), placeholder: "From", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` } }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.to || "", onChange: (e) => setEditData({ ...editData, to: e.target.value }), placeholder: "To", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` } })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } })
+        !isPrimaryTransport && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: { padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" } })
       ] })
     ] });
   }
@@ -25204,14 +25222,14 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, fontFamily: "monospace", fontWeight: 600 }, children: leg.confirmationNumber })
         ] })
       ] }),
-      travelers > 1 && ["flight", "train", "bus"].includes(leg.type) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 16, borderTop: `1px solid ${COLORS.borderLight}`, paddingTop: 12 }, children: [
+      travelers > 1 && ["flight", "train", "bus", "ferry"].includes(leg.type) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 16, borderTop: `1px solid ${COLORS.borderLight}`, paddingTop: 12 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 8 }, children: "Passenger Tickets" }),
         Array.from({ length: travelers }, (_, i) => {
           const ticket = leg.passengerTickets?.find((t) => t.passenger === i + 1);
           const isBooked = ticket?.booked || false;
           return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 6, padding: "6px 10px", borderRadius: 8, backgroundColor: isBooked ? COLORS.bookedBg : COLORS.inputBg, border: `1px solid ${isBooked ? COLORS.booked : COLORS.borderLight}` }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: isBooked ? COLORS.booked : COLORS.textMain, flex: 1 }, children: [
-              leg.type === "flight" ? "\u2708" : leg.type === "train" ? "\u{1F686}" : "\u{1F68C}",
+              leg.type === "flight" ? "\u2708" : leg.type === "train" ? "\u{1F686}" : leg.type === "ferry" ? "\u{1F6A2}" : "\u{1F68C}",
               " Passenger ",
               i + 1
             ] }),

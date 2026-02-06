@@ -488,20 +488,22 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
 
   if (isEditing) {
     const isHotel = leg.type === "hotel";
-    const isTransport = ["car", "train", "bus", "ferry"].includes(leg.type);
+    const isPrimaryTransport = ["car", "train", "bus", "ferry"].includes(leg.type) && leg.from && leg.to;
+    const isManualTransport = ["car", "train", "bus", "ferry"].includes(leg.type) && !leg.from && !leg.to;
+    const editTitle = leg.type === "ferry" ? "Cruise" : leg.type === "car" ? "Drive" : leg.type.charAt(0).toUpperCase() + leg.type.slice(1);
     return (
       <div style={{ backgroundColor: COLORS.card, borderRadius: 16, border: `2px solid ${legColors.main}`, padding: 20, marginBottom: 12 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
-          <span style={{ fontWeight: 700, fontSize: 16 }}>Edit {leg.type}</span>
+          <span style={{ fontWeight: 700, fontSize: 16 }}>Edit {editTitle}</span>
           <div style={{ display: "flex", gap: 8 }}>
             <button onClick={() => { onUpdate(editData); setIsEditing(false); }} style={{ padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontWeight: 600, cursor: "pointer" }}><Save size={16} /> Save</button>
             <button onClick={() => setIsEditing(false)} style={{ padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", cursor: "pointer" }}>Cancel</button>
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-          <input value={editData.title} onChange={e => setEditData({ ...editData, title: e.target.value })} placeholder={isHotel ? "Hotel Name" : "Title"} style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
           {isHotel ? (
             <>
+              <input value={editData.title} onChange={e => setEditData({ ...editData, title: e.target.value })} placeholder="Hotel Name" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
               <div>
                 <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Check-in Date</label>
                 <input type="date" value={editData.date} onChange={e => setEditData({ ...editData, date: e.target.value })} style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
@@ -512,11 +514,28 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
               </div>
               <input value={editData.location || ""} onChange={e => setEditData({ ...editData, location: e.target.value })} placeholder="Address" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
             </>
+          ) : isPrimaryTransport ? (
+            <>
+              {/* Primary transport legs (from multi-city): From/To already known, just show time + confirmation */}
+              <div style={{ gridColumn: "1 / -1", padding: "8px 12px", borderRadius: 8, backgroundColor: COLORS.inputBg, fontSize: 13, color: COLORS.textSecondary }}>
+                {editData.from} → {editData.to}
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Departure Time</label>
+                <input type="time" value={editData.time || ""} onChange={e => setEditData({ ...editData, time: e.target.value })} style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Confirmation #</label>
+                <input value={editData.confirmationNumber || ""} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
+              </div>
+              <input value={editData.notes || ""} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. platform, terminal, seat)" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
+            </>
           ) : (
             <>
+              <input value={editData.title} onChange={e => setEditData({ ...editData, title: e.target.value })} placeholder="Title" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
               <input type="date" value={editData.date} onChange={e => setEditData({ ...editData, date: e.target.value })} style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` }} />
               <input type="time" value={editData.time || ""} onChange={e => setEditData({ ...editData, time: e.target.value })} style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` }} />
-              {isTransport && (
+              {isManualTransport && (
                 <>
                   <input value={editData.from || ""} onChange={e => setEditData({ ...editData, from: e.target.value })} placeholder="From" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` }} />
                   <input value={editData.to || ""} onChange={e => setEditData({ ...editData, to: e.target.value })} placeholder="To" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}` }} />
@@ -524,7 +543,7 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
               )}
             </>
           )}
-          <input value={editData.confirmationNumber || ""} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
+          {!isPrimaryTransport && <input value={editData.confirmationNumber || ""} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />}
         </div>
       </div>
     );
@@ -565,7 +584,7 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
             {leg.confirmationNumber && <div><div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4, textTransform: "uppercase" }}>Confirmation #</div><div style={{ fontSize: 14, fontFamily: "monospace", fontWeight: 600 }}>{leg.confirmationNumber}</div></div>}
           </div>
           {/* Per-passenger tickets for flights/trains/buses when travelers > 1 */}
-          {travelers > 1 && ["flight", "train", "bus"].includes(leg.type) && (
+          {travelers > 1 && ["flight", "train", "bus", "ferry"].includes(leg.type) && (
             <div style={{ marginTop: 16, borderTop: `1px solid ${COLORS.borderLight}`, paddingTop: 12 }}>
               <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 8 }}>Passenger Tickets</div>
               {Array.from({ length: travelers }, (_, i) => {
@@ -574,7 +593,7 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                 return (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, padding: "6px 10px", borderRadius: 8, backgroundColor: isBooked ? COLORS.bookedBg : COLORS.inputBg, border: `1px solid ${isBooked ? COLORS.booked : COLORS.borderLight}` }}>
                     <span style={{ fontSize: 13, fontWeight: 600, color: isBooked ? COLORS.booked : COLORS.textMain, flex: 1 }}>
-                      {leg.type === "flight" ? "✈" : leg.type === "train" ? "🚆" : "🚌"} Passenger {i + 1}
+                      {leg.type === "flight" ? "✈" : leg.type === "train" ? "🚆" : leg.type === "ferry" ? "🚢" : "🚌"} Passenger {i + 1}
                     </span>
                     {isBooked ? (
                       <>
