@@ -594,10 +594,12 @@ const TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, trip
                     <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Departure Time</label>
                     <input type="time" value={editData.time || ""} onClick={e => e.stopPropagation()} onChange={e => setEditData({ ...editData, time: e.target.value })} style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
                   </div>
-                  <div>
-                    <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Confirmation #</label>
-                    <input value={editData.confirmationNumber || ""} onClick={e => e.stopPropagation()} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
-                  </div>
+                  {travelers <= 1 && (
+                    <div>
+                      <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }}>Confirmation #</label>
+                      <input value={editData.confirmationNumber || ""} onClick={e => e.stopPropagation()} onChange={e => setEditData({ ...editData, confirmationNumber: e.target.value })} placeholder="Confirmation #" style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" }} />
+                    </div>
+                  )}
                   <input value={editData.notes || ""} onClick={e => e.stopPropagation()} onChange={e => setEditData({ ...editData, notes: e.target.value })} placeholder="Notes (e.g. platform, terminal, seat)" style={{ padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, gridColumn: "1 / -1" }} />
                 </>
               ) : (

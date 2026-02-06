@@ -25185,7 +25185,7 @@ var TripLegCard = ({ leg, onUpdate, onDelete, isExpanded, onToggleExpand, tripDe
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }, children: "Departure Time" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "time", value: editData.time || "", onClick: (e) => e.stopPropagation(), onChange: (e) => setEditData({ ...editData, time: e.target.value }), style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            travelers <= 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 4 }, children: "Confirmation #" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: editData.confirmationNumber || "", onClick: (e) => e.stopPropagation(), onChange: (e) => setEditData({ ...editData, confirmationNumber: e.target.value }), placeholder: "Confirmation #", style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, boxSizing: "border-box" } })
             ] }),
