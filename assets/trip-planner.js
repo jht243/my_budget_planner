@@ -24626,8 +24626,20 @@ var __iconNode12 = [
 ];
 var FileText = createLucideIcon("file-text", __iconNode12);
 
-// node_modules/lucide-react/dist/esm/icons/hotel.js
+// node_modules/lucide-react/dist/esm/icons/heart.js
 var __iconNode13 = [
+  [
+    "path",
+    {
+      d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
+      key: "mvr1a0"
+    }
+  ]
+];
+var Heart = createLucideIcon("heart", __iconNode13);
+
+// node_modules/lucide-react/dist/esm/icons/hotel.js
+var __iconNode14 = [
   ["path", { d: "M10 22v-6.57", key: "1wmca3" }],
   ["path", { d: "M12 11h.01", key: "z322tv" }],
   ["path", { d: "M12 7h.01", key: "1ivr5q" }],
@@ -24639,10 +24651,10 @@ var __iconNode13 = [
   ["path", { d: "M8 7h.01", key: "1vti4s" }],
   ["rect", { x: "4", y: "2", width: "16", height: "20", rx: "2", key: "1uxh74" }]
 ];
-var Hotel = createLucideIcon("hotel", __iconNode13);
+var Hotel = createLucideIcon("hotel", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/house.js
-var __iconNode14 = [
+var __iconNode15 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -24652,10 +24664,17 @@ var __iconNode14 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode14);
+var House = createLucideIcon("house", __iconNode15);
+
+// node_modules/lucide-react/dist/esm/icons/mail.js
+var __iconNode16 = [
+  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+];
+var Mail = createLucideIcon("mail", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/map-pin.js
-var __iconNode15 = [
+var __iconNode17 = [
   [
     "path",
     {
@@ -24665,10 +24684,22 @@ var __iconNode15 = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-var MapPin = createLucideIcon("map-pin", __iconNode15);
+var MapPin = createLucideIcon("map-pin", __iconNode17);
+
+// node_modules/lucide-react/dist/esm/icons/message-square.js
+var __iconNode18 = [
+  [
+    "path",
+    {
+      d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
+      key: "18887p"
+    }
+  ]
+];
+var MessageSquare = createLucideIcon("message-square", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/pen-line.js
-var __iconNode16 = [
+var __iconNode19 = [
   ["path", { d: "M13 21h8", key: "1jsn5i" }],
   [
     "path",
@@ -24678,10 +24709,10 @@ var __iconNode16 = [
     }
   ]
 ];
-var PenLine = createLucideIcon("pen-line", __iconNode16);
+var PenLine = createLucideIcon("pen-line", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode17 = [
+var __iconNode20 = [
   [
     "path",
     {
@@ -24690,10 +24721,10 @@ var __iconNode17 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode17);
+var Pen = createLucideIcon("pen", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/plane.js
-var __iconNode18 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -24702,24 +24733,38 @@ var __iconNode18 = [
     }
   ]
 ];
-var Plane = createLucideIcon("plane", __iconNode18);
+var Plane = createLucideIcon("plane", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode19 = [
+var __iconNode22 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode19);
+var Plus = createLucideIcon("plus", __iconNode22);
+
+// node_modules/lucide-react/dist/esm/icons/printer.js
+var __iconNode23 = [
+  [
+    "path",
+    {
+      d: "M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2",
+      key: "143wyd"
+    }
+  ],
+  ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
+  ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
+];
+var Printer = createLucideIcon("printer", __iconNode23);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode20 = [
+var __iconNode24 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode20);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode21 = [
+var __iconNode25 = [
   [
     "path",
     {
@@ -24730,10 +24775,10 @@ var __iconNode21 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode21);
+var Save = createLucideIcon("save", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/ship.js
-var __iconNode22 = [
+var __iconNode26 = [
   ["path", { d: "M12 10.189V14", key: "1p8cqu" }],
   ["path", { d: "M12 2v3", key: "qbqxhf" }],
   ["path", { d: "M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6", key: "qpkstq" }],
@@ -24752,10 +24797,10 @@ var __iconNode22 = [
     }
   ]
 ];
-var Ship = createLucideIcon("ship", __iconNode22);
+var Ship = createLucideIcon("ship", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/sparkles.js
-var __iconNode23 = [
+var __iconNode27 = [
   [
     "path",
     {
@@ -24767,10 +24812,10 @@ var __iconNode23 = [
   ["path", { d: "M22 4h-4", key: "gwowj6" }],
   ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
 ];
-var Sparkles = createLucideIcon("sparkles", __iconNode23);
+var Sparkles = createLucideIcon("sparkles", __iconNode27);
 
 // node_modules/lucide-react/dist/esm/icons/tram-front.js
-var __iconNode24 = [
+var __iconNode28 = [
   ["rect", { width: "16", height: "16", x: "4", y: "3", rx: "2", key: "1wxw4b" }],
   ["path", { d: "M4 11h16", key: "mpoxn0" }],
   ["path", { d: "M12 3v8", key: "1h2ygw" }],
@@ -24779,33 +24824,33 @@ var __iconNode24 = [
   ["path", { d: "M8 15h.01", key: "a7atzg" }],
   ["path", { d: "M16 15h.01", key: "rnfrdf" }]
 ];
-var TramFront = createLucideIcon("tram-front", __iconNode24);
+var TramFront = createLucideIcon("tram-front", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode25 = [
+var __iconNode29 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode25);
+var Trash2 = createLucideIcon("trash-2", __iconNode29);
 
 // node_modules/lucide-react/dist/esm/icons/users.js
-var __iconNode26 = [
+var __iconNode30 = [
   ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
   ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
   ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ];
-var Users = createLucideIcon("users", __iconNode26);
+var Users = createLucideIcon("users", __iconNode30);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode27 = [
+var __iconNode31 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode27);
+var X = createLucideIcon("x", __iconNode31);
 
 // src/TripPlanner.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -27031,7 +27076,83 @@ function TripPlanner({ initialData: initialData2 }) {
         );
       })()
     ] }) }),
-    showAddModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AddLegModal, { onAdd: handleAddLeg, onClose: () => setShowAddModal(false) })
+    showAddModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AddLegModal, { onAdd: handleAddLeg, onClose: () => setShowAddModal(false) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      padding: "16px 20px",
+      borderTop: `1px solid ${COLORS.border}`,
+      backgroundColor: COLORS.card,
+      display: "flex",
+      justifyContent: "center",
+      gap: 8,
+      flexWrap: "wrap"
+    }, className: "no-print", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "button",
+        {
+          style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+          onClick: () => {
+            const email = prompt("Enter your email to subscribe:");
+            if (email && email.includes("@")) {
+              fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, topicId: "trip-planner-news", topicName: "Trip Planner Updates" }) }).then(() => alert("Subscribed!")).catch(() => alert("Failed to subscribe."));
+            }
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, { size: 15 }),
+            " Subscribe"
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "button",
+        {
+          style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+          onClick: handleReset,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { size: 15 }),
+            " Reset"
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "button",
+        {
+          style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+          onClick: () => window.open("https://buymeacoffee.com", "_blank"),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { size: 15 }),
+            " Donate"
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "button",
+        {
+          style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+          onClick: () => {
+            const feedback = prompt("How can we improve the Trip Planner?");
+            if (feedback && feedback.trim()) {
+              fetch("/api/track", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event: "user_feedback", data: { feedback, tool: "trip-planner" } }) }).then(() => alert("Thanks for your feedback!")).catch(() => {
+              });
+            }
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageSquare, { size: 15 }),
+            " Feedback"
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        "button",
+        {
+          style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+          onClick: () => window.print(),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 15 }),
+            " Print"
+          ]
+        }
+      )
+    ] })
   ] });
 }
 
@@ -27330,6 +27451,14 @@ lucide-react/dist/esm/icons/file-text.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/heart.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/hotel.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -27346,7 +27475,23 @@ lucide-react/dist/esm/icons/house.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/mail.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/map-pin.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/message-square.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
@@ -27379,6 +27524,14 @@ lucide-react/dist/esm/icons/plane.js:
    *)
 
 lucide-react/dist/esm/icons/plus.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/printer.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

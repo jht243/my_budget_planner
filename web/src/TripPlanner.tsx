@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import {
   Plane, Hotel, Car, Train, Bus, Ship, MapPin, Calendar, Clock, 
   CheckCircle2, Circle, AlertCircle, Plus, X, ChevronDown, ChevronUp,
-  Edit2, Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2, Check, FileText, Users, Home
+  Edit2, Edit3, Trash2, Save, RotateCcw, Sparkles, ArrowRight, Loader2, Check, FileText, Users, Home,
+  Printer, Heart, Mail, MessageSquare
 } from "lucide-react";
 
 // Add spinner animation and hide scrollbar
@@ -2550,6 +2551,58 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
         )}
       </div>
       {showAddModal && <AddLegModal onAdd={handleAddLeg} onClose={() => setShowAddModal(false)} />}
+
+      {/* Footer Buttons */}
+      <div style={{ 
+        padding: "16px 20px", 
+        borderTop: `1px solid ${COLORS.border}`,
+        backgroundColor: COLORS.card,
+        display: "flex",
+        justifyContent: "center",
+        gap: 8,
+        flexWrap: "wrap"
+      }} className="no-print">
+        <button 
+          style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+          onClick={() => {
+            const email = prompt("Enter your email to subscribe:");
+            if (email && email.includes("@")) {
+              fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, topicId: "trip-planner-news", topicName: "Trip Planner Updates" }) }).then(() => alert("Subscribed!")).catch(() => alert("Failed to subscribe."));
+            }
+          }}
+        >
+          <Mail size={15} /> Subscribe
+        </button>
+        <button 
+          style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+          onClick={handleReset}
+        >
+          <RotateCcw size={15} /> Reset
+        </button>
+        <button 
+          style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+          onClick={() => window.open("https://buymeacoffee.com", "_blank")}
+        >
+          <Heart size={15} /> Donate
+        </button>
+        <button 
+          style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+          onClick={() => {
+            const feedback = prompt("How can we improve the Trip Planner?");
+            if (feedback && feedback.trim()) {
+              fetch("/api/track", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event: "user_feedback", data: { feedback, tool: "trip-planner" } }) }).then(() => alert("Thanks for your feedback!")).catch(() => {});
+            }
+          }}
+        >
+          <MessageSquare size={15} /> Feedback
+        </button>
+        <button 
+          style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+          onClick={() => window.print()}
+        >
+          <Printer size={15} /> Print
+        </button>
+      </div>
     </div>
   );
 }
