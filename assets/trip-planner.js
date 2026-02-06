@@ -25512,7 +25512,10 @@ var CategoryChip = ({
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     "button",
     {
-      onClick,
+      onClick: (e) => {
+        e.stopPropagation();
+        onClick();
+      },
       className: "btn-press",
       style: {
         display: "flex",
@@ -25753,61 +25756,71 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
         const transportPartial = transportBookedCount > 0 && transportBookedCount < transportNeeded;
         const transportHasAny = transportBookedCount > 0;
         const flightComplete = dayData.flights.some((f) => hasUserInfo2(f) || f.flightNumber);
-        return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 6,
-          padding: "8px 12px",
-          borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
-        }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryChip,
-            {
-              type: "hotel",
-              hasItem: hotelComplete,
-              isBooked: hotelBooked,
-              isExpanded: expanded === "hotel",
-              onClick: () => toggleCategory(date, "hotel"),
-              label: "Stay"
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryChip,
-            {
-              type: "activity",
-              hasItem: activityComplete,
-              isBooked: activityBooked,
-              isExpanded: expanded === "activity",
-              onClick: () => toggleCategory(date, "activity")
-            }
-          ),
-          (isTravelDay2 || dayData.transport.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            CategoryChip,
-            {
-              type: "transport",
-              hasItem: transportHasAny,
-              isBooked: transportBooked,
-              isExpanded: expanded === "transport",
-              onClick: () => toggleCategory(date, "transport"),
-              partialComplete: transportPartial
-            }
-          ),
-          isTravelDay2 && (() => {
-            const dayLeg = dayData.flights[0];
-            const dayMode = dayLeg ? dayLeg.type === "car" ? "car" : dayLeg.type === "train" ? "rail" : dayLeg.type === "bus" ? "bus" : dayLeg.type === "ferry" ? "other" : "plane" : primaryTransportMode || "plane";
-            return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-              CategoryChip,
-              {
-                type: "flight",
-                hasItem: flightComplete,
-                isBooked: flightBooked,
-                isExpanded: expanded === "flight",
-                onClick: () => toggleCategory(date, "flight"),
-                transportMode: dayMode
-              }
-            );
-          })()
-        ] });
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "div",
+          {
+            onClick: () => {
+              if (expanded) setExpandedCategory((prev) => ({ ...prev, [date]: null }));
+            },
+            style: {
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 6,
+              padding: "8px 12px",
+              borderBottom: expanded ? `1px solid ${COLORS.border}` : "none",
+              cursor: expanded ? "pointer" : "default"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                CategoryChip,
+                {
+                  type: "hotel",
+                  hasItem: hotelComplete,
+                  isBooked: hotelBooked,
+                  isExpanded: expanded === "hotel",
+                  onClick: () => toggleCategory(date, "hotel"),
+                  label: "Stay"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                CategoryChip,
+                {
+                  type: "activity",
+                  hasItem: activityComplete,
+                  isBooked: activityBooked,
+                  isExpanded: expanded === "activity",
+                  onClick: () => toggleCategory(date, "activity")
+                }
+              ),
+              (isTravelDay2 || dayData.transport.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                CategoryChip,
+                {
+                  type: "transport",
+                  hasItem: transportHasAny,
+                  isBooked: transportBooked,
+                  isExpanded: expanded === "transport",
+                  onClick: () => toggleCategory(date, "transport"),
+                  partialComplete: transportPartial
+                }
+              ),
+              isTravelDay2 && (() => {
+                const dayLeg = dayData.flights[0];
+                const dayMode = dayLeg ? dayLeg.type === "car" ? "car" : dayLeg.type === "train" ? "rail" : dayLeg.type === "bus" ? "bus" : dayLeg.type === "ferry" ? "other" : "plane" : primaryTransportMode || "plane";
+                return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                  CategoryChip,
+                  {
+                    type: "flight",
+                    hasItem: flightComplete,
+                    isBooked: flightBooked,
+                    isExpanded: expanded === "flight",
+                    onClick: () => toggleCategory(date, "flight"),
+                    transportMode: dayMode
+                  }
+                );
+              })()
+            ]
+          }
+        );
       })(),
       expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 12px", overflow: "hidden", maxWidth: "100%", boxSizing: "border-box" }, children: [
         expanded === "flight" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: dayData.flights.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id), tripDepartureDate: departureDate, tripReturnDate: returnDate, travelers }, leg.id)) }),

@@ -937,7 +937,7 @@ const CategoryChip = ({
 
   return (
     <button
-      onClick={onClick}
+      onClick={e => { e.stopPropagation(); onClick(); }}
       className="btn-press"
       style={{
         display: "flex", alignItems: "center", gap: 5,
@@ -1222,10 +1222,13 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
               const flightComplete = dayData.flights.some(f => hasUserInfo(f) || f.flightNumber);
 
               return (
-                <div style={{ 
+                <div
+                  onClick={() => { if (expanded) setExpandedCategory(prev => ({ ...prev, [date]: null })); }}
+                  style={{ 
                   display: "flex", flexWrap: "wrap", gap: 6,
                   padding: "8px 12px",
-                  borderBottom: expanded ? `1px solid ${COLORS.border}` : "none"
+                  borderBottom: expanded ? `1px solid ${COLORS.border}` : "none",
+                  cursor: expanded ? "pointer" : "default"
                 }}>
                   <CategoryChip 
                     type="hotel" 
