@@ -2415,29 +2415,31 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
                 }}>
                   {/* Static Info Row */}
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }}>
-                      <Users size={15} color={COLORS.primary} />
-                      <span style={{ fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }}>{trip.travelers} traveler{trip.travelers !== 1 ? "s" : ""}</span>
-                      <button 
-                        onClick={() => {
-                          const newCount = prompt("Number of travelers:", String(trip.travelers));
-                          if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
-                            setTrip(t => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
-                          }
-                        }}
-                        style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }}
-                      >
-                        <Edit2 size={11} color={COLORS.primary} />
-                      </button>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }}>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Travelers</div>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+                        <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{trip.travelers}</span>
+                        <button 
+                          onClick={() => {
+                            const newCount = prompt("Number of travelers:", String(trip.travelers));
+                            if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
+                              setTrip(t => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
+                            }
+                          }}
+                          style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }}
+                        >
+                          <Edit2 size={11} color={COLORS.textMuted} />
+                        </button>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }}>
-                      <MapPin size={15} color={COLORS.primary} />
-                      <span style={{ fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }}>{cities.size} cit{cities.size !== 1 ? "ies" : "y"}</span>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Cities</div>
+                      <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{cities.size}</span>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }}>
-                      <Calendar size={15} color={COLORS.primary} />
-                      <span style={{ fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }}>{tripDays > 0 ? `${tripDays} day${tripDays !== 1 ? "s" : ""}` : "Set dates"}</span>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }}>Days</div>
+                      <span style={{ fontSize: 18, color: COLORS.textMain, fontWeight: 700 }}>{tripDays > 0 ? tripDays : "—"}</span>
                     </div>
                   </div>
                   

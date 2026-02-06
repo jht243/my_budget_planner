@@ -26901,39 +26901,33 @@ function TripPlanner({ initialData: initialData2 }) {
           border: `1px solid ${COLORS.border}`,
           boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
         }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 16, flexWrap: "wrap" }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Users, { size: 15, color: COLORS.primary }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }, children: [
-                trip.travelers,
-                " traveler",
-                trip.travelers !== 1 ? "s" : ""
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                "button",
-                {
-                  onClick: () => {
-                    const newCount = prompt("Number of travelers:", String(trip.travelers));
-                    if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
-                      setTrip((t) => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
-                    }
-                  },
-                  style: { background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 11, color: COLORS.primary })
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { size: 15, color: COLORS.primary }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }, children: [
-                cities.size,
-                " cit",
-                cities.size !== 1 ? "ies" : "y"
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16, textAlign: "center", borderBottom: `1px solid ${COLORS.borderLight}`, paddingBottom: 16 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Travelers" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: trip.travelers }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                  "button",
+                  {
+                    onClick: () => {
+                      const newCount = prompt("Number of travelers:", String(trip.travelers));
+                      if (newCount && !isNaN(parseInt(newCount)) && parseInt(newCount) > 0) {
+                        setTrip((t) => ({ ...t, travelers: parseInt(newCount), updatedAt: Date.now() }));
+                      }
+                    },
+                    style: { background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" },
+                    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 11, color: COLORS.textMuted })
+                  }
+                )
               ] })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", backgroundColor: COLORS.accentLight, borderRadius: 20, border: `1px solid ${COLORS.primary}30` }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar, { size: 15, color: COLORS.primary }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.primaryDark, fontWeight: 600 }, children: tripDays > 0 ? `${tripDays} day${tripDays !== 1 ? "s" : ""}` : "Set dates" })
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Cities" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: cities.size })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, textTransform: "uppercase", marginBottom: 4 }, children: "Days" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, color: COLORS.textMain, fontWeight: 700 }, children: tripDays > 0 ? tripDays : "\u2014" })
             ] })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 16px" }, children: [
