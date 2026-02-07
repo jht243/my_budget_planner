@@ -531,6 +531,66 @@ function createTripPlannerServer(): Server {
             }
           }
 
+          // Infer multi-city legs from chains like "from X, to Y, to Z, to W"
+          // or "from X to Y to Z" or "X, then Y, then Z"
+          if (!args.multi_city_legs?.length) {
+            // Pattern: "from City1, to City2, to City3, ..." or "from City1 to City2 to City3"
+            const chainMatch = userText.match(/from\s+([A-Za-z][A-Za-z\s]*?)(?:,?\s+to\s+)([A-Za-z][A-Za-z\s]*?)(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:\.|,|\s+(?:i\s|and\s|for\s|on\s|in\s|$)|\s*$)/i);
+            if (chainMatch) {
+              const cities = [chainMatch[1], chainMatch[2], chainMatch[3], chainMatch[4], chainMatch[5]]
+                .filter(Boolean)
+                .map(c => c.trim().replace(/[,.\s]+$/, ""));
+              if (cities.length >= 3) {
+                // Extract per-leg transport modes from text
+                const getMode = (from: string, to: string): string => {
+                  const lcText = userText.toLowerCase();
+                  const lcFrom = from.toLowerCase();
+                  const lcTo = to.toLowerCase();
+                  // Check for specific mode mentions for this leg pair
+                  const legPattern = new RegExp(`(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})[^.]*?\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b`, "i");
+                  const revPattern = new RegExp(`\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b[^.]*?(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})`, "i");
+                  const match = lcText.match(legPattern) || lcText.match(revPattern);
+                  if (match) {
+                    const m = match[1].toLowerCase();
+                    if (["plane", "fly", "flight"].includes(m)) return "plane";
+                    if (["train", "rail"].includes(m)) return "rail";
+                    if (m === "bus") return "bus";
+                    if (["ferry"].includes(m)) return "ferry";
+                    if (["drive", "car"].includes(m)) return "car";
+                  }
+                  return "plane"; // default
+                };
+                
+                // Check for "train for the rest" / "plane for the rest" patterns
+                const restModeMatch = userText.match(/\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b[^.]*?\b(?:the\s+rest|remaining|other)/i)
+                  || userText.match(/\b(?:the\s+rest|remaining|other)[^.]*?\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b/i);
+                let restMode = "plane";
+                if (restModeMatch) {
+                  const m = restModeMatch[1].toLowerCase();
+                  if (["plane", "fly", "flight"].includes(m)) restMode = "plane";
+                  else if (["train", "rail"].includes(m)) restMode = "rail";
+                  else if (m === "bus") restMode = "bus";
+                  else if (["ferry"].includes(m)) restMode = "ferry";
+                  else if (["drive", "car"].includes(m)) restMode = "car";
+                }
+                
+                const legs: { from: string; to: string; date: string; mode: string }[] = [];
+                for (let i = 0; i < cities.length - 1; i++) {
+                  let mode = getMode(cities[i], cities[i + 1]);
+                  // If no specific match found and "rest" mode exists, use it for legs after first
+                  if (mode === "plane" && restModeMatch && i > 0) {
+                    mode = restMode;
+                  }
+                  legs.push({ from: cities[i], to: cities[i + 1], date: "", mode });
+                }
+                args.multi_city_legs = legs;
+                args.trip_type = "multi_city";
+                args.departure_city = cities[0];
+                args.destination = cities[cities.length - 1];
+              }
+            }
+          }
+
           // Infer trip type
           if (args.trip_type === undefined) {
             if (/multi[\s-]?city|multiple\s+cities|several\s+cities|then\s+to/i.test(userText)) {

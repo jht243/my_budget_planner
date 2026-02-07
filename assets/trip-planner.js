@@ -26678,7 +26678,7 @@ function TripPlanner({ initialData: initialData2 }) {
       }
     }
     const looksLikeToken = (s) => !s.includes(" ") && s.length > 20 || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
-    if (trip_description && !departure_city && !destination && !looksLikeToken(trip_description)) {
+    if (trip_description && !looksLikeToken(trip_description) && newTrip.legs.length === 0 && !newTrip.multiCityLegs?.length) {
       setTripDescription(trip_description);
     }
     setTrip(newTrip);
