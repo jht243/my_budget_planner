@@ -2123,18 +2123,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     const outboundFlight = flights[0];
     const returnFlight = flights.length > 1 ? flights[flights.length - 1] : null;
     
-    // 1. Confirm travelers (show if default value of 1 - user should confirm)
-    if (trip.travelers === 1) {
-      items.push({ 
-        id: "travelers", 
-        type: "travelers", 
-        label: "Confirm # travelers", 
-        icon: <Users size={14} />, 
-        priority: 1 
-      });
-    }
-    
-    // 2. Hotel - for multi-city, prompt for each city segment without a hotel
+    // 1. Hotel - for multi-city, prompt for each city segment without a hotel
     if (trip.tripType === "multi_city" && trip.multiCityLegs?.length) {
       // Calculate city segments (date ranges for each destination city)
       const sortedLegs = [...trip.multiCityLegs].filter(l => l.date && l.to).sort((a, b) => a.date.localeCompare(b.date));
@@ -2160,7 +2149,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
             type: "hotel_name", 
             label: `Add hotel (${city})`, 
             icon: <Hotel size={14} />, 
-            priority: 2,
+            priority: 1,
             city: city,
             startDate: startDate,
             endDate: endDate
@@ -2174,11 +2163,11 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
         type: "hotel_name", 
         label: "Add hotel", 
         icon: <Hotel size={14} />, 
-        priority: 2 
+        priority: 1 
       });
     }
     
-    // 3. Flight info - prompt for flights without flight numbers (use mode-specific label)
+    // 2. Flight info - prompt for flights without flight numbers (use mode-specific label)
     const primaryMode: TransportMode = trip.departureMode || "plane";
     const confirmLabel = getModeConfirmationLabel(primaryMode);
     flights.forEach(f => {
@@ -2190,10 +2179,21 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
           label: `Add ${confirmLabel} (${routeLabel})`, 
           icon: getModeIcon(primaryMode, 14), 
           legId: f.id, 
-          priority: 3 
+          priority: 2 
         });
       }
     });
+    
+    // 3. Confirm travelers (show if default value of 1 - user should confirm)
+    if (trip.travelers === 1) {
+      items.push({ 
+        id: "travelers", 
+        type: "travelers", 
+        label: "Confirm # travelers", 
+        icon: <Users size={14} />, 
+        priority: 3 
+      });
+    }
     
     // 4. Departure date (if outbound flight has no date)
     if (outboundFlight && !outboundFlight.date) {
