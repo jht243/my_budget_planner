@@ -2080,7 +2080,9 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     }
 
     // If there's a trip description but no structured city data, populate the text field
-    if (trip_description && !departure_city && !destination) {
+    // Filter out encoded tokens/hashes that aren't real text
+    const looksLikeToken = (s: string) => (!s.includes(" ") && s.length > 20) || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
+    if (trip_description && !departure_city && !destination && !looksLikeToken(trip_description)) {
       setTripDescription(trip_description);
     }
 

@@ -26677,7 +26677,8 @@ function TripPlanner({ initialData: initialData2 }) {
         newTrip.legs.push(returnLeg);
       }
     }
-    if (trip_description && !departure_city && !destination) {
+    const looksLikeToken = (s) => !s.includes(" ") && s.length > 20 || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
+    if (trip_description && !departure_city && !destination && !looksLikeToken(trip_description)) {
       setTripDescription(trip_description);
     }
     setTrip(newTrip);

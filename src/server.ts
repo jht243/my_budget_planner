@@ -472,10 +472,17 @@ function createTripPlannerServer(): Server {
           throw new Error(`Unknown tool: ${request.params.name}`);
         }
 
+        // Helper: detect encoded tokens/hashes that aren't real trip descriptions
+        const looksLikeToken = (s: string) => !s.includes(" ") && s.length > 20 || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
+
         // Parse and validate input parameters
         let args: z.infer<typeof toolInputParser> = {};
         try {
           args = toolInputParser.parse(request.params.arguments ?? {});
+          // Strip trip_description if it looks like an encoded token
+          if (args.trip_description && looksLikeToken(args.trip_description)) {
+            args.trip_description = undefined;
+          }
         } catch (parseError: any) {
           logAnalytics("parameter_parse_error", {
             toolName: request.params.name,
@@ -563,7 +570,7 @@ function createTripPlannerServer(): Server {
           }
 
           // Store freeform text as trip_description for AI parsing on the client
-          if (!args.trip_description && userText.length > 10) {
+          if (!args.trip_description && userText.length > 10 && !looksLikeToken(userText)) {
             args.trip_description = userText;
           }
 
