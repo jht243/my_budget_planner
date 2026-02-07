@@ -2944,7 +2944,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                   ) : (
                   <>
                   {/* From / To City Fields */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 8, alignItems: "center", marginBottom: 12 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 12 }}>
                     <div>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>From</label>
                       <input
@@ -2968,7 +2968,6 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                         style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 13, boxSizing: "border-box" }}
                       />
                     </div>
-                    <ArrowRight size={16} color={COLORS.textMuted} style={{ marginTop: 20 }} />
                     <div>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>To</label>
                       <input
@@ -2986,7 +2985,6 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                             if (returnFlight) {
                               updatedLegs = updatedLegs.map(l => l.id === returnFlight.id ? { ...l, from: val, title: `${getModeLabel(t.returnMode || t.departureMode || "plane")}: ${val} → ${returnFlight.to || ""}` } : l);
                             }
-                            // Also update hotel location
                             updatedLegs = updatedLegs.map(l => l.type === "hotel" && !l.hotelName ? { ...l, location: val, title: `Hotel in ${val}` } : l);
                             return { ...t, legs: updatedLegs, name: t.name === "My Trip" && val ? `Trip to ${val}` : t.name, updatedAt: Date.now() };
                           });

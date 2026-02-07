@@ -27489,7 +27489,7 @@ function TripPlanner({ initialData: initialData2 }) {
                   }
                 )
               ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 8, alignItems: "center", marginBottom: 12 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 12 }, children: [
                   /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
                     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "From" }),
                     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -27519,7 +27519,6 @@ function TripPlanner({ initialData: initialData2 }) {
                       }
                     )
                   ] }),
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 16, color: COLORS.textMuted, style: { marginTop: 20 } }),
                   /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
                     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "To" }),
                     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
