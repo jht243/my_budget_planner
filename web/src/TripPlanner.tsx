@@ -2428,7 +2428,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   };
 
   const handleAddLeg = (legData: Partial<TripLeg>) => {
-    const newLeg: TripLeg = { id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "", time: legData.time, endTime: legData.endTime, endDate: legData.endDate, from: legData.from, to: legData.to, location: legData.location, confirmationNumber: legData.confirmationNumber, flightNumber: legData.flightNumber, airline: legData.airline, hotelName: legData.hotelName, notes: legData.notes };
+    const newLeg: TripLeg = { ...legData, id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "" } as TripLeg;
     setTrip(t => ({ ...t, legs: [...t.legs, newLeg], updatedAt: Date.now() }));
     setExpandedLegs(p => new Set(p).add(newLeg.id));
   };

@@ -26933,7 +26933,7 @@ function TripPlanner({ initialData: initialData2 }) {
     }
   };
   const handleAddLeg = (legData) => {
-    const newLeg = { id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "", time: legData.time, endTime: legData.endTime, endDate: legData.endDate, from: legData.from, to: legData.to, location: legData.location, confirmationNumber: legData.confirmationNumber, flightNumber: legData.flightNumber, airline: legData.airline, hotelName: legData.hotelName, notes: legData.notes };
+    const newLeg = { ...legData, id: generateId(), type: legData.type || "other", status: legData.status || "pending", title: legData.title || "", date: legData.date || "" };
     setTrip((t) => ({ ...t, legs: [...t.legs, newLeg], updatedAt: Date.now() }));
     setExpandedLegs((p) => new Set(p).add(newLeg.id));
   };
