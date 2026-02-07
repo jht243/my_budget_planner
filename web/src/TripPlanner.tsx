@@ -2634,7 +2634,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       <div style={{ minHeight: "100vh", backgroundColor: COLORS.bg, fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />The Trip Organizer</h1>
+            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Travel Organizer</h1>
             <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your saved trips</p>
           </div>
         </div>
@@ -2689,7 +2689,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white", borderRadius: "0 0 0 0" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />The Trip Organizer</h1>
+            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Travel Organizer</h1>
             <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your complete pre-departure checklist for flights,<br/>hotels, transport & confirmations</p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -3387,7 +3387,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
           <div style={{ backgroundColor: "white", borderRadius: 20, padding: 24, maxWidth: 400, width: "100%" }} onClick={e => e.stopPropagation()}>
             <button style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", cursor: "pointer" }} onClick={() => setShowFeedbackModal(false)}><X size={20} /></button>
             <div style={{ fontSize: 24, fontWeight: 800, marginBottom: 8, color: COLORS.textMain }}>Feedback</div>
-            <div style={{ fontSize: 14, color: COLORS.textSecondary, marginBottom: 24 }}>Help us improve The Trip Organizer.</div>
+            <div style={{ fontSize: 14, color: COLORS.textSecondary, marginBottom: 24 }}>Help us improve My Travel Organizer.</div>
             {feedbackStatus === "success" ? (
               <div style={{ textAlign: "center", padding: 20, color: COLORS.primary, fontWeight: 600 }}>Thanks for your feedback!</div>
             ) : (

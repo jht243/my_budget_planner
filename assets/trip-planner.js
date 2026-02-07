@@ -27174,7 +27174,7 @@ function TripPlanner({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 28 }),
-          "The Trip Organizer"
+          "My Travel Organizer"
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: "Your saved trips" })
       ] }) }),
@@ -27233,7 +27233,7 @@ function TripPlanner({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 28 }),
-          "The Trip Organizer"
+          "My Travel Organizer"
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: [
           "Your complete pre-departure checklist for flights,",
@@ -27895,7 +27895,7 @@ function TripPlanner({ initialData: initialData2 }) {
     showFeedbackModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3, padding: 20 }, onClick: () => setShowFeedbackModal(false), children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: "white", borderRadius: 20, padding: 24, maxWidth: 400, width: "100%" }, onClick: (e) => e.stopPropagation(), children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { style: { position: "absolute", top: 16, right: 16, background: "none", border: "none", cursor: "pointer" }, onClick: () => setShowFeedbackModal(false), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 20 }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 24, fontWeight: 800, marginBottom: 8, color: COLORS.textMain }, children: "Feedback" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 24 }, children: "Help us improve The Trip Organizer." }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 24 }, children: "Help us improve My Travel Organizer." }),
       feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { textAlign: "center", padding: 20, color: COLORS.primary, fontWeight: 600 }, children: "Thanks for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", { style: { width: "100%", padding: 12, borderRadius: 10, border: `1px solid ${COLORS.border}`, fontSize: 14, boxSizing: "border-box", outline: "none", height: 120, resize: "none", fontFamily: "inherit" }, placeholder: "Tell us what you think...", value: feedbackText, onChange: (e) => setFeedbackText(e.target.value) }),
         feedbackStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { color: COLORS.urgent, fontSize: 14, marginBottom: 10 }, children: "Failed to send. Please try again." }),
