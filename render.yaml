@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: crypto-portfolio-optimizer
+    name: trip-planner
     env: node
     plan: free
     region: oregon
@@ -11,11 +11,12 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20
-      # Optional: set a password to gate the analytics dashboard
+      # Optional: OpenAI key for AI-powered trip description parsing
+      - key: OPENAI_API_KEY
+        sync: false
+      # Optional: set a password to gate the /analytics dashboard
       - key: ANALYTICS_PASSWORD
         sync: false
-      # Optional: provide a FRED API key to show live mortgage rates in the widget badge
-      - key: FRED_API_KEY
+      # Optional: Buttondown API key for email subscriptions
+      - key: BUTTONDOWN_API_KEY
         sync: false
-      - key: FRED_SERIES_ID
-        value: MORTGAGE30US

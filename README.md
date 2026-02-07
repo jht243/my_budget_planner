@@ -57,7 +57,7 @@ Server runs on `http://localhost:8000`. **Note:** HTTP endpoints are for local d
 ## How to Use in ChatGPT
 
 1. Open ChatGPT in **Developer Mode**
-2. Add MCP Connector with your deployed URL
+2. Add MCP Connector with your deployed HTTPS URL (e.g. `https://trip-planner-xxxx.onrender.com`)
 3. Say: **"Help me organize my trip"** or **"Plan a round trip from Boston to Paris"**
 4. The interactive widget appears!
 
@@ -106,8 +106,8 @@ ANALYTICS_PASSWORD=your_password  # For /analytics dashboard
 
 ## Security
 
-- **Production**: All traffic uses HTTPS via Render.com
-- **Local development**: HTTP (`localhost:8000`) is for development only
+- **Production (HTTPS required)**: The OpenAI Apps SDK requires HTTPS end-to-end. Render.com provides HTTPS by default for all `env: node` web services — no extra configuration needed. All external API calls and CSP `connect_domains` in the codebase use `https://`.
+- **Local development only**: `http://localhost:8000` is strictly for local testing and will **not** work with the ChatGPT MCP connector, which requires HTTPS.
 - Widget runs in a sandboxed iframe with strict CSP
 
 ## Support
