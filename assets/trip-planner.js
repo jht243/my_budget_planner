@@ -26675,6 +26675,17 @@ function TripPlanner({ initialData: initialData2 }) {
     if (!destination && !departure_city && !trip_description && !multi_city_legs?.length) return;
     hasHydrated.current = true;
     console.log("[TripPlanner] Hydrating with data:", initialData2);
+    if (trip.legs.length > 0) {
+      const existing = loadSavedTrips();
+      const idx = existing.findIndex((t) => t.id === trip.id);
+      if (idx >= 0) {
+        existing[idx] = { ...trip, updatedAt: Date.now() };
+      } else {
+        existing.push({ ...trip, updatedAt: Date.now() });
+      }
+      saveTripsToStorage(existing);
+      setSavedTrips(existing);
+    }
     const tripType = trip_type || (return_date ? "round_trip" : "one_way");
     const rawMode = departure_mode || "plane";
     const mode = rawMode === "ferry" ? "other" : rawMode;
@@ -27206,6 +27217,9 @@ function TripPlanner({ initialData: initialData2 }) {
     setRenamingTripId(null);
   };
   const handleNewTrip = () => {
+    if (trip.legs.length > 0) {
+      doSaveTrip(trip);
+    }
     const newTrip = { id: generateId(), name: "My Trip", tripType: "round_trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() };
     setTrip(newTrip);
     setCurrentView("trip");

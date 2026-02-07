@@ -2038,6 +2038,19 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     hasHydrated.current = true;
     console.log("[TripPlanner] Hydrating with data:", initialData);
 
+    // Auto-save current trip before overwriting with hydrated data
+    if (trip.legs.length > 0) {
+      const existing = loadSavedTrips();
+      const idx = existing.findIndex(t => t.id === trip.id);
+      if (idx >= 0) {
+        existing[idx] = { ...trip, updatedAt: Date.now() };
+      } else {
+        existing.push({ ...trip, updatedAt: Date.now() });
+      }
+      saveTripsToStorage(existing);
+      setSavedTrips(existing);
+    }
+
     const tripType: TripType = trip_type || (return_date ? "round_trip" : "one_way");
     // Map server departure_mode to client TransportMode ("ferry" → "other")
     const rawMode = departure_mode || "plane";
@@ -2640,6 +2653,10 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
   };
 
   const handleNewTrip = () => {
+    // Auto-save current trip if it has content before creating a new one
+    if (trip.legs.length > 0) {
+      doSaveTrip(trip);
+    }
     const newTrip: Trip = { id: generateId(), name: "My Trip", tripType: "round_trip", legs: [], travelers: 1, createdAt: Date.now(), updatedAt: Date.now() };
     setTrip(newTrip);
     setCurrentView("trip");
