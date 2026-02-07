@@ -27065,15 +27065,6 @@ function TripPlanner({ initialData: initialData2 }) {
         };
         setTrip(updatedTrip);
         setTripDescription("");
-        const existingIndex = savedTrips.findIndex((t) => t.id === updatedTrip.id);
-        let newTrips;
-        if (existingIndex >= 0) {
-          newTrips = savedTrips.map((t, i) => i === existingIndex ? updatedTrip : t);
-        } else {
-          newTrips = [...savedTrips, updatedTrip];
-        }
-        setSavedTrips(newTrips);
-        saveTripsToStorage(newTrips);
       }
     } catch (error) {
       console.error("Failed to parse trip:", error);
@@ -27497,75 +27488,139 @@ function TripPlanner({ initialData: initialData2 }) {
                     ]
                   }
                 )
-              ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12 }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Departure Date" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                    PickerPopover,
-                    {
-                      type: "date",
-                      value: trip.departureDate || "",
-                      onChange: (newDate) => {
-                        setTrip((t) => {
-                          const updatedLegs = t.legs.map((leg, idx) => {
-                            if (leg.type === "flight" && idx === 0) {
-                              return { ...leg, date: newDate };
+              ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 8, alignItems: "center", marginBottom: 12 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "From" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      "input",
+                      {
+                        type: "text",
+                        placeholder: "Departure city",
+                        value: (() => {
+                          const f = trip.legs.find((l) => l.type === "flight");
+                          return f?.from || "";
+                        })(),
+                        onChange: (e) => {
+                          const val = e.target.value;
+                          setTrip((t) => {
+                            const flights = t.legs.filter((l) => l.type === "flight");
+                            if (flights.length === 0) return t;
+                            const outbound = flights[0];
+                            const returnFlight = flights.length > 1 ? flights[flights.length - 1] : null;
+                            let updatedLegs = t.legs.map((l) => l.id === outbound.id ? { ...l, from: val, title: `${getModeLabel(t.departureMode || "plane")}: ${val} \u2192 ${outbound.to || ""}` } : l);
+                            if (returnFlight) {
+                              updatedLegs = updatedLegs.map((l) => l.id === returnFlight.id ? { ...l, to: val, title: `${getModeLabel(t.returnMode || t.departureMode || "plane")}: ${returnFlight.from || ""} \u2192 ${val}` } : l);
                             }
-                            if (leg.type === "hotel") {
-                              return { ...leg, date: newDate };
-                            }
-                            if (leg.type === "car" && leg.title.includes("to") && leg.title.includes("Airport") && idx < t.legs.length / 2) {
-                              return { ...leg, date: newDate };
-                            }
-                            return leg;
+                            return { ...t, legs: updatedLegs, updatedAt: Date.now() };
                           });
-                          return { ...t, departureDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
-                        });
+                        },
+                        style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 13, boxSizing: "border-box" }
                       }
-                    }
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                    TransportModeSelector,
-                    {
-                      value: trip.departureMode || "plane",
-                      onChange: (mode) => setTrip((t) => ({ ...t, departureMode: mode, updatedAt: Date.now() }))
-                    }
-                  )
+                    )
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 16, color: COLORS.textMuted, style: { marginTop: 20 } }),
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "To" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      "input",
+                      {
+                        type: "text",
+                        placeholder: "Destination city",
+                        value: (() => {
+                          const f = trip.legs.find((l) => l.type === "flight");
+                          return f?.to || "";
+                        })(),
+                        onChange: (e) => {
+                          const val = e.target.value;
+                          setTrip((t) => {
+                            const flights = t.legs.filter((l) => l.type === "flight");
+                            if (flights.length === 0) return t;
+                            const outbound = flights[0];
+                            const returnFlight = flights.length > 1 ? flights[flights.length - 1] : null;
+                            let updatedLegs = t.legs.map((l) => l.id === outbound.id ? { ...l, to: val, title: `${getModeLabel(t.departureMode || "plane")}: ${outbound.from || ""} \u2192 ${val}` } : l);
+                            if (returnFlight) {
+                              updatedLegs = updatedLegs.map((l) => l.id === returnFlight.id ? { ...l, from: val, title: `${getModeLabel(t.returnMode || t.departureMode || "plane")}: ${val} \u2192 ${returnFlight.to || ""}` } : l);
+                            }
+                            updatedLegs = updatedLegs.map((l) => l.type === "hotel" && !l.hotelName ? { ...l, location: val, title: `Hotel in ${val}` } : l);
+                            return { ...t, legs: updatedLegs, name: t.name === "My Trip" && val ? `Trip to ${val}` : t.name, updatedAt: Date.now() };
+                          });
+                        },
+                        style: { width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 13, boxSizing: "border-box" }
+                      }
+                    )
+                  ] })
                 ] }),
-                trip.tripType === "round_trip" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Return Date" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                    PickerPopover,
-                    {
-                      type: "date",
-                      value: trip.returnDate || "",
-                      onChange: (newDate) => {
-                        setTrip((t) => {
-                          const flights = t.legs.filter((l) => l.type === "flight");
-                          const updatedLegs = t.legs.map((leg, idx) => {
-                            if (leg.type === "flight" && flights.length > 1 && leg.id === flights[flights.length - 1].id) {
-                              return { ...leg, date: newDate };
-                            }
-                            if (leg.type === "hotel") {
-                              return { ...leg, endDate: newDate };
-                            }
-                            if (leg.type === "car" && idx >= t.legs.length / 2) {
-                              return { ...leg, date: newDate };
-                            }
-                            return leg;
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Departure Date" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      PickerPopover,
+                      {
+                        type: "date",
+                        value: trip.departureDate || "",
+                        onChange: (newDate) => {
+                          setTrip((t) => {
+                            const updatedLegs = t.legs.map((leg, idx) => {
+                              if (leg.type === "flight" && idx === 0) {
+                                return { ...leg, date: newDate };
+                              }
+                              if (leg.type === "hotel") {
+                                return { ...leg, date: newDate };
+                              }
+                              if (leg.type === "car" && leg.title.includes("to") && leg.title.includes("Airport") && idx < t.legs.length / 2) {
+                                return { ...leg, date: newDate };
+                              }
+                              return leg;
+                            });
+                            return { ...t, departureDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
                           });
-                          return { ...t, returnDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
-                        });
+                        }
                       }
-                    }
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                    TransportModeSelector,
-                    {
-                      value: trip.returnMode || "plane",
-                      onChange: (mode) => setTrip((t) => ({ ...t, returnMode: mode, updatedAt: Date.now() }))
-                    }
-                  )
+                    ),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      TransportModeSelector,
+                      {
+                        value: trip.departureMode || "plane",
+                        onChange: (mode) => setTrip((t) => ({ ...t, departureMode: mode, updatedAt: Date.now() }))
+                      }
+                    )
+                  ] }),
+                  trip.tripType === "round_trip" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }, children: "Return Date" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      PickerPopover,
+                      {
+                        type: "date",
+                        value: trip.returnDate || "",
+                        onChange: (newDate) => {
+                          setTrip((t) => {
+                            const flights = t.legs.filter((l) => l.type === "flight");
+                            const updatedLegs = t.legs.map((leg, idx) => {
+                              if (leg.type === "flight" && flights.length > 1 && leg.id === flights[flights.length - 1].id) {
+                                return { ...leg, date: newDate };
+                              }
+                              if (leg.type === "hotel") {
+                                return { ...leg, endDate: newDate };
+                              }
+                              if (leg.type === "car" && idx >= t.legs.length / 2) {
+                                return { ...leg, date: newDate };
+                              }
+                              return leg;
+                            });
+                            return { ...t, returnDate: newDate, legs: updatedLegs, updatedAt: Date.now() };
+                          });
+                        }
+                      }
+                    ),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      TransportModeSelector,
+                      {
+                        value: trip.returnMode || "plane",
+                        onChange: (mode) => setTrip((t) => ({ ...t, returnMode: mode, updatedAt: Date.now() }))
+                      }
+                    )
+                  ] })
                 ] })
               ] }),
               (trip.tripType === "multi_city" && (trip.multiCityLegs || []).length >= 2 && (trip.multiCityLegs || []).every((l) => l.from && l.to && l.date) || trip.departureDate && (trip.tripType === "one_way" || trip.returnDate)) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(

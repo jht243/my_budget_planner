@@ -2535,17 +2535,6 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
         };
         setTrip(updatedTrip);
         setTripDescription("");
-        
-        // Auto-save the trip after creation
-        const existingIndex = savedTrips.findIndex(t => t.id === updatedTrip.id);
-        let newTrips: Trip[];
-        if (existingIndex >= 0) {
-          newTrips = savedTrips.map((t, i) => i === existingIndex ? updatedTrip : t);
-        } else {
-          newTrips = [...savedTrips, updatedTrip];
-        }
-        setSavedTrips(newTrips);
-        saveTripsToStorage(newTrips);
       }
     } catch (error) {
       console.error("Failed to parse trip:", error);
@@ -2953,6 +2942,59 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                       </button>
                     </div>
                   ) : (
+                  <>
+                  {/* From / To City Fields */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 8, alignItems: "center", marginBottom: 12 }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>From</label>
+                      <input
+                        type="text"
+                        placeholder="Departure city"
+                        value={(() => { const f = trip.legs.find(l => l.type === "flight"); return f?.from || ""; })()}
+                        onChange={e => {
+                          const val = e.target.value;
+                          setTrip(t => {
+                            const flights = t.legs.filter(l => l.type === "flight");
+                            if (flights.length === 0) return t;
+                            const outbound = flights[0];
+                            const returnFlight = flights.length > 1 ? flights[flights.length - 1] : null;
+                            let updatedLegs = t.legs.map(l => l.id === outbound.id ? { ...l, from: val, title: `${getModeLabel(t.departureMode || "plane")}: ${val} → ${outbound.to || ""}` } : l);
+                            if (returnFlight) {
+                              updatedLegs = updatedLegs.map(l => l.id === returnFlight.id ? { ...l, to: val, title: `${getModeLabel(t.returnMode || t.departureMode || "plane")}: ${returnFlight.from || ""} → ${val}` } : l);
+                            }
+                            return { ...t, legs: updatedLegs, updatedAt: Date.now() };
+                          });
+                        }}
+                        style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 13, boxSizing: "border-box" }}
+                      />
+                    </div>
+                    <ArrowRight size={16} color={COLORS.textMuted} style={{ marginTop: 20 }} />
+                    <div>
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>To</label>
+                      <input
+                        type="text"
+                        placeholder="Destination city"
+                        value={(() => { const f = trip.legs.find(l => l.type === "flight"); return f?.to || ""; })()}
+                        onChange={e => {
+                          const val = e.target.value;
+                          setTrip(t => {
+                            const flights = t.legs.filter(l => l.type === "flight");
+                            if (flights.length === 0) return t;
+                            const outbound = flights[0];
+                            const returnFlight = flights.length > 1 ? flights[flights.length - 1] : null;
+                            let updatedLegs = t.legs.map(l => l.id === outbound.id ? { ...l, to: val, title: `${getModeLabel(t.departureMode || "plane")}: ${outbound.from || ""} → ${val}` } : l);
+                            if (returnFlight) {
+                              updatedLegs = updatedLegs.map(l => l.id === returnFlight.id ? { ...l, from: val, title: `${getModeLabel(t.returnMode || t.departureMode || "plane")}: ${val} → ${returnFlight.to || ""}` } : l);
+                            }
+                            // Also update hotel location
+                            updatedLegs = updatedLegs.map(l => l.type === "hotel" && !l.hotelName ? { ...l, location: val, title: `Hotel in ${val}` } : l);
+                            return { ...t, legs: updatedLegs, name: t.name === "My Trip" && val ? `Trip to ${val}` : t.name, updatedAt: Date.now() };
+                          });
+                        }}
+                        style={{ width: "100%", padding: 10, borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 13, boxSizing: "border-box" }}
+                      />
+                    </div>
+                  </div>
                   <div style={{ display: "grid", gridTemplateColumns: trip.tripType === "one_way" ? "1fr" : "1fr 1fr", gap: 12 }}>
                     <div>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 6 }}>
@@ -3019,6 +3061,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
                       </div>
                     )}
                   </div>
+                  </>
               )}
               {/* Done button to close editor */}
               {((trip.tripType === "multi_city" && (trip.multiCityLegs || []).length >= 2 && (trip.multiCityLegs || []).every(l => l.from && l.to && l.date)) || (trip.departureDate && (trip.tripType === "one_way" || trip.returnDate))) && (
