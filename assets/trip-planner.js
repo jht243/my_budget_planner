@@ -25861,6 +25861,43 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
                     }
                   );
                 })(),
+                dayData.standalone.map((leg) => {
+                  const chipLabel = leg.title || leg.type.charAt(0).toUpperCase() + leg.type.slice(1);
+                  const isExpanded = expanded === `standalone-${leg.id}`;
+                  const chipColor = leg.status === "booked" || leg.confirmationNumber ? COLORS.booked : COLORS.pending;
+                  const chipBg = isExpanded ? `${chipColor}15` : leg.status === "booked" || leg.confirmationNumber ? COLORS.bookedBg : COLORS.pendingBg;
+                  const Icon2 = leg.type === "flight" ? Plane : leg.type === "train" ? TramFront : leg.type === "bus" ? Bus : leg.type === "ferry" ? Ship : leg.type === "hotel" ? Hotel : leg.type === "car" ? Car : MapPin;
+                  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                    "button",
+                    {
+                      onClick: (e) => {
+                        e.stopPropagation();
+                        toggleCategory(date, `standalone-${leg.id}`);
+                      },
+                      className: "btn-press",
+                      style: {
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 5,
+                        padding: "6px 10px",
+                        borderRadius: 20,
+                        backgroundColor: chipBg,
+                        border: `1.5px solid ${chipColor}`,
+                        cursor: "pointer",
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: chipColor,
+                        whiteSpace: "nowrap"
+                      },
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon2, { size: 13 }),
+                        chipLabel,
+                        isExpanded ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { size: 12 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 12 })
+                      ]
+                    },
+                    leg.id
+                  );
+                }),
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "relative" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
                   "button",
                   {
@@ -26232,7 +26269,7 @@ var DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, to
             ] })
           ] })
         ] }),
-        dayData.standalone.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "8px 12px" }, children: dayData.standalone.map((leg) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id), tripDepartureDate: departureDate, tripReturnDate: returnDate, travelers }, leg.id)) })
+        dayData.standalone.map((leg) => expanded === `standalone-${leg.id}` && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "8px 12px" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TripLegCard, { leg, onUpdate: (u) => onUpdateLeg(leg.id, u), onDelete: () => onDeleteLeg(leg.id), isExpanded: expandedLegs.has(leg.id), onToggleExpand: () => toggleLegExpand(leg.id), tripDepartureDate: departureDate, tripReturnDate: returnDate, travelers }) }, leg.id))
       ] }, date);
     }),
     addDropdownDate && import_react_dom.default.createPortal(

@@ -1322,6 +1322,33 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                       />
                     );
                   })()}
+                  {/* Standalone items as individual chips */}
+                  {dayData.standalone.map(leg => {
+                    const chipLabel = leg.title || leg.type.charAt(0).toUpperCase() + leg.type.slice(1);
+                    const isExpanded = expanded === `standalone-${leg.id}`;
+                    const chipColor = leg.status === "booked" || leg.confirmationNumber ? COLORS.booked : COLORS.pending;
+                    const chipBg = isExpanded ? `${chipColor}15` : (leg.status === "booked" || leg.confirmationNumber) ? COLORS.bookedBg : COLORS.pendingBg;
+                    const Icon = leg.type === "flight" ? Plane : leg.type === "train" ? Train : leg.type === "bus" ? Bus : leg.type === "ferry" ? Ship : leg.type === "hotel" ? Hotel : leg.type === "car" ? Car : MapPin;
+                    return (
+                      <button
+                        key={leg.id}
+                        onClick={e => { e.stopPropagation(); toggleCategory(date, `standalone-${leg.id}`); }}
+                        className="btn-press"
+                        style={{
+                          display: "flex", alignItems: "center", gap: 5,
+                          padding: "6px 10px", borderRadius: 20,
+                          backgroundColor: chipBg,
+                          border: `1.5px solid ${chipColor}`,
+                          cursor: "pointer", fontSize: 11, fontWeight: 600,
+                          color: chipColor, whiteSpace: "nowrap",
+                        }}
+                      >
+                        <Icon size={13} />
+                        {chipLabel}
+                        {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                      </button>
+                    );
+                  })}
                   {/* Add + pill with dropdown */}
                   <div style={{ position: "relative" }}>
                     <button
@@ -1658,14 +1685,14 @@ const DayByDayView = ({ legs, onUpdateLeg, onDeleteLeg, onAddLeg, expandedLegs, 
                 )}
               </div>
             )}
-            {/* Standalone items added from Add dropdown - always visible as their own cards */}
-            {dayData.standalone.length > 0 && (
-              <div style={{ padding: "8px 12px" }}>
-                {dayData.standalone.map(leg => (
-                  <TripLegCard key={leg.id} leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} tripDepartureDate={departureDate} tripReturnDate={returnDate} travelers={travelers} />
-                ))}
-              </div>
-            )}
+            {/* Standalone item expanded sections - each standalone has its own expandable section */}
+            {dayData.standalone.map(leg => (
+              expanded === `standalone-${leg.id}` && (
+                <div key={leg.id} style={{ padding: "8px 12px" }}>
+                  <TripLegCard leg={leg} onUpdate={u => onUpdateLeg(leg.id, u)} onDelete={() => onDeleteLeg(leg.id)} isExpanded={expandedLegs.has(leg.id)} onToggleExpand={() => toggleLegExpand(leg.id)} tripDepartureDate={departureDate} tripReturnDate={returnDate} travelers={travelers} />
+                </div>
+              )
+            ))}
           </div>
         );
       })}
