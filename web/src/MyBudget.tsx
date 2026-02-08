@@ -28,6 +28,7 @@ interface Budget {
   expenses: BudgetItem[];
   assets: BudgetItem[];
   nonLiquidAssets: BudgetItem[];
+  retirement: BudgetItem[];
   liabilities: BudgetItem[];
   nonLiquidDiscount: number;
   createdAt: number;
@@ -61,6 +62,8 @@ const COLORS = {
   assetBg: "#EFF6FF",
   nonLiquid: "#7C3AED",
   nonLiquidBg: "#F5F3FF",
+  retirement: "#0891B2",
+  retirementBg: "#ECFEFF",
   liability: "#EA580C",
   liabilityBg: "#FFF7ED",
   positive: "#059669",
@@ -84,6 +87,7 @@ const emptyBudget = (): Budget => ({
   expenses: [],
   assets: [],
   nonLiquidAssets: [],
+  retirement: [],
   liabilities: [],
   nonLiquidDiscount: 25,
   createdAt: Date.now(),
@@ -130,7 +134,6 @@ const DEMO_BUDGET: Budget = {
     { id: "ast8", name: "NEAR.WALLET", amount: 2000, frequency: "one_time", totalValue: 2000, monthlyValue: 0, quantity: 2000 },
     { id: "ast9", name: "SoFi Investment", amount: 1000, frequency: "one_time", totalValue: 1000, monthlyValue: 0 },
     { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
     { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
   ],
   nonLiquidAssets: [
@@ -141,6 +144,9 @@ const DEMO_BUDGET: Budget = {
     { id: "nla5", name: "All other watches", amount: 10000, frequency: "one_time", totalValue: 10000, monthlyValue: 0 },
     { id: "nla6", name: "Car", amount: 15000, frequency: "one_time", totalValue: 15000, monthlyValue: 0 },
     { id: "nla7", name: "MontBlanc Pens", amount: 5000, frequency: "one_time", totalValue: 5000, monthlyValue: 0 },
+  ],
+  retirement: [
+    { id: "ret1", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
   ],
   liabilities: [
     { id: "lia1", name: "las palmas apt", amount: 50000, frequency: "one_time", totalValue: 50000, monthlyValue: 0 },
@@ -169,6 +175,7 @@ const migrateBudget = (b: any): Budget => ({
   expenses: (b.expenses || []).map(migrateItem),
   assets: (b.assets || []).map(migrateItem),
   nonLiquidAssets: (b.nonLiquidAssets || []).map(migrateItem),
+  retirement: (b.retirement || []).map(migrateItem),
   liabilities: (b.liabilities || []).map(migrateItem),
 });
 
@@ -241,6 +248,14 @@ const PRESETS: Record<string, Preset[]> = {
     { name: "Art/Collectibles", emoji: "🎨" },
     { name: "Business Equity", emoji: "🏢" },
     { name: "Furniture/Electronics", emoji: "🪑" },
+  ],
+  retirement: [
+    { name: "401k", emoji: "🏦" },
+    { name: "Roth IRA", emoji: "📊" },
+    { name: "Traditional IRA", emoji: "📈" },
+    { name: "Pension Fund", emoji: "🧓" },
+    { name: "SEP IRA", emoji: "💼" },
+    { name: "403b", emoji: "🏫" },
   ],
   liabilities: [
     { name: "Mortgage", emoji: "🏦" },
@@ -494,13 +509,14 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
 
   const totalLiquidAssets = budget.assets.reduce((s, i) => s + i.totalValue, 0);
   const totalNonLiquidAssets = budget.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
+  const totalRetirement = budget.retirement.reduce((s, i) => s + i.totalValue, 0);
   const nonLiquidAtDiscount = totalNonLiquidAssets * (1 - budget.nonLiquidDiscount / 100);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
 
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets - totalLiabilities;
+  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - totalLiabilities;
   const liquidAfterLiabilities = totalLiquidAssets - totalLiabilities;
 
-  // Runway: how many months liquid assets last if spending > income
+  // Runway: how many months liquid assets last if spending > income (excludes retirement)
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
   const runwayMonths = monthlyBurn > 0 && totalLiquidAssets > 0 ? totalLiquidAssets / monthlyBurn : null;
   const runwayYears = runwayMonths ? runwayMonths / 12 : null;
@@ -562,6 +578,10 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
         <StatCard label="Non-Liquid" value={fmt(totalNonLiquidAssets)} subtext={`At ${budget.nonLiquidDiscount}% discount: ${fmt(nonLiquidAtDiscount)}`} color={COLORS.nonLiquid} icon={<Building2 size={16} />} />
+        <StatCard label="Retirement" value={fmt(totalRetirement)} subtext="Not included in runway" color={COLORS.retirement} icon={<Landmark size={16} />} />
+      </div>
+
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
         <StatCard label="Liabilities" value={fmt(totalLiabilities)} color={COLORS.liability} icon={<AlertTriangle size={16} />} />
       </div>
 
@@ -619,6 +639,12 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
             <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Non-liquid (at {budget.nonLiquidDiscount}% discount)</span>
             <span style={{ fontSize: 16, fontWeight: 700, color: COLORS.nonLiquid }}>{fmtExact(nonLiquidAtDiscount)}</span>
           </div>
+          {totalRetirement > 0 && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 13, color: COLORS.textSecondary }}>401k / Retirement (locked)</span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: COLORS.retirement }}>{fmtExact(totalRetirement)}</span>
+            </div>
+          )}
           <div style={{ borderTop: `1px solid ${COLORS.border}`, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.textMain }}>Total Available</span>
             <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.primary }}>{fmtExact(liquidAfterLiabilities + nonLiquidAtDiscount)}</span>
@@ -648,7 +674,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   }, [budget]);
 
   // Helper to update a section
-  const updateItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, id: string, updates: Partial<BudgetItem>) => {
+  const updateItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, id: string, updates: Partial<BudgetItem>) => {
     setBudget(b => ({
       ...b,
       [section]: b[section].map(item => item.id === id ? { ...item, ...updates } : item),
@@ -656,7 +682,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
-  const addItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, freq: Frequency = "monthly") => {
+  const addItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, freq: Frequency = "monthly") => {
     setBudget(b => ({
       ...b,
       [section]: [...b[section], emptyItem(freq)],
@@ -664,7 +690,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
-  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, name: string, freq: Frequency = "monthly") => {
+  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, name: string, freq: Frequency = "monthly") => {
     setBudget(b => ({
       ...b,
       [section]: [...b[section], { ...emptyItem(freq), name }],
@@ -672,7 +698,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
-  const deleteItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, id: string) => {
+  const deleteItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, id: string) => {
     setBudget(b => ({
       ...b,
       [section]: b[section].filter(item => item.id !== id),
@@ -769,7 +795,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 600, color: COLORS.textMain }}>{b.name}</div>
                     <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 2 }}>
-                      {b.income.length + b.expenses.length + b.assets.length + b.nonLiquidAssets.length + b.liabilities.length} items · Updated {new Date(b.updatedAt).toLocaleDateString()}
+                      {b.income.length + b.expenses.length + b.assets.length + b.nonLiquidAssets.length + (b.retirement || []).length + b.liabilities.length} items · Updated {new Date(b.updatedAt).toLocaleDateString()}
                     </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -822,7 +848,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
       {/* Content */}
       <div style={{ padding: "16px 16px 40px" }}>
         {/* Demo data loader - only shows when budget is completely empty */}
-        {budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.liabilities.length === 0 && (
+        {budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && (
           <button onClick={() => { setBudget({ ...DEMO_BUDGET, id: budget.id, createdAt: Date.now(), updatedAt: Date.now() }); setNameInput(DEMO_BUDGET.name); }} style={{
             width: "100%", padding: 14, borderRadius: 12, border: `2px dashed ${COLORS.accent}`,
             backgroundColor: COLORS.accentLight, color: COLORS.primaryDark, fontSize: 14, fontWeight: 600,
@@ -877,6 +903,14 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
               </div>
             </div>
           } />
+
+        {/* Retirement */}
+        <BudgetSection title="401k / Retirement" icon={<Landmark size={18} />} color={COLORS.retirement} bgColor={COLORS.retirementBg}
+          items={budget.retirement} inputMode="value_only" presets={PRESETS.retirement}
+          onUpdate={(id, u) => updateItem("retirement", id, u)}
+          onAdd={() => addItem("retirement", "one_time")}
+          onAddPreset={name => addPresetItem("retirement", name, "one_time")}
+          onDelete={id => deleteItem("retirement", id)} />
 
         {/* Liabilities */}
         <BudgetSection title="Liabilities" icon={<AlertTriangle size={18} />} color={COLORS.liability} bgColor={COLORS.liabilityBg}

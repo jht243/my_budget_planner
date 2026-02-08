@@ -24594,8 +24594,25 @@ var __iconNode9 = [
 ];
 var House = createLucideIcon("house", __iconNode9);
 
-// node_modules/lucide-react/dist/esm/icons/pen.js
+// node_modules/lucide-react/dist/esm/icons/landmark.js
 var __iconNode10 = [
+  ["path", { d: "M10 18v-7", key: "wt116b" }],
+  [
+    "path",
+    {
+      d: "M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z",
+      key: "1m329m"
+    }
+  ],
+  ["path", { d: "M14 18v-7", key: "vav6t3" }],
+  ["path", { d: "M18 18v-7", key: "aexdmj" }],
+  ["path", { d: "M3 22h18", key: "8prr45" }],
+  ["path", { d: "M6 18v-7", key: "1ivflk" }]
+];
+var Landmark = createLucideIcon("landmark", __iconNode10);
+
+// node_modules/lucide-react/dist/esm/icons/pen.js
+var __iconNode11 = [
   [
     "path",
     {
@@ -24604,10 +24621,10 @@ var __iconNode10 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode10);
+var Pen = createLucideIcon("pen", __iconNode11);
 
 // node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode11 = [
+var __iconNode12 = [
   [
     "path",
     {
@@ -24618,17 +24635,17 @@ var __iconNode11 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode11);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode12 = [
+var __iconNode13 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode12);
+var Plus = createLucideIcon("plus", __iconNode13);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode13 = [
+var __iconNode14 = [
   [
     "path",
     {
@@ -24639,17 +24656,17 @@ var __iconNode13 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode13);
+var Printer = createLucideIcon("printer", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode14 = [
+var __iconNode15 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode14);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode15);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode15 = [
+var __iconNode16 = [
   [
     "path",
     {
@@ -24660,34 +24677,34 @@ var __iconNode15 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode15);
+var Save = createLucideIcon("save", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode16 = [
+var __iconNode17 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode16);
+var Trash2 = createLucideIcon("trash-2", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode17 = [
+var __iconNode18 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode17);
+var TrendingDown = createLucideIcon("trending-down", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode18 = [
+var __iconNode19 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode18);
+var TrendingUp = createLucideIcon("trending-up", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode19 = [
+var __iconNode20 = [
   [
     "path",
     {
@@ -24698,10 +24715,10 @@ var __iconNode19 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode19);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode20 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -24711,7 +24728,7 @@ var __iconNode20 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode20);
+var Wallet = createLucideIcon("wallet", __iconNode21);
 
 // src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -24739,6 +24756,8 @@ var COLORS = {
   assetBg: "#EFF6FF",
   nonLiquid: "#7C3AED",
   nonLiquidBg: "#F5F3FF",
+  retirement: "#0891B2",
+  retirementBg: "#ECFEFF",
   liability: "#EA580C",
   liabilityBg: "#FFF7ED",
   positive: "#059669",
@@ -24757,6 +24776,7 @@ var emptyBudget = () => ({
   expenses: [],
   assets: [],
   nonLiquidAssets: [],
+  retirement: [],
   liabilities: [],
   nonLiquidDiscount: 25,
   createdAt: Date.now(),
@@ -24803,7 +24823,6 @@ var DEMO_BUDGET = {
     { id: "ast8", name: "NEAR.WALLET", amount: 2e3, frequency: "one_time", totalValue: 2e3, monthlyValue: 0, quantity: 2e3 },
     { id: "ast9", name: "SoFi Investment", amount: 1e3, frequency: "one_time", totalValue: 1e3, monthlyValue: 0 },
     { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
     { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 }
   ],
   nonLiquidAssets: [
@@ -24814,6 +24833,9 @@ var DEMO_BUDGET = {
     { id: "nla5", name: "All other watches", amount: 1e4, frequency: "one_time", totalValue: 1e4, monthlyValue: 0 },
     { id: "nla6", name: "Car", amount: 15e3, frequency: "one_time", totalValue: 15e3, monthlyValue: 0 },
     { id: "nla7", name: "MontBlanc Pens", amount: 5e3, frequency: "one_time", totalValue: 5e3, monthlyValue: 0 }
+  ],
+  retirement: [
+    { id: "ret1", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 }
   ],
   liabilities: [
     { id: "lia1", name: "las palmas apt", amount: 5e4, frequency: "one_time", totalValue: 5e4, monthlyValue: 0 },
@@ -24838,6 +24860,7 @@ var migrateBudget = (b) => ({
   expenses: (b.expenses || []).map(migrateItem),
   assets: (b.assets || []).map(migrateItem),
   nonLiquidAssets: (b.nonLiquidAssets || []).map(migrateItem),
+  retirement: (b.retirement || []).map(migrateItem),
   liabilities: (b.liabilities || []).map(migrateItem)
 });
 var loadBudgets = () => {
@@ -24906,6 +24929,14 @@ var PRESETS = {
     { name: "Art/Collectibles", emoji: "\u{1F3A8}" },
     { name: "Business Equity", emoji: "\u{1F3E2}" },
     { name: "Furniture/Electronics", emoji: "\u{1FA91}" }
+  ],
+  retirement: [
+    { name: "401k", emoji: "\u{1F3E6}" },
+    { name: "Roth IRA", emoji: "\u{1F4CA}" },
+    { name: "Traditional IRA", emoji: "\u{1F4C8}" },
+    { name: "Pension Fund", emoji: "\u{1F9D3}" },
+    { name: "SEP IRA", emoji: "\u{1F4BC}" },
+    { name: "403b", emoji: "\u{1F3EB}" }
   ],
   liabilities: [
     { name: "Mortgage", emoji: "\u{1F3E6}" },
@@ -25199,9 +25230,10 @@ var SummarySection = ({ budget }) => {
   const annualNet = monthlyNet * 12;
   const totalLiquidAssets = budget.assets.reduce((s, i) => s + i.totalValue, 0);
   const totalNonLiquidAssets = budget.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
+  const totalRetirement = budget.retirement.reduce((s, i) => s + i.totalValue, 0);
   const nonLiquidAtDiscount = totalNonLiquidAssets * (1 - budget.nonLiquidDiscount / 100);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets - totalLiabilities;
+  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - totalLiabilities;
   const liquidAfterLiabilities = totalLiquidAssets - totalLiabilities;
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
   const runwayMonths = monthlyBurn > 0 && totalLiquidAssets > 0 ? totalLiquidAssets / monthlyBurn : null;
@@ -25266,8 +25298,9 @@ var SummarySection = ({ budget }) => {
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Non-Liquid", value: fmt(totalNonLiquidAssets), subtext: `At ${budget.nonLiquidDiscount}% discount: ${fmt(nonLiquidAtDiscount)}`, color: COLORS.nonLiquid, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Building2, { size: 16 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liabilities", value: fmt(totalLiabilities), color: COLORS.liability, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 16 }) })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Retirement", value: fmt(totalRetirement), subtext: "Not included in runway", color: COLORS.retirement, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Landmark, { size: 16 }) })
     ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liabilities", value: fmt(totalLiabilities), color: COLORS.liability, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 16 }) }) }),
     runwayMonths !== null && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.expenseBg,
       borderRadius: 12,
@@ -25331,6 +25364,10 @@ var SummarySection = ({ budget }) => {
             "% discount)"
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: COLORS.nonLiquid }, children: fmtExact(nonLiquidAtDiscount) })
+        ] }),
+        totalRetirement > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "401k / Retirement (locked)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: COLORS.retirement }, children: fmtExact(totalRetirement) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.border}`, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: "Total Available" }),
@@ -25478,7 +25515,7 @@ function MyBudget({ initialData: initialData2 }) {
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS.textMain }, children: b.name }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 2 }, children: [
-                b.income.length + b.expenses.length + b.assets.length + b.nonLiquidAssets.length + b.liabilities.length,
+                b.income.length + b.expenses.length + b.assets.length + b.nonLiquidAssets.length + (b.retirement || []).length + b.liabilities.length,
                 " items \xB7 Updated ",
                 new Date(b.updatedAt).toLocaleDateString()
               ] })
@@ -25548,7 +25585,7 @@ function MyBudget({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 13, opacity: 0.8 }, children: "Track your income, expenses, assets & liabilities" })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
-      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => {
+      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => {
         setBudget({ ...DEMO_BUDGET, id: budget.id, createdAt: Date.now(), updatedAt: Date.now() });
         setNameInput(DEMO_BUDGET.name);
       }, style: {
@@ -25658,6 +25695,22 @@ function MyBudget({ initialData: initialData2 }) {
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "75%" })
             ] })
           ] })
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        BudgetSection,
+        {
+          title: "401k / Retirement",
+          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Landmark, { size: 18 }),
+          color: COLORS.retirement,
+          bgColor: COLORS.retirementBg,
+          items: budget.retirement,
+          inputMode: "value_only",
+          presets: PRESETS.retirement,
+          onUpdate: (id, u) => updateItem("retirement", id, u),
+          onAdd: () => addItem("retirement", "one_time"),
+          onAddPreset: (name) => addPresetItem("retirement", name, "one_time"),
+          onDelete: (id) => deleteItem("retirement", id)
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25980,6 +26033,14 @@ lucide-react/dist/esm/icons/dollar-sign.js:
    *)
 
 lucide-react/dist/esm/icons/house.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/landmark.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
