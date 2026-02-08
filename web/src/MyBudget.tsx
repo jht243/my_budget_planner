@@ -569,7 +569,6 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
                 <div style={{ fontSize: 20, fontWeight: 800, color: COLORS.expense }}>
                   {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo`}
                 </div>
-                <div style={{ fontSize: 10, color: COLORS.textSecondary }}>{fmt(liquidAfterLiabilities)} after debts</div>
               </div>
               {extRunwayMonths !== null && nonLiquidAtDiscount > 0 && (
                 <div style={{ marginTop: 8 }}>
@@ -577,7 +576,6 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
                   <div style={{ fontSize: 20, fontWeight: 800, color: COLORS.nonLiquid }}>
                     {extRunwayYears! >= 1 ? `${extRunwayYears!.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo`}
                   </div>
-                  <div style={{ fontSize: 10, color: COLORS.textSecondary }}>At {budget.nonLiquidDiscount}% discount</div>
                 </div>
               )}
             </div>
