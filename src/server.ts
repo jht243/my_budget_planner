@@ -30,7 +30,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
-type TripPlannerWidget = {
+type MyBudgetWidget = {
   id: string;
   title: string;
   templateUri: string;
@@ -133,7 +133,7 @@ function computeSummary(args: any) {
   const departureMode = args.departure_mode || "plane";
   const multiCityLegs = args.multi_city_legs || [];
   
-  // Calculate trip duration from dates if available
+  // Calculate budget period duration from dates if available
   let tripDays: number | null = null;
   if (departureDate && returnDate) {
     const diff = new Date(returnDate).getTime() - new Date(departureDate).getTime();
@@ -204,58 +204,58 @@ function readWidgetHtml(componentName: string): string {
 // Added timestamp suffix to force cache invalidation for width fix
 const VERSION = (process.env.RENDER_GIT_COMMIT?.slice(0, 7) || Date.now().toString()) + '-' + Date.now();
 
-function widgetMeta(widget: TripPlannerWidget, bustCache: boolean = false) {
+function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
   const templateUri = bustCache
-    ? `ui://widget/trip-planner.html?v=${VERSION}`
+    ? `ui://widget/my-budget.html?v=${VERSION}`
     : widget.templateUri;
 
   return {
     "openai/outputTemplate": templateUri,
     "openai/widgetDescription":
-      "My Travel Organizer — your complete pre-departure checklist for flights, hotels, transport & confirmations. Helps users keep track of all their travel reservations in one place so nothing gets missed. Supports round-trip, one-way, and multi-city itineraries. Call this tool immediately with NO arguments to let the user enter their trip details manually. Only provide arguments if the user has explicitly stated them.",
+      "My Budget — a personal budget tool to track and manage your finances. Helps users keep track of income, expenses, and savings goals in one place. Call this tool immediately with NO arguments to let the user enter their budget details manually. Only provide arguments if the user has explicitly stated them.",
     "openai/componentDescriptions": {
-      "trip-form": "Input form for describing a trip in plain language or manually adding legs (flights, hotels, transport).",
-      "itinerary-display": "Day-by-day itinerary view showing all trip legs with booking status indicators.",
-      "booking-checklist": "Summary checklist showing booking progress for flights, lodging, and ground transport.",
+      "budget-form": "Input form for describing a budget in plain language or manually adding entries (income, expenses, savings).",
+      "budget-display": "Overview of budget entries showing all income and expense items with status indicators.",
+      "budget-checklist": "Summary checklist showing budget progress for income, expenses, and savings goals.",
     },
     "openai/widgetKeywords": [
-      "trip planner",
-      "travel organizer",
-      "itinerary",
-      "flight tracker",
-      "hotel booking",
-      "multi-city trip",
-      "round trip",
-      "one way",
-      "travel reservations",
-      "booking checklist",
-      "vacation planner",
-      "trip legs"
+      "my budget",
+      "personal budget",
+      "budget tracker",
+      "expense tracker",
+      "income tracker",
+      "savings goals",
+      "finance manager",
+      "money management",
+      "budget planner",
+      "financial overview",
+      "spending tracker",
+      "budget categories"
     ],
     "openai/sampleConversations": [
-      { "user": "Help me organize my trip", "assistant": "Here is My Travel Organizer. Describe your trip or add flights, hotels, and transport to build your pre-departure checklist." },
-      { "user": "I'm flying from Boston to Paris on June 11, then Paris to Geneva, then back to Boston on June 24", "assistant": "I've set up a multi-city trip with 3 legs. You can now add hotels and ground transport for each city." },
-      { "user": "Plan a round trip from NYC to London for 2 weeks", "assistant": "I've created a round-trip itinerary from NYC to London. Add your flight details, hotel, and airport transport." },
+      { "user": "Help me manage my budget", "assistant": "Here is My Budget. Add your income, expenses, and savings goals to build your personal budget overview." },
+      { "user": "I want to track my monthly expenses", "assistant": "I've set up a monthly budget tracker. You can now add your income and expense categories." },
+      { "user": "Create a budget for my household", "assistant": "I've created a household budget. Add your income sources, bills, and savings targets." },
     ],
     "openai/starterPrompts": [
-      "Help me organize my upcoming trip",
-      "Plan a round trip from Boston to Paris",
-      "I need to track my multi-city Europe trip",
-      "Organize my flights and hotels for vacation",
-      "Create an itinerary for my business trip to Tokyo",
-      "Help me plan a trip from NYC to London for 2 weeks",
-      "Track my travel reservations",
+      "Help me create a monthly budget",
+      "Track my income and expenses",
+      "I need to manage my household budget",
+      "Set up savings goals for this year",
+      "Create a budget for my finances",
+      "Help me track my spending",
+      "Organize my personal finances",
     ],
     "openai/widgetPrefersBorder": true,
     "openai/widgetCSP": {
       connect_domains: [
-        "https://trip-planner-da2g.onrender.com",
+        "https://my-budget.onrender.com",
         "https://nominatim.openstreetmap.org",
         "https://api.open-meteo.com",
         "https://geocoding-api.open-meteo.com"
       ],
       resource_domains: [
-        "https://trip-planner-da2g.onrender.com"
+        "https://my-budget.onrender.com"
       ],
     },
     "openai/widgetDomain": "https://web-sandbox.oaiusercontent.com",
@@ -266,21 +266,21 @@ function widgetMeta(widget: TripPlannerWidget, bustCache: boolean = false) {
   } as const;
 }
 
-const widgets: TripPlannerWidget[] = [
+const widgets: MyBudgetWidget[] = [
   {
-    id: "trip-planner",
-    title: "My Travel Organizer — Your complete pre-departure checklist for flights, hotels, transport & confirmations",
-    templateUri: `ui://widget/trip-planner.html?v=${VERSION}`,
+    id: "my-budget",
+    title: "My Budget — A personal budget tool to track and manage your finances",
+    templateUri: `ui://widget/my-budget.html?v=${VERSION}`,
     invoking:
-      "Opening My Travel Organizer...",
+      "Opening My Budget...",
     invoked:
-      "Here is My Travel Organizer. Describe your trip or manually add flights, hotels, and transport to build your complete pre-departure checklist.",
-    html: readWidgetHtml("trip-planner"),
+      "Here is My Budget. Add your income, expenses, and savings goals to build your personal budget overview.",
+    html: readWidgetHtml("my-budget"),
   },
 ];
 
-const widgetsById = new Map<string, TripPlannerWidget>();
-const widgetsByUri = new Map<string, TripPlannerWidget>();
+const widgetsById = new Map<string, MyBudgetWidget>();
+const widgetsByUri = new Map<string, MyBudgetWidget>();
 
 widgets.forEach((widget) => {
   widgetsById.set(widget.id, widget);
@@ -290,15 +290,15 @@ widgets.forEach((widget) => {
 const toolInputSchema = {
   type: "object",
   properties: {
-    destination: { type: "string", description: "Primary destination city or country." },
-    departure_city: { type: "string", description: "City the traveler is departing from." },
-    trip_type: { type: "string", enum: ["round_trip", "one_way", "multi_city"], description: "Type of trip." },
-    departure_date: { type: "string", description: "Departure date in YYYY-MM-DD format." },
-    return_date: { type: "string", description: "Return date in YYYY-MM-DD format (for round trips)." },
-    travelers: { type: "number", description: "Number of travelers." },
-    departure_mode: { type: "string", enum: ["plane", "rail", "bus", "ferry"], description: "Primary transport mode for the trip." },
-    multi_city_legs: { type: "array", items: { type: "object", properties: { from: { type: "string" }, to: { type: "string" }, date: { type: "string" }, mode: { type: "string" } } }, description: "Array of multi-city leg objects with from, to, date, and mode fields." },
-    trip_description: { type: "string", description: "Freeform text describing the trip for AI-powered parsing." },
+    destination: { type: "string", description: "Primary budget category or goal." },
+    departure_city: { type: "string", description: "Source of income or funds." },
+    trip_type: { type: "string", enum: ["round_trip", "one_way", "multi_city"], description: "Type of budget." },
+    departure_date: { type: "string", description: "Budget start date in YYYY-MM-DD format." },
+    return_date: { type: "string", description: "Budget end date in YYYY-MM-DD format." },
+    travelers: { type: "number", description: "Number of budget participants." },
+    departure_mode: { type: "string", enum: ["plane", "rail", "bus", "ferry"], description: "Primary budget category." },
+    multi_city_legs: { type: "array", items: { type: "object", properties: { from: { type: "string" }, to: { type: "string" }, date: { type: "string" }, mode: { type: "string" } } }, description: "Array of budget line items." },
+    trip_description: { type: "string", description: "Freeform text describing the budget for AI-powered parsing." },
   },
   required: [],
   additionalProperties: false,
@@ -320,7 +320,7 @@ const toolInputParser = z.object({
 const tools: Tool[] = widgets.map((widget) => ({
   name: widget.id,
   description:
-    "Use this tool to plan and organize a trip including flights, hotels, trains, and ground transport. Supports round-trip, one-way, and multi-city itineraries. Call this tool immediately with NO arguments to let the user enter their trip details manually. Only provide arguments if the user has explicitly stated them.",
+    "Use this tool to create and manage a personal budget including income, expenses, and savings goals. Call this tool immediately with NO arguments to let the user enter their budget details manually. Only provide arguments if the user has explicitly stated them.",
   inputSchema: toolInputSchema,
   outputSchema: {
     type: "object",
@@ -376,7 +376,7 @@ const resources: Resource[] = widgets.map((widget) => ({
   uri: widget.templateUri,
   name: widget.title,
   description:
-    "HTML template for My Travel Organizer widget.",
+    "HTML template for My Budget widget.",
   mimeType: "text/html+skybridge",
   _meta: widgetMeta(widget),
 }));
@@ -385,18 +385,18 @@ const resourceTemplates: ResourceTemplate[] = widgets.map((widget) => ({
   uriTemplate: widget.templateUri,
   name: widget.title,
   description:
-    "Template descriptor for My Travel Organizer widget.",
+    "Template descriptor for My Budget widget.",
   mimeType: "text/html+skybridge",
   _meta: widgetMeta(widget),
 }));
 
-function createTripPlannerServer(): Server {
+function createMyBudgetServer(): Server {
   const server = new Server(
     {
-      name: "trip-planner",
+      name: "my-budget",
       version: "0.1.0",
       description:
-        "My Travel Organizer — your complete pre-departure checklist. Helps users organize all legs of their trip to ensure they don't miss any flights, hotels, or travel reservations.",
+        "My Budget — a personal budget tool. Helps users track and manage their income, expenses, and savings goals.",
     },
     {
       capabilities: {
@@ -472,14 +472,14 @@ function createTripPlannerServer(): Server {
           throw new Error(`Unknown tool: ${request.params.name}`);
         }
 
-        // Helper: detect encoded tokens/hashes that aren't real trip descriptions
+        // Helper: detect encoded tokens/hashes that aren't real budget descriptions
         const looksLikeToken = (s: string) => !s.includes(" ") && s.length > 20 || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
 
         // Parse and validate input parameters
         let args: z.infer<typeof toolInputParser> = {};
         try {
           args = toolInputParser.parse(request.params.arguments ?? {});
-          // Strip trip_description if it looks like an encoded token
+          // Strip description if it looks like an encoded token
           if (args.trip_description && looksLikeToken(args.trip_description)) {
             args.trip_description = undefined;
           }
@@ -503,7 +503,7 @@ function createTripPlannerServer(): Server {
         // Debug log
         console.log("Captured meta:", { userLocation, userLocale, userAgent });
 
-        // If ChatGPT didn't pass structured arguments, try to infer trip details from freeform text in meta
+        // If ChatGPT didn't pass structured arguments, try to infer budget details from freeform text in meta
         try {
           const candidates: any[] = [
             meta["openai/subject"],
@@ -515,9 +515,9 @@ function createTripPlannerServer(): Server {
           ];
           const userText = candidates.find((t) => typeof t === "string" && t.trim().length > 0) || "";
 
-          // Infer destination (e.g., "trip to Paris", "vacation in Hawaii", "flying to London")
+          // Infer destination (e.g., "budget for rent", "saving for vacation")
           if (args.destination === undefined) {
-            const destMatch = userText.match(/(?:trip|travel|going|vacation|visit|flying|headed)\s+(?:to|in)\s+([A-Za-z\s,]+?)(?:\.|,|for|on|\s+\d|\s*$)/i);
+            const destMatch = userText.match(/(?:budget|saving|spending|expense|plan)\s+(?:for|on|in)\s+([A-Za-z\s,]+?)(?:\.|,|for|on|\s+\d|\s*$)/i);
             if (destMatch) {
               args.destination = destMatch[1].trim();
             }
@@ -629,7 +629,7 @@ function createTripPlannerServer(): Server {
             else if (/\bferry\b|\bboat\b|\bcruise\b/i.test(userText)) args.departure_mode = "ferry";
           }
 
-          // Store freeform text as trip_description for AI parsing on the client
+          // Store freeform text as description for AI parsing on the client
           if (!args.trip_description && userText.length > 10 && !looksLikeToken(userText)) {
             args.trip_description = userText;
           }
@@ -657,7 +657,7 @@ function createTripPlannerServer(): Server {
         logAnalytics("tool_call_success", {
           toolName: request.params.name,
           params: args,
-          inferredQuery: inferredQuery.length > 0 ? inferredQuery.join(", ") : "Trip Planner",
+          inferredQuery: inferredQuery.length > 0 ? inferredQuery.join(", ") : "My Budget",
           responseTime,
 
           device: deviceCategory,
@@ -678,7 +678,7 @@ function createTripPlannerServer(): Server {
         console.log(`[MCP] Tool called: ${request.params.name}, returning templateUri: ${(widgetMetadata as any)["openai/outputTemplate"]}`);
 
         // Build structured content once so we can log it and return it.
-        // For the trip planner, expose fields relevant to trip details
+        // For my budget, expose fields relevant to budget details
         const structured = {
           ready: true,
           timestamp: new Date().toISOString(),
@@ -687,10 +687,10 @@ function createTripPlannerServer(): Server {
           // Summary + follow-ups for natural language UX
           summary: computeSummary(args),
           suggested_followups: [
-            "Add hotels for each city",
-            "What ground transport do I need?",
-            "Show me my booking checklist",
-            "Help me add flight details"
+            "Add expense categories",
+            "Set up savings goals",
+            "Show me my budget overview",
+            "Help me track my spending"
           ],
         } as const;
 
@@ -713,14 +713,14 @@ function createTripPlannerServer(): Server {
 
         // Log success analytics
         try {
-          // Check for "empty" result - when no main travel inputs are provided
+          // Check for "empty" result - when no main budget inputs are provided
           const hasMainInputs = args.destination || args.departure_city || args.trip_type || args.departure_date;
           
           if (!hasMainInputs) {
              logAnalytics("tool_call_empty", {
                toolName: request.params.name,
                params: request.params.arguments || {},
-               reason: "No trip details provided"
+               reason: "No budget details provided"
              });
           } else {
           logAnalytics("tool_call_success", {
@@ -795,16 +795,16 @@ function humanizeEventName(event: string): string {
     tool_call_error: "Tool Call (Error)",
     tool_call_empty: "Tool Call (Empty)",
     parameter_parse_error: "Parameter Parse Error",
-    // In-app trip actions
-    widget_parse_trip: "Analyze Trip (AI)",
-    widget_add_leg: "Add Leg",
-    widget_delete_leg: "Delete Leg",
-    widget_save_trip: "Save Trip",
-    widget_open_trip: "Open Trip",
-    widget_new_trip: "New Trip",
-    widget_delete_trip: "Delete Trip",
-    widget_duplicate_trip: "Duplicate Trip",
-    widget_reset: "Reset Trip",
+    // In-app budget actions
+    widget_parse_trip: "Analyze Budget (AI)",
+    widget_add_leg: "Add Entry",
+    widget_delete_leg: "Delete Entry",
+    widget_save_trip: "Save Budget",
+    widget_open_trip: "Open Budget",
+    widget_new_trip: "New Budget",
+    widget_delete_trip: "Delete Budget",
+    widget_duplicate_trip: "Duplicate Budget",
+    widget_reset: "Reset Budget",
     widget_back_to_home: "Back to Home",
     widget_input_mode: "Input Mode Toggle",
     // Footer buttons
@@ -1095,7 +1095,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trip Planner Analytics</title>
+  <title>My Budget Analytics</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; color: #1f2937; }
@@ -1134,7 +1134,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
 </head>
 <body>
   <div class="container">
-    <h1>📊 Trip Planner Analytics</h1>
+    <h1>📊 My Budget Analytics</h1>
     <p class="subtitle">Last 7 days · ${logs.length} total events · Auto-refresh 60s</p>
 
     <!-- ========== ALERTS ========== -->
@@ -1484,7 +1484,7 @@ async function subscribeToButtondown(email: string, topicId: string, topicName: 
 
   const metadata: Record<string, any> = {
     topicName,
-    source: "trip-planner",
+    source: "my-budget",
     subscribedAt: new Date().toISOString(),
   };
 
@@ -1574,7 +1574,7 @@ async function updateButtondownSubscriber(email: string, topicId: string, topicN
   const updatedMetadata = {
     ...existingMetadata,
     [topicKey]: topicData,
-    source: "trip-planner",
+    source: "my-budget",
   };
 
   const updateRequestBody = {
@@ -1628,8 +1628,8 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
 
     const parsed = JSON.parse(body);
     const email = parsed.email;
-    const topicId = parsed.topicId || "trip-planner";
-    const topicName = parsed.topicName || "Trip Planner Updates";
+    const topicId = parsed.topicId || "my-budget";
+    const topicName = parsed.topicName || "My Budget Updates";
     if (!email || !email.includes("@")) {
       res.writeHead(400).end(JSON.stringify({ error: "Invalid email address" }));
       return;
@@ -1645,7 +1645,7 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
       await subscribeToButtondown(email, topicId, topicName);
       res.writeHead(200).end(JSON.stringify({ 
         success: true, 
-        message: "Successfully subscribed! You'll receive trip planning tips and updates." 
+        message: "Successfully subscribed! You'll receive budget tips and updates." 
       }));
     } catch (subscribeError: any) {
       const rawMessage = String(subscribeError?.message ?? "").trim();
@@ -1701,7 +1701,7 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
   }
 }
 
-// AI-powered trip parsing using OpenAI
+// AI-powered budget parsing using OpenAI
 async function handleParseTripAI(req: IncomingMessage, res: ServerResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
@@ -1730,36 +1730,32 @@ async function handleParseTripAI(req: IncomingMessage, res: ServerResponse) {
     
     if (!OPENAI_API_KEY) {
       // Fallback to basic parsing if no API key
-      console.log("[Parse Trip] No OPENAI_API_KEY, using fallback parsing");
+      console.log("[Parse Budget] No OPENAI_API_KEY, using fallback parsing");
       const legs = fallbackParseTripText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ legs, source: "fallback" }));
       return;
     }
 
-    const systemPrompt = `You are a travel assistant that extracts trip information from natural language descriptions.
+    const systemPrompt = `You are a budget assistant that extracts budget information from natural language descriptions.
 
-Extract all trip components (flights, hotels, transportation) from the user's text and return them as a JSON array.
+Extract all budget components (income, expenses, savings) from the user's text and return them as a JSON array.
 
 Each item should have:
 - type: "flight" | "hotel" | "car" | "train" | "bus" | "ferry"
 - status: always "pending"
-- title: descriptive title (e.g., "Flight: Boston → Medellin")
+- title: descriptive title (e.g., "Expense: Rent")
 - date: ISO date string (YYYY-MM-DD) if mentioned, otherwise empty string
-- endDate: for hotels, the checkout date if mentioned
-- from: departure city/location (for transport)
-- to: arrival city/location (for transport)
-- location: for hotels, the city
-- time: departure time if mentioned (HH:MM format)
+- endDate: for recurring items, the end date if mentioned
+- from: source of funds
+- to: destination of funds
+- location: category
+- time: time if mentioned (HH:MM format)
 
 Rules:
-1. Only extract what the user explicitly mentions - do NOT infer or auto-add hotels
-2. Think like a traveler - for each flight:
-   - You need transport TO the departure airport before the flight
-   - You need transport FROM the arrival airport after landing (to get to hotel or home)
-3. Do NOT duplicate transports - each leg of the journey needs exactly one transport to the airport and one from the airport
-4. Parse dates like "June 11th, 2026" to "2026-06-11"
-5. If no year mentioned, assume current year or next year if month has passed
+1. Only extract what the user explicitly mentions - do NOT infer or auto-add items
+2. Parse dates like "June 11th, 2026" to "2026-06-11"
+3. If no year mentioned, assume current year or next year if month has passed
 
 Return ONLY valid JSON array, no explanation.`;
 
@@ -1782,7 +1778,7 @@ Return ONLY valid JSON array, no explanation.`;
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("[Parse Trip] OpenAI API error:", response.status, errorText);
+      console.error("[Parse Budget] OpenAI API error:", response.status, errorText);
       // Fallback on API error
       const legs = fallbackParseTripText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -1800,20 +1796,20 @@ Return ONLY valid JSON array, no explanation.`;
       const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
       legs = JSON.parse(jsonStr);
     } catch (parseError) {
-      console.error("[Parse Trip] Failed to parse AI response:", content);
+      console.error("[Parse Budget] Failed to parse AI response:", content);
       legs = fallbackParseTripText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ legs, source: "fallback" }));
       return;
     }
 
-    console.log("[Parse Trip] AI parsed legs:", legs.length);
+    console.log("[Parse Budget] AI parsed entries:", legs.length);
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ legs, source: "ai" }));
 
   } catch (error: any) {
-    console.error("[Parse Trip] Error:", error);
-    res.writeHead(500).end(JSON.stringify({ error: error.message || "Failed to parse trip" }));
+    console.error("[Parse Budget] Error:", error);
+    res.writeHead(500).end(JSON.stringify({ error: error.message || "Failed to parse budget" }));
   }
 }
 
@@ -1906,7 +1902,7 @@ function fallbackParseTripText(text: string): any[] {
 
 async function handleSseRequest(res: ServerResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const server = createTripPlannerServer();
+  const server = createMyBudgetServer();
   const transport = new SSEServerTransport(postPath, res);
   const sessionId = transport.sessionId;
 
@@ -2035,8 +2031,8 @@ const httpServer = createServer(
     }
 
     // Serve alias for legacy loader path -> our main widget HTML
-    if (req.method === "GET" && url.pathname === "/assets/trip-planner.html") {
-      const mainAssetPath = path.join(ASSETS_DIR, "trip-planner.html");
+    if (req.method === "GET" && url.pathname === "/assets/my-budget.html") {
+      const mainAssetPath = path.join(ASSETS_DIR, "my-budget.html");
       console.log(`[Debug Legacy] Request: ${url.pathname}, Main Path: ${mainAssetPath}, Exists: ${fs.existsSync(mainAssetPath)}`);
       if (fs.existsSync(mainAssetPath) && fs.statSync(mainAssetPath).isFile()) {
         res.writeHead(200, {
@@ -2108,7 +2104,7 @@ function startMonitoring() {
 
 httpServer.listen(port, () => {
   startMonitoring();
-  console.log(`Trip Planner MCP server listening on http://localhost:${port}`);
+  console.log(`My Budget MCP server listening on http://localhost:${port}`);
   console.log(`  SSE stream: GET http://localhost:${port}${ssePath}`);
   console.log(
     `  Message post endpoint: POST http://localhost:${port}${postPath}?sessionId=...`

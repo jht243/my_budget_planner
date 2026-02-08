@@ -1,24 +1,23 @@
-# Trip Planner & Organizer - ChatGPT MCP Connector
+# My Budget - ChatGPT MCP Connector
 
-A Model Context Protocol (MCP) server that provides an interactive trip planner widget for ChatGPT. Keep all your travel reservations — flights, hotels, trains, and ground transport — organized in one place.
+A Model Context Protocol (MCP) server that provides an interactive personal budget widget for ChatGPT. Track and manage your income, expenses, and savings goals in one place.
 
 **[Privacy Policy](PRIVACY.md)** | **[OpenAI Apps SDK](https://developers.openai.com/apps-sdk)**
 
 ## Features
 
-- ✈️ Organize flights, hotels, trains, and ground transport in one itinerary
-- �️ Support for round-trip, one-way, and multi-city itineraries
-- 📊 Booking status checklist with progress tracking per category
-- 🤖 AI-powered trip description parsing (describe your trip in plain English)
-- 📅 Day-by-day itinerary view
-- 💾 Save and manage multiple trips
+- 💰 Track income, expenses, and savings goals in one place
+- 📊 Budget overview with progress tracking per category
+- 🤖 AI-powered budget description parsing (describe your budget in plain English)
+- 📅 Monthly and yearly budget views
+- 💾 Save and manage multiple budgets
 - 🖨️ Print-friendly output
 
-## Trip Types
+## Budget Types
 
-- **Round Trip** — Outbound + return flight with hotel and transport
-- **One Way** — Single-direction travel with accommodation
-- **Multi-City** — Multiple legs with different cities, transport modes, and hotels per stop
+- **Monthly Budget** — Track income and expenses on a monthly basis
+- **Yearly Budget** — Annual financial planning with savings goals
+- **Custom Budget** — Flexible budget categories tailored to your needs
 
 ## Quick Start
 
@@ -57,17 +56,17 @@ Server runs on `http://localhost:8000`. **Note:** HTTP endpoints are for local d
 ## How to Use in ChatGPT
 
 1. Open ChatGPT in **Developer Mode**
-2. Add MCP Connector with your deployed HTTPS URL (e.g. `https://trip-planner-xxxx.onrender.com`)
-3. Say: **"Help me organize my trip"** or **"Plan a round trip from Boston to Paris"**
+2. Add MCP Connector with your deployed HTTPS URL (e.g. `https://my-budget-xxxx.onrender.com`)
+3. Say: **"Help me manage my budget"** or **"Create a monthly budget"**
 4. The interactive widget appears!
 
 ### Example Prompts
 
-- "Help me organize my upcoming trip"
-- "Plan a round trip from NYC to London for 2 weeks"
-- "I'm flying from Boston to Paris on June 11, then to Geneva, then back"
-- "Create an itinerary for my business trip to Tokyo"
-- "Track my multi-city Europe trip"
+- "Help me create a monthly budget"
+- "Track my income and expenses"
+- "I need to manage my household budget"
+- "Set up savings goals for this year"
+- "Organize my personal finances"
 
 ## Tech Stack
 
@@ -82,7 +81,7 @@ Server runs on `http://localhost:8000`. **Note:** HTTP endpoints are for local d
 Copy `.env.example` to `.env` and configure:
 
 ```bash
-OPENAI_API_KEY=your_openai_key    # For AI-powered trip parsing
+OPENAI_API_KEY=your_openai_key    # For AI-powered budget parsing
 BUTTONDOWN_API_KEY=your_api_key   # For email subscriptions
 ANALYTICS_PASSWORD=your_password  # For /analytics dashboard
 ```
@@ -91,10 +90,10 @@ ANALYTICS_PASSWORD=your_password  # For /analytics dashboard
 
 See the full **[Privacy Policy](PRIVACY.md)** for complete details.
 
-- **What we collect:** When the widget runs inside ChatGPT, our server receives location (city/region/country), locale, device/browser fingerprint, inferred trip query, and log timestamps via the MCP `_meta` object.
+- **What we collect:** When the widget runs inside ChatGPT, our server receives location (city/region/country), locale, device/browser fingerprint, inferred budget query, and log timestamps via the MCP `_meta` object.
 - **How we use it:** These fields feed the `/analytics` dashboard only. We do not sell, rent, or share this data.
 - **Server log retention:** Analytics logs are stored for **30 days** in the `/logs` directory and then automatically rotated and deleted.
-- **Local trip data:** Your trip details are cached in browser `localStorage` and persist indefinitely — data is only removed when you manually delete a saved trip or use the "Reset" button.
+- **Local budget data:** Your budget details are cached in browser `localStorage` and persist indefinitely — data is only removed when you manually delete a saved budget or use the "Reset" button.
 - **Deletion requests:** Email **support@layer3labs.io** with the approximate UTC date/time of your session. We will delete associated server logs within 7 business days.
 
 ## Monitoring & Alerts

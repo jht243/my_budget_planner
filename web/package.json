@@ -1,9 +1,9 @@
 {
-  "name": "trip-planner-web",
+  "name": "my-budget-web",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/main.tsx --bundle --format=esm --outfile=../assets/trip-planner.js"
+    "build": "esbuild src/main.tsx --bundle --format=esm --outfile=../assets/my-budget.js"
   },
   "dependencies": {
     "lucide-react": "^0.554.0",

@@ -137,8 +137,8 @@ interface MissingInfo {
   endDate?: string;
 }
 
-const STORAGE_KEY = "TRIP_PLANNER_DATA";
-const TRIPS_LIST_KEY = "TRIP_PLANNER_TRIPS_LIST";
+const STORAGE_KEY = "MY_BUDGET_DATA";
+const TRIPS_LIST_KEY = "MY_BUDGET_LIST";
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 // Helper to load all saved trips
@@ -1971,7 +1971,7 @@ const MissingInfoBar = ({
   );
 };
 
-export default function TripPlanner({ initialData }: { initialData?: any }) {
+export default function MyBudget({ initialData }: { initialData?: any }) {
   const [savedTrips, setSavedTrips] = useState<Trip[]>(() => loadSavedTrips());
   const [currentView, setCurrentView] = useState<"home" | "trip">(() => {
     // If there's a current trip in progress, show it; otherwise show home
@@ -2084,7 +2084,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
     if (!destination && !departure_city && !trip_description && !multi_city_legs?.length) return;
 
     hasHydrated.current = true;
-    console.log("[TripPlanner] Hydrating with data:", initialData);
+    console.log("[MyBudget] Hydrating with data:", initialData);
 
     // Auto-save current trip before overwriting with hydrated data
     if (trip.legs.length > 0) {
@@ -2491,7 +2491,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: subscribeEmail, topicId: "trip-planner-news", topicName: "Trip Planner Updates" })
+        body: JSON.stringify({ email: subscribeEmail, topicId: "my-budget-news", topicName: "My Budget Updates" })
       });
       const data = await response.json();
       if (response.ok && data.success) {
@@ -2516,7 +2516,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       const response = await fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "trip-planner", enjoymentVote: enjoyVote || null, tripName: trip.name || null } })
+        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "my-budget", enjoymentVote: enjoyVote || null, tripName: trip.name || null } })
       });
       if (response.ok) {
         setFeedbackStatus("success");
@@ -2736,8 +2736,8 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       <div style={{ backgroundColor: COLORS.bg, fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Travel Organizer</h1>
-            <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your saved trips</p>
+            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Budget</h1>
+            <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your saved budgets</p>
           </div>
         </div>
         <div style={{ padding: 20 }}>
@@ -2791,8 +2791,8 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
       <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white", borderRadius: "0 0 0 0" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Travel Organizer</h1>
-            <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your complete pre-departure checklist for flights,<br/>hotels, transport & confirmations</p>
+            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}><Plane size={28} />My Budget</h1>
+            <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Track and manage your personal finances</p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button className="btn-press" onClick={handleBackToHome} style={{ padding: 8, borderRadius: 8, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex", alignItems: "center" }}><Home size={18} /></button>
@@ -3686,7 +3686,7 @@ export default function TripPlanner({ initialData }: { initialData?: any }) {
               {enjoyVote ? "Share Your Thoughts" : "Feedback"}
             </div>
             <div style={{ fontSize: 14, color: COLORS.textSecondary, marginBottom: 20 }}>
-              {enjoyVote ? "Please share your feedback below to help us improve." : "Help us improve My Travel Organizer."}
+              {enjoyVote ? "Please share your feedback below to help us improve." : "Help us improve My Budget."}
             </div>
             {feedbackStatus === "success" ? (
               <div style={{ textAlign: "center", padding: 20, color: COLORS.primary, fontWeight: 600 }}>Thanks for your feedback!</div>

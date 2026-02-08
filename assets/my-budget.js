@@ -24431,7 +24431,7 @@ var require_jsx_runtime = __commonJS({
 var import_react4 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
-// src/TripPlanner.tsx
+// src/MyBudget.tsx
 var import_react3 = __toESM(require_react(), 1);
 var import_react_dom = __toESM(require_react_dom(), 1);
 
@@ -24908,7 +24908,7 @@ var __iconNode35 = [
 ];
 var X = createLucideIcon("x", __iconNode35);
 
-// src/TripPlanner.tsx
+// src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var spinnerStyle = `
 @keyframes spin {
@@ -24970,8 +24970,8 @@ var COLORS = {
   transport: "#A68A64",
   transportBg: "#F0E8D8"
 };
-var STORAGE_KEY = "TRIP_PLANNER_DATA";
-var TRIPS_LIST_KEY = "TRIP_PLANNER_TRIPS_LIST";
+var STORAGE_KEY = "MY_BUDGET_DATA";
+var TRIPS_LIST_KEY = "MY_BUDGET_LIST";
 var generateId = () => Math.random().toString(36).substr(2, 9);
 var loadSavedTrips = () => {
   try {
@@ -26595,7 +26595,7 @@ var MissingInfoBar = ({
     ] })
   ] });
 };
-function TripPlanner({ initialData: initialData2 }) {
+function MyBudget({ initialData: initialData2 }) {
   const [savedTrips, setSavedTrips] = (0, import_react3.useState)(() => loadSavedTrips());
   const [currentView, setCurrentView] = (0, import_react3.useState)(() => {
     try {
@@ -26716,7 +26716,7 @@ function TripPlanner({ initialData: initialData2 }) {
     } = initialData2;
     if (!destination && !departure_city && !trip_description && !multi_city_legs?.length) return;
     hasHydrated.current = true;
-    console.log("[TripPlanner] Hydrating with data:", initialData2);
+    console.log("[MyBudget] Hydrating with data:", initialData2);
     if (trip.legs.length > 0) {
       const existing = loadSavedTrips();
       const idx = existing.findIndex((t) => t.id === trip.id);
@@ -27052,7 +27052,7 @@ function TripPlanner({ initialData: initialData2 }) {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: subscribeEmail, topicId: "trip-planner-news", topicName: "Trip Planner Updates" })
+        body: JSON.stringify({ email: subscribeEmail, topicId: "my-budget-news", topicName: "My Budget Updates" })
       });
       const data = await response.json();
       if (response.ok && data.success) {
@@ -27081,7 +27081,7 @@ function TripPlanner({ initialData: initialData2 }) {
       const response = await fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "trip-planner", enjoymentVote: enjoyVote || null, tripName: trip.name || null } })
+        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "my-budget", enjoymentVote: enjoyVote || null, tripName: trip.name || null } })
       });
       if (response.ok) {
         setFeedbackStatus("success");
@@ -27297,9 +27297,9 @@ function TripPlanner({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 28 }),
-          "My Travel Organizer"
+          "My Budget"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: "Your saved trips" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: "Your saved budgets" })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 20 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewTrip, style: { width: "100%", padding: 16, borderRadius: 12, border: `2px dashed ${COLORS.primary}`, backgroundColor: COLORS.accentLight, color: COLORS.primaryDark, fontSize: 15, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 20 }, children: [
@@ -27356,13 +27356,9 @@ function TripPlanner({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plane, { size: 28 }),
-          "My Travel Organizer"
+          "My Budget"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: [
-          "Your complete pre-departure checklist for flights,",
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-          "hotels, transport & confirmations"
-        ] })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: "Track and manage your personal finances" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "btn-press", onClick: handleBackToHome, style: { padding: 8, borderRadius: 8, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 18 }) }),
@@ -28252,7 +28248,7 @@ function TripPlanner({ initialData: initialData2 }) {
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, fontWeight: 600, color: enjoyVote === "up" ? COLORS.booked : COLORS.urgent }, children: "Thank you for rating the app!" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 22, fontWeight: 800, marginBottom: 8, color: COLORS.textMain }, children: enjoyVote ? "Share Your Thoughts" : "Feedback" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 20 }, children: enjoyVote ? "Please share your feedback below to help us improve." : "Help us improve My Travel Organizer." }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 20 }, children: enjoyVote ? "Please share your feedback below to help us improve." : "Help us improve My Budget." }),
       feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { textAlign: "center", padding: 20, color: COLORS.primary, fontWeight: 600 }, children: "Thanks for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "textarea",
@@ -28346,13 +28342,13 @@ var getHydrationData = () => {
   console.log("[Hydration] No data found in any candidate source");
   return {};
 };
-console.log("[Main] Trip Planner main.tsx loading...");
+console.log("[Main] My Budget main.tsx loading...");
 function App({ initialData: initialData2 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TripPlanner, { initialData: initialData2 });
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MyBudget, { initialData: initialData2 });
 }
-var container = document.getElementById("trip-planner-root");
+var container = document.getElementById("my-budget-root");
 if (!container) {
-  throw new Error("trip-planner-root element not found");
+  throw new Error("my-budget-root element not found");
 }
 var root = (0, import_client.createRoot)(container);
 var renderApp = (data) => {

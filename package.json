@@ -1,16 +1,16 @@
 {
-  "name": "trip-planner-mcp-node",
+  "name": "my-budget-mcp-node",
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "description": "Trip Planner & Organizer — keep all your travel reservations (flights, hotels, trains, transport) in one place.",
+  "description": "My Budget — a personal budget tool to track and manage your finances.",
   "keywords": [
-    "trip planner",
-    "travel organizer",
-    "itinerary",
-    "flight tracker",
-    "hotel booking",
-    "vacation"
+    "my budget",
+    "personal budget",
+    "budget tracker",
+    "finance manager",
+    "expense tracker",
+    "money management"
   ],
   "scripts": {
     "start": "tsx src/server.ts",
