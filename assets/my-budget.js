@@ -25071,7 +25071,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     ] })
   ] });
 };
-var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets }) => {
+var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets, footer }) => {
   const [isOpen, setIsOpen] = (0, import_react3.useState)(items.length > 0);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
@@ -25171,7 +25171,8 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
             }
           )
         ] })
-      ] })
+      ] }),
+      footer
     ] })
   ] });
 };
@@ -25630,7 +25631,33 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("nonLiquidAssets", id, u),
           onAdd: () => addItem("nonLiquidAssets", "one_time"),
           onAddPreset: (name) => addPresetItem("nonLiquidAssets", name, "one_time"),
-          onDelete: (id) => deleteItem("nonLiquidAssets", id)
+          onDelete: (id) => deleteItem("nonLiquidAssets", id),
+          footer: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }, children: "Discount Rate" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 700, color: COLORS.nonLiquid }, children: [
+                budget.nonLiquidDiscount,
+                "%"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "range",
+                min: 0,
+                max: 75,
+                value: budget.nonLiquidDiscount,
+                onChange: (e) => setBudget((b) => ({ ...b, nonLiquidDiscount: parseInt(e.target.value) })),
+                style: { width: "100%", accentColor: COLORS.nonLiquid }
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "0%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "25%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "50%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "75%" })
+            ] })
+          ] })
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25649,39 +25676,6 @@ function MyBudget({ initialData: initialData2 }) {
           onDelete: (id) => deleteItem("liabilities", id)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-        backgroundColor: COLORS.card,
-        borderRadius: 12,
-        padding: "12px 16px",
-        border: `1px solid ${COLORS.borderLight}`,
-        marginBottom: 12,
-        marginTop: 8
-      }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: "Non-Liquid Discount Rate" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.nonLiquid }, children: [
-            budget.nonLiquidDiscount,
-            "%"
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "input",
-          {
-            type: "range",
-            min: 0,
-            max: 75,
-            value: budget.nonLiquidDiscount,
-            onChange: (e) => setBudget((b) => ({ ...b, nonLiquidDiscount: parseInt(e.target.value) })),
-            style: { width: "100%", accentColor: COLORS.nonLiquid }
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "0%" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "25%" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "50%" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "75%" })
-        ] })
-      ] }),
       (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SummarySection, { budget }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleReset, style: {
         width: "100%",

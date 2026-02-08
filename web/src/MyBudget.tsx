@@ -399,11 +399,11 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 
 // ─── Budget Section ───────────────────────────────────────────────────────────
 
-const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets }: {
+const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets, footer }: {
   title: string; icon: React.ReactNode; color: string; bgColor: string;
   items: BudgetItem[]; onUpdate: (id: string, u: Partial<BudgetItem>) => void;
   onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
-  inputMode: InputMode; presets?: Preset[];
+  inputMode: InputMode; presets?: Preset[]; footer?: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(items.length > 0);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
@@ -458,6 +458,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
               </button>
             </div>
           </div>
+          {footer}
         </div>
       )}
     </div>
@@ -861,7 +862,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("nonLiquidAssets", id, u)}
           onAdd={() => addItem("nonLiquidAssets", "one_time")}
           onAddPreset={name => addPresetItem("nonLiquidAssets", name, "one_time")}
-          onDelete={id => deleteItem("nonLiquidAssets", id)} />
+          onDelete={id => deleteItem("nonLiquidAssets", id)}
+          footer={
+            <div style={{ backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }}>Discount Rate</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: COLORS.nonLiquid }}>{budget.nonLiquidDiscount}%</span>
+              </div>
+              <input type="range" min={0} max={75} value={budget.nonLiquidDiscount}
+                onChange={e => setBudget(b => ({ ...b, nonLiquidDiscount: parseInt(e.target.value) }))}
+                style={{ width: "100%", accentColor: COLORS.nonLiquid }} />
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted }}>
+                <span>0%</span><span>25%</span><span>50%</span><span>75%</span>
+              </div>
+            </div>
+          } />
 
         {/* Liabilities */}
         <BudgetSection title="Liabilities" icon={<AlertTriangle size={18} />} color={COLORS.liability} bgColor={COLORS.liabilityBg}
@@ -870,23 +885,6 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onAdd={() => addItem("liabilities", "one_time")}
           onAddPreset={name => addPresetItem("liabilities", name, "one_time")}
           onDelete={id => deleteItem("liabilities", id)} />
-
-        {/* Non-Liquid Discount Slider */}
-        <div style={{
-          backgroundColor: COLORS.card, borderRadius: 12, padding: "12px 16px",
-          border: `1px solid ${COLORS.borderLight}`, marginBottom: 12, marginTop: 8,
-        }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Non-Liquid Discount Rate</span>
-            <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.nonLiquid }}>{budget.nonLiquidDiscount}%</span>
-          </div>
-          <input type="range" min={0} max={75} value={budget.nonLiquidDiscount}
-            onChange={e => setBudget(b => ({ ...b, nonLiquidDiscount: parseInt(e.target.value) }))}
-            style={{ width: "100%", accentColor: COLORS.nonLiquid }} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted }}>
-            <span>0%</span><span>25%</span><span>50%</span><span>75%</span>
-          </div>
-        </div>
 
         {/* Summary */}
         {(budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && (
