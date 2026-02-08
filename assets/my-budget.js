@@ -25103,7 +25103,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
   ] });
 };
 var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets, footer }) => {
-  const [isOpen, setIsOpen] = (0, import_react3.useState)(items.length > 0);
+  const [isOpen, setIsOpen] = (0, import_react3.useState)(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
@@ -25124,7 +25124,7 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
         onToggle: () => setIsOpen(!isOpen)
       }
     ),
-    isOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "8px 0 0" }, children: [
+    isOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px 12px", border: `1px solid ${color}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }, children: [
       items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         ItemRow,
         {
@@ -25136,7 +25136,7 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
         },
         item.id
       )),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 6 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 12, marginBottom: 6 }, children: [
         availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: [
           availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(

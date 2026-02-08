@@ -420,7 +420,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
   onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
   inputMode: InputMode; presets?: Preset[]; footer?: React.ReactNode;
 }) => {
-  const [isOpen, setIsOpen] = useState(items.length > 0);
+  const [isOpen, setIsOpen] = useState(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : undefined;
@@ -434,7 +434,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
       <SectionHeader title={title} icon={icon} color={color} bgColor={bgColor}
         total={total} monthlyTotal={monthlyTotal} count={items.length} isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />
       {isOpen && (
-        <div style={{ padding: "8px 0 0" }}>
+        <div style={{ padding: "10px 12px 12px", border: `1px solid ${color}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }}>
           {items.map(item => (
             <ItemRow key={item.id} item={item} color={color}
               onUpdate={u => onUpdate(item.id, u)} onDelete={() => onDelete(item.id)}
@@ -442,7 +442,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
           ))}
 
           {/* Quick add chips + custom */}
-          <div style={{ marginBottom: 6 }}>
+          <div style={{ marginTop: 12, marginBottom: 6 }}>
             {availablePresets.length > 0 && (
               <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }}>Quick add:</div>
             )}
