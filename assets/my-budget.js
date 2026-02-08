@@ -25280,69 +25280,57 @@ var SummarySection = ({ budget }) => {
             "%"
           ] })
         ] })
-      ] })
-    ] }),
-    runwayMonths !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-      backgroundColor: COLORS.expenseBg,
-      borderRadius: 12,
-      padding: "14px 16px",
-      border: `1px solid ${COLORS.expense}20`,
-      marginBottom: 12
-    }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 16, color: COLORS.expense }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }, children: [
-          "Runway at ",
-          fmt(monthlyBurn),
-          "/mo burn"
-        ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 16 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }, children: "Liquid only" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 22, fontWeight: 800, color: COLORS.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo` }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary }, children: [
-            fmt(liquidAfterLiabilities),
-            " after debts"
+      runwayMonths !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${isPositive ? COLORS.income : COLORS.expense}15`, marginTop: 16, paddingTop: 12 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 16, color: COLORS.expense }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }, children: [
+            "Runway at ",
+            fmt(monthlyBurn),
+            "/mo burn"
           ] })
         ] }),
-        extRunwayMonths !== null && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, borderLeft: `1px solid ${COLORS.expense}20`, paddingLeft: 16 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }, children: "+ Non-liquid sold" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 22, fontWeight: 800, color: COLORS.nonLiquid }, children: extRunwayYears >= 1 ? `${extRunwayYears.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo` }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary }, children: [
-            "At ",
-            budget.nonLiquidDiscount,
-            "% discount (",
-            fmt(nonLiquidAtDiscount),
-            ")"
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 16 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }, children: "Liquid only" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 22, fontWeight: 800, color: COLORS.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo` }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary }, children: [
+              fmt(liquidAfterLiabilities),
+              " after debts"
+            ] })
+          ] }),
+          extRunwayMonths !== null && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, borderLeft: `1px solid ${COLORS.expense}20`, paddingLeft: 16 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }, children: "+ Non-liquid sold" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 22, fontWeight: 800, color: COLORS.nonLiquid }, children: extRunwayYears >= 1 ? `${extRunwayYears.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo` }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary }, children: [
+              "At ",
+              budget.nonLiquidDiscount,
+              "% discount (",
+              fmt(nonLiquidAtDiscount),
+              ")"
+            ] })
           ] })
         ] })
-      ] })
-    ] }) : isPositive && monthlyNet > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-      backgroundColor: COLORS.incomeBg,
-      borderRadius: 12,
-      padding: "14px 16px",
-      border: `1px solid ${COLORS.income}20`,
-      marginBottom: 12
-    }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { size: 16, color: COLORS.income }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }, children: "Growth" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textMain }, children: [
-        "+",
-        fmt(monthlyNet),
-        "/mo \u2192 ",
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmt(annualNet) }),
-        "/year"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }, children: [
-        "In 2 years: +",
-        fmt(annualNet * 2),
-        " \xB7 In 5 years: +",
-        fmt(annualNet * 5)
-      ] })
-    ] }) : null,
+      ] }) : isPositive && monthlyNet > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.income}15`, marginTop: 16, paddingTop: 12 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { size: 16, color: COLORS.income }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }, children: "Growth" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textMain }, children: [
+          "+",
+          fmt(monthlyNet),
+          "/mo \u2192 ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmt(annualNet) }),
+          "/year"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }, children: [
+          "In 2 years: +",
+          fmt(annualNet * 2),
+          " \xB7 In 5 years: +",
+          fmt(annualNet * 5)
+        ] })
+      ] }) : null
+    ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.card,
       borderRadius: 12,
