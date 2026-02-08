@@ -480,24 +480,6 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
   );
 };
 
-// ─── Summary Card ─────────────────────────────────────────────────────────────
-
-const StatCard = ({ label, value, subtext, color, icon }: {
-  label: string; value: string; subtext?: string; color: string; icon: React.ReactNode;
-}) => (
-  <div style={{
-    backgroundColor: COLORS.card, borderRadius: 12, padding: "14px 16px",
-    border: `1px solid ${COLORS.borderLight}`, flex: "1 1 140px", minWidth: 140,
-  }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-      <div style={{ color, display: "flex" }}>{icon}</div>
-      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</div>
-    </div>
-    <div style={{ fontSize: 20, fontWeight: 800, color }}>{value}</div>
-    {subtext && <div style={{ fontSize: 11, color: COLORS.textMuted, marginTop: 2 }}>{subtext}</div>}
-  </div>
-);
-
 // ─── Summary Section ──────────────────────────────────────────────────────────
 
 const SummarySection = ({ budget }: { budget: Budget }) => {
@@ -574,23 +556,8 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
         </div>
       </div>
 
-      {/* Asset Overview */}
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        <StatCard label="Net Worth" value={fmt(netWorth)} color={netWorth >= 0 ? COLORS.positive : COLORS.negative} icon={<TrendingUp size={16} />} />
-        <StatCard label="Liquid Assets" value={fmt(totalLiquidAssets)} subtext={`After debts: ${fmt(liquidAfterLiabilities)}`} color={COLORS.asset} icon={<Wallet size={16} />} />
-      </div>
-
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        <StatCard label="Non-Liquid" value={fmt(totalNonLiquidAssets)} subtext={`At ${budget.nonLiquidDiscount}% discount: ${fmt(nonLiquidAtDiscount)}`} color={COLORS.nonLiquid} icon={<Building2 size={16} />} />
-        <StatCard label="Retirement" value={fmt(totalRetirement)} subtext="Not included in runway" color={COLORS.retirement} icon={<Landmark size={16} />} />
-      </div>
-
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        <StatCard label="Liabilities (one-time)" value={fmt(oneTimeLiabilities)} subtext={totalMonthlyLiabilityPayments > 0 ? `+ ${fmt(totalMonthlyLiabilityPayments)}/mo recurring` : undefined} color={COLORS.liability} icon={<AlertTriangle size={16} />} />
-      </div>
-
-      {/* Runway / Projection */}
-      {runwayMonths !== null && (
+      {/* Runway or Growth — the #2 focal point */}
+      {runwayMonths !== null ? (
         <div style={{
           backgroundColor: COLORS.expenseBg, borderRadius: 12, padding: "14px 16px",
           border: `1px solid ${COLORS.expense}20`, marginBottom: 12,
@@ -599,59 +566,70 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
             <Clock size={16} color={COLORS.expense} />
             <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }}>Runway</span>
           </div>
-          <div style={{ fontSize: 18, fontWeight: 800, color: COLORS.expense }}>
+          <div style={{ fontSize: 24, fontWeight: 800, color: COLORS.expense }}>
             {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} years` : `${Math.round(runwayMonths)} months`}
           </div>
           <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
-            At current burn rate of {fmt(monthlyBurn)}/mo, your liquid assets will last this long
+            At {fmt(monthlyBurn)}/mo burn, your liquid assets ({fmt(liquidAfterLiabilities)} after debts) will last this long
           </div>
         </div>
-      )}
-
-      {isPositive && monthlyNet > 0 && (
+      ) : isPositive && monthlyNet > 0 ? (
         <div style={{
           backgroundColor: COLORS.incomeBg, borderRadius: 12, padding: "14px 16px",
           border: `1px solid ${COLORS.income}20`, marginBottom: 12,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
             <ArrowUpRight size={16} color={COLORS.income} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }}>Growth Projection</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }}>Growth</span>
           </div>
           <div style={{ fontSize: 14, color: COLORS.textMain }}>
-            At +{fmt(monthlyNet)}/mo, you'll accumulate an additional <strong>{fmt(annualNet)}</strong> per year.
+            +{fmt(monthlyNet)}/mo → <strong>{fmt(annualNet)}</strong>/year
           </div>
           <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }}>
             In 2 years: +{fmt(annualNet * 2)} · In 5 years: +{fmt(annualNet * 5)}
           </div>
         </div>
-      )}
+      ) : null}
 
-      {/* Leftover Summary (matching the spreadsheet) */}
+      {/* Asset Breakdown — compact single card */}
       <div style={{
         backgroundColor: COLORS.card, borderRadius: 12, padding: "16px",
         border: `1px solid ${COLORS.border}`, marginBottom: 12,
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }}>
-          Leftover Summary
+          Asset Breakdown
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Liquid (after one-time liabilities)</span>
-            <span style={{ fontSize: 16, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }}>{fmtExact(liquidAfterLiabilities)}</span>
+            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Liquid assets</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.asset }}>{fmtExact(totalLiquidAssets)}</span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Non-liquid (at {budget.nonLiquidDiscount}% discount)</span>
-            <span style={{ fontSize: 16, fontWeight: 700, color: COLORS.nonLiquid }}>{fmtExact(nonLiquidAtDiscount)}</span>
-          </div>
-          {totalRetirement > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: 13, color: COLORS.textSecondary }}>401k / Retirement (locked)</span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: COLORS.retirement }}>{fmtExact(totalRetirement)}</span>
+          {oneTimeLiabilities > 0 && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }}>
+              <span style={{ fontSize: 12, color: COLORS.textMuted }}>− One-time debts</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.liability }}>−{fmtExact(oneTimeLiabilities)}</span>
             </div>
           )}
-          <div style={{ borderTop: `1px solid ${COLORS.border}`, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.textMain }}>Total Available</span>
-            <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.primary }}>{fmtExact(liquidAfterLiabilities + nonLiquidAtDiscount)}</span>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }}>= Liquid available</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }}>{fmtExact(liquidAfterLiabilities)}</span>
+          </div>
+
+          <div style={{ borderTop: `1px solid ${COLORS.borderLight}`, marginTop: 4, paddingTop: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Non-liquid (at {budget.nonLiquidDiscount}% discount)</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.nonLiquid }}>{fmtExact(nonLiquidAtDiscount)}</span>
+          </div>
+
+          {totalRetirement > 0 && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 13, color: COLORS.textSecondary }}>401k / Retirement</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.retirement }}>{fmtExact(totalRetirement)}</span>
+            </div>
+          )}
+
+          <div style={{ borderTop: `1px solid ${COLORS.border}`, marginTop: 4, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.textMain }}>Net Worth</span>
+            <span style={{ fontSize: 18, fontWeight: 800, color: netWorth >= 0 ? COLORS.positive : COLORS.negative }}>{fmtExact(netWorth)}</span>
           </div>
         </div>
       </div>

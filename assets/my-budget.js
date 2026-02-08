@@ -25207,21 +25207,6 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
     ] })
   ] });
 };
-var StatCard = ({ label, value, subtext, color, icon }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-  backgroundColor: COLORS.card,
-  borderRadius: 12,
-  padding: "14px 16px",
-  border: `1px solid ${COLORS.borderLight}`,
-  flex: "1 1 140px",
-  minWidth: 140
-}, children: [
-  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { color, display: "flex" }, children: icon }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5 }, children: label })
-  ] }),
-  /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 800, color }, children: value }),
-  subtext && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 2 }, children: subtext })
-] });
 var SummarySection = ({ budget }) => {
   const totalMonthlyIncome = budget.income.reduce((s, i) => s + i.monthlyValue, 0);
   const totalMonthlyExpenses = budget.expenses.reduce((s, i) => s + i.monthlyValue, 0);
@@ -25294,16 +25279,7 @@ var SummarySection = ({ budget }) => {
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Net Worth", value: fmt(netWorth), color: netWorth >= 0 ? COLORS.positive : COLORS.negative, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 16 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liquid Assets", value: fmt(totalLiquidAssets), subtext: `After debts: ${fmt(liquidAfterLiabilities)}`, color: COLORS.asset, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Wallet, { size: 16 }) })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Non-Liquid", value: fmt(totalNonLiquidAssets), subtext: `At ${budget.nonLiquidDiscount}% discount: ${fmt(nonLiquidAtDiscount)}`, color: COLORS.nonLiquid, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Building2, { size: 16 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Retirement", value: fmt(totalRetirement), subtext: "Not included in runway", color: COLORS.retirement, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Landmark, { size: 16 }) })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liabilities (one-time)", value: fmt(oneTimeLiabilities), subtext: totalMonthlyLiabilityPayments > 0 ? `+ ${fmt(totalMonthlyLiabilityPayments)}/mo recurring` : void 0, color: COLORS.liability, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 16 }) }) }),
-    runwayMonths !== null && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+    runwayMonths !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.expenseBg,
       borderRadius: 12,
       padding: "14px 16px",
@@ -25314,14 +25290,15 @@ var SummarySection = ({ budget }) => {
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 16, color: COLORS.expense }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }, children: "Runway" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 18, fontWeight: 800, color: COLORS.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} years` : `${Math.round(runwayMonths)} months` }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 24, fontWeight: 800, color: COLORS.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} years` : `${Math.round(runwayMonths)} months` }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary }, children: [
-        "At current burn rate of ",
+        "At ",
         fmt(monthlyBurn),
-        "/mo, your liquid assets will last this long"
+        "/mo burn, your liquid assets (",
+        fmt(liquidAfterLiabilities),
+        " after debts) will last this long"
       ] })
-    ] }),
-    isPositive && monthlyNet > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+    ] }) : isPositive && monthlyNet > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.incomeBg,
       borderRadius: 12,
       padding: "14px 16px",
@@ -25330,14 +25307,14 @@ var SummarySection = ({ budget }) => {
     }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { size: 16, color: COLORS.income }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }, children: "Growth Projection" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }, children: "Growth" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textMain }, children: [
-        "At +",
+        "+",
         fmt(monthlyNet),
-        "/mo, you'll accumulate an additional ",
+        "/mo \u2192 ",
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmt(annualNet) }),
-        " per year."
+        "/year"
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }, children: [
         "In 2 years: +",
@@ -25345,7 +25322,7 @@ var SummarySection = ({ budget }) => {
         " \xB7 In 5 years: +",
         fmt(annualNet * 5)
       ] })
-    ] }),
+    ] }) : null,
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.card,
       borderRadius: 12,
@@ -25353,27 +25330,38 @@ var SummarySection = ({ budget }) => {
       border: `1px solid ${COLORS.border}`,
       marginBottom: 12
     }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: "Leftover Summary" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: "Asset Breakdown" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 6 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "Liquid (after one-time liabilities)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(liquidAfterLiabilities) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "Liquid assets" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.asset }, children: fmtExact(totalLiquidAssets) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+        oneTimeLiabilities > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, color: COLORS.textMuted }, children: "\u2212 One-time debts" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.liability }, children: [
+            "\u2212",
+            fmtExact(oneTimeLiabilities)
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }, children: "= Liquid available" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(liquidAfterLiabilities) })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.borderLight}`, marginTop: 4, paddingTop: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: [
             "Non-liquid (at ",
             budget.nonLiquidDiscount,
             "% discount)"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: COLORS.nonLiquid }, children: fmtExact(nonLiquidAtDiscount) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.nonLiquid }, children: fmtExact(nonLiquidAtDiscount) })
         ] }),
         totalRetirement > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "401k / Retirement (locked)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: COLORS.retirement }, children: fmtExact(totalRetirement) })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "401k / Retirement" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.retirement }, children: fmtExact(totalRetirement) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.border}`, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: "Total Available" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, fontWeight: 800, color: COLORS.primary }, children: fmtExact(liquidAfterLiabilities + nonLiquidAtDiscount) })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.border}`, marginTop: 4, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: "Net Worth" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, fontWeight: 800, color: netWorth >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(netWorth) })
         ] })
       ] })
     ] })
