@@ -2433,7 +2433,7 @@ var require_react_dom_development = __commonJS({
         var HostPortal = 4;
         var HostComponent = 5;
         var HostText = 6;
-        var Fragment2 = 7;
+        var Fragment = 7;
         var Mode = 8;
         var ContextConsumer = 9;
         var ContextProvider = 10;
@@ -3589,7 +3589,7 @@ var require_react_dom_development = __commonJS({
               return "DehydratedFragment";
             case ForwardRef:
               return getWrappedName$1(type, type.render, "ForwardRef");
-            case Fragment2:
+            case Fragment:
               return "Fragment";
             case HostComponent:
               return type;
@@ -11972,7 +11972,7 @@ var require_react_dom_development = __commonJS({
             }
           }
           function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-            if (current2 === null || current2.tag !== Fragment2) {
+            if (current2 === null || current2.tag !== Fragment) {
               var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
               created.return = returnFiber;
               return created;
@@ -12375,7 +12375,7 @@ var require_react_dom_development = __commonJS({
               if (child.key === key) {
                 var elementType = element.type;
                 if (elementType === REACT_FRAGMENT_TYPE) {
-                  if (child.tag === Fragment2) {
+                  if (child.tag === Fragment) {
                     deleteRemainingChildren(returnFiber, child.sibling);
                     var existing = useFiber(child, element.props.children);
                     existing.return = returnFiber;
@@ -17850,7 +17850,7 @@ var require_react_dom_development = __commonJS({
               var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
               return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
             }
-            case Fragment2:
+            case Fragment:
               return updateFragment(current2, workInProgress2, renderLanes2);
             case Mode:
               return updateMode(current2, workInProgress2, renderLanes2);
@@ -18122,7 +18122,7 @@ var require_react_dom_development = __commonJS({
             case SimpleMemoComponent:
             case FunctionComponent:
             case ForwardRef:
-            case Fragment2:
+            case Fragment:
             case Mode:
             case Profiler:
             case ContextConsumer:
@@ -22373,7 +22373,7 @@ var require_react_dom_development = __commonJS({
           return fiber;
         }
         function createFiberFromFragment(elements, mode, lanes, key) {
-          var fiber = createFiber(Fragment2, elements, key, mode);
+          var fiber = createFiber(Fragment, elements, key, mode);
           fiber.lanes = lanes;
           return fiber;
         }
@@ -25017,7 +25017,6 @@ var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) =
 };
 var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, showQuantity, showMonthly, presets }) => {
   const [isOpen, setIsOpen] = (0, import_react3.useState)(items.length > 0);
-  const [showPresets, setShowPresets] = (0, import_react3.useState)(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
   const existingNames = new Set(items.map((i) => i.name.toLowerCase()));
@@ -25050,20 +25049,7 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
         },
         item.id
       )),
-      availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { marginBottom: 6 }, children: !showPresets ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowPresets(true), style: {
-        width: "100%",
-        padding: "8px",
-        borderRadius: 8,
-        border: "none",
-        backgroundColor: "transparent",
-        color: COLORS.textMuted,
-        fontSize: 12,
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 4
-      }, children: "\u{1F4A1} Show common suggestions" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+      availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 6 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
           "button",
@@ -25096,19 +25082,8 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
             ]
           },
           p.name
-        )) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowPresets(false), style: {
-          width: "100%",
-          padding: "4px",
-          borderRadius: 8,
-          border: "none",
-          backgroundColor: "transparent",
-          color: COLORS.textMuted,
-          fontSize: 11,
-          cursor: "pointer",
-          marginTop: 4
-        }, children: "Hide suggestions" })
-      ] }) }),
+        )) })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: onAdd, style: {
         width: "100%",
         padding: "10px",

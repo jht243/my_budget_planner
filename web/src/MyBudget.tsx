@@ -343,7 +343,6 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
   showQuantity?: boolean; showMonthly?: boolean; presets?: Preset[];
 }) => {
   const [isOpen, setIsOpen] = useState(items.length > 0);
-  const [showPresets, setShowPresets] = useState(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : undefined;
 
@@ -363,44 +362,25 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
               showQuantity={showQuantity} showMonthly={showMonthly} />
           ))}
 
-          {/* Preset chips */}
+          {/* Preset chips - always visible */}
           {availablePresets.length > 0 && (
             <div style={{ marginBottom: 6 }}>
-              {!showPresets ? (
-                <button onClick={() => setShowPresets(true)} style={{
-                  width: "100%", padding: "8px", borderRadius: 8, border: "none",
-                  backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 12,
-                  cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
-                }}>
-                  💡 Show common suggestions
-                </button>
-              ) : (
-                <>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }}>Quick add:</div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {availablePresets.map(p => (
-                      <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
-                        padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
-                        backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
-                        cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
-                        transition: "all 0.15s",
-                      }}
-                        onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}15`; }}
-                        onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = bgColor; }}
-                      >
-                        <span>{p.emoji}</span> {p.name}
-                      </button>
-                    ))}
-                  </div>
-                  <button onClick={() => setShowPresets(false)} style={{
-                    width: "100%", padding: "4px", borderRadius: 8, border: "none",
-                    backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11,
-                    cursor: "pointer", marginTop: 4,
-                  }}>
-                    Hide suggestions
+              <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }}>Quick add:</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {availablePresets.map(p => (
+                  <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
+                    padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
+                    backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
+                    cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
+                    transition: "all 0.15s",
+                  }}
+                    onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}15`; }}
+                    onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = bgColor; }}
+                  >
+                    <span>{p.emoji}</span> {p.name}
                   </button>
-                </>
-              )}
+                ))}
+              </div>
             </div>
           )}
 
