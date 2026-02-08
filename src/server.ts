@@ -1,127 +1,1917 @@
-import { createServer, IncomingMessage, ServerResponse } from "node:http";
+import {
+  createServer,
+  type IncomingMessage,
+  type ServerResponse,
+} from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { URL, fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
+
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import {
   CallToolRequestSchema,
+  ListResourceTemplatesRequestSchema,
   ListResourcesRequestSchema,
   ListToolsRequestSchema,
   ReadResourceRequestSchema,
+  type CallToolRequest,
+  type ListResourceTemplatesRequest,
+  type ListResourcesRequest,
+  type ListToolsRequest,
+  type ReadResourceRequest,
+  type Resource,
+  type ResourceTemplate,
+  type Tool,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
+type TripPlannerWidget = {
+  id: string;
+  title: string;
+  templateUri: string;
+  invoking: string;
+  invoked: string;
+  html: string;
+};
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ASSETS_DIR = path.resolve(__dirname, "..", "assets");
-const PORT = Number(process.env.PORT ?? 8000);
 
-const RESOURCE_MIME_TYPE = "text/html;profile=mcp-app";
-const DOMAIN = "https://trip-planner-da2g.onrender.com";
+// Resolve project root: prefer ASSETS_ROOT only if it actually has an assets/ directory
+const DEFAULT_ROOT_DIR = path.resolve(__dirname, "..");
+const ROOT_DIR = (() => {
+  const envRoot = process.env.ASSETS_ROOT;
+  if (envRoot) {
+    const candidate = path.resolve(envRoot);
+    try {
+      const candidateAssets = path.join(candidate, "assets");
+      if (fs.existsSync(candidateAssets)) {
+        return candidate;
+      }
+    } catch {
+      // fall through to default
+    }
+  }
+  return DEFAULT_ROOT_DIR;
+})();
 
-// Metadata shared between tool and resource
-const widgetMeta = {
-  ui: {
-    resourceUri: "ui://widget/test",
-    prefersBorder: true,
-    domain: DOMAIN,
-    csp: {
-      connectDomains: [DOMAIN],
-      resourceDomains: [DOMAIN],
+const ASSETS_DIR = path.resolve(ROOT_DIR, "assets");
+const LOGS_DIR = path.resolve(__dirname, "..", "logs");
+
+if (!fs.existsSync(LOGS_DIR)) {
+  fs.mkdirSync(LOGS_DIR, { recursive: true });
+}
+
+type AnalyticsEvent = {
+  timestamp: string;
+  event: string;
+  [key: string]: any;
+};
+
+function logAnalytics(event: string, data: Record<string, any> = {}) {
+  const entry: AnalyticsEvent = {
+    timestamp: new Date().toISOString(),
+    event,
+    ...data,
+  };
+
+  const logLine = JSON.stringify(entry);
+  console.log(logLine);
+
+  const today = new Date().toISOString().split("T")[0];
+  const logFile = path.join(LOGS_DIR, `${today}.log`);
+  fs.appendFileSync(logFile, logLine + "\n");
+}
+
+function getRecentLogs(days: number = 7): AnalyticsEvent[] {
+  const logs: AnalyticsEvent[] = [];
+  const now = new Date();
+
+  for (let i = 0; i < days; i++) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split("T")[0];
+    const logFile = path.join(LOGS_DIR, `${dateStr}.log`);
+
+    if (fs.existsSync(logFile)) {
+      const content = fs.readFileSync(logFile, "utf8");
+      const lines = content.trim().split("\n");
+      lines.forEach((line) => {
+        try {
+          logs.push(JSON.parse(line));
+        } catch (e) {}
+      });
+    }
+  }
+
+  return logs.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+}
+
+function classifyDevice(userAgent?: string | null): string {
+  if (!userAgent) return "Unknown";
+  const ua = userAgent.toLowerCase();
+  if (ua.includes("iphone") || ua.includes("ipad") || ua.includes("ipod")) return "iOS";
+  if (ua.includes("android")) return "Android";
+  if (ua.includes("mac os") || ua.includes("macintosh")) return "macOS";
+  if (ua.includes("windows")) return "Windows";
+  if (ua.includes("linux")) return "Linux";
+  if (ua.includes("cros")) return "ChromeOS";
+  return "Other";
+}
+
+function computeSummary(args: any) {
+  const destination = args.destination || null;
+  const departureCity = args.departure_city || null;
+  const tripType = args.trip_type || "round_trip";
+  const travelers = Number(args.travelers) || 1;
+  const departureDate = args.departure_date || null;
+  const returnDate = args.return_date || null;
+  const departureMode = args.departure_mode || "plane";
+  const multiCityLegs = args.multi_city_legs || [];
+  
+  // Calculate trip duration from dates if available
+  let tripDays: number | null = null;
+  if (departureDate && returnDate) {
+    const diff = new Date(returnDate).getTime() - new Date(departureDate).getTime();
+    tripDays = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
+  }
+  
+  // Count expected legs
+  const expectedFlights = tripType === "one_way" ? 1 : tripType === "round_trip" ? 2 : multiCityLegs.length;
+  const expectedHotels = tripType === "multi_city" ? multiCityLegs.length : (tripType === "one_way" ? 1 : 1);
+  
+  return {
+    destination,
+    departure_city: departureCity,
+    trip_type: tripType,
+    travelers,
+    departure_date: departureDate,
+    return_date: returnDate,
+    trip_days: tripDays,
+    departure_mode: departureMode,
+    expected_flights: expectedFlights,
+    expected_hotels: expectedHotels,
+    multi_city_legs: multiCityLegs.length > 0 ? multiCityLegs : null,
+  };
+}
+
+function readWidgetHtml(componentName: string): string {
+  if (!fs.existsSync(ASSETS_DIR)) {
+    throw new Error(
+      `Widget assets not found. Expected directory ${ASSETS_DIR}. Run "pnpm run build" before starting the server.`
+    );
+  }
+
+  const directPath = path.join(ASSETS_DIR, `${componentName}.html`);
+  let htmlContents: string | null = null;
+  let loadedFrom = "";
+
+  if (fs.existsSync(directPath)) {
+    htmlContents = fs.readFileSync(directPath, "utf8");
+    loadedFrom = directPath;
+  } else {
+    const candidates = fs
+      .readdirSync(ASSETS_DIR)
+      .filter(
+        (file) => file.startsWith(`${componentName}-`) && file.endsWith(".html")
+      )
+      .sort();
+    const fallback = candidates[candidates.length - 1];
+    if (fallback) {
+      const fallbackPath = path.join(ASSETS_DIR, fallback);
+      htmlContents = fs.readFileSync(fallbackPath, "utf8");
+      loadedFrom = fallbackPath;
+    }
+  }
+
+  if (!htmlContents) {
+    throw new Error(
+      `Widget HTML for "${componentName}" not found in ${ASSETS_DIR}. Run "pnpm run build" to generate the assets.`
+    );
+  }
+
+  console.log(`[Widget Load] File: ${loadedFrom}`);
+  console.log(`[Widget Load] HTML length: ${htmlContents.length} bytes`);
+
+  return htmlContents;
+}
+
+// Use git commit hash for deterministic cache-busting across deploys
+// Added timestamp suffix to force cache invalidation for width fix
+const VERSION = (process.env.RENDER_GIT_COMMIT?.slice(0, 7) || Date.now().toString()) + '-' + Date.now();
+
+function widgetMeta(widget: TripPlannerWidget, bustCache: boolean = false) {
+  const templateUri = bustCache
+    ? `ui://widget/trip-planner.html?v=${VERSION}`
+    : widget.templateUri;
+
+  return {
+    "openai/outputTemplate": templateUri,
+    "openai/widgetDescription":
+      "My Travel Organizer — your complete pre-departure checklist for flights, hotels, transport & confirmations. Helps users keep track of all their travel reservations in one place so nothing gets missed. Supports round-trip, one-way, and multi-city itineraries. Call this tool immediately with NO arguments to let the user enter their trip details manually. Only provide arguments if the user has explicitly stated them.",
+    "openai/componentDescriptions": {
+      "trip-form": "Input form for describing a trip in plain language or manually adding legs (flights, hotels, transport).",
+      "itinerary-display": "Day-by-day itinerary view showing all trip legs with booking status indicators.",
+      "booking-checklist": "Summary checklist showing booking progress for flights, lodging, and ground transport.",
     },
+    "openai/widgetKeywords": [
+      "trip planner",
+      "travel organizer",
+      "itinerary",
+      "flight tracker",
+      "hotel booking",
+      "multi-city trip",
+      "round trip",
+      "one way",
+      "travel reservations",
+      "booking checklist",
+      "vacation planner",
+      "trip legs"
+    ],
+    "openai/sampleConversations": [
+      { "user": "Help me organize my trip", "assistant": "Here is My Travel Organizer. Describe your trip or add flights, hotels, and transport to build your pre-departure checklist." },
+      { "user": "I'm flying from Boston to Paris on June 11, then Paris to Geneva, then back to Boston on June 24", "assistant": "I've set up a multi-city trip with 3 legs. You can now add hotels and ground transport for each city." },
+      { "user": "Plan a round trip from NYC to London for 2 weeks", "assistant": "I've created a round-trip itinerary from NYC to London. Add your flight details, hotel, and airport transport." },
+    ],
+    "openai/starterPrompts": [
+      "Help me organize my upcoming trip",
+      "Plan a round trip from Boston to Paris",
+      "I need to track my multi-city Europe trip",
+      "Organize my flights and hotels for vacation",
+      "Create an itinerary for my business trip to Tokyo",
+      "Help me plan a trip from NYC to London for 2 weeks",
+      "Track my travel reservations",
+    ],
+    "openai/widgetPrefersBorder": true,
+    "openai/widgetCSP": {
+      connect_domains: [
+        "https://trip-planner-da2g.onrender.com",
+        "https://nominatim.openstreetmap.org",
+        "https://api.open-meteo.com",
+        "https://geocoding-api.open-meteo.com"
+      ],
+      resource_domains: [
+        "https://trip-planner-da2g.onrender.com"
+      ],
+    },
+    "openai/widgetDomain": "https://web-sandbox.oaiusercontent.com",
+    "openai/toolInvocation/invoking": widget.invoking,
+    "openai/toolInvocation/invoked": widget.invoked,
+    "openai/widgetAccessible": true,
+    "openai/resultCanProduceWidget": true,
+  } as const;
+}
+
+const widgets: TripPlannerWidget[] = [
+  {
+    id: "trip-planner",
+    title: "My Travel Organizer — Your complete pre-departure checklist for flights, hotels, transport & confirmations",
+    templateUri: `ui://widget/trip-planner.html?v=${VERSION}`,
+    invoking:
+      "Opening My Travel Organizer...",
+    invoked:
+      "Here is My Travel Organizer. Describe your trip or manually add flights, hotels, and transport to build your complete pre-departure checklist.",
+    html: readWidgetHtml("trip-planner"),
   },
-  "openai/widgetDescription": "A test widget to verify MCP connection.",
-  "openai/widgetAccessible": true,
-  "openai/resultCanProduceWidget": true,
+];
+
+const widgetsById = new Map<string, TripPlannerWidget>();
+const widgetsByUri = new Map<string, TripPlannerWidget>();
+
+widgets.forEach((widget) => {
+  widgetsById.set(widget.id, widget);
+  widgetsByUri.set(widget.templateUri, widget);
+});
+
+const toolInputSchema = {
+  type: "object",
+  properties: {
+    destination: { type: "string", description: "Primary destination city or country." },
+    departure_city: { type: "string", description: "City the traveler is departing from." },
+    trip_type: { type: "string", enum: ["round_trip", "one_way", "multi_city"], description: "Type of trip." },
+    departure_date: { type: "string", description: "Departure date in YYYY-MM-DD format." },
+    return_date: { type: "string", description: "Return date in YYYY-MM-DD format (for round trips)." },
+    travelers: { type: "number", description: "Number of travelers." },
+    departure_mode: { type: "string", enum: ["plane", "rail", "bus", "ferry"], description: "Primary transport mode for the trip." },
+    multi_city_legs: { type: "array", items: { type: "object", properties: { from: { type: "string" }, to: { type: "string" }, date: { type: "string" }, mode: { type: "string" } } }, description: "Array of multi-city leg objects with from, to, date, and mode fields." },
+    trip_description: { type: "string", description: "Freeform text describing the trip for AI-powered parsing." },
+  },
+  required: [],
+  additionalProperties: false,
+  $schema: "http://json-schema.org/draft-07/schema#",
 } as const;
 
-// Define tools and resources manually to ensure _meta is included
-const tools = [{
-  name: "test-connection",
-  description: "Test the MCP connection and load the widget.",
-  inputSchema: {
+const toolInputParser = z.object({
+  destination: z.string().optional(),
+  departure_city: z.string().optional(),
+  trip_type: z.enum(["round_trip", "one_way", "multi_city"]).optional(),
+  departure_date: z.string().optional(),
+  return_date: z.string().optional(),
+  travelers: z.number().optional(),
+  departure_mode: z.enum(["plane", "rail", "bus", "ferry"]).optional(),
+  multi_city_legs: z.array(z.object({ from: z.string().optional(), to: z.string().optional(), date: z.string().optional(), mode: z.string().optional() })).optional(),
+  trip_description: z.string().optional(),
+});
+
+const tools: Tool[] = widgets.map((widget) => ({
+  name: widget.id,
+  description:
+    "Use this tool to plan and organize a trip including flights, hotels, trains, and ground transport. Supports round-trip, one-way, and multi-city itineraries. Call this tool immediately with NO arguments to let the user enter their trip details manually. Only provide arguments if the user has explicitly stated them.",
+  inputSchema: toolInputSchema,
+  outputSchema: {
     type: "object",
     properties: {
-      variant: { type: "string", enum: ["test", "main"], description: "Which widget variant to load" }
-    }
+      ready: { type: "boolean" },
+      timestamp: { type: "string" },
+      destination: { type: ["string", "null"] },
+      departure_city: { type: ["string", "null"] },
+      trip_type: { type: ["string", "null"] },
+      departure_date: { type: ["string", "null"] },
+      return_date: { type: ["string", "null"] },
+      travelers: { type: ["number", "null"] },
+      departure_mode: { type: ["string", "null"] },
+      input_source: { type: "string", enum: ["user", "default"] },
+      summary: {
+        type: "object",
+        properties: {
+          destination: { type: ["string", "null"] },
+          departure_city: { type: ["string", "null"] },
+          trip_type: { type: ["string", "null"] },
+          travelers: { type: ["number", "null"] },
+          departure_date: { type: ["string", "null"] },
+          return_date: { type: ["string", "null"] },
+          trip_days: { type: ["number", "null"] },
+          departure_mode: { type: ["string", "null"] },
+          expected_flights: { type: ["number", "null"] },
+          expected_hotels: { type: ["number", "null"] },
+          multi_city_legs: { type: ["array", "null"] },
+        },
+      },
+      suggested_followups: {
+        type: "array",
+        items: { type: "string" },
+      },
+    },
   },
-  _meta: widgetMeta
-}];
+  title: widget.title,
+  securitySchemes: [{ type: "noauth" }],
+  _meta: {
+    ...widgetMeta(widget),
+    "openai/visibility": "public",
+    securitySchemes: [{ type: "noauth" }],
+  },
+  annotations: {
+    readOnlyHint: true,
+    destructiveHint: false,
+    idempotentHint: true,
+    openWorldHint: false,
+  },
+}));
 
-const resources = [{
-  uri: "ui://widget/test",
-  name: "test-widget",
-  mimeType: RESOURCE_MIME_TYPE,
-  _meta: widgetMeta
-}];
+const resources: Resource[] = widgets.map((widget) => ({
+  uri: widget.templateUri,
+  name: widget.title,
+  description:
+    "HTML template for My Travel Organizer widget.",
+  mimeType: "text/html+skybridge",
+  _meta: widgetMeta(widget),
+}));
 
-// Store active SSE sessions
-const sessions = new Map();
+const resourceTemplates: ResourceTemplate[] = widgets.map((widget) => ({
+  uriTemplate: widget.templateUri,
+  name: widget.title,
+  description:
+    "Template descriptor for My Travel Organizer widget.",
+  mimeType: "text/html+skybridge",
+  _meta: widgetMeta(widget),
+}));
 
-const ssePath = "/mcp/sse";
-const postPath = "/mcp/messages";
-
-function createMcpServer() {
+function createTripPlannerServer(): Server {
   const server = new Server(
-    { name: "trip-planner-mcp-node", version: "0.1.0" },
-    { capabilities: { resources: {}, tools: {} } }
+    {
+      name: "trip-planner",
+      version: "0.1.0",
+      description:
+        "My Travel Organizer — your complete pre-departure checklist. Helps users organize all legs of their trip to ensure they don't miss any flights, hotels, or travel reservations.",
+    },
+    {
+      capabilities: {
+        resources: {},
+        tools: {},
+      },
+    }
   );
 
-  server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: tools
-  }));
-
-  server.setRequestHandler(ListResourcesRequestSchema, async () => ({
-    resources: resources
-  }));
-
-  server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-    const uri = request.params.uri;
-    if (uri !== "ui://widget/test") throw new Error("Resource not found");
-
-    let html = "<h1>Test Widget</h1><p>Assets not found.</p>";
-    try {
-      const params = new URLSearchParams(uri.split('?')[1]);
-      const variant = params.get('variant') || 'test';
-      const filename = variant === 'main' ? 'trip-planner.html' : 'trip-planner-test.html';
-      html = fs.readFileSync(path.join(ASSETS_DIR, filename), "utf8");
-    } catch (e) {
-      console.error("Failed to read asset:", e);
+  server.setRequestHandler(
+    ListResourcesRequestSchema,
+    async (_request: ListResourcesRequest) => {
+      console.log(`[MCP] resources/list called, returning ${resources.length} resources`);
+      resources.forEach((r: any) => {
+        console.log(`  - ${r.uri} (${r.name})`);
+      });
+      return { resources };
     }
-    return {
-      contents: [{
-        uri: uri,
-        mimeType: RESOURCE_MIME_TYPE,
-        text: html,
-        _meta: widgetMeta,
-      }]
-    };
-  });
+  );
 
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    if (request.params.name !== "test-connection") throw new Error("Tool not found");
+  server.setRequestHandler(
+    ReadResourceRequestSchema,
+    async (request: ReadResourceRequest) => {
+      const widget = widgetsByUri.get(request.params.uri);
 
-    const args = request.params.arguments as any;
-    const variant = args?.variant || "test";
-    const targetUri = variant === 'main' ? "ui://widget/test?variant=main" : "ui://widget/test?variant=test";
-
-    return {
-      content: [{ type: "text", text: "Connection successful (Legacy SDK 0.5.0). Loading widget..." }],
-      _meta: {
-        ...widgetMeta,
-        ui: { ...widgetMeta.ui, resourceUri: targetUri }
+      if (!widget) {
+        throw new Error(`Unknown resource: ${request.params.uri}`);
       }
-    };
-  });
+
+      const htmlToSend = widget.html;
+
+      return {
+        contents: [
+          {
+            uri: widget.templateUri,
+            mimeType: "text/html+skybridge",
+            text: htmlToSend,
+            _meta: widgetMeta(widget),
+          },
+        ],
+      };
+    }
+  );
+
+  server.setRequestHandler(
+    ListResourceTemplatesRequestSchema,
+    async (_request: ListResourceTemplatesRequest) => ({ resourceTemplates })
+  );
+
+  server.setRequestHandler(
+    ListToolsRequestSchema,
+    async (_request: ListToolsRequest) => ({ tools })
+  );
+
+  server.setRequestHandler(
+    CallToolRequestSchema,
+    async (request: CallToolRequest) => {
+      const startTime = Date.now();
+      let userAgentString: string | null = null;
+      let deviceCategory = "Unknown";
+      
+      // Log the full request to debug _meta location
+      console.log("Full request object:", JSON.stringify(request, null, 2));
+      
+      try {
+        const widget = widgetsById.get(request.params.name);
+
+        if (!widget) {
+          logAnalytics("tool_call_error", {
+            error: "Unknown tool",
+            toolName: request.params.name,
+          });
+          throw new Error(`Unknown tool: ${request.params.name}`);
+        }
+
+        // Helper: detect encoded tokens/hashes that aren't real trip descriptions
+        const looksLikeToken = (s: string) => !s.includes(" ") && s.length > 20 || /^v\d+\//.test(s) || /^[A-Za-z0-9+/=]{20,}$/.test(s);
+
+        // Parse and validate input parameters
+        let args: z.infer<typeof toolInputParser> = {};
+        try {
+          args = toolInputParser.parse(request.params.arguments ?? {});
+          // Strip trip_description if it looks like an encoded token
+          if (args.trip_description && looksLikeToken(args.trip_description)) {
+            args.trip_description = undefined;
+          }
+        } catch (parseError: any) {
+          logAnalytics("parameter_parse_error", {
+            toolName: request.params.name,
+            params: request.params.arguments,
+            error: parseError.message,
+          });
+          throw parseError;
+        }
+
+        // Capture user context from _meta - try multiple locations
+        const meta = (request as any)._meta || request.params?._meta || {};
+        const userLocation = meta["openai/userLocation"];
+        const userLocale = meta["openai/locale"];
+        const userAgent = meta["openai/userAgent"];
+        userAgentString = typeof userAgent === "string" ? userAgent : null;
+        deviceCategory = classifyDevice(userAgentString);
+        
+        // Debug log
+        console.log("Captured meta:", { userLocation, userLocale, userAgent });
+
+        // If ChatGPT didn't pass structured arguments, try to infer trip details from freeform text in meta
+        try {
+          const candidates: any[] = [
+            meta["openai/subject"],
+            meta["openai/userPrompt"],
+            meta["openai/userText"],
+            meta["openai/lastUserMessage"],
+            meta["openai/inputText"],
+            meta["openai/requestText"],
+          ];
+          const userText = candidates.find((t) => typeof t === "string" && t.trim().length > 0) || "";
+
+          // Infer destination (e.g., "trip to Paris", "vacation in Hawaii", "flying to London")
+          if (args.destination === undefined) {
+            const destMatch = userText.match(/(?:trip|travel|going|vacation|visit|flying|headed)\s+(?:to|in)\s+([A-Za-z\s,]+?)(?:\.|,|for|on|\s+\d|\s*$)/i);
+            if (destMatch) {
+              args.destination = destMatch[1].trim();
+            }
+          }
+
+          // Infer departure city (e.g., "from Boston", "leaving from NYC")
+          if (args.departure_city === undefined) {
+            const fromMatch = userText.match(/(?:from|leaving|departing)\s+([A-Za-z\s]+?)(?:\s+to\s|\.|,|on|\s*$)/i);
+            if (fromMatch) {
+              args.departure_city = fromMatch[1].trim();
+            }
+          }
+
+          // Infer multi-city legs from chains like "from X, to Y, to Z, to W"
+          // or "from X to Y to Z" or "X, then Y, then Z"
+          if (!args.multi_city_legs?.length) {
+            // Pattern: "from City1, to City2, to City3, ..." or "from City1 to City2 to City3"
+            const chainMatch = userText.match(/from\s+([A-Za-z][A-Za-z\s]*?)(?:,?\s+to\s+)([A-Za-z][A-Za-z\s]*?)(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:\.|,|\s+(?:i\s|and\s|for\s|on\s|in\s|$)|\s*$)/i);
+            if (chainMatch) {
+              const cities = [chainMatch[1], chainMatch[2], chainMatch[3], chainMatch[4], chainMatch[5]]
+                .filter(Boolean)
+                .map(c => c.trim().replace(/[,.\s]+$/, ""));
+              if (cities.length >= 3) {
+                // Extract per-leg transport modes from text
+                const getMode = (from: string, to: string): string => {
+                  const lcText = userText.toLowerCase();
+                  const lcFrom = from.toLowerCase();
+                  const lcTo = to.toLowerCase();
+                  // Check for specific mode mentions for this leg pair
+                  const legPattern = new RegExp(`(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})[^.]*?\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b`, "i");
+                  const revPattern = new RegExp(`\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b[^.]*?(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})`, "i");
+                  const match = lcText.match(legPattern) || lcText.match(revPattern);
+                  if (match) {
+                    const m = match[1].toLowerCase();
+                    if (["plane", "fly", "flight"].includes(m)) return "plane";
+                    if (["train", "rail"].includes(m)) return "rail";
+                    if (m === "bus") return "bus";
+                    if (["ferry"].includes(m)) return "ferry";
+                    if (["drive", "car"].includes(m)) return "car";
+                  }
+                  return "plane"; // default
+                };
+                
+                // Check for "train for the rest" / "plane for the rest" patterns
+                const restModeMatch = userText.match(/\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b[^.]*?\b(?:the\s+rest|remaining|other)/i)
+                  || userText.match(/\b(?:the\s+rest|remaining|other)[^.]*?\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b/i);
+                let restMode = "plane";
+                if (restModeMatch) {
+                  const m = restModeMatch[1].toLowerCase();
+                  if (["plane", "fly", "flight"].includes(m)) restMode = "plane";
+                  else if (["train", "rail"].includes(m)) restMode = "rail";
+                  else if (m === "bus") restMode = "bus";
+                  else if (["ferry"].includes(m)) restMode = "ferry";
+                  else if (["drive", "car"].includes(m)) restMode = "car";
+                }
+                
+                const legs: { from: string; to: string; date: string; mode: string }[] = [];
+                for (let i = 0; i < cities.length - 1; i++) {
+                  let mode = getMode(cities[i], cities[i + 1]);
+                  // If no specific match found and "rest" mode exists, use it for legs after first
+                  if (mode === "plane" && restModeMatch && i > 0) {
+                    mode = restMode;
+                  }
+                  legs.push({ from: cities[i], to: cities[i + 1], date: "", mode });
+                }
+                args.multi_city_legs = legs;
+                args.trip_type = "multi_city";
+                args.departure_city = cities[0];
+                args.destination = cities[cities.length - 1];
+              }
+            }
+          }
+
+          // Infer trip type
+          if (args.trip_type === undefined) {
+            if (/multi[\s-]?city|multiple\s+cities|several\s+cities|then\s+to/i.test(userText)) {
+              args.trip_type = "multi_city";
+            } else if (/one[\s-]?way|not\s+coming\s+back|moving/i.test(userText)) {
+              args.trip_type = "one_way";
+            } else if (/round[\s-]?trip|return|coming\s+back|back\s+to/i.test(userText)) {
+              args.trip_type = "round_trip";
+            }
+          }
+
+          // Infer dates (e.g., "June 11", "on 2026-06-11")
+          if (args.departure_date === undefined) {
+            const dateMatch = userText.match(/(\d{4}-\d{2}-\d{2})/i);
+            if (dateMatch) {
+              args.departure_date = dateMatch[1];
+            }
+          }
+
+          // Infer travelers count
+          if (args.travelers === undefined) {
+            const travelerMatch = userText.match(/(\d+)\s*(?:traveler|people|person|of us)/i);
+            if (travelerMatch) {
+              args.travelers = parseInt(travelerMatch[1]);
+            } else if (/\b(girlfriend|wife|boyfriend|husband|partner|spouse)\b/i.test(userText)) {
+              args.travelers = 2;
+            } else if (/\bsolo\b|\balone\b|\bjust\s+me\b/i.test(userText)) {
+              args.travelers = 1;
+            }
+          }
+
+          // Infer transport mode
+          if (args.departure_mode === undefined) {
+            if (/\btrain\b|\brail\b|\bamtrak\b|\beurostar\b/i.test(userText)) args.departure_mode = "rail";
+            else if (/\bbus\b|\bgreyhound\b|\bcoach\b/i.test(userText)) args.departure_mode = "bus";
+            else if (/\bferry\b|\bboat\b|\bcruise\b/i.test(userText)) args.departure_mode = "ferry";
+          }
+
+          // Store freeform text as trip_description for AI parsing on the client
+          if (!args.trip_description && userText.length > 10 && !looksLikeToken(userText)) {
+            args.trip_description = userText;
+          }
+
+        } catch (e) {
+          console.warn("Parameter inference from meta failed", e);
+        }
+
+
+        const responseTime = Date.now() - startTime;
+
+        // Check if we are using defaults (i.e. no arguments provided)
+        const usedDefaults = Object.keys(args).length === 0;
+
+        // Infer likely user query from parameters
+        const inferredQuery = [] as string[];
+        if (args.departure_city) inferredQuery.push(`From: ${args.departure_city}`);
+        if (args.destination) inferredQuery.push(`To: ${args.destination}`);
+        if (args.trip_type) inferredQuery.push(`Type: ${args.trip_type}`);
+        if (args.departure_date) inferredQuery.push(`Departs: ${args.departure_date}`);
+        if (args.return_date) inferredQuery.push(`Returns: ${args.return_date}`);
+        if (args.travelers) inferredQuery.push(`Travelers: ${args.travelers}`);
+        if (args.departure_mode) inferredQuery.push(`Mode: ${args.departure_mode}`);
+
+        logAnalytics("tool_call_success", {
+          toolName: request.params.name,
+          params: args,
+          inferredQuery: inferredQuery.length > 0 ? inferredQuery.join(", ") : "Trip Planner",
+          responseTime,
+
+          device: deviceCategory,
+          userLocation: userLocation
+            ? {
+                city: userLocation.city,
+                region: userLocation.region,
+                country: userLocation.country,
+                timezone: userLocation.timezone,
+              }
+            : null,
+          userLocale,
+          userAgent,
+        });
+
+        // Use a stable template URI so toolOutput reliably hydrates the component
+        const widgetMetadata = widgetMeta(widget, false);
+        console.log(`[MCP] Tool called: ${request.params.name}, returning templateUri: ${(widgetMetadata as any)["openai/outputTemplate"]}`);
+
+        // Build structured content once so we can log it and return it.
+        // For the trip planner, expose fields relevant to trip details
+        const structured = {
+          ready: true,
+          timestamp: new Date().toISOString(),
+          ...args,
+          input_source: usedDefaults ? "default" : "user",
+          // Summary + follow-ups for natural language UX
+          summary: computeSummary(args),
+          suggested_followups: [
+            "Add hotels for each city",
+            "What ground transport do I need?",
+            "Show me my booking checklist",
+            "Help me add flight details"
+          ],
+        } as const;
+
+        // Embed the widget resource in _meta to mirror official examples and improve hydration reliability
+        const metaForReturn = {
+          ...widgetMetadata,
+          "openai.com/widget": {
+            type: "resource",
+            resource: {
+              uri: widget.templateUri,
+              mimeType: "text/html+skybridge",
+              text: widget.html,
+              title: widget.title,
+            },
+          },
+        } as const;
+
+        console.log("[MCP] Returning outputTemplate:", (metaForReturn as any)["openai/outputTemplate"]);
+        console.log("[MCP] Returning structuredContent:", structured);
+
+        // Log success analytics
+        try {
+          // Check for "empty" result - when no main travel inputs are provided
+          const hasMainInputs = args.destination || args.departure_city || args.trip_type || args.departure_date;
+          
+          if (!hasMainInputs) {
+             logAnalytics("tool_call_empty", {
+               toolName: request.params.name,
+               params: request.params.arguments || {},
+               reason: "No trip details provided"
+             });
+          } else {
+          logAnalytics("tool_call_success", {
+            responseTime,
+            params: request.params.arguments || {},
+            inferredQuery: inferredQuery.join(", "),
+            userLocation,
+            userLocale,
+            device: deviceCategory,
+          });
+          }
+        } catch {}
+
+        // TEXT SUPPRESSION: Return empty content array to prevent ChatGPT from adding
+        // any text after the widget. The widget provides all necessary UI.
+        // See: content: [] means no text content, only the widget is shown.
+        return {
+          content: [],  // Empty array = no text after widget
+          structuredContent: structured,
+          _meta: metaForReturn,  // Contains openai/resultCanProduceWidget: true
+        };
+      } catch (error: any) {
+        logAnalytics("tool_call_error", {
+          error: error.message,
+          stack: error.stack,
+          responseTime: Date.now() - startTime,
+          device: deviceCategory,
+          userAgent: userAgentString,
+        });
+        throw error;
+      }
+    }
+  );
 
   return server;
 }
 
+type SessionRecord = {
+  server: Server;
+  transport: SSEServerTransport;
+};
+
+const sessions = new Map<string, SessionRecord>();
+
+const ssePath = "/mcp";
+const postPath = "/mcp/messages";
+const subscribePath = "/api/subscribe";
+const analyticsPath = "/analytics";
+const trackEventPath = "/api/track";
+const healthPath = "/health";
+
+const domainVerificationPath = "/.well-known/openai-apps-challenge";
+const domainVerificationToken =
+  process.env.OPENAI_DOMAIN_VERIFICATION_TOKEN ??
+  "X1C2u_pL7rpRTEqXIorF7SPz-yc1ucHWvuIoUEEYwQE";
+
+const ANALYTICS_PASSWORD = process.env.ANALYTICS_PASSWORD || "changeme123";
+
+function checkAnalyticsAuth(req: IncomingMessage): boolean {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Basic ")) {
+    return false;
+  }
+
+  const base64Credentials = authHeader.split(" ")[1];
+  const credentials = Buffer.from(base64Credentials, "base64").toString("utf8");
+  const [username, password] = credentials.split(":");
+
+  return username === "admin" && password === ANALYTICS_PASSWORD;
+}
+
+function humanizeEventName(event: string): string {
+  const eventMap: Record<string, string> = {
+    // Server-side
+    tool_call_success: "Tool Call (Success)",
+    tool_call_error: "Tool Call (Error)",
+    tool_call_empty: "Tool Call (Empty)",
+    parameter_parse_error: "Parameter Parse Error",
+    // In-app trip actions
+    widget_parse_trip: "Analyze Trip (AI)",
+    widget_add_leg: "Add Leg",
+    widget_delete_leg: "Delete Leg",
+    widget_save_trip: "Save Trip",
+    widget_open_trip: "Open Trip",
+    widget_new_trip: "New Trip",
+    widget_delete_trip: "Delete Trip",
+    widget_duplicate_trip: "Duplicate Trip",
+    widget_reset: "Reset Trip",
+    widget_back_to_home: "Back to Home",
+    widget_input_mode: "Input Mode Toggle",
+    // Footer buttons
+    widget_subscribe_click: "Subscribe (Click)",
+    widget_donate_click: "Donate (Click)",
+    widget_feedback_click: "Feedback (Click)",
+    widget_print_click: "Print (Click)",
+    // Feedback & rating
+    widget_enjoy_vote: "Enjoy Vote",
+    widget_user_feedback: "Feedback (Submitted)",
+    widget_app_enjoyment_vote: "Enjoy Vote (Legacy)",
+    // Related apps
+    widget_related_app_click: "Related App (Click)",
+    // Subscriptions
+    widget_notify_me_subscribe: "Email Subscribe",
+    widget_notify_me_subscribe_error: "Email Subscribe (Error)",
+    // Errors
+    widget_crash: "Widget Crash",
+  };
+  return eventMap[event] || event.replace(/^widget_/, "").replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function formatEventDetails(log: AnalyticsEvent): string {
+  const excludeKeys = ["timestamp", "event"];
+  const details: Record<string, any> = {};
+  
+  Object.keys(log).forEach((key) => {
+    if (!excludeKeys.includes(key)) {
+      details[key] = log[key];
+    }
+  });
+  
+  if (Object.keys(details).length === 0) {
+    return "—";
+  }
+  
+  return JSON.stringify(details, null, 0);
+}
+
+type AlertEntry = {
+  id: string;
+  level: "warning" | "critical";
+  message: string;
+};
+
+function evaluateAlerts(logs: AnalyticsEvent[]): AlertEntry[] {
+  const alerts: AlertEntry[] = [];
+  const now = Date.now();
+  const dayAgo = now - 24 * 60 * 60 * 1000;
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+
+  // 1. Tool Call Failures
+  const toolErrors24h = logs.filter(
+    (l) =>
+      l.event === "tool_call_error" &&
+      new Date(l.timestamp).getTime() >= dayAgo
+  ).length;
+
+  if (toolErrors24h > 5) {
+    alerts.push({
+      id: "tool-errors",
+      level: "critical",
+      message: `Tool failures in last 24h: ${toolErrors24h} (>5 threshold)`,
+    });
+  }
+
+  // 2. Parameter Parsing Errors
+  const parseErrorsWeek = logs.filter(
+    (l) =>
+      l.event === "parameter_parse_error" &&
+      new Date(l.timestamp).getTime() >= weekAgo
+  ).length;
+
+  if (parseErrorsWeek > 3) {
+    alerts.push({
+      id: "parse-errors",
+      level: "warning",
+      message: `Parameter parse errors in last 7d: ${parseErrorsWeek} (>3 threshold)`,
+    });
+  }
+
+  // 3. Empty Result Sets (or equivalent for calculator - e.g. missing inputs)
+  const successCalls = logs.filter(
+    (l) => l.event === "tool_call_success" && new Date(l.timestamp).getTime() >= weekAgo
+  );
+  const emptyResults = logs.filter(
+    (l) => l.event === "tool_call_empty" && new Date(l.timestamp).getTime() >= weekAgo
+  ).length;
+
+  const totalCalls = successCalls.length + emptyResults;
+  if (totalCalls > 0 && (emptyResults / totalCalls) > 0.2) {
+    alerts.push({
+      id: "empty-results",
+      level: "warning",
+      message: `Empty result rate ${((emptyResults / totalCalls) * 100).toFixed(1)}% (>20% threshold)`,
+    });
+  }
+
+  // 4. Widget Load Failures (Crashes)
+  const widgetCrashes = logs.filter(
+    (l) => l.event === "widget_crash" && new Date(l.timestamp).getTime() >= dayAgo
+  ).length;
+
+  if (widgetCrashes > 0) {
+    alerts.push({
+      id: "widget-crash",
+      level: "critical",
+      message: `Widget crashes in last 24h: ${widgetCrashes} (Fix immediately)`,
+    });
+  }
+
+  // 5. Buttondown Subscription Failures
+  const recentSubs = logs.filter(
+    (l) =>
+      (l.event === "widget_notify_me_subscribe" ||
+        l.event === "widget_notify_me_subscribe_error") &&
+      new Date(l.timestamp).getTime() >= weekAgo
+  );
+
+  const subFailures = recentSubs.filter(
+    (l) => l.event === "widget_notify_me_subscribe_error"
+  ).length;
+
+  const failureRate =
+    recentSubs.length > 0 ? subFailures / recentSubs.length : 0;
+
+  if (recentSubs.length >= 5 && failureRate > 0.1) {
+    alerts.push({
+      id: "buttondown-failures",
+      level: "warning",
+      message: `Buttondown failure rate ${(failureRate * 100).toFixed(
+        1
+      )}% over last 7d (${subFailures}/${recentSubs.length})`,
+    });
+  }
+
+  return alerts;
+}
+
+function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]): string {
+  const errorLogs = logs.filter((l) => l.event.includes("error"));
+  const successLogs = logs.filter((l) => l.event === "tool_call_success");
+  const parseLogs = logs.filter((l) => l.event === "parameter_parse_error");
+  const widgetEvents = logs.filter((l) => l.event.startsWith("widget_"));
+
+  const avgResponseTime =
+    successLogs.length > 0
+      ? (successLogs.reduce((sum, l) => sum + (l.responseTime || 0), 0) /
+          successLogs.length).toFixed(0)
+      : "N/A";
+
+  // --- Prompt-level analytics (from tool calls) ---
+  const paramUsage: Record<string, number> = {};
+  const tripTypeDist: Record<string, number> = {};
+  const transportModeDist: Record<string, number> = {};
+  
+  successLogs.forEach((log) => {
+    if (log.params) {
+      Object.keys(log.params).forEach((key) => {
+        if (log.params[key] !== undefined) {
+          paramUsage[key] = (paramUsage[key] || 0) + 1;
+        }
+      });
+      if (log.params.trip_type) {
+        const tt = log.params.trip_type;
+        tripTypeDist[tt] = (tripTypeDist[tt] || 0) + 1;
+      }
+      if (log.params.departure_mode) {
+        const mode = log.params.departure_mode;
+        transportModeDist[mode] = (transportModeDist[mode] || 0) + 1;
+      }
+    }
+  });
+
+  // Destinations (top 10)
+  const destinationDist: Record<string, number> = {};
+  successLogs.forEach((log) => {
+    if (log.params?.destination) {
+      const dest = log.params.destination;
+      destinationDist[dest] = (destinationDist[dest] || 0) + 1;
+    }
+  });
+
+  // Departure cities (top 10)
+  const departureCityDist: Record<string, number> = {};
+  successLogs.forEach((log) => {
+    if (log.params?.departure_city) {
+      const city = log.params.departure_city;
+      departureCityDist[city] = (departureCityDist[city] || 0) + 1;
+    }
+  });
+
+  // --- In-app analytics (from widget events) ---
+  // Trip management actions
+  const tripActions: Record<string, number> = {};
+  const tripActionEvents = ["widget_parse_trip", "widget_add_leg", "widget_delete_leg", "widget_save_trip", "widget_open_trip", "widget_new_trip", "widget_delete_trip", "widget_duplicate_trip", "widget_reset", "widget_back_to_home", "widget_input_mode"];
+  tripActionEvents.forEach(e => { tripActions[humanizeEventName(e)] = 0; });
+  
+  // Footer button clicks
+  const footerClicks: Record<string, number> = {};
+  const footerEvents = ["widget_subscribe_click", "widget_donate_click", "widget_feedback_click", "widget_print_click"];
+  footerEvents.forEach(e => { footerClicks[humanizeEventName(e)] = 0; });
+
+  // Related app clicks
+  const relatedAppClicks: Record<string, number> = {};
+
+  // Enjoy votes
+  let enjoyUp = 0;
+  let enjoyDown = 0;
+
+  // Feedback with votes
+  const feedbackLogs: AnalyticsEvent[] = [];
+
+  // Input mode preferences
+  let freeformCount = 0;
+  let manualCount = 0;
+
+  // Leg type distribution (from add_leg events)
+  const legTypeDist: Record<string, number> = {};
+
+  // All widget interactions (catch-all)
+  const allWidgetCounts: Record<string, number> = {};
+
+  widgetEvents.forEach((log) => {
+    const humanName = humanizeEventName(log.event);
+    allWidgetCounts[humanName] = (allWidgetCounts[humanName] || 0) + 1;
+
+    // Trip management
+    if (tripActionEvents.includes(log.event)) {
+      tripActions[humanName] = (tripActions[humanName] || 0) + 1;
+    }
+    // Footer
+    if (footerEvents.includes(log.event)) {
+      footerClicks[humanName] = (footerClicks[humanName] || 0) + 1;
+    }
+    // Related apps
+    if (log.event === "widget_related_app_click") {
+      const app = log.app || "Unknown";
+      relatedAppClicks[app] = (relatedAppClicks[app] || 0) + 1;
+    }
+    // Enjoy votes
+    if (log.event === "widget_enjoy_vote" || log.event === "widget_app_enjoyment_vote") {
+      if (log.vote === "up") enjoyUp++;
+      else if (log.vote === "down") enjoyDown++;
+    }
+    // Feedback
+    if (log.event === "widget_user_feedback") {
+      feedbackLogs.push(log);
+    }
+    // Input mode
+    if (log.event === "widget_input_mode") {
+      if (log.mode === "freeform") freeformCount++;
+      else if (log.mode === "manual") manualCount++;
+    }
+    // Leg types
+    if (log.event === "widget_add_leg" && log.legType) {
+      legTypeDist[log.legType] = (legTypeDist[log.legType] || 0) + 1;
+    }
+  });
+
+  const totalEnjoyVotes = enjoyUp + enjoyDown;
+  const enjoyPct = totalEnjoyVotes > 0 ? ((enjoyUp / totalEnjoyVotes) * 100).toFixed(0) : "—";
+
+  // Daily call volume (last 7 days)
+  const dailyCounts: Record<string, { toolCalls: number; widgetEvents: number; errors: number }> = {};
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toISOString().split("T")[0];
+    dailyCounts[key] = { toolCalls: 0, widgetEvents: 0, errors: 0 };
+  }
+  logs.forEach(l => {
+    const day = l.timestamp?.split("T")[0];
+    if (dailyCounts[day]) {
+      if (l.event === "tool_call_success") dailyCounts[day].toolCalls++;
+      if (l.event.startsWith("widget_")) dailyCounts[day].widgetEvents++;
+      if (l.event.includes("error")) dailyCounts[day].errors++;
+    }
+  });
+
+  // Helper to render a simple table
+  const renderTable = (headers: string[], rows: string[][], emptyMsg: string) => {
+    if (rows.length === 0) return `<table><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody><tr><td colspan="${headers.length}" style="text-align:center;color:#9ca3af;">${emptyMsg}</td></tr></tbody></table>`;
+    return `<table><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  };
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trip Planner Analytics</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; color: #1f2937; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { color: #1a1a1a; margin-bottom: 6px; font-size: 28px; }
+    .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+    .section-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .card { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }
+    .card h2 { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .card .value { font-size: 36px; font-weight: 800; color: #1a1a1a; line-height: 1.1; }
+    .card .value .unit { font-size: 14px; font-weight: 500; color: #9ca3af; }
+    .card.error .value { color: #dc2626; }
+    .card.success .value { color: #16a34a; }
+    .card.warning .value { color: #ea580c; }
+    .card.info .value { color: #2563eb; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f3f4f6; font-size: 13px; }
+    th { font-weight: 600; color: #6b7280; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; background: #f9fafb; }
+    td { color: #374151; }
+    tr:last-child td { border-bottom: none; }
+    .error-row { background: #fef2f2; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #374151; }
+    .timestamp { color: #9ca3af; font-size: 12px; white-space: nowrap; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .badge-green { background: #dcfce7; color: #16a34a; }
+    .badge-red { background: #fef2f2; color: #dc2626; }
+    .badge-blue { background: #dbeafe; color: #2563eb; }
+    .badge-orange { background: #fff7ed; color: #ea580c; }
+    .bar { height: 8px; border-radius: 4px; background: #e5e7eb; overflow: hidden; margin-top: 4px; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .pct { font-size: 11px; color: #9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Trip Planner Analytics</h1>
+    <p class="subtitle">Last 7 days · ${logs.length} total events · Auto-refresh 60s</p>
+
+    <!-- ========== ALERTS ========== -->
+    ${alerts.length > 0 ? `
+    <div class="card" style="margin-bottom:20px; border-left: 4px solid ${alerts.some(a => a.level === "critical") ? "#dc2626" : "#ea580c"};">
+      <h2>⚠️ Active Alerts</h2>
+      <ul style="padding-left:16px;margin:4px 0 0;">
+        ${alerts.map(a => `<li style="margin-bottom:4px;"><span class="badge ${a.level === "critical" ? "badge-red" : "badge-orange"}">${a.level.toUpperCase()}</span> ${a.message}</li>`).join("")}
+      </ul>
+    </div>` : ""}
+
+    <!-- ========== OVERVIEW CARDS ========== -->
+    <div class="section-title">📈 Overview</div>
+    <div class="grid">
+      <div class="card success">
+        <h2>Tool Calls (Prompt)</h2>
+        <div class="value">${successLogs.length}</div>
+      </div>
+      <div class="card info">
+        <h2>Widget Events (In-App)</h2>
+        <div class="value">${widgetEvents.length}</div>
+      </div>
+      <div class="card error">
+        <h2>Errors</h2>
+        <div class="value">${errorLogs.length}</div>
+      </div>
+      <div class="card">
+        <h2>Avg Response</h2>
+        <div class="value">${avgResponseTime}<span class="unit">ms</span></div>
+      </div>
+      <div class="card ${totalEnjoyVotes > 0 ? (parseInt(enjoyPct) >= 70 ? "success" : parseInt(enjoyPct) >= 40 ? "warning" : "error") : ""}">
+        <h2>Satisfaction</h2>
+        <div class="value">${enjoyPct}${totalEnjoyVotes > 0 ? '<span class="unit">%</span>' : ""}</div>
+        <div class="pct">${enjoyUp} 👍 / ${enjoyDown} 👎 (${totalEnjoyVotes} votes)</div>
+      </div>
+    </div>
+
+    <!-- ========== DAILY VOLUME ========== -->
+    <div class="card" style="margin-bottom:20px;">
+      <h2>📅 Daily Volume (7 Days)</h2>
+      ${renderTable(
+        ["Date", "Tool Calls", "Widget Events", "Errors"],
+        Object.entries(dailyCounts).map(([day, c]) => [
+          `<span class="timestamp">${day}</span>`,
+          String(c.toolCalls),
+          String(c.widgetEvents),
+          c.errors > 0 ? `<span style="color:#dc2626;font-weight:600;">${c.errors}</span>` : "0"
+        ]),
+        "No data"
+      )}
+    </div>
+
+    <!-- ========== PROMPT ANALYTICS ========== -->
+    <div class="section-title">🔍 Prompt Analytics (What's Being Called)</div>
+    <div class="grid-3">
+      <div class="card">
+        <h2>Trip Type Distribution</h2>
+        ${renderTable(
+          ["Type", "Count", "%"],
+          Object.entries(tripTypeDist).sort((a, b) => b[1] - a[1]).map(([tt, count]) => {
+            const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
+            const label = tt === "round_trip" ? "🔄 Round Trip" : tt === "one_way" ? "➡️ One Way" : tt === "multi_city" ? "🌍 Multi-City" : tt;
+            return [label, String(count), `${pct}%`];
+          }),
+          "No data yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>Transport Mode</h2>
+        ${renderTable(
+          ["Mode", "Count"],
+          Object.entries(transportModeDist).sort((a, b) => b[1] - a[1]).map(([mode, count]) => {
+            const icon = mode === "plane" ? "✈️" : mode === "car" ? "🚗" : mode === "train" ? "🚂" : mode === "bus" ? "🚌" : mode === "ferry" ? "⛴️" : "🚐";
+            return [`${icon} ${mode}`, String(count)];
+          }),
+          "No data yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>Parameter Usage</h2>
+        ${renderTable(
+          ["Parameter", "Used", "%"],
+          Object.entries(paramUsage).sort((a, b) => b[1] - a[1]).map(([p, c]) => [
+            `<code>${p}</code>`,
+            String(c),
+            successLogs.length > 0 ? `${((c / successLogs.length) * 100).toFixed(0)}%` : "0%"
+          ]),
+          "No data yet"
+        )}
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h2>🏙️ Top Destinations</h2>
+        ${renderTable(
+          ["City", "Count"],
+          Object.entries(destinationDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
+          "No data yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>🛫 Top Departure Cities</h2>
+        ${renderTable(
+          ["City", "Count"],
+          Object.entries(departureCityDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
+          "No data yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>🗺️ Popular Routes</h2>
+        ${(() => {
+          const routes: Record<string, number> = {};
+          successLogs.forEach(l => {
+            if (l.params?.departure_city && l.params?.destination) {
+              const route = l.params.departure_city + " → " + l.params.destination;
+              routes[route] = (routes[route] || 0) + 1;
+            }
+          });
+          return renderTable(
+            ["Route", "Count"],
+            Object.entries(routes).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([r, c]) => [r, String(c)]),
+            "No data yet"
+          );
+        })()}
+      </div>
+    </div>
+
+    <!-- ========== IN-APP ANALYTICS ========== -->
+    <div class="section-title">🖱️ In-App Actions (After Tool Call)</div>
+    <div class="grid-3">
+      <div class="card">
+        <h2>Trip Management</h2>
+        ${renderTable(
+          ["Action", "Count"],
+          Object.entries(tripActions).filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+          "No in-app actions yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>Footer Buttons</h2>
+        ${renderTable(
+          ["Button", "Clicks"],
+          Object.entries(footerClicks).sort((a, b) => b[1] - a[1]).map(([b, c]) => [b, String(c)]),
+          "No clicks yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>Related App Clicks</h2>
+        ${renderTable(
+          ["App", "Clicks"],
+          Object.entries(relatedAppClicks).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+          "No clicks yet"
+        )}
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <h2>Input Mode Preference</h2>
+        ${renderTable(
+          ["Mode", "Count"],
+          [
+            ["✨ Freeform (AI Describe)", String(freeformCount)],
+            ["✏️ Manual (Add Manually)", String(manualCount)],
+          ],
+          "No data yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>Leg Types Added</h2>
+        ${renderTable(
+          ["Type", "Count"],
+          Object.entries(legTypeDist).sort((a, b) => b[1] - a[1]).map(([t, c]) => {
+            const icon = t === "flight" ? "✈️" : t === "hotel" ? "🏨" : t === "car" ? "🚗" : t === "train" ? "🚂" : t === "bus" ? "🚌" : "📌";
+            return [`${icon} ${t}`, String(c)];
+          }),
+          "No legs added yet"
+        )}
+      </div>
+    </div>
+
+    <!-- ========== USER EXPERIENCE ========== -->
+    <div class="section-title">❤️ User Experience & Feedback</div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <h2>Enjoy Vote Breakdown</h2>
+        <div style="display:flex;gap:20px;align-items:center;margin-bottom:12px;">
+          <div style="text-align:center;">
+            <div style="font-size:32px;font-weight:800;color:#16a34a;">${enjoyUp}</div>
+            <div style="font-size:12px;color:#6b7280;">👍 Thumbs Up</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:32px;font-weight:800;color:#dc2626;">${enjoyDown}</div>
+            <div style="font-size:12px;color:#6b7280;">👎 Thumbs Down</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:32px;font-weight:800;color:#2563eb;">${totalEnjoyVotes}</div>
+            <div style="font-size:12px;color:#6b7280;">Total Votes</div>
+          </div>
+        </div>
+        ${totalEnjoyVotes > 0 ? `
+        <div class="bar" style="height:12px;">
+          <div class="bar-fill" style="width:${enjoyPct}%;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <span class="pct">👍 ${enjoyPct}%</span>
+          <span class="pct">👎 ${100 - parseInt(enjoyPct)}%</span>
+        </div>` : '<p style="color:#9ca3af;font-size:13px;margin-top:8px;">No votes yet</p>'}
+      </div>
+      <div class="card">
+        <h2>Feedback Submissions</h2>
+        ${feedbackLogs.length > 0 ? renderTable(
+          ["Date", "Vote", "Feedback", "Trip"],
+          feedbackLogs.slice(0, 15).map(l => [
+            `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
+            l.enjoymentVote === "up" ? '<span class="badge badge-green">👍</span>' : l.enjoymentVote === "down" ? '<span class="badge badge-red">👎</span>' : "—",
+            `<div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">${l.feedback || "—"}</div>`,
+            l.tripName || "—"
+          ]),
+          "No feedback yet"
+        ) : '<p style="color:#9ca3af;font-size:13px;">No feedback submitted yet</p>'}
+      </div>
+    </div>
+
+    <!-- ========== QUERIES LOG ========== -->
+    <div class="section-title">📋 Recent Queries</div>
+    <div class="card" style="margin-bottom:20px;">
+      ${renderTable(
+        ["Date", "Query", "Trip Type", "From → To", "Location", "Locale"],
+        successLogs.slice(0, 25).map(l => [
+          `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
+          `<div style="max-width:250px;overflow:hidden;text-overflow:ellipsis;">${l.inferredQuery || "—"}</div>`,
+          l.params?.trip_type ? `<span class="badge badge-blue">${l.params.trip_type}</span>` : "—",
+          l.params?.departure_city && l.params?.destination ? `${l.params.departure_city} → ${l.params.destination}` : (l.params?.destination || "—"),
+          l.userLocation ? `${l.userLocation.city || ""}${l.userLocation.region ? ", " + l.userLocation.region : ""}${l.userLocation.country ? ", " + l.userLocation.country : ""}`.replace(/^, /, "") : "—",
+          l.userLocale || "—"
+        ]),
+        "No queries yet"
+      )}
+    </div>
+
+    <!-- ========== ALL WIDGET EVENTS ========== -->
+    <div class="section-title">📊 All Widget Interactions (Aggregated)</div>
+    <div class="card" style="margin-bottom:20px;">
+      ${renderTable(
+        ["Event", "Count"],
+        Object.entries(allWidgetCounts).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+        "No widget events yet"
+      )}
+    </div>
+
+    <!-- ========== RAW EVENT LOG ========== -->
+    <div class="section-title">🔎 Recent Events (Last 50)</div>
+    <div class="card" style="margin-bottom:20px;">
+      <table>
+        <thead><tr><th>Time</th><th>Event</th><th>Details</th></tr></thead>
+        <tbody>
+          ${logs.slice(0, 50).map(log => `
+            <tr class="${log.event.includes("error") ? "error-row" : ""}">
+              <td class="timestamp">${new Date(log.timestamp).toLocaleString()}</td>
+              <td><strong>${humanizeEventName(log.event)}</strong></td>
+              <td style="font-size:12px;max-width:500px;overflow:hidden;text-overflow:ellipsis;">${formatEventDetails(log)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>setTimeout(() => location.reload(), 60000);</script>
+</body>
+</html>`;
+}
+
+async function handleAnalytics(req: IncomingMessage, res: ServerResponse) {
+  if (!checkAnalyticsAuth(req)) {
+    res.writeHead(401, {
+      "WWW-Authenticate": 'Basic realm="Analytics Dashboard"',
+      "Content-Type": "text/plain",
+    });
+    res.end("Authentication required");
+    return;
+  }
+
+  try {
+    const logs = getRecentLogs(7);
+    const alerts = evaluateAlerts(logs);
+    alerts.forEach((alert) =>
+      console.warn("[ALERT]", alert.id, alert.message)
+    );
+    const html = generateAnalyticsDashboard(logs, alerts);
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(html);
+  } catch (error) {
+    console.error("Analytics error:", error);
+    res.writeHead(500).end("Failed to generate analytics");
+  }
+}
+
+async function handleTrackEvent(req: IncomingMessage, res: ServerResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(204).end();
+    return;
+  }
+
+  if (req.method !== "POST") {
+    res.writeHead(405).end(JSON.stringify({ error: "Method not allowed" }));
+    return;
+  }
+
+  try {
+    let body = "";
+    for await (const chunk of req) {
+      body += chunk;
+    }
+
+    const { event, data } = JSON.parse(body);
+
+    if (!event) {
+      res.writeHead(400).end(JSON.stringify({ error: "Missing event name" }));
+      return;
+    }
+
+    logAnalytics(`widget_${event}`, data || {});
+
+    res.writeHead(200).end(JSON.stringify({ success: true }));
+  } catch (error) {
+    console.error("Track event error:", error);
+    res.writeHead(500).end(JSON.stringify({ error: "Failed to track event" }));
+  }
+}
+
+// Buttondown API integration
+async function subscribeToButtondown(email: string, topicId: string, topicName: string) {
+  const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY;
+  
+  console.log("[Buttondown] subscribeToButtondown called", { email, topicId, topicName });
+  console.log("[Buttondown] API key present:", !!BUTTONDOWN_API_KEY, "length:", BUTTONDOWN_API_KEY?.length ?? 0);
+
+  if (!BUTTONDOWN_API_KEY) {
+    throw new Error("BUTTONDOWN_API_KEY not set in environment variables");
+  }
+
+  const metadata: Record<string, any> = {
+    topicName,
+    source: "trip-planner",
+    subscribedAt: new Date().toISOString(),
+  };
+
+  const requestBody = {
+    email_address: email,
+    tags: [topicId],
+    metadata,
+  };
+
+  console.log("[Buttondown] Sending request body:", JSON.stringify(requestBody));
+
+  const response = await fetch("https://api.buttondown.email/v1/subscribers", {
+    method: "POST",
+    headers: {
+      "Authorization": `Token ${BUTTONDOWN_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  console.log("[Buttondown] Response status:", response.status, response.statusText);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errorMessage = "Failed to subscribe";
+    
+    try {
+      const errorData = JSON.parse(errorText);
+      if (errorData.detail) {
+        errorMessage = errorData.detail;
+      } else if (errorData.code) {
+        errorMessage = `Error: ${errorData.code}`;
+      }
+    } catch {
+      errorMessage = errorText;
+    }
+    
+    throw new Error(errorMessage);
+  }
+
+  return await response.json();
+}
+
+// Update existing subscriber with new topic
+async function updateButtondownSubscriber(email: string, topicId: string, topicName: string) {
+  const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY;
+  
+  if (!BUTTONDOWN_API_KEY) {
+    throw new Error("BUTTONDOWN_API_KEY not set in environment variables");
+  }
+
+  // First, get the subscriber ID
+  const searchResponse = await fetch(`https://api.buttondown.email/v1/subscribers?email=${encodeURIComponent(email)}`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Token ${BUTTONDOWN_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!searchResponse.ok) {
+    throw new Error("Failed to find subscriber");
+  }
+
+  const subscribers = await searchResponse.json();
+  if (!subscribers.results || subscribers.results.length === 0) {
+    throw new Error("Subscriber not found");
+  }
+
+  const subscriber = subscribers.results[0];
+  const subscriberId = subscriber.id;
+
+  // Update the subscriber with new tag and metadata
+  const existingTags = subscriber.tags || [];
+  const existingMetadata = subscriber.metadata || {};
+
+  // Add new topic to tags if not already there
+  const updatedTags = existingTags.includes(topicId) ? existingTags : [...existingTags, topicId];
+
+  // Add new topic to metadata (Buttondown requires string values)
+  const topicKey = `topic_${topicId}`;
+  const topicData = JSON.stringify({
+    name: topicName,
+    subscribedAt: new Date().toISOString(),
+  });
+  
+  const updatedMetadata = {
+    ...existingMetadata,
+    [topicKey]: topicData,
+    source: "trip-planner",
+  };
+
+  const updateRequestBody = {
+    tags: updatedTags,
+    metadata: updatedMetadata,
+  };
+
+  console.log("[Buttondown] updateButtondownSubscriber called", { email, topicId, topicName, subscriberId });
+  console.log("[Buttondown] Sending update request body:", JSON.stringify(updateRequestBody));
+
+  const updateResponse = await fetch(`https://api.buttondown.email/v1/subscribers/${subscriberId}`, {
+    method: "PATCH",
+    headers: {
+      "Authorization": `Token ${BUTTONDOWN_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updateRequestBody),
+  });
+
+  console.log("[Buttondown] Update response status:", updateResponse.status, updateResponse.statusText);
+
+  if (!updateResponse.ok) {
+    const errorText = await updateResponse.text();
+    throw new Error(`Failed to update subscriber: ${errorText}`);
+  }
+
+  return await updateResponse.json();
+}
+
+async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(204).end();
+    return;
+  }
+
+  if (req.method !== "POST") {
+    res.writeHead(405).end(JSON.stringify({ error: "Method not allowed" }));
+    return;
+  }
+
+  try {
+    let body = "";
+    for await (const chunk of req) {
+      body += chunk;
+    }
+
+    const parsed = JSON.parse(body);
+    const email = parsed.email;
+    const topicId = parsed.topicId || "trip-planner";
+    const topicName = parsed.topicName || "Trip Planner Updates";
+    if (!email || !email.includes("@")) {
+      res.writeHead(400).end(JSON.stringify({ error: "Invalid email address" }));
+      return;
+    }
+
+    const BUTTONDOWN_API_KEY_PRESENT = !!process.env.BUTTONDOWN_API_KEY;
+    if (!BUTTONDOWN_API_KEY_PRESENT) {
+      res.writeHead(500).end(JSON.stringify({ error: "Server misconfigured: BUTTONDOWN_API_KEY missing" }));
+      return;
+    }
+
+    try {
+      await subscribeToButtondown(email, topicId, topicName);
+      res.writeHead(200).end(JSON.stringify({ 
+        success: true, 
+        message: "Successfully subscribed! You'll receive trip planning tips and updates." 
+      }));
+    } catch (subscribeError: any) {
+      const rawMessage = String(subscribeError?.message ?? "").trim();
+      const msg = rawMessage.toLowerCase();
+      const already = msg.includes('already subscribed') || msg.includes('already exists') || msg.includes('already on your list') || msg.includes('subscriber already exists') || msg.includes('already');
+
+      if (already) {
+        console.log("Subscriber already on list, attempting update", { email, topicId, message: rawMessage });
+        try {
+          await updateButtondownSubscriber(email, topicId, topicName);
+          res.writeHead(200).end(JSON.stringify({ 
+            success: true, 
+            message: "You're now subscribed to this topic!" 
+          }));
+        } catch (updateError: any) {
+          console.warn("Update subscriber failed, returning graceful success", {
+            email,
+            topicId,
+            error: updateError?.message,
+          });
+          logAnalytics("widget_notify_me_subscribe_error", {
+            stage: "update",
+            email,
+            error: updateError?.message,
+          });
+          res.writeHead(200).end(JSON.stringify({
+            success: true,
+            message: "You're already subscribed! We'll keep you posted.",
+          }));
+        }
+        return;
+      }
+
+      logAnalytics("widget_notify_me_subscribe_error", {
+        stage: "subscribe",
+        email,
+        error: rawMessage || "unknown_error",
+      });
+      throw subscribeError;
+    }
+  } catch (error: any) {
+    console.error("Subscribe error:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
+    logAnalytics("widget_notify_me_subscribe_error", {
+      stage: "handler",
+      email: undefined,
+      error: error.message || "unknown_error",
+    });
+    res.writeHead(500).end(JSON.stringify({ 
+      error: error.message || "Failed to subscribe. Please try again." 
+    }));
+  }
+}
+
+// AI-powered trip parsing using OpenAI
+async function handleParseTripAI(req: IncomingMessage, res: ServerResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  
+  if (req.method !== "POST") {
+    res.writeHead(405).end("Method not allowed");
+    return;
+  }
+
+  try {
+    const body = await new Promise<string>((resolve, reject) => {
+      let data = "";
+      req.on("data", chunk => data += chunk);
+      req.on("end", () => resolve(data));
+      req.on("error", reject);
+    });
+
+    const { text } = JSON.parse(body);
+    
+    if (!text || typeof text !== "string") {
+      res.writeHead(400).end(JSON.stringify({ error: "Missing 'text' field" }));
+      return;
+    }
+
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    
+    if (!OPENAI_API_KEY) {
+      // Fallback to basic parsing if no API key
+      console.log("[Parse Trip] No OPENAI_API_KEY, using fallback parsing");
+      const legs = fallbackParseTripText(text);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ legs, source: "fallback" }));
+      return;
+    }
+
+    const systemPrompt = `You are a travel assistant that extracts trip information from natural language descriptions.
+
+Extract all trip components (flights, hotels, transportation) from the user's text and return them as a JSON array.
+
+Each item should have:
+- type: "flight" | "hotel" | "car" | "train" | "bus" | "ferry"
+- status: always "pending"
+- title: descriptive title (e.g., "Flight: Boston → Medellin")
+- date: ISO date string (YYYY-MM-DD) if mentioned, otherwise empty string
+- endDate: for hotels, the checkout date if mentioned
+- from: departure city/location (for transport)
+- to: arrival city/location (for transport)
+- location: for hotels, the city
+- time: departure time if mentioned (HH:MM format)
+
+Rules:
+1. Only extract what the user explicitly mentions - do NOT infer or auto-add hotels
+2. Think like a traveler - for each flight:
+   - You need transport TO the departure airport before the flight
+   - You need transport FROM the arrival airport after landing (to get to hotel or home)
+3. Do NOT duplicate transports - each leg of the journey needs exactly one transport to the airport and one from the airport
+4. Parse dates like "June 11th, 2026" to "2026-06-11"
+5. If no year mentioned, assume current year or next year if month has passed
+
+Return ONLY valid JSON array, no explanation.`;
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: text }
+        ],
+        temperature: 0.3,
+        max_tokens: 2000
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[Parse Trip] OpenAI API error:", response.status, errorText);
+      // Fallback on API error
+      const legs = fallbackParseTripText(text);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ legs, source: "fallback" }));
+      return;
+    }
+
+    const data = await response.json() as any;
+    const content = data.choices?.[0]?.message?.content || "[]";
+    
+    // Parse the JSON response
+    let legs;
+    try {
+      // Handle potential markdown code blocks
+      const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+      legs = JSON.parse(jsonStr);
+    } catch (parseError) {
+      console.error("[Parse Trip] Failed to parse AI response:", content);
+      legs = fallbackParseTripText(text);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ legs, source: "fallback" }));
+      return;
+    }
+
+    console.log("[Parse Trip] AI parsed legs:", legs.length);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ legs, source: "ai" }));
+
+  } catch (error: any) {
+    console.error("[Parse Trip] Error:", error);
+    res.writeHead(500).end(JSON.stringify({ error: error.message || "Failed to parse trip" }));
+  }
+}
+
+// Fallback parsing when OpenAI is not available
+function fallbackParseTripText(text: string): any[] {
+  const legs: any[] = [];
+  const lower = text.toLowerCase();
+  
+  // Simple pattern matching
+  const fromToMatch = lower.match(/from\s+([a-z\s]+?)\s+to\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
+  const toFromMatch = lower.match(/to\s+([a-z\s]+?)\s+from\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
+  
+  // Check for return/round trip
+  const isRoundTrip = /return|round\s*trip|coming back|fly back|back to/i.test(lower);
+  
+  let fromCity = "";
+  let toCity = "";
+  
+  if (fromToMatch) {
+    fromCity = fromToMatch[1].trim();
+    toCity = fromToMatch[2].trim();
+  } else if (toFromMatch) {
+    toCity = toFromMatch[1].trim();
+    fromCity = toFromMatch[2].trim();
+  }
+  
+  if (fromCity && toCity) {
+    // Add outbound flight
+    legs.push({
+      type: "flight",
+      status: "pending",
+      title: `Flight: ${fromCity} → ${toCity}`,
+      from: fromCity,
+      to: toCity,
+      date: ""
+    });
+    
+    // Outbound transport: to departure airport
+    legs.push({
+      type: "car",
+      status: "pending",
+      title: `Transport to ${fromCity} Airport`,
+      to: `${fromCity} Airport`,
+      date: ""
+    });
+    
+    // Outbound transport: from arrival airport to hotel
+    legs.push({
+      type: "car",
+      status: "pending",
+      title: `Transport from ${toCity} Airport`,
+      from: `${toCity} Airport`,
+      date: ""
+    });
+    
+    // If round trip, add return flight and transports
+    if (isRoundTrip) {
+      // Return flight
+      legs.push({
+        type: "flight",
+        status: "pending",
+        title: `Flight: ${toCity} → ${fromCity}`,
+        from: toCity,
+        to: fromCity,
+        date: ""
+      });
+      
+      // Return transport: from hotel to departure airport
+      legs.push({
+        type: "car",
+        status: "pending",
+        title: `Transport to ${toCity} Airport`,
+        to: `${toCity} Airport`,
+        date: ""
+      });
+      
+      // Return transport: from arrival airport to home
+      legs.push({
+        type: "car",
+        status: "pending",
+        title: `Transport from ${fromCity} Airport`,
+        from: `${fromCity} Airport`,
+        date: ""
+      });
+    }
+  }
+  
+  return legs;
+}
+
 async function handleSseRequest(res: ServerResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const server = createMcpServer();
+  const server = createTripPlannerServer();
   const transport = new SSEServerTransport(postPath, res);
-  // @ts-ignore - access private/protected property if needed or rely on sdk behavior
   const sessionId = transport.sessionId;
 
   sessions.set(sessionId, { server, transport });
@@ -131,76 +1921,207 @@ async function handleSseRequest(res: ServerResponse) {
     await server.close();
   };
 
-  await server.connect(transport);
+  transport.onerror = (error) => {
+    console.error("SSE transport error", error);
+  };
+
+  try {
+    await server.connect(transport);
+  } catch (error) {
+    sessions.delete(sessionId);
+    console.error("Failed to start SSE session", error);
+    if (!res.headersSent) {
+      res.writeHead(500).end("Failed to establish SSE connection");
+    }
+  }
 }
 
-async function handlePostMessage(req: IncomingMessage, res: ServerResponse, url: URL) {
+async function handlePostMessage(
+  req: IncomingMessage,
+  res: ServerResponse,
+  url: URL
+) {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
   const sessionId = url.searchParams.get("sessionId");
 
   if (!sessionId) {
-    res.writeHead(400).end("Missing sessionId");
+    res.writeHead(400).end("Missing sessionId query parameter");
     return;
   }
 
   const session = sessions.get(sessionId);
+
   if (!session) {
-    res.writeHead(404).end("Session not found");
+    res.writeHead(404).end("Unknown session");
     return;
   }
 
-  await session.transport.handlePostMessage(req, res);
+  try {
+    await session.transport.handlePostMessage(req, res);
+  } catch (error) {
+    console.error("Failed to process message", error);
+    if (!res.headersSent) {
+      res.writeHead(500).end("Failed to process message");
+    }
+  }
 }
 
-const httpServer = createServer(async (req, res) => {
-  if (!req.url) { res.writeHead(400).end("Missing URL"); return; }
-  const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
+const portEnv = Number(process.env.PORT ?? 8000);
+const port = Number.isFinite(portEnv) ? portEnv : 8000;
 
-  // CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    res.writeHead(204).end();
-    return;
-  }
-
-  // SSE Endpoint
-  if (req.method === "GET" && url.pathname === ssePath) {
-    await handleSseRequest(res);
-    return;
-  }
-
-  // POST Endpoint
-  if (req.method === "POST" && url.pathname === postPath) {
-    await handlePostMessage(req, res, url);
-    return;
-  }
-
-  // Static Assets
-  if (req.method === "GET" && url.pathname.startsWith("/assets/")) {
-    const assetPath = path.join(ASSETS_DIR, url.pathname.replace("/assets/", ""));
-    if (!assetPath.startsWith(ASSETS_DIR)) {
-      res.writeHead(403).end("Forbidden");
+const httpServer = createServer(
+  async (req: IncomingMessage, res: ServerResponse) => {
+    if (!req.url) {
+      res.writeHead(400).end("Missing URL");
       return;
     }
-    if (fs.existsSync(assetPath) && fs.statSync(assetPath).isFile()) {
-      res.writeHead(200);
-      fs.createReadStream(assetPath).pipe(res);
+
+    const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
+
+    if (
+      req.method === "OPTIONS" &&
+      (url.pathname === ssePath || url.pathname === postPath)
+    ) {
+      res.writeHead(204, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "content-type",
+      });
+      res.end();
       return;
     }
-  }
 
-  if (req.method === "GET" && url.pathname === "/health") {
-    res.writeHead(200).end("OK");
-    return;
-  }
+    if (req.method === "GET" && url.pathname === healthPath) {
+      res.writeHead(200, { "Content-Type": "text/plain" }).end("OK");
+      return;
+    }
 
-  res.writeHead(404).end("Not Found");
+    if (req.method === "GET" && url.pathname === domainVerificationPath) {
+      res.writeHead(200, { "Content-Type": "text/plain" }).end(
+        domainVerificationToken
+      );
+      return;
+    }
+
+    if (req.method === "GET" && url.pathname === ssePath) {
+      await handleSseRequest(res);
+      return;
+    }
+
+    if (req.method === "POST" && url.pathname === postPath) {
+      await handlePostMessage(req, res, url);
+      return;
+    }
+
+    if (url.pathname === subscribePath) {
+      await handleSubscribe(req, res);
+      return;
+    }
+
+    if (url.pathname === analyticsPath) {
+      await handleAnalytics(req, res);
+      return;
+    }
+
+    if (url.pathname === trackEventPath) {
+      await handleTrackEvent(req, res);
+      return;
+    }
+
+    // AI-powered trip parsing endpoint
+    if (req.method === "POST" && url.pathname === "/api/parse-trip") {
+      await handleParseTripAI(req, res);
+      return;
+    }
+
+    if (req.method === "OPTIONS" && url.pathname === "/api/parse-trip") {
+      res.writeHead(204, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "content-type",
+      });
+      res.end();
+      return;
+    }
+
+    // Serve alias for legacy loader path -> our main widget HTML
+    if (req.method === "GET" && url.pathname === "/assets/trip-planner.html") {
+      const mainAssetPath = path.join(ASSETS_DIR, "trip-planner.html");
+      console.log(`[Debug Legacy] Request: ${url.pathname}, Main Path: ${mainAssetPath}, Exists: ${fs.existsSync(mainAssetPath)}`);
+      if (fs.existsSync(mainAssetPath) && fs.statSync(mainAssetPath).isFile()) {
+        res.writeHead(200, {
+          "Content-Type": "text/html",
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache",
+        });
+        fs.createReadStream(mainAssetPath).pipe(res);
+        return;
+      }
+    }
+
+    // Serve static assets from /assets directory
+    if (req.method === "GET" && url.pathname.startsWith("/assets/")) {
+      const assetPath = path.join(ASSETS_DIR, url.pathname.slice(8));
+      if (fs.existsSync(assetPath) && fs.statSync(assetPath).isFile()) {
+        const ext = path.extname(assetPath).toLowerCase();
+        const contentTypeMap: Record<string, string> = {
+          ".js": "application/javascript",
+          ".css": "text/css",
+          ".html": "text/html",
+          ".jpg": "image/jpeg",
+          ".jpeg": "image/jpeg",
+          ".png": "image/png",
+          ".gif": "image/gif",
+          ".webp": "image/webp",
+          ".svg": "image/svg+xml"
+        };
+        const contentType = contentTypeMap[ext] || "application/octet-stream";
+        res.writeHead(200, { 
+          "Content-Type": contentType,
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache"
+        });
+
+        fs.createReadStream(assetPath).pipe(res);
+        return;
+      }
+    }
+
+    res.writeHead(404).end("Not Found");
+  }
+);
+
+httpServer.on("clientError", (err: Error, socket) => {
+  console.error("HTTP client error", err);
+  socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
 });
 
-httpServer.listen(PORT, () => {
-  console.log(`MCP server (SDK 0.5.0) running on http://localhost:${PORT}`);
-  console.log(`SSE endpoint: http://localhost:${PORT}${ssePath}`);
+function startMonitoring() {
+  // Check alerts every hour
+  setInterval(() => {
+    try {
+      const logs = getRecentLogs(7);
+      const alerts = evaluateAlerts(logs);
+      
+      if (alerts.length > 0) {
+        console.log("\n=== 🚨 ACTIVE ALERTS 🚨 ===");
+        alerts.forEach(alert => {
+          console.log(`[ALERT] [${alert.level.toUpperCase()}] ${alert.message}`);
+        });
+        console.log("===========================\n");
+      }
+    } catch (e) {
+      console.error("Monitoring check failed:", e);
+    }
+  }, 60 * 60 * 1000); // 1 hour
+}
+
+httpServer.listen(port, () => {
+  startMonitoring();
+  console.log(`Trip Planner MCP server listening on http://localhost:${port}`);
+  console.log(`  SSE stream: GET http://localhost:${port}${ssePath}`);
+  console.log(
+    `  Message post endpoint: POST http://localhost:${port}${postPath}?sessionId=...`
+  );
 });
