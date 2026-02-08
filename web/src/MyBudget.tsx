@@ -8,9 +8,13 @@ import {
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
 
+type Frequency = "monthly" | "yearly" | "one_time";
+
 interface BudgetItem {
   id: string;
   name: string;
+  amount: number;
+  frequency: Frequency;
   totalValue: number;
   monthlyValue: number;
   quantity?: number;
@@ -86,63 +90,92 @@ const emptyBudget = (): Budget => ({
   updatedAt: Date.now(),
 });
 
-const emptyItem = (): BudgetItem => ({
+const emptyItem = (freq: Frequency = "monthly"): BudgetItem => ({
   id: generateId(),
   name: "",
+  amount: 0,
+  frequency: freq,
   totalValue: 0,
   monthlyValue: 0,
 });
+
+const computeValues = (amount: number, frequency: Frequency): { totalValue: number; monthlyValue: number } => {
+  switch (frequency) {
+    case "monthly": return { totalValue: amount * 12, monthlyValue: amount };
+    case "yearly": return { totalValue: amount, monthlyValue: Math.round((amount / 12) * 100) / 100 };
+    case "one_time": return { totalValue: amount, monthlyValue: 0 };
+  }
+};
 
 const DEMO_BUDGET: Budget = {
   id: "demo_budget",
   name: "My Budget",
   income: [
-    { id: "inc1", name: "rental income (house)", totalValue: 24000, monthlyValue: 1000 },
-    { id: "inc2", name: "rental income (properties)", totalValue: 45000, monthlyValue: 2500 },
-    { id: "inc3", name: "VA payments", totalValue: 34800, monthlyValue: 1450 },
+    { id: "inc1", name: "rental income (house)", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
+    { id: "inc2", name: "rental income (properties)", amount: 2500, frequency: "monthly", totalValue: 30000, monthlyValue: 2500 },
+    { id: "inc3", name: "VA payments", amount: 1450, frequency: "monthly", totalValue: 17400, monthlyValue: 1450 },
   ],
   expenses: [
-    { id: "exp1", name: "finca", totalValue: 24000, monthlyValue: 1000 },
-    { id: "exp2", name: "parma rent", totalValue: 24000, monthlyValue: 1000 },
+    { id: "exp1", name: "finca", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
+    { id: "exp2", name: "parma rent", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
   ],
   assets: [
-    { id: "ast1", name: "btc", totalValue: 140000, monthlyValue: 0, quantity: 2 },
-    { id: "ast2", name: "near", totalValue: 7000, monthlyValue: 0, quantity: 7000 },
-    { id: "ast3", name: "eth", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
-    { id: "ast4", name: "usdc", totalValue: 3500, monthlyValue: 0 },
-    { id: "ast5", name: "coinbase account", totalValue: 73500, monthlyValue: 0 },
-    { id: "ast6", name: "loan from Alex (10,000)", totalValue: 0, monthlyValue: 0 },
-    { id: "ast7", name: "stock market (betterment)", totalValue: 14571, monthlyValue: 0 },
-    { id: "ast8", name: "NEAR.WALLET", totalValue: 2000, monthlyValue: 0, quantity: 2000 },
-    { id: "ast9", name: "SoFi Investment", totalValue: 1000, monthlyValue: 0 },
-    { id: "ast10", name: "Amazon Stock", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", totalValue: 22500, monthlyValue: 0 },
-    { id: "ast12", name: "Settlement?", totalValue: 0, monthlyValue: 0 },
+    { id: "ast1", name: "btc", amount: 140000, frequency: "one_time", totalValue: 140000, monthlyValue: 0, quantity: 2 },
+    { id: "ast2", name: "near", amount: 7000, frequency: "one_time", totalValue: 7000, monthlyValue: 0, quantity: 7000 },
+    { id: "ast3", name: "eth", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
+    { id: "ast4", name: "usdc", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0 },
+    { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
+    { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
+    { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
+    { id: "ast8", name: "NEAR.WALLET", amount: 2000, frequency: "one_time", totalValue: 2000, monthlyValue: 0, quantity: 2000 },
+    { id: "ast9", name: "SoFi Investment", amount: 1000, frequency: "one_time", totalValue: 1000, monthlyValue: 0 },
+    { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
+    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
+    { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
   ],
   nonLiquidAssets: [
-    { id: "nla1", name: "Breitling Gold", totalValue: 19000, monthlyValue: 0 },
-    { id: "nla2", name: "Breguet Tradition", totalValue: 15000, monthlyValue: 0 },
-    { id: "nla3", name: "Breguet Blue", totalValue: 25000, monthlyValue: 0 },
-    { id: "nla4", name: "JLC", totalValue: 25000, monthlyValue: 0 },
-    { id: "nla5", name: "All other watches", totalValue: 10000, monthlyValue: 0 },
-    { id: "nla6", name: "Car", totalValue: 15000, monthlyValue: 0 },
-    { id: "nla7", name: "MontBlanc Pens", totalValue: 5000, monthlyValue: 0 },
+    { id: "nla1", name: "Breitling Gold", amount: 19000, frequency: "one_time", totalValue: 19000, monthlyValue: 0 },
+    { id: "nla2", name: "Breguet Tradition", amount: 15000, frequency: "one_time", totalValue: 15000, monthlyValue: 0 },
+    { id: "nla3", name: "Breguet Blue", amount: 25000, frequency: "one_time", totalValue: 25000, monthlyValue: 0 },
+    { id: "nla4", name: "JLC", amount: 25000, frequency: "one_time", totalValue: 25000, monthlyValue: 0 },
+    { id: "nla5", name: "All other watches", amount: 10000, frequency: "one_time", totalValue: 10000, monthlyValue: 0 },
+    { id: "nla6", name: "Car", amount: 15000, frequency: "one_time", totalValue: 15000, monthlyValue: 0 },
+    { id: "nla7", name: "MontBlanc Pens", amount: 5000, frequency: "one_time", totalValue: 5000, monthlyValue: 0 },
   ],
   liabilities: [
-    { id: "lia1", name: "las palmas apt", totalValue: 50000, monthlyValue: 0 },
-    { id: "lia2", name: "repayment of tammy", totalValue: 20000, monthlyValue: 0 },
-    { id: "lia3", name: "personal monthly expenses", totalValue: 168000, monthlyValue: 7000 },
-    { id: "lia4", name: "remodel las palmas", totalValue: 10000, monthlyValue: 0 },
+    { id: "lia1", name: "las palmas apt", amount: 50000, frequency: "one_time", totalValue: 50000, monthlyValue: 0 },
+    { id: "lia2", name: "repayment of tammy", amount: 20000, frequency: "one_time", totalValue: 20000, monthlyValue: 0 },
+    { id: "lia3", name: "personal monthly expenses", amount: 7000, frequency: "monthly", totalValue: 84000, monthlyValue: 7000 },
+    { id: "lia4", name: "remodel las palmas", amount: 10000, frequency: "one_time", totalValue: 10000, monthlyValue: 0 },
   ],
   nonLiquidDiscount: 25,
   createdAt: Date.now(),
   updatedAt: Date.now(),
 };
 
+// Migrate old items that don't have amount/frequency fields
+const migrateItem = (item: any): BudgetItem => {
+  if (item.amount !== undefined && item.frequency !== undefined) return item;
+  // Infer from old totalValue/monthlyValue
+  if (item.monthlyValue && item.monthlyValue > 0) {
+    return { ...item, amount: item.monthlyValue, frequency: "monthly" as Frequency };
+  }
+  return { ...item, amount: item.totalValue || 0, frequency: "one_time" as Frequency };
+};
+
+const migrateBudget = (b: any): Budget => ({
+  ...b,
+  income: (b.income || []).map(migrateItem),
+  expenses: (b.expenses || []).map(migrateItem),
+  assets: (b.assets || []).map(migrateItem),
+  nonLiquidAssets: (b.nonLiquidAssets || []).map(migrateItem),
+  liabilities: (b.liabilities || []).map(migrateItem),
+});
+
 const loadBudgets = (): Budget[] => {
   try {
     const data = localStorage.getItem(BUDGETS_LIST_KEY);
-    if (data) return JSON.parse(data);
+    if (data) return JSON.parse(data).map(migrateBudget);
   } catch {}
   return [];
 };
@@ -154,7 +187,7 @@ const saveBudgets = (budgets: Budget[]) => {
 const loadCurrentBudget = (): Budget | null => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    if (data) return JSON.parse(data);
+    if (data) return migrateBudget(JSON.parse(data));
   } catch {}
   return null;
 };
@@ -249,27 +282,28 @@ const SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count
   </button>
 );
 
+// ─── Input Mode Types ─────────────────────────────────────────────────────────
+// "recurring" = Income, Expenses, recurring Liabilities → Amount + Frequency (monthly/yearly)
+// "asset" = Assets → Value + optional Quantity
+// "value_only" = Non-Liquid Assets → just Value
+
+type InputMode = "recurring" | "asset" | "value_only";
+
 // ─── Editable Item Row ────────────────────────────────────────────────────────
 
-const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }: {
-  item: BudgetItem; onUpdate: (u: Partial<BudgetItem>) => void; onDelete: () => void; showQuantity?: boolean; showMonthly?: boolean; color: string;
+const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
+  item: BudgetItem; onUpdate: (u: Partial<BudgetItem>) => void; onDelete: () => void; inputMode: InputMode; color: string;
 }) => {
-  const isNew = !item.totalValue && !item.monthlyValue;
+  const isNew = !item.amount;
   const [editing, setEditing] = useState(isNew);
   const [draft, setDraft] = useState(item);
 
   useEffect(() => { setDraft(item); }, [item]);
 
   const save = () => {
-    // Auto-calculate total from monthly if only monthly provided
-    if (draft.monthlyValue && !draft.totalValue) {
-      draft.totalValue = draft.monthlyValue * 12;
-    }
-    // Auto-calculate monthly from total if only total provided
-    if (draft.totalValue && !draft.monthlyValue && showMonthly) {
-      draft.monthlyValue = Math.round((draft.totalValue / 12) * 100) / 100;
-    }
-    onUpdate(draft);
+    const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
+    const computed = computeValues(draft.amount, freq);
+    onUpdate({ ...draft, frequency: freq, ...computed });
     setEditing(false);
   };
 
@@ -279,33 +313,60 @@ const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }:
     outline: "none",
   };
 
+  const selectStyle: React.CSSProperties = {
+    ...inputStyle, appearance: "none" as const, backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
+    backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center", paddingRight: 24,
+  };
+
+  const freqLabel = (f: Frequency) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
+
   if (editing) {
     return (
       <div style={{ padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }}>
-        <div style={{ display: "grid", gridTemplateColumns: showQuantity ? "1fr 1fr 1fr" : showMonthly ? "1fr 1fr 1fr" : "1fr 1fr", gap: 8, marginBottom: 8 }}>
-          <div style={{ gridColumn: "1 / -1" }}>
-            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Name</label>
-            <input autoFocus style={inputStyle} value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Description" />
-          </div>
-          <div>
-            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Total Value</label>
-            <input style={inputStyle} type="number" value={draft.totalValue || ""} onChange={e => setDraft({ ...draft, totalValue: parseFloat(e.target.value) || 0 })} placeholder="$0" />
-          </div>
-          {showMonthly && (
+        <div style={{ marginBottom: 8 }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Name</label>
+          <input autoFocus={!draft.name} style={inputStyle} value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Description" />
+        </div>
+
+        {inputMode === "recurring" && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Monthly</label>
-              <input style={inputStyle} type="number" value={draft.monthlyValue || ""} onChange={e => setDraft({ ...draft, monthlyValue: parseFloat(e.target.value) || 0 })} placeholder="$0/mo" />
+              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Amount</label>
+              <input autoFocus={!!draft.name} style={inputStyle} type="number" value={draft.amount || ""} onChange={e => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 })} placeholder="$0" />
             </div>
-          )}
-          {showQuantity && (
             <div>
-              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Quantity</label>
+              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Frequency</label>
+              <select style={selectStyle} value={draft.frequency || "monthly"} onChange={e => setDraft({ ...draft, frequency: e.target.value as Frequency })}>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+                <option value="one_time">One-time</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {inputMode === "asset" && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
+            <div>
+              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Value</label>
+              <input autoFocus={!!draft.name} style={inputStyle} type="number" value={draft.amount || ""} onChange={e => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 })} placeholder="$0" />
+            </div>
+            <div>
+              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Quantity (optional)</label>
               <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => setDraft({ ...draft, quantity: parseFloat(e.target.value) || undefined })} placeholder="Qty" />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
+        {inputMode === "value_only" && (
+          <div style={{ marginBottom: 8 }}>
+            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Value</label>
+            <input autoFocus={!!draft.name} style={inputStyle} type="number" value={draft.amount || ""} onChange={e => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 })} placeholder="$0" />
+          </div>
+        )}
+
         <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-          <button onClick={() => { if (!item.name) { onDelete(); } else { setDraft(item); setEditing(false); } }} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 12, cursor: "pointer", color: COLORS.textSecondary }}>Cancel</button>
+          <button onClick={() => { if (!item.name && !item.amount) { onDelete(); } else { setDraft(item); setEditing(false); } }} style={{ padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 12, cursor: "pointer", color: COLORS.textSecondary }}>Cancel</button>
           <button onClick={save} style={{ padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: color, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Save</button>
         </div>
       </div>
@@ -322,7 +383,9 @@ const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }:
         <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.name || "Unnamed"}</div>
         <div style={{ fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }}>
           {item.quantity !== undefined && item.quantity > 0 && <span>Qty: {item.quantity}</span>}
-          {showMonthly && item.monthlyValue > 0 && <span>{fmt(item.monthlyValue)}/mo</span>}
+          {inputMode === "recurring" && item.frequency !== "one_time" && <span>{fmt(item.amount)}{freqLabel(item.frequency)}</span>}
+          {inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && <span>({fmt(item.monthlyValue)}/mo)</span>}
+          {inputMode === "recurring" && item.frequency === "monthly" && <span>({fmt(item.totalValue)}/yr)</span>}
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -336,14 +399,15 @@ const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }:
 
 // ─── Budget Section ───────────────────────────────────────────────────────────
 
-const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, showQuantity, showMonthly, presets }: {
+const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets }: {
   title: string; icon: React.ReactNode; color: string; bgColor: string;
   items: BudgetItem[]; onUpdate: (id: string, u: Partial<BudgetItem>) => void;
   onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
-  showQuantity?: boolean; showMonthly?: boolean; presets?: Preset[];
+  inputMode: InputMode; presets?: Preset[];
 }) => {
   const [isOpen, setIsOpen] = useState(items.length > 0);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
+  const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : undefined;
 
   // Filter out presets that already exist as items
@@ -359,7 +423,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
           {items.map(item => (
             <ItemRow key={item.id} item={item} color={color}
               onUpdate={u => onUpdate(item.id, u)} onDelete={() => onDelete(item.id)}
-              showQuantity={showQuantity} showMonthly={showMonthly} />
+              inputMode={inputMode} />
           ))}
 
           {/* Preset chips - always visible */}
@@ -588,18 +652,18 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
-  const addItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">) => {
+  const addItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, freq: Frequency = "monthly") => {
     setBudget(b => ({
       ...b,
-      [section]: [...b[section], emptyItem()],
+      [section]: [...b[section], emptyItem(freq)],
       updatedAt: Date.now(),
     }));
   };
 
-  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, name: string) => {
+  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, name: string, freq: Frequency = "monthly") => {
     setBudget(b => ({
       ...b,
-      [section]: [...b[section], { ...emptyItem(), name }],
+      [section]: [...b[section], { ...emptyItem(freq), name }],
       updatedAt: Date.now(),
     }));
   };
@@ -766,42 +830,42 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
         {/* Income */}
         <BudgetSection title="Income" icon={<TrendingUp size={18} />} color={COLORS.income} bgColor={COLORS.incomeBg}
-          items={budget.income} showMonthly presets={PRESETS.income}
+          items={budget.income} inputMode="recurring" presets={PRESETS.income}
           onUpdate={(id, u) => updateItem("income", id, u)}
-          onAdd={() => addItem("income")}
-          onAddPreset={name => addPresetItem("income", name)}
+          onAdd={() => addItem("income", "monthly")}
+          onAddPreset={name => addPresetItem("income", name, "monthly")}
           onDelete={id => deleteItem("income", id)} />
 
         {/* Expenses */}
         <BudgetSection title="Expenses" icon={<TrendingDown size={18} />} color={COLORS.expense} bgColor={COLORS.expenseBg}
-          items={budget.expenses} showMonthly presets={PRESETS.expenses}
+          items={budget.expenses} inputMode="recurring" presets={PRESETS.expenses}
           onUpdate={(id, u) => updateItem("expenses", id, u)}
-          onAdd={() => addItem("expenses")}
-          onAddPreset={name => addPresetItem("expenses", name)}
+          onAdd={() => addItem("expenses", "monthly")}
+          onAddPreset={name => addPresetItem("expenses", name, "monthly")}
           onDelete={id => deleteItem("expenses", id)} />
 
         {/* Assets */}
         <BudgetSection title="Assets" icon={<Wallet size={18} />} color={COLORS.asset} bgColor={COLORS.assetBg}
-          items={budget.assets} showQuantity presets={PRESETS.assets}
+          items={budget.assets} inputMode="asset" presets={PRESETS.assets}
           onUpdate={(id, u) => updateItem("assets", id, u)}
-          onAdd={() => addItem("assets")}
-          onAddPreset={name => addPresetItem("assets", name)}
+          onAdd={() => addItem("assets", "one_time")}
+          onAddPreset={name => addPresetItem("assets", name, "one_time")}
           onDelete={id => deleteItem("assets", id)} />
 
         {/* Non-Liquid Assets */}
         <BudgetSection title="Non-Liquid Assets" icon={<Building2 size={18} />} color={COLORS.nonLiquid} bgColor={COLORS.nonLiquidBg}
-          items={budget.nonLiquidAssets} presets={PRESETS.nonLiquidAssets}
+          items={budget.nonLiquidAssets} inputMode="value_only" presets={PRESETS.nonLiquidAssets}
           onUpdate={(id, u) => updateItem("nonLiquidAssets", id, u)}
-          onAdd={() => addItem("nonLiquidAssets")}
-          onAddPreset={name => addPresetItem("nonLiquidAssets", name)}
+          onAdd={() => addItem("nonLiquidAssets", "one_time")}
+          onAddPreset={name => addPresetItem("nonLiquidAssets", name, "one_time")}
           onDelete={id => deleteItem("nonLiquidAssets", id)} />
 
         {/* Liabilities */}
         <BudgetSection title="Liabilities" icon={<AlertTriangle size={18} />} color={COLORS.liability} bgColor={COLORS.liabilityBg}
-          items={budget.liabilities} showMonthly presets={PRESETS.liabilities}
+          items={budget.liabilities} inputMode="recurring" presets={PRESETS.liabilities}
           onUpdate={(id, u) => updateItem("liabilities", id, u)}
-          onAdd={() => addItem("liabilities")}
-          onAddPreset={name => addPresetItem("liabilities", name)}
+          onAdd={() => addItem("liabilities", "one_time")}
+          onAddPreset={name => addPresetItem("liabilities", name, "one_time")}
           onDelete={id => deleteItem("liabilities", id)} />
 
         {/* Non-Liquid Discount Slider */}

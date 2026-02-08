@@ -24762,61 +24762,88 @@ var emptyBudget = () => ({
   createdAt: Date.now(),
   updatedAt: Date.now()
 });
-var emptyItem = () => ({
+var emptyItem = (freq = "monthly") => ({
   id: generateId(),
   name: "",
+  amount: 0,
+  frequency: freq,
   totalValue: 0,
   monthlyValue: 0
 });
+var computeValues = (amount, frequency) => {
+  switch (frequency) {
+    case "monthly":
+      return { totalValue: amount * 12, monthlyValue: amount };
+    case "yearly":
+      return { totalValue: amount, monthlyValue: Math.round(amount / 12 * 100) / 100 };
+    case "one_time":
+      return { totalValue: amount, monthlyValue: 0 };
+  }
+};
 var DEMO_BUDGET = {
   id: "demo_budget",
   name: "My Budget",
   income: [
-    { id: "inc1", name: "rental income (house)", totalValue: 24e3, monthlyValue: 1e3 },
-    { id: "inc2", name: "rental income (properties)", totalValue: 45e3, monthlyValue: 2500 },
-    { id: "inc3", name: "VA payments", totalValue: 34800, monthlyValue: 1450 }
+    { id: "inc1", name: "rental income (house)", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 },
+    { id: "inc2", name: "rental income (properties)", amount: 2500, frequency: "monthly", totalValue: 3e4, monthlyValue: 2500 },
+    { id: "inc3", name: "VA payments", amount: 1450, frequency: "monthly", totalValue: 17400, monthlyValue: 1450 }
   ],
   expenses: [
-    { id: "exp1", name: "finca", totalValue: 24e3, monthlyValue: 1e3 },
-    { id: "exp2", name: "parma rent", totalValue: 24e3, monthlyValue: 1e3 }
+    { id: "exp1", name: "finca", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 },
+    { id: "exp2", name: "parma rent", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 }
   ],
   assets: [
-    { id: "ast1", name: "btc", totalValue: 14e4, monthlyValue: 0, quantity: 2 },
-    { id: "ast2", name: "near", totalValue: 7e3, monthlyValue: 0, quantity: 7e3 },
-    { id: "ast3", name: "eth", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
-    { id: "ast4", name: "usdc", totalValue: 3500, monthlyValue: 0 },
-    { id: "ast5", name: "coinbase account", totalValue: 73500, monthlyValue: 0 },
-    { id: "ast6", name: "loan from Alex (10,000)", totalValue: 0, monthlyValue: 0 },
-    { id: "ast7", name: "stock market (betterment)", totalValue: 14571, monthlyValue: 0 },
-    { id: "ast8", name: "NEAR.WALLET", totalValue: 2e3, monthlyValue: 0, quantity: 2e3 },
-    { id: "ast9", name: "SoFi Investment", totalValue: 1e3, monthlyValue: 0 },
-    { id: "ast10", name: "Amazon Stock", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", totalValue: 22500, monthlyValue: 0 },
-    { id: "ast12", name: "Settlement?", totalValue: 0, monthlyValue: 0 }
+    { id: "ast1", name: "btc", amount: 14e4, frequency: "one_time", totalValue: 14e4, monthlyValue: 0, quantity: 2 },
+    { id: "ast2", name: "near", amount: 7e3, frequency: "one_time", totalValue: 7e3, monthlyValue: 0, quantity: 7e3 },
+    { id: "ast3", name: "eth", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
+    { id: "ast4", name: "usdc", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0 },
+    { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
+    { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
+    { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
+    { id: "ast8", name: "NEAR.WALLET", amount: 2e3, frequency: "one_time", totalValue: 2e3, monthlyValue: 0, quantity: 2e3 },
+    { id: "ast9", name: "SoFi Investment", amount: 1e3, frequency: "one_time", totalValue: 1e3, monthlyValue: 0 },
+    { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
+    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
+    { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 }
   ],
   nonLiquidAssets: [
-    { id: "nla1", name: "Breitling Gold", totalValue: 19e3, monthlyValue: 0 },
-    { id: "nla2", name: "Breguet Tradition", totalValue: 15e3, monthlyValue: 0 },
-    { id: "nla3", name: "Breguet Blue", totalValue: 25e3, monthlyValue: 0 },
-    { id: "nla4", name: "JLC", totalValue: 25e3, monthlyValue: 0 },
-    { id: "nla5", name: "All other watches", totalValue: 1e4, monthlyValue: 0 },
-    { id: "nla6", name: "Car", totalValue: 15e3, monthlyValue: 0 },
-    { id: "nla7", name: "MontBlanc Pens", totalValue: 5e3, monthlyValue: 0 }
+    { id: "nla1", name: "Breitling Gold", amount: 19e3, frequency: "one_time", totalValue: 19e3, monthlyValue: 0 },
+    { id: "nla2", name: "Breguet Tradition", amount: 15e3, frequency: "one_time", totalValue: 15e3, monthlyValue: 0 },
+    { id: "nla3", name: "Breguet Blue", amount: 25e3, frequency: "one_time", totalValue: 25e3, monthlyValue: 0 },
+    { id: "nla4", name: "JLC", amount: 25e3, frequency: "one_time", totalValue: 25e3, monthlyValue: 0 },
+    { id: "nla5", name: "All other watches", amount: 1e4, frequency: "one_time", totalValue: 1e4, monthlyValue: 0 },
+    { id: "nla6", name: "Car", amount: 15e3, frequency: "one_time", totalValue: 15e3, monthlyValue: 0 },
+    { id: "nla7", name: "MontBlanc Pens", amount: 5e3, frequency: "one_time", totalValue: 5e3, monthlyValue: 0 }
   ],
   liabilities: [
-    { id: "lia1", name: "las palmas apt", totalValue: 5e4, monthlyValue: 0 },
-    { id: "lia2", name: "repayment of tammy", totalValue: 2e4, monthlyValue: 0 },
-    { id: "lia3", name: "personal monthly expenses", totalValue: 168e3, monthlyValue: 7e3 },
-    { id: "lia4", name: "remodel las palmas", totalValue: 1e4, monthlyValue: 0 }
+    { id: "lia1", name: "las palmas apt", amount: 5e4, frequency: "one_time", totalValue: 5e4, monthlyValue: 0 },
+    { id: "lia2", name: "repayment of tammy", amount: 2e4, frequency: "one_time", totalValue: 2e4, monthlyValue: 0 },
+    { id: "lia3", name: "personal monthly expenses", amount: 7e3, frequency: "monthly", totalValue: 84e3, monthlyValue: 7e3 },
+    { id: "lia4", name: "remodel las palmas", amount: 1e4, frequency: "one_time", totalValue: 1e4, monthlyValue: 0 }
   ],
   nonLiquidDiscount: 25,
   createdAt: Date.now(),
   updatedAt: Date.now()
 };
+var migrateItem = (item) => {
+  if (item.amount !== void 0 && item.frequency !== void 0) return item;
+  if (item.monthlyValue && item.monthlyValue > 0) {
+    return { ...item, amount: item.monthlyValue, frequency: "monthly" };
+  }
+  return { ...item, amount: item.totalValue || 0, frequency: "one_time" };
+};
+var migrateBudget = (b) => ({
+  ...b,
+  income: (b.income || []).map(migrateItem),
+  expenses: (b.expenses || []).map(migrateItem),
+  assets: (b.assets || []).map(migrateItem),
+  nonLiquidAssets: (b.nonLiquidAssets || []).map(migrateItem),
+  liabilities: (b.liabilities || []).map(migrateItem)
+});
 var loadBudgets = () => {
   try {
     const data = localStorage.getItem(BUDGETS_LIST_KEY);
-    if (data) return JSON.parse(data);
+    if (data) return JSON.parse(data).map(migrateBudget);
   } catch {
   }
   return [];
@@ -24830,7 +24857,7 @@ var saveBudgets = (budgets) => {
 var loadCurrentBudget = () => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    if (data) return JSON.parse(data);
+    if (data) return migrateBudget(JSON.parse(data));
   } catch {
   }
   return null;
@@ -24924,21 +24951,17 @@ var SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count, 
     isOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { size: 18, color: COLORS.textSecondary }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 18, color: COLORS.textSecondary })
   ] })
 ] });
-var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) => {
-  const isNew = !item.totalValue && !item.monthlyValue;
+var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
+  const isNew = !item.amount;
   const [editing, setEditing] = (0, import_react3.useState)(isNew);
   const [draft, setDraft] = (0, import_react3.useState)(item);
   (0, import_react3.useEffect)(() => {
     setDraft(item);
   }, [item]);
   const save = () => {
-    if (draft.monthlyValue && !draft.totalValue) {
-      draft.totalValue = draft.monthlyValue * 12;
-    }
-    if (draft.totalValue && !draft.monthlyValue && showMonthly) {
-      draft.monthlyValue = Math.round(draft.totalValue / 12 * 100) / 100;
-    }
-    onUpdate(draft);
+    const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
+    const computed = computeValues(draft.amount, freq);
+    onUpdate({ ...draft, frequency: freq, ...computed });
     setEditing(false);
   };
   const inputStyle = {
@@ -24951,29 +24974,52 @@ var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) =
     fontFamily: "inherit",
     outline: "none"
   };
+  const selectStyle = {
+    ...inputStyle,
+    appearance: "none",
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 8px center",
+    paddingRight: 24
+  };
+  const freqLabel = (f) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
   if (editing) {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: showQuantity ? "1fr 1fr 1fr" : showMonthly ? "1fr 1fr 1fr" : "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { gridColumn: "1 / -1" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: true, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
+      ] }),
+      inputMode === "recurring" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Amount" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Total Value" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", value: draft.totalValue || "", onChange: (e) => setDraft({ ...draft, totalValue: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Frequency" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", { style: selectStyle, value: draft.frequency || "monthly", onChange: (e) => setDraft({ ...draft, frequency: e.target.value }), children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "monthly", children: "Monthly" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "yearly", children: "Yearly" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "one_time", children: "One-time" })
+          ] })
+        ] })
+      ] }),
+      inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
-        showMonthly && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Monthly" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", value: draft.monthlyValue || "", onChange: (e) => setDraft({ ...draft, monthlyValue: parseFloat(e.target.value) || 0 }), placeholder: "$0/mo" })
-        ] }),
-        showQuantity && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity (optional)" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => setDraft({ ...draft, quantity: parseFloat(e.target.value) || void 0 }), placeholder: "Qty" })
         ] })
       ] }),
+      inputMode === "value_only" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, justifyContent: "flex-end" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
-          if (!item.name) {
+          if (!item.name && !item.amount) {
             onDelete();
           } else {
             setDraft(item);
@@ -25002,9 +25048,19 @@ var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) =
           "Qty: ",
           item.quantity
         ] }),
-        showMonthly && item.monthlyValue > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        inputMode === "recurring" && item.frequency !== "one_time" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          fmt(item.amount),
+          freqLabel(item.frequency)
+        ] }),
+        inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          "(",
           fmt(item.monthlyValue),
-          "/mo"
+          "/mo)"
+        ] }),
+        inputMode === "recurring" && item.frequency === "monthly" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          "(",
+          fmt(item.totalValue),
+          "/yr)"
         ] })
       ] })
     ] }),
@@ -25015,9 +25071,10 @@ var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) =
     ] })
   ] });
 };
-var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, showQuantity, showMonthly, presets }) => {
+var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets }) => {
   const [isOpen, setIsOpen] = (0, import_react3.useState)(items.length > 0);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
+  const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
   const existingNames = new Set(items.map((i) => i.name.toLowerCase()));
   const availablePresets = (presets || []).filter((p) => !existingNames.has(p.name.toLowerCase()));
@@ -25044,8 +25101,7 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
           color,
           onUpdate: (u) => onUpdate(item.id, u),
           onDelete: () => onDelete(item.id),
-          showQuantity,
-          showMonthly
+          inputMode
         },
         item.id
       )),
@@ -25290,17 +25346,17 @@ function MyBudget({ initialData: initialData2 }) {
       updatedAt: Date.now()
     }));
   };
-  const addItem = (section) => {
+  const addItem = (section, freq = "monthly") => {
     setBudget((b) => ({
       ...b,
-      [section]: [...b[section], emptyItem()],
+      [section]: [...b[section], emptyItem(freq)],
       updatedAt: Date.now()
     }));
   };
-  const addPresetItem = (section, name) => {
+  const addPresetItem = (section, name, freq = "monthly") => {
     setBudget((b) => ({
       ...b,
-      [section]: [...b[section], { ...emptyItem(), name }],
+      [section]: [...b[section], { ...emptyItem(freq), name }],
       updatedAt: Date.now()
     }));
   };
@@ -25508,11 +25564,11 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.income,
           bgColor: COLORS.incomeBg,
           items: budget.income,
-          showMonthly: true,
+          inputMode: "recurring",
           presets: PRESETS.income,
           onUpdate: (id, u) => updateItem("income", id, u),
-          onAdd: () => addItem("income"),
-          onAddPreset: (name) => addPresetItem("income", name),
+          onAdd: () => addItem("income", "monthly"),
+          onAddPreset: (name) => addPresetItem("income", name, "monthly"),
           onDelete: (id) => deleteItem("income", id)
         }
       ),
@@ -25524,11 +25580,11 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.expense,
           bgColor: COLORS.expenseBg,
           items: budget.expenses,
-          showMonthly: true,
+          inputMode: "recurring",
           presets: PRESETS.expenses,
           onUpdate: (id, u) => updateItem("expenses", id, u),
-          onAdd: () => addItem("expenses"),
-          onAddPreset: (name) => addPresetItem("expenses", name),
+          onAdd: () => addItem("expenses", "monthly"),
+          onAddPreset: (name) => addPresetItem("expenses", name, "monthly"),
           onDelete: (id) => deleteItem("expenses", id)
         }
       ),
@@ -25540,11 +25596,11 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.asset,
           bgColor: COLORS.assetBg,
           items: budget.assets,
-          showQuantity: true,
+          inputMode: "asset",
           presets: PRESETS.assets,
           onUpdate: (id, u) => updateItem("assets", id, u),
-          onAdd: () => addItem("assets"),
-          onAddPreset: (name) => addPresetItem("assets", name),
+          onAdd: () => addItem("assets", "one_time"),
+          onAddPreset: (name) => addPresetItem("assets", name, "one_time"),
           onDelete: (id) => deleteItem("assets", id)
         }
       ),
@@ -25556,10 +25612,11 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.nonLiquid,
           bgColor: COLORS.nonLiquidBg,
           items: budget.nonLiquidAssets,
+          inputMode: "value_only",
           presets: PRESETS.nonLiquidAssets,
           onUpdate: (id, u) => updateItem("nonLiquidAssets", id, u),
-          onAdd: () => addItem("nonLiquidAssets"),
-          onAddPreset: (name) => addPresetItem("nonLiquidAssets", name),
+          onAdd: () => addItem("nonLiquidAssets", "one_time"),
+          onAddPreset: (name) => addPresetItem("nonLiquidAssets", name, "one_time"),
           onDelete: (id) => deleteItem("nonLiquidAssets", id)
         }
       ),
@@ -25571,11 +25628,11 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.liability,
           bgColor: COLORS.liabilityBg,
           items: budget.liabilities,
-          showMonthly: true,
+          inputMode: "recurring",
           presets: PRESETS.liabilities,
           onUpdate: (id, u) => updateItem("liabilities", id, u),
-          onAdd: () => addItem("liabilities"),
-          onAddPreset: (name) => addPresetItem("liabilities", name),
+          onAdd: () => addItem("liabilities", "one_time"),
+          onAddPreset: (name) => addPresetItem("liabilities", name, "one_time"),
           onDelete: (id) => deleteItem("liabilities", id)
         }
       ),
