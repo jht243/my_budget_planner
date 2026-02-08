@@ -25232,11 +25232,13 @@ var SummarySection = ({ budget }) => {
   const totalNonLiquidAssets = budget.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
   const totalRetirement = budget.retirement.reduce((s, i) => s + i.totalValue, 0);
   const nonLiquidAtDiscount = totalNonLiquidAssets * (1 - budget.nonLiquidDiscount / 100);
+  const oneTimeLiabilities = budget.liabilities.filter((i) => i.frequency === "one_time").reduce((s, i) => s + i.totalValue, 0);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - totalLiabilities;
-  const liquidAfterLiabilities = totalLiquidAssets - totalLiabilities;
+  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - oneTimeLiabilities;
+  const liquidAfterLiabilities = totalLiquidAssets - oneTimeLiabilities;
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
-  const runwayMonths = monthlyBurn > 0 && totalLiquidAssets > 0 ? totalLiquidAssets / monthlyBurn : null;
+  const liquidForRunway = Math.max(0, liquidAfterLiabilities);
+  const runwayMonths = monthlyBurn > 0 && liquidForRunway > 0 ? liquidForRunway / monthlyBurn : null;
   const runwayYears = runwayMonths ? runwayMonths / 12 : null;
   const savingsRate = totalMonthlyIncome > 0 ? monthlyNet / totalMonthlyIncome * 100 : 0;
   const isPositive = monthlyNet >= 0;
@@ -25294,13 +25296,13 @@ var SummarySection = ({ budget }) => {
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Net Worth", value: fmt(netWorth), color: netWorth >= 0 ? COLORS.positive : COLORS.negative, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 16 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liquid Assets", value: fmt(totalLiquidAssets), subtext: `After liabilities: ${fmt(liquidAfterLiabilities)}`, color: COLORS.asset, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Wallet, { size: 16 }) })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liquid Assets", value: fmt(totalLiquidAssets), subtext: `After debts: ${fmt(liquidAfterLiabilities)}`, color: COLORS.asset, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Wallet, { size: 16 }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Non-Liquid", value: fmt(totalNonLiquidAssets), subtext: `At ${budget.nonLiquidDiscount}% discount: ${fmt(nonLiquidAtDiscount)}`, color: COLORS.nonLiquid, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Building2, { size: 16 }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Retirement", value: fmt(totalRetirement), subtext: "Not included in runway", color: COLORS.retirement, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Landmark, { size: 16 }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liabilities", value: fmt(totalLiabilities), color: COLORS.liability, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 16 }) }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatCard, { label: "Liabilities (one-time)", value: fmt(oneTimeLiabilities), subtext: totalMonthlyLiabilityPayments > 0 ? `+ ${fmt(totalMonthlyLiabilityPayments)}/mo recurring` : void 0, color: COLORS.liability, icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 16 }) }) }),
     runwayMonths !== null && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       backgroundColor: COLORS.expenseBg,
       borderRadius: 12,
@@ -25354,7 +25356,7 @@ var SummarySection = ({ budget }) => {
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: "Leftover Summary" }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "Liquid (after liabilities)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "Liquid (after one-time liabilities)" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(liquidAfterLiabilities) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [

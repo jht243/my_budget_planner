@@ -511,14 +511,18 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
   const totalNonLiquidAssets = budget.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
   const totalRetirement = budget.retirement.reduce((s, i) => s + i.totalValue, 0);
   const nonLiquidAtDiscount = totalNonLiquidAssets * (1 - budget.nonLiquidDiscount / 100);
+
+  // Separate one-time liabilities (lump sums owed) from recurring liabilities (monthly payments)
+  const oneTimeLiabilities = budget.liabilities.filter(i => i.frequency === "one_time").reduce((s, i) => s + i.totalValue, 0);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
 
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - totalLiabilities;
-  const liquidAfterLiabilities = totalLiquidAssets - totalLiabilities;
+  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - oneTimeLiabilities;
+  const liquidAfterLiabilities = totalLiquidAssets - oneTimeLiabilities;
 
-  // Runway: how many months liquid assets last if spending > income (excludes retirement)
+  // Runway: how many months liquid assets (minus one-time debts) last at current burn rate
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
-  const runwayMonths = monthlyBurn > 0 && totalLiquidAssets > 0 ? totalLiquidAssets / monthlyBurn : null;
+  const liquidForRunway = Math.max(0, liquidAfterLiabilities);
+  const runwayMonths = monthlyBurn > 0 && liquidForRunway > 0 ? liquidForRunway / monthlyBurn : null;
   const runwayYears = runwayMonths ? runwayMonths / 12 : null;
 
   // Growth: annual savings rate
@@ -573,7 +577,7 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
       {/* Asset Overview */}
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
         <StatCard label="Net Worth" value={fmt(netWorth)} color={netWorth >= 0 ? COLORS.positive : COLORS.negative} icon={<TrendingUp size={16} />} />
-        <StatCard label="Liquid Assets" value={fmt(totalLiquidAssets)} subtext={`After liabilities: ${fmt(liquidAfterLiabilities)}`} color={COLORS.asset} icon={<Wallet size={16} />} />
+        <StatCard label="Liquid Assets" value={fmt(totalLiquidAssets)} subtext={`After debts: ${fmt(liquidAfterLiabilities)}`} color={COLORS.asset} icon={<Wallet size={16} />} />
       </div>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
@@ -582,7 +586,7 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
       </div>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        <StatCard label="Liabilities" value={fmt(totalLiabilities)} color={COLORS.liability} icon={<AlertTriangle size={16} />} />
+        <StatCard label="Liabilities (one-time)" value={fmt(oneTimeLiabilities)} subtext={totalMonthlyLiabilityPayments > 0 ? `+ ${fmt(totalMonthlyLiabilityPayments)}/mo recurring` : undefined} color={COLORS.liability} icon={<AlertTriangle size={16} />} />
       </div>
 
       {/* Runway / Projection */}
@@ -632,7 +636,7 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Liquid (after liabilities)</span>
+            <span style={{ fontSize: 13, color: COLORS.textSecondary }}>Liquid (after one-time liabilities)</span>
             <span style={{ fontSize: 16, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }}>{fmtExact(liquidAfterLiabilities)}</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
