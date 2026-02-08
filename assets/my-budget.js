@@ -2433,7 +2433,7 @@ var require_react_dom_development = __commonJS({
         var HostPortal = 4;
         var HostComponent = 5;
         var HostText = 6;
-        var Fragment = 7;
+        var Fragment2 = 7;
         var Mode = 8;
         var ContextConsumer = 9;
         var ContextProvider = 10;
@@ -3589,7 +3589,7 @@ var require_react_dom_development = __commonJS({
               return "DehydratedFragment";
             case ForwardRef:
               return getWrappedName$1(type, type.render, "ForwardRef");
-            case Fragment:
+            case Fragment2:
               return "Fragment";
             case HostComponent:
               return type;
@@ -11972,7 +11972,7 @@ var require_react_dom_development = __commonJS({
             }
           }
           function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-            if (current2 === null || current2.tag !== Fragment) {
+            if (current2 === null || current2.tag !== Fragment2) {
               var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
               created.return = returnFiber;
               return created;
@@ -12375,7 +12375,7 @@ var require_react_dom_development = __commonJS({
               if (child.key === key) {
                 var elementType = element.type;
                 if (elementType === REACT_FRAGMENT_TYPE) {
-                  if (child.tag === Fragment) {
+                  if (child.tag === Fragment2) {
                     deleteRemainingChildren(returnFiber, child.sibling);
                     var existing = useFiber(child, element.props.children);
                     existing.return = returnFiber;
@@ -17850,7 +17850,7 @@ var require_react_dom_development = __commonJS({
               var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
               return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
             }
-            case Fragment:
+            case Fragment2:
               return updateFragment(current2, workInProgress2, renderLanes2);
             case Mode:
               return updateMode(current2, workInProgress2, renderLanes2);
@@ -18122,7 +18122,7 @@ var require_react_dom_development = __commonJS({
             case SimpleMemoComponent:
             case FunctionComponent:
             case ForwardRef:
-            case Fragment:
+            case Fragment2:
             case Mode:
             case Profiler:
             case ContextConsumer:
@@ -22373,7 +22373,7 @@ var require_react_dom_development = __commonJS({
           return fiber;
         }
         function createFiberFromFragment(elements, mode, lanes, key) {
-          var fiber = createFiber(Fragment, elements, key, mode);
+          var fiber = createFiber(Fragment2, elements, key, mode);
           fiber.lanes = lanes;
           return fiber;
         }
@@ -24787,6 +24787,55 @@ var saveCurrentBudget = (budget) => {
   } catch {
   }
 };
+var PRESETS = {
+  income: [
+    { name: "Work Salary", emoji: "\u{1F4BC}" },
+    { name: "Freelance Income", emoji: "\u{1F4BB}" },
+    { name: "Rental Income", emoji: "\u{1F3E0}" },
+    { name: "Investment Dividends", emoji: "\u{1F4C8}" },
+    { name: "Government Benefits", emoji: "\u{1F3DB}\uFE0F" },
+    { name: "Side Business", emoji: "\u{1F3EA}" },
+    { name: "Pension", emoji: "\u{1F9D3}" }
+  ],
+  expenses: [
+    { name: "Rent", emoji: "\u{1F3E0}" },
+    { name: "Mortgage Payment", emoji: "\u{1F3E6}" },
+    { name: "Utilities", emoji: "\u{1F4A1}" },
+    { name: "Groceries", emoji: "\u{1F6D2}" },
+    { name: "Car Payment", emoji: "\u{1F697}" },
+    { name: "Insurance", emoji: "\u{1F6E1}\uFE0F" },
+    { name: "Subscriptions", emoji: "\u{1F4FA}" },
+    { name: "Phone Bill", emoji: "\u{1F4F1}" },
+    { name: "Internet", emoji: "\u{1F310}" },
+    { name: "Gas/Transportation", emoji: "\u26FD" }
+  ],
+  assets: [
+    { name: "Checking Account", emoji: "\u{1F3E6}" },
+    { name: "Savings Account", emoji: "\u{1F4B0}" },
+    { name: "Stocks/Brokerage", emoji: "\u{1F4CA}" },
+    { name: "Crypto", emoji: "\u20BF" },
+    { name: "401k/Retirement", emoji: "\u{1F9D3}" },
+    { name: "Emergency Fund", emoji: "\u{1F198}" },
+    { name: "CD/Bonds", emoji: "\u{1F4DC}" }
+  ],
+  nonLiquidAssets: [
+    { name: "Home Value", emoji: "\u{1F3E1}" },
+    { name: "Car Value", emoji: "\u{1F697}" },
+    { name: "Jewelry/Watches", emoji: "\u{1F48E}" },
+    { name: "Art/Collectibles", emoji: "\u{1F3A8}" },
+    { name: "Business Equity", emoji: "\u{1F3E2}" },
+    { name: "Furniture/Electronics", emoji: "\u{1FA91}" }
+  ],
+  liabilities: [
+    { name: "Mortgage", emoji: "\u{1F3E6}" },
+    { name: "Car Loan", emoji: "\u{1F697}" },
+    { name: "Student Loans", emoji: "\u{1F393}" },
+    { name: "Credit Card Debt", emoji: "\u{1F4B3}" },
+    { name: "Personal Loan", emoji: "\u{1F91D}" },
+    { name: "Medical Debt", emoji: "\u{1F3E5}" },
+    { name: "Personal Expenses", emoji: "\u{1F6CD}\uFE0F" }
+  ]
+};
 var SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count, isOpen, onToggle }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: onToggle, style: {
   width: "100%",
   display: "flex",
@@ -24911,10 +24960,13 @@ var ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }) =
     ] })
   ] });
 };
-var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onDelete, showQuantity, showMonthly }) => {
+var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, showQuantity, showMonthly, presets }) => {
   const [isOpen, setIsOpen] = (0, import_react3.useState)(items.length > 0);
+  const [showPresets, setShowPresets] = (0, import_react3.useState)(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
+  const existingNames = new Set(items.map((i) => i.name.toLowerCase()));
+  const availablePresets = (presets || []).filter((p) => !existingNames.has(p.name.toLowerCase()));
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 12 }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       SectionHeader,
@@ -24943,6 +24995,65 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onDe
         },
         item.id
       )),
+      availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { marginBottom: 6 }, children: !showPresets ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowPresets(true), style: {
+        width: "100%",
+        padding: "8px",
+        borderRadius: 8,
+        border: "none",
+        backgroundColor: "transparent",
+        color: COLORS.textMuted,
+        fontSize: 12,
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4
+      }, children: "\u{1F4A1} Show common suggestions" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            onClick: () => onAddPreset(p.name),
+            style: {
+              padding: "6px 12px",
+              borderRadius: 20,
+              border: `1px solid ${color}30`,
+              backgroundColor: `${bgColor}`,
+              color,
+              fontSize: 12,
+              fontWeight: 500,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              transition: "all 0.15s"
+            },
+            onMouseEnter: (e) => {
+              e.target.style.backgroundColor = `${color}15`;
+            },
+            onMouseLeave: (e) => {
+              e.target.style.backgroundColor = bgColor;
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }),
+              " ",
+              p.name
+            ]
+          },
+          p.name
+        )) }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowPresets(false), style: {
+          width: "100%",
+          padding: "4px",
+          borderRadius: 8,
+          border: "none",
+          backgroundColor: "transparent",
+          color: COLORS.textMuted,
+          fontSize: 11,
+          cursor: "pointer",
+          marginTop: 4
+        }, children: "Hide suggestions" })
+      ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: onAdd, style: {
         width: "100%",
         padding: "10px",
@@ -24959,7 +25070,7 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onDe
         gap: 6
       }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 16 }),
-        " Add ",
+        " Add Custom ",
         title.replace(/s$/, "")
       ] })
     ] })
@@ -25156,6 +25267,13 @@ function MyBudget({ initialData: initialData2 }) {
       updatedAt: Date.now()
     }));
   };
+  const addPresetItem = (section, name) => {
+    setBudget((b) => ({
+      ...b,
+      [section]: [...b[section], { ...emptyItem(), name }],
+      updatedAt: Date.now()
+    }));
+  };
   const deleteItem = (section, id) => {
     setBudget((b) => ({
       ...b,
@@ -25339,8 +25457,10 @@ function MyBudget({ initialData: initialData2 }) {
           bgColor: COLORS.incomeBg,
           items: budget.income,
           showMonthly: true,
+          presets: PRESETS.income,
           onUpdate: (id, u) => updateItem("income", id, u),
           onAdd: () => addItem("income"),
+          onAddPreset: (name) => addPresetItem("income", name),
           onDelete: (id) => deleteItem("income", id)
         }
       ),
@@ -25353,8 +25473,10 @@ function MyBudget({ initialData: initialData2 }) {
           bgColor: COLORS.expenseBg,
           items: budget.expenses,
           showMonthly: true,
+          presets: PRESETS.expenses,
           onUpdate: (id, u) => updateItem("expenses", id, u),
           onAdd: () => addItem("expenses"),
+          onAddPreset: (name) => addPresetItem("expenses", name),
           onDelete: (id) => deleteItem("expenses", id)
         }
       ),
@@ -25367,8 +25489,10 @@ function MyBudget({ initialData: initialData2 }) {
           bgColor: COLORS.assetBg,
           items: budget.assets,
           showQuantity: true,
+          presets: PRESETS.assets,
           onUpdate: (id, u) => updateItem("assets", id, u),
           onAdd: () => addItem("assets"),
+          onAddPreset: (name) => addPresetItem("assets", name),
           onDelete: (id) => deleteItem("assets", id)
         }
       ),
@@ -25380,8 +25504,10 @@ function MyBudget({ initialData: initialData2 }) {
           color: COLORS.nonLiquid,
           bgColor: COLORS.nonLiquidBg,
           items: budget.nonLiquidAssets,
+          presets: PRESETS.nonLiquidAssets,
           onUpdate: (id, u) => updateItem("nonLiquidAssets", id, u),
           onAdd: () => addItem("nonLiquidAssets"),
+          onAddPreset: (name) => addPresetItem("nonLiquidAssets", name),
           onDelete: (id) => deleteItem("nonLiquidAssets", id)
         }
       ),
@@ -25394,8 +25520,10 @@ function MyBudget({ initialData: initialData2 }) {
           bgColor: COLORS.liabilityBg,
           items: budget.liabilities,
           showMonthly: true,
+          presets: PRESETS.liabilities,
           onUpdate: (id, u) => updateItem("liabilities", id, u),
           onAdd: () => addItem("liabilities"),
+          onAddPreset: (name) => addPresetItem("liabilities", name),
           onDelete: (id) => deleteItem("liabilities", id)
         }
       ),

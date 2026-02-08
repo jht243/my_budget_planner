@@ -117,6 +117,63 @@ const saveCurrentBudget = (budget: Budget) => {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(budget)); } catch {}
 };
 
+// ─── Presets ──────────────────────────────────────────────────────────────────
+
+interface Preset {
+  name: string;
+  emoji: string;
+}
+
+const PRESETS: Record<string, Preset[]> = {
+  income: [
+    { name: "Work Salary", emoji: "💼" },
+    { name: "Freelance Income", emoji: "💻" },
+    { name: "Rental Income", emoji: "🏠" },
+    { name: "Investment Dividends", emoji: "📈" },
+    { name: "Government Benefits", emoji: "🏛️" },
+    { name: "Side Business", emoji: "🏪" },
+    { name: "Pension", emoji: "🧓" },
+  ],
+  expenses: [
+    { name: "Rent", emoji: "🏠" },
+    { name: "Mortgage Payment", emoji: "🏦" },
+    { name: "Utilities", emoji: "💡" },
+    { name: "Groceries", emoji: "🛒" },
+    { name: "Car Payment", emoji: "🚗" },
+    { name: "Insurance", emoji: "🛡️" },
+    { name: "Subscriptions", emoji: "📺" },
+    { name: "Phone Bill", emoji: "📱" },
+    { name: "Internet", emoji: "🌐" },
+    { name: "Gas/Transportation", emoji: "⛽" },
+  ],
+  assets: [
+    { name: "Checking Account", emoji: "🏦" },
+    { name: "Savings Account", emoji: "💰" },
+    { name: "Stocks/Brokerage", emoji: "📊" },
+    { name: "Crypto", emoji: "₿" },
+    { name: "401k/Retirement", emoji: "🧓" },
+    { name: "Emergency Fund", emoji: "🆘" },
+    { name: "CD/Bonds", emoji: "📜" },
+  ],
+  nonLiquidAssets: [
+    { name: "Home Value", emoji: "🏡" },
+    { name: "Car Value", emoji: "🚗" },
+    { name: "Jewelry/Watches", emoji: "💎" },
+    { name: "Art/Collectibles", emoji: "🎨" },
+    { name: "Business Equity", emoji: "🏢" },
+    { name: "Furniture/Electronics", emoji: "🪑" },
+  ],
+  liabilities: [
+    { name: "Mortgage", emoji: "🏦" },
+    { name: "Car Loan", emoji: "🚗" },
+    { name: "Student Loans", emoji: "🎓" },
+    { name: "Credit Card Debt", emoji: "💳" },
+    { name: "Personal Loan", emoji: "🤝" },
+    { name: "Medical Debt", emoji: "🏥" },
+    { name: "Personal Expenses", emoji: "🛍️" },
+  ],
+};
+
 // ─── Section Header ───────────────────────────────────────────────────────────
 
 const SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count, isOpen, onToggle }: {
@@ -232,15 +289,20 @@ const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }:
 
 // ─── Budget Section ───────────────────────────────────────────────────────────
 
-const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onDelete, showQuantity, showMonthly }: {
+const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, showQuantity, showMonthly, presets }: {
   title: string; icon: React.ReactNode; color: string; bgColor: string;
   items: BudgetItem[]; onUpdate: (id: string, u: Partial<BudgetItem>) => void;
-  onAdd: () => void; onDelete: (id: string) => void;
-  showQuantity?: boolean; showMonthly?: boolean;
+  onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
+  showQuantity?: boolean; showMonthly?: boolean; presets?: Preset[];
 }) => {
   const [isOpen, setIsOpen] = useState(items.length > 0);
+  const [showPresets, setShowPresets] = useState(false);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : undefined;
+
+  // Filter out presets that already exist as items
+  const existingNames = new Set(items.map(i => i.name.toLowerCase()));
+  const availablePresets = (presets || []).filter(p => !existingNames.has(p.name.toLowerCase()));
 
   return (
     <div style={{ marginBottom: 12 }}>
@@ -253,12 +315,54 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
               onUpdate={u => onUpdate(item.id, u)} onDelete={() => onDelete(item.id)}
               showQuantity={showQuantity} showMonthly={showMonthly} />
           ))}
+
+          {/* Preset chips */}
+          {availablePresets.length > 0 && (
+            <div style={{ marginBottom: 6 }}>
+              {!showPresets ? (
+                <button onClick={() => setShowPresets(true)} style={{
+                  width: "100%", padding: "8px", borderRadius: 8, border: "none",
+                  backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 12,
+                  cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
+                }}>
+                  💡 Show common suggestions
+                </button>
+              ) : (
+                <>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }}>Quick add:</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {availablePresets.map(p => (
+                      <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
+                        padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
+                        backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
+                        cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
+                        transition: "all 0.15s",
+                      }}
+                        onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}15`; }}
+                        onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = bgColor; }}
+                      >
+                        <span>{p.emoji}</span> {p.name}
+                      </button>
+                    ))}
+                  </div>
+                  <button onClick={() => setShowPresets(false)} style={{
+                    width: "100%", padding: "4px", borderRadius: 8, border: "none",
+                    backgroundColor: "transparent", color: COLORS.textMuted, fontSize: 11,
+                    cursor: "pointer", marginTop: 4,
+                  }}>
+                    Hide suggestions
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
           <button onClick={onAdd} style={{
             width: "100%", padding: "10px", borderRadius: 10, border: `1px dashed ${color}40`,
             backgroundColor: `${bgColor}`, color: color, fontSize: 13, fontWeight: 600,
             cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
           }}>
-            <Plus size={16} /> Add {title.replace(/s$/, "")}
+            <Plus size={16} /> Add Custom {title.replace(/s$/, "")}
           </button>
         </div>
       )}
@@ -465,6 +569,14 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
+  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, name: string) => {
+    setBudget(b => ({
+      ...b,
+      [section]: [...b[section], { ...emptyItem(), name }],
+      updatedAt: Date.now(),
+    }));
+  };
+
   const deleteItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "liabilities">, id: string) => {
     setBudget(b => ({
       ...b,
@@ -616,37 +728,42 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
       <div style={{ padding: "16px 16px 40px" }}>
         {/* Income */}
         <BudgetSection title="Income" icon={<TrendingUp size={18} />} color={COLORS.income} bgColor={COLORS.incomeBg}
-          items={budget.income} showMonthly
+          items={budget.income} showMonthly presets={PRESETS.income}
           onUpdate={(id, u) => updateItem("income", id, u)}
           onAdd={() => addItem("income")}
+          onAddPreset={name => addPresetItem("income", name)}
           onDelete={id => deleteItem("income", id)} />
 
         {/* Expenses */}
         <BudgetSection title="Expenses" icon={<TrendingDown size={18} />} color={COLORS.expense} bgColor={COLORS.expenseBg}
-          items={budget.expenses} showMonthly
+          items={budget.expenses} showMonthly presets={PRESETS.expenses}
           onUpdate={(id, u) => updateItem("expenses", id, u)}
           onAdd={() => addItem("expenses")}
+          onAddPreset={name => addPresetItem("expenses", name)}
           onDelete={id => deleteItem("expenses", id)} />
 
         {/* Assets */}
         <BudgetSection title="Assets" icon={<Wallet size={18} />} color={COLORS.asset} bgColor={COLORS.assetBg}
-          items={budget.assets} showQuantity
+          items={budget.assets} showQuantity presets={PRESETS.assets}
           onUpdate={(id, u) => updateItem("assets", id, u)}
           onAdd={() => addItem("assets")}
+          onAddPreset={name => addPresetItem("assets", name)}
           onDelete={id => deleteItem("assets", id)} />
 
         {/* Non-Liquid Assets */}
         <BudgetSection title="Non-Liquid Assets" icon={<Building2 size={18} />} color={COLORS.nonLiquid} bgColor={COLORS.nonLiquidBg}
-          items={budget.nonLiquidAssets}
+          items={budget.nonLiquidAssets} presets={PRESETS.nonLiquidAssets}
           onUpdate={(id, u) => updateItem("nonLiquidAssets", id, u)}
           onAdd={() => addItem("nonLiquidAssets")}
+          onAddPreset={name => addPresetItem("nonLiquidAssets", name)}
           onDelete={id => deleteItem("nonLiquidAssets", id)} />
 
         {/* Liabilities */}
         <BudgetSection title="Liabilities" icon={<AlertTriangle size={18} />} color={COLORS.liability} bgColor={COLORS.liabilityBg}
-          items={budget.liabilities} showMonthly
+          items={budget.liabilities} showMonthly presets={PRESETS.liabilities}
           onUpdate={(id, u) => updateItem("liabilities", id, u)}
           onAdd={() => addItem("liabilities")}
+          onAddPreset={name => addPresetItem("liabilities", name)}
           onDelete={id => deleteItem("liabilities", id)} />
 
         {/* Non-Liquid Discount Slider */}
