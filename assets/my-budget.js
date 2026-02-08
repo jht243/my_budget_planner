@@ -25219,8 +25219,8 @@ var SummarySection = ({ budget }) => {
   const nonLiquidAtDiscount = totalNonLiquidAssets * (1 - budget.nonLiquidDiscount / 100);
   const oneTimeLiabilities = budget.liabilities.filter((i) => i.frequency === "one_time").reduce((s, i) => s + i.totalValue, 0);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - oneTimeLiabilities;
   const liquidAfterLiabilities = totalLiquidAssets - oneTimeLiabilities;
+  const netWorth = liquidAfterLiabilities + nonLiquidAtDiscount + totalRetirement;
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
   const liquidForRunway = Math.max(0, liquidAfterLiabilities);
   const runwayMonths = monthlyBurn > 0 && liquidForRunway > 0 ? liquidForRunway / monthlyBurn : null;

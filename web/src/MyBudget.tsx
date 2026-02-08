@@ -498,8 +498,8 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
   const oneTimeLiabilities = budget.liabilities.filter(i => i.frequency === "one_time").reduce((s, i) => s + i.totalValue, 0);
   const totalLiabilities = budget.liabilities.reduce((s, i) => s + i.totalValue, 0);
 
-  const netWorth = totalLiquidAssets + totalNonLiquidAssets + totalRetirement - oneTimeLiabilities;
   const liquidAfterLiabilities = totalLiquidAssets - oneTimeLiabilities;
+  const netWorth = liquidAfterLiabilities + nonLiquidAtDiscount + totalRetirement;
 
   // Runway: how many months liquid assets (minus one-time debts) last at current burn rate
   const monthlyBurn = totalMonthlyExpenses + totalMonthlyLiabilityPayments - totalMonthlyIncome;
