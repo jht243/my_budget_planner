@@ -93,6 +93,52 @@ const emptyItem = (): BudgetItem => ({
   monthlyValue: 0,
 });
 
+const DEMO_BUDGET: Budget = {
+  id: "demo_budget",
+  name: "My Budget",
+  income: [
+    { id: "inc1", name: "rental income (house)", totalValue: 24000, monthlyValue: 1000 },
+    { id: "inc2", name: "rental income (properties)", totalValue: 45000, monthlyValue: 2500 },
+    { id: "inc3", name: "VA payments", totalValue: 34800, monthlyValue: 1450 },
+  ],
+  expenses: [
+    { id: "exp1", name: "finca", totalValue: 24000, monthlyValue: 1000 },
+    { id: "exp2", name: "parma rent", totalValue: 24000, monthlyValue: 1000 },
+  ],
+  assets: [
+    { id: "ast1", name: "btc", totalValue: 140000, monthlyValue: 0, quantity: 2 },
+    { id: "ast2", name: "near", totalValue: 7000, monthlyValue: 0, quantity: 7000 },
+    { id: "ast3", name: "eth", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
+    { id: "ast4", name: "usdc", totalValue: 3500, monthlyValue: 0 },
+    { id: "ast5", name: "coinbase account", totalValue: 73500, monthlyValue: 0 },
+    { id: "ast6", name: "loan from Alex (10,000)", totalValue: 0, monthlyValue: 0 },
+    { id: "ast7", name: "stock market (betterment)", totalValue: 14571, monthlyValue: 0 },
+    { id: "ast8", name: "NEAR.WALLET", totalValue: 2000, monthlyValue: 0, quantity: 2000 },
+    { id: "ast9", name: "SoFi Investment", totalValue: 1000, monthlyValue: 0 },
+    { id: "ast10", name: "Amazon Stock", totalValue: 17520, monthlyValue: 0, quantity: 219 },
+    { id: "ast11", name: "401k (Charles Schwab) (Acct 9586-3467)", totalValue: 22500, monthlyValue: 0 },
+    { id: "ast12", name: "Settlement?", totalValue: 0, monthlyValue: 0 },
+  ],
+  nonLiquidAssets: [
+    { id: "nla1", name: "Breitling Gold", totalValue: 19000, monthlyValue: 0 },
+    { id: "nla2", name: "Breguet Tradition", totalValue: 15000, monthlyValue: 0 },
+    { id: "nla3", name: "Breguet Blue", totalValue: 25000, monthlyValue: 0 },
+    { id: "nla4", name: "JLC", totalValue: 25000, monthlyValue: 0 },
+    { id: "nla5", name: "All other watches", totalValue: 10000, monthlyValue: 0 },
+    { id: "nla6", name: "Car", totalValue: 15000, monthlyValue: 0 },
+    { id: "nla7", name: "MontBlanc Pens", totalValue: 5000, monthlyValue: 0 },
+  ],
+  liabilities: [
+    { id: "lia1", name: "las palmas apt", totalValue: 50000, monthlyValue: 0 },
+    { id: "lia2", name: "repayment of tammy", totalValue: 20000, monthlyValue: 0 },
+    { id: "lia3", name: "personal monthly expenses", totalValue: 168000, monthlyValue: 7000 },
+    { id: "lia4", name: "remodel las palmas", totalValue: 10000, monthlyValue: 0 },
+  ],
+  nonLiquidDiscount: 25,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+};
+
 const loadBudgets = (): Budget[] => {
   try {
     const data = localStorage.getItem(BUDGETS_LIST_KEY);
@@ -208,7 +254,8 @@ const SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count
 const ItemRow = ({ item, onUpdate, onDelete, showQuantity, showMonthly, color }: {
   item: BudgetItem; onUpdate: (u: Partial<BudgetItem>) => void; onDelete: () => void; showQuantity?: boolean; showMonthly?: boolean; color: string;
 }) => {
-  const [editing, setEditing] = useState(!item.name);
+  const isNew = !item.totalValue && !item.monthlyValue;
+  const [editing, setEditing] = useState(isNew);
   const [draft, setDraft] = useState(item);
 
   useEffect(() => { setDraft(item); }, [item]);
@@ -726,6 +773,17 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
       {/* Content */}
       <div style={{ padding: "16px 16px 40px" }}>
+        {/* Demo data loader - only shows when budget is completely empty */}
+        {budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.liabilities.length === 0 && (
+          <button onClick={() => { setBudget({ ...DEMO_BUDGET, id: budget.id, createdAt: Date.now(), updatedAt: Date.now() }); setNameInput(DEMO_BUDGET.name); }} style={{
+            width: "100%", padding: 14, borderRadius: 12, border: `2px dashed ${COLORS.accent}`,
+            backgroundColor: COLORS.accentLight, color: COLORS.primaryDark, fontSize: 14, fontWeight: 600,
+            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16,
+          }}>
+            <BarChart3 size={18} /> Load Demo Data
+          </button>
+        )}
+
         {/* Income */}
         <BudgetSection title="Income" icon={<TrendingUp size={18} />} color={COLORS.income} bgColor={COLORS.incomeBg}
           items={budget.income} showMonthly presets={PRESETS.income}
