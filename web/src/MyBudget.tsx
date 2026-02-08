@@ -507,6 +507,11 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
   const runwayMonths = monthlyBurn > 0 && liquidForRunway > 0 ? liquidForRunway / monthlyBurn : null;
   const runwayYears = runwayMonths ? runwayMonths / 12 : null;
 
+  // Extended runway: liquid + non-liquid at discount
+  const extendedForRunway = liquidForRunway + nonLiquidAtDiscount;
+  const extRunwayMonths = monthlyBurn > 0 && extendedForRunway > 0 ? extendedForRunway / monthlyBurn : null;
+  const extRunwayYears = extRunwayMonths ? extRunwayMonths / 12 : null;
+
   // Growth: annual savings rate
   const savingsRate = totalMonthlyIncome > 0 ? (monthlyNet / totalMonthlyIncome) * 100 : 0;
 
@@ -562,15 +567,27 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
           backgroundColor: COLORS.expenseBg, borderRadius: 12, padding: "14px 16px",
           border: `1px solid ${COLORS.expense}20`, marginBottom: 12,
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
             <Clock size={16} color={COLORS.expense} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }}>Runway</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }}>Runway at {fmt(monthlyBurn)}/mo burn</span>
           </div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: COLORS.expense }}>
-            {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} years` : `${Math.round(runwayMonths)} months`}
-          </div>
-          <div style={{ fontSize: 12, color: COLORS.textSecondary }}>
-            At {fmt(monthlyBurn)}/mo burn, your liquid assets ({fmt(liquidAfterLiabilities)} after debts) will last this long
+          <div style={{ display: "flex", gap: 16 }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }}>Liquid only</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: COLORS.expense }}>
+                {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo`}
+              </div>
+              <div style={{ fontSize: 11, color: COLORS.textSecondary }}>{fmt(liquidAfterLiabilities)} after debts</div>
+            </div>
+            {extRunwayMonths !== null && nonLiquidAtDiscount > 0 && (
+              <div style={{ flex: 1, borderLeft: `1px solid ${COLORS.expense}20`, paddingLeft: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }}>+ Non-liquid sold</div>
+                <div style={{ fontSize: 22, fontWeight: 800, color: COLORS.nonLiquid }}>
+                  {extRunwayYears! >= 1 ? `${extRunwayYears!.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo`}
+                </div>
+                <div style={{ fontSize: 11, color: COLORS.textSecondary }}>At {budget.nonLiquidDiscount}% discount ({fmt(nonLiquidAtDiscount)})</div>
+              </div>
+            )}
           </div>
         </div>
       ) : isPositive && monthlyNet > 0 ? (
