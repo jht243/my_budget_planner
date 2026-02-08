@@ -426,35 +426,38 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
               inputMode={inputMode} />
           ))}
 
-          {/* Preset chips - always visible */}
-          {availablePresets.length > 0 && (
-            <div style={{ marginBottom: 6 }}>
+          {/* Quick add chips + custom */}
+          <div style={{ marginBottom: 6 }}>
+            {availablePresets.length > 0 && (
               <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }}>Quick add:</div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {availablePresets.map(p => (
-                  <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
-                    padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
-                    backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
-                    cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
-                    transition: "all 0.15s",
-                  }}
-                    onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}15`; }}
-                    onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = bgColor; }}
-                  >
-                    <span>{p.emoji}</span> {p.name}
-                  </button>
-                ))}
-              </div>
+            )}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {availablePresets.map(p => (
+                <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
+                  padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
+                  backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
+                  cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
+                  transition: "all 0.15s",
+                }}
+                  onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}15`; }}
+                  onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = bgColor; }}
+                >
+                  <span>{p.emoji}</span> {p.name}
+                </button>
+              ))}
+              <button onClick={onAdd} style={{
+                padding: "6px 12px", borderRadius: 20, border: `1px dashed ${color}50`,
+                backgroundColor: "transparent", color: color, fontSize: 12, fontWeight: 500,
+                cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
+                transition: "all 0.15s",
+              }}
+                onMouseEnter={e => { (e.target as HTMLElement).style.backgroundColor = `${color}10`; }}
+                onMouseLeave={e => { (e.target as HTMLElement).style.backgroundColor = "transparent"; }}
+              >
+                <Plus size={14} /> Custom
+              </button>
             </div>
-          )}
-
-          <button onClick={onAdd} style={{
-            width: "100%", padding: "10px", borderRadius: 10, border: `1px dashed ${color}40`,
-            backgroundColor: `${bgColor}`, color: color, fontSize: 13, fontWeight: 600,
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-          }}>
-            <Plus size={16} /> Add Custom {title.replace(/s$/, "")}
-          </button>
+          </div>
         </div>
       )}
     </div>

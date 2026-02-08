@@ -25105,59 +25105,72 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
         },
         item.id
       )),
-      availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 6 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
-          "button",
-          {
-            onClick: () => onAddPreset(p.name),
-            style: {
-              padding: "6px 12px",
-              borderRadius: 20,
-              border: `1px solid ${color}30`,
-              backgroundColor: `${bgColor}`,
-              color,
-              fontSize: 12,
-              fontWeight: 500,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              transition: "all 0.15s"
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 6 }, children: [
+        availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: [
+          availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+            "button",
+            {
+              onClick: () => onAddPreset(p.name),
+              style: {
+                padding: "6px 12px",
+                borderRadius: 20,
+                border: `1px solid ${color}30`,
+                backgroundColor: `${bgColor}`,
+                color,
+                fontSize: 12,
+                fontWeight: 500,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                transition: "all 0.15s"
+              },
+              onMouseEnter: (e) => {
+                e.target.style.backgroundColor = `${color}15`;
+              },
+              onMouseLeave: (e) => {
+                e.target.style.backgroundColor = bgColor;
+              },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }),
+                " ",
+                p.name
+              ]
             },
-            onMouseEnter: (e) => {
-              e.target.style.backgroundColor = `${color}15`;
-            },
-            onMouseLeave: (e) => {
-              e.target.style.backgroundColor = bgColor;
-            },
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }),
-              " ",
-              p.name
-            ]
-          },
-          p.name
-        )) })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: onAdd, style: {
-        width: "100%",
-        padding: "10px",
-        borderRadius: 10,
-        border: `1px dashed ${color}40`,
-        backgroundColor: `${bgColor}`,
-        color,
-        fontSize: 13,
-        fontWeight: 600,
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 6
-      }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 16 }),
-        " Add Custom ",
-        title.replace(/s$/, "")
+            p.name
+          )),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+            "button",
+            {
+              onClick: onAdd,
+              style: {
+                padding: "6px 12px",
+                borderRadius: 20,
+                border: `1px dashed ${color}50`,
+                backgroundColor: "transparent",
+                color,
+                fontSize: 12,
+                fontWeight: 500,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                transition: "all 0.15s"
+              },
+              onMouseEnter: (e) => {
+                e.target.style.backgroundColor = `${color}10`;
+              },
+              onMouseLeave: (e) => {
+                e.target.style.backgroundColor = "transparent";
+              },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
+                " Custom"
+              ]
+            }
+          )
+        ] })
       ] })
     ] })
   ] });
