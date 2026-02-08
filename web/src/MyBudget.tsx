@@ -524,82 +524,78 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
         borderRadius: 16, padding: "20px 16px", marginBottom: 12,
         border: `1px solid ${isPositive ? COLORS.income : COLORS.expense}20`,
       }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }}>
-          Monthly Cash Flow
-        </div>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
-          <span style={{ fontSize: 32, fontWeight: 800, color: isPositive ? COLORS.positive : COLORS.negative }}>
-            {monthlyNet >= 0 ? "+" : ""}{fmt(monthlyNet)}
-          </span>
-          <span style={{ fontSize: 14, color: COLORS.textSecondary }}>/month</span>
-        </div>
-        <div style={{ fontSize: 14, color: COLORS.textSecondary }}>
-          {annualNet >= 0 ? "+" : ""}{fmt(annualNet)} /year
-        </div>
-
-        <div style={{ display: "flex", gap: 16, marginTop: 16, flexWrap: "wrap" }}>
-          <div>
-            <div style={{ fontSize: 11, color: COLORS.textMuted }}>Income</div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.income }}>{fmt(totalMonthlyIncome)}/mo</div>
-          </div>
-          <div>
-            <div style={{ fontSize: 11, color: COLORS.textMuted }}>Expenses</div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.expense }}>{fmt(totalMonthlyExpenses)}/mo</div>
-          </div>
-          {totalMonthlyLiabilityPayments > 0 && (
-            <div>
-              <div style={{ fontSize: 11, color: COLORS.textMuted }}>Liability Payments</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.liability }}>{fmt(totalMonthlyLiabilityPayments)}/mo</div>
+        <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+          {/* Left: Cash Flow */}
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }}>
+              Monthly Cash Flow
             </div>
-          )}
-          {totalMonthlyIncome > 0 && (
-            <div>
-              <div style={{ fontSize: 11, color: COLORS.textMuted }}>Savings Rate</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: isPositive ? COLORS.positive : COLORS.negative }}>{savingsRate.toFixed(1)}%</div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 2 }}>
+              <span style={{ fontSize: 28, fontWeight: 800, color: isPositive ? COLORS.positive : COLORS.negative }}>
+                {monthlyNet >= 0 ? "+" : ""}{fmt(monthlyNet)}
+              </span>
+              <span style={{ fontSize: 13, color: COLORS.textSecondary }}>/mo</span>
             </div>
-          )}
-        </div>
-
-        {/* Runway or Growth — inside the same card */}
-        {runwayMonths !== null ? (
-          <div style={{ borderTop: `1px solid ${isPositive ? COLORS.income : COLORS.expense}15`, marginTop: 16, paddingTop: 12 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-              <Clock size={16} color={COLORS.expense} />
-              <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }}>Runway at {fmt(monthlyBurn)}/mo burn</span>
+            <div style={{ fontSize: 13, color: COLORS.textSecondary, marginBottom: 10 }}>
+              {annualNet >= 0 ? "+" : ""}{fmt(annualNet)} /year
             </div>
-            <div style={{ display: "flex", gap: 16 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }}>Liquid only</div>
-                <div style={{ fontSize: 22, fontWeight: 800, color: COLORS.expense }}>
-                  {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo`}
-                </div>
-                <div style={{ fontSize: 11, color: COLORS.textSecondary }}>{fmt(liquidAfterLiabilities)} after debts</div>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div>
+                <div style={{ fontSize: 10, color: COLORS.textMuted }}>Income</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.income }}>{fmt(totalMonthlyIncome)}/mo</div>
               </div>
-              {extRunwayMonths !== null && nonLiquidAtDiscount > 0 && (
-                <div style={{ flex: 1, borderLeft: `1px solid ${COLORS.expense}20`, paddingLeft: 16 }}>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2 }}>+ Non-liquid sold</div>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: COLORS.nonLiquid }}>
-                    {extRunwayYears! >= 1 ? `${extRunwayYears!.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo`}
-                  </div>
-                  <div style={{ fontSize: 11, color: COLORS.textSecondary }}>At {budget.nonLiquidDiscount}% discount ({fmt(nonLiquidAtDiscount)})</div>
+              <div>
+                <div style={{ fontSize: 10, color: COLORS.textMuted }}>Expenses</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.expense }}>{fmt(totalMonthlyExpenses)}/mo</div>
+              </div>
+              {totalMonthlyLiabilityPayments > 0 && (
+                <div>
+                  <div style={{ fontSize: 10, color: COLORS.textMuted }}>Liabilities</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.liability }}>{fmt(totalMonthlyLiabilityPayments)}/mo</div>
                 </div>
               )}
             </div>
           </div>
-        ) : isPositive && monthlyNet > 0 ? (
-          <div style={{ borderTop: `1px solid ${COLORS.income}15`, marginTop: 16, paddingTop: 12 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-              <ArrowUpRight size={16} color={COLORS.income} />
-              <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }}>Growth</span>
+
+          {/* Right: Runway or Growth */}
+          {runwayMonths !== null ? (
+            <div style={{ borderLeft: `1px solid ${isPositive ? COLORS.income : COLORS.expense}20`, paddingLeft: 16, minWidth: 120 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }}>
+                <Clock size={14} color={COLORS.expense} />
+                <span style={{ fontSize: 11, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }}>Runway</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 10, color: COLORS.textMuted, marginBottom: 1 }}>Liquid only</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: COLORS.expense }}>
+                  {runwayYears! >= 1 ? `${runwayYears!.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo`}
+                </div>
+                <div style={{ fontSize: 10, color: COLORS.textSecondary }}>{fmt(liquidAfterLiabilities)} after debts</div>
+              </div>
+              {extRunwayMonths !== null && nonLiquidAtDiscount > 0 && (
+                <div style={{ marginTop: 8 }}>
+                  <div style={{ fontSize: 10, color: COLORS.textMuted, marginBottom: 1 }}>+ Non-liquid sold</div>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: COLORS.nonLiquid }}>
+                    {extRunwayYears! >= 1 ? `${extRunwayYears!.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo`}
+                  </div>
+                  <div style={{ fontSize: 10, color: COLORS.textSecondary }}>At {budget.nonLiquidDiscount}% discount</div>
+                </div>
+              )}
             </div>
-            <div style={{ fontSize: 14, color: COLORS.textMain }}>
-              +{fmt(monthlyNet)}/mo → <strong>{fmt(annualNet)}</strong>/year
+          ) : isPositive && monthlyNet > 0 ? (
+            <div style={{ borderLeft: `1px solid ${COLORS.income}20`, paddingLeft: 16, minWidth: 120 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }}>
+                <ArrowUpRight size={14} color={COLORS.income} />
+                <span style={{ fontSize: 11, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }}>Growth</span>
+              </div>
+              <div style={{ fontSize: 13, color: COLORS.textMain }}>
+                <strong>{fmt(annualNet)}</strong>/yr
+              </div>
+              <div style={{ fontSize: 10, color: COLORS.textSecondary, marginTop: 4 }}>
+                2yr: +{fmt(annualNet * 2)}<br/>5yr: +{fmt(annualNet * 5)}
+              </div>
             </div>
-            <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }}>
-              In 2 years: +{fmt(annualNet * 2)} · In 5 years: +{fmt(annualNet * 5)}
-            </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
 
       {/* Asset Breakdown — compact single card */}
