@@ -49809,9 +49809,30 @@ var SummarySection = ({ budget }) => {
 };
 var hydrateFromInitialData = (data) => {
   if (!data || typeof data !== "object") return null;
-  const hasAny = data.preset || data.budget_name || data.monthly_income || data.monthly_expenses || data.liquid_assets || data.nonliquid_assets || data.retirement_savings || data.liabilities || data.has_crypto || data.has_stocks || data.budget_description;
-  if (!hasAny) return null;
+  const keys = Object.keys(data).filter((k) => k !== "ready" && k !== "timestamp" && k !== "input_source" && k !== "summary" && k !== "suggested_followups");
+  if (keys.length === 0) return null;
   console.log("[Hydration] Applying initialData:", data);
+  const findOrAdd = (arr, name, amount, freq = "one_time") => {
+    const existing = arr.find((i) => i.name.toLowerCase() === name.toLowerCase());
+    if (existing) {
+      existing.amount = amount;
+      Object.assign(existing, computeValues(amount, existing.frequency));
+      return arr;
+    }
+    const item = freq === "one_time" ? mia(name, amount) : mi(name, amount, freq);
+    return [...arr, item];
+  };
+  const upsert = (arr, name, amount, freq = "one_time") => {
+    const lc = name.toLowerCase();
+    const idx = arr.findIndex((i) => i.name.toLowerCase().includes(lc) || lc.includes(i.name.toLowerCase()));
+    if (idx >= 0) {
+      const item2 = arr[idx];
+      arr[idx] = { ...item2, amount, ...computeValues(amount, item2.frequency) };
+      return arr;
+    }
+    const item = freq === "one_time" ? mia(name, amount) : mi(name, amount, freq);
+    return [...arr, item];
+  };
   let base;
   if (data.preset) {
     const preset = BUDGET_PRESETS.find((p) => p.key === data.preset);
@@ -49825,25 +49846,60 @@ var hydrateFromInitialData = (data) => {
     base = emptyBudget();
   }
   if (data.budget_name) base.name = data.budget_name;
-  if (data.has_crypto && !base.assets.some((a) => a.assetType === "crypto" || /crypto/i.test(a.name))) {
-    base.assets.push({ ...mia("Crypto Portfolio", 0), assetType: "crypto", ticker: "bitcoin" });
+  if (data.is_unemployed) {
+    if (base.income.length > 0) {
+      base.income = base.income.map((i) => ({ ...i, amount: 0, ...computeValues(0, i.frequency) }));
+    }
+    if (!base.assets.some((a) => /emergency/i.test(a.name))) {
+      base.assets = findOrAdd(base.assets, "Emergency Fund", 0);
+    }
   }
-  if (data.has_stocks && !base.assets.some((a) => a.assetType === "stock" || /stock|brokerage/i.test(a.name))) {
-    base.assets.push({ ...mia("Stocks/Brokerage", 0), assetType: "stock" });
+  if (data.is_homeowner) {
+    base.expenses = base.expenses.map((i) => {
+      if (/\brent\b/i.test(i.name) && !/mortgage/i.test(i.name)) {
+        return { ...i, name: "Mortgage Payment" };
+      }
+      return i;
+    });
   }
-  if (data.monthly_income && base.income.length > 0) {
+  if (data.num_children && data.num_children > 0) {
+    if (!base.expenses.some((e) => /child|daycare|kids/i.test(e.name))) {
+      base.expenses = findOrAdd(base.expenses, "Childcare / Daycare", data.num_children * 800, "monthly");
+    }
+  }
+  const effectiveMonthlyIncome = data.monthly_income || (data.annual_income ? Math.round(data.annual_income / 12) : void 0);
+  if (data.salary) base.income = upsert(base.income, "Salary", data.salary, "monthly");
+  if (data.side_income) base.income = upsert(base.income, "Freelance / Side Hustle", data.side_income, "monthly");
+  if (data.rental_income) base.income = upsert(base.income, "Rental Income", data.rental_income, "monthly");
+  if (data.social_security) base.income = upsert(base.income, "Social Security", data.social_security, "monthly");
+  if (data.pension_income) base.income = upsert(base.income, "Pension", data.pension_income, "monthly");
+  if (data.investment_income) base.income = upsert(base.income, "Investment Income", data.investment_income, "monthly");
+  if (effectiveMonthlyIncome && !data.salary && !data.side_income && !data.rental_income && !data.social_security && !data.pension_income) {
     const currentTotal = base.income.reduce((s, i) => s + i.monthlyValue, 0);
     if (currentTotal > 0) {
-      const ratio = data.monthly_income / currentTotal;
+      const ratio = effectiveMonthlyIncome / currentTotal;
       base.income = base.income.map((i) => {
         const newAmt = Math.round(i.amount * ratio);
         return { ...i, amount: newAmt, ...computeValues(newAmt, i.frequency) };
       });
-    } else {
-      base.income = [mi("Income", data.monthly_income)];
+    } else if (base.income.length === 0) {
+      base.income = [mi("Income", effectiveMonthlyIncome)];
     }
   }
-  if (data.monthly_expenses && base.expenses.length > 0) {
+  if (data.rent) base.expenses = upsert(base.expenses, "Rent", data.rent, "monthly");
+  if (data.mortgage_payment) base.expenses = upsert(base.expenses, "Mortgage Payment", data.mortgage_payment, "monthly");
+  if (data.utilities) base.expenses = upsert(base.expenses, "Utilities", data.utilities, "monthly");
+  if (data.groceries) base.expenses = upsert(base.expenses, "Groceries", data.groceries, "monthly");
+  if (data.car_payment) base.expenses = upsert(base.expenses, "Car Payment", data.car_payment, "monthly");
+  if (data.car_insurance) base.expenses = upsert(base.expenses, "Car Insurance", data.car_insurance, "monthly");
+  if (data.health_insurance) base.expenses = upsert(base.expenses, "Health Insurance", data.health_insurance, "monthly");
+  if (data.phone_bill) base.expenses = upsert(base.expenses, "Phone Bill", data.phone_bill, "monthly");
+  if (data.internet) base.expenses = upsert(base.expenses, "Internet", data.internet, "monthly");
+  if (data.childcare) base.expenses = upsert(base.expenses, "Childcare / Daycare", data.childcare, "monthly");
+  if (data.subscriptions) base.expenses = upsert(base.expenses, "Subscriptions", data.subscriptions, "monthly");
+  if (data.dining_out) base.expenses = upsert(base.expenses, "Dining Out", data.dining_out, "monthly");
+  if (data.transportation) base.expenses = upsert(base.expenses, "Gas / Transportation", data.transportation, "monthly");
+  if (data.monthly_expenses && !data.rent && !data.mortgage_payment && !data.groceries) {
     const currentTotal = base.expenses.reduce((s, i) => s + i.monthlyValue, 0);
     if (currentTotal > 0) {
       const ratio = data.monthly_expenses / currentTotal;
@@ -49853,7 +49909,38 @@ var hydrateFromInitialData = (data) => {
       });
     }
   }
-  if (data.liquid_assets && base.assets.length > 0) {
+  if (data.checking_balance) base.assets = upsert(base.assets, "Checking Account", data.checking_balance);
+  if (data.savings_balance) base.assets = upsert(base.assets, "Savings Account", data.savings_balance);
+  if (data.emergency_fund) base.assets = upsert(base.assets, "Emergency Fund", data.emergency_fund);
+  if (data.investment_balance) base.assets = upsert(base.assets, "Brokerage Account", data.investment_balance);
+  if (data.crypto_tickers) {
+    const tickers = data.crypto_tickers.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+    for (const ticker2 of tickers) {
+      const name = ticker2.charAt(0).toUpperCase() + ticker2.slice(1);
+      if (!base.assets.some((a) => a.ticker === ticker2)) {
+        base.assets.push({ ...mia(name, 0), assetType: "crypto", ticker: ticker2, quantity: void 0 });
+      }
+    }
+  } else if (data.has_crypto || data.crypto_balance) {
+    if (!base.assets.some((a) => a.assetType === "crypto" || /crypto/i.test(a.name))) {
+      base.assets.push({ ...mia("Crypto Portfolio", data.crypto_balance || 0), assetType: "crypto", ticker: "bitcoin" });
+    } else if (data.crypto_balance) {
+      base.assets = base.assets.map((a) => a.assetType === "crypto" || /crypto/i.test(a.name) ? { ...a, amount: data.crypto_balance, totalValue: data.crypto_balance } : a);
+    }
+  }
+  if (data.stock_tickers) {
+    const tickers = data.stock_tickers.split(",").map((t) => t.trim().toUpperCase()).filter(Boolean);
+    for (const ticker2 of tickers) {
+      if (!base.assets.some((a) => a.ticker === ticker2 && a.assetType === "stock")) {
+        base.assets.push({ ...mia(ticker2, 0), assetType: "stock", ticker: ticker2, quantity: void 0 });
+      }
+    }
+  } else if (data.has_stocks) {
+    if (!base.assets.some((a) => a.assetType === "stock" || /stock|brokerage/i.test(a.name))) {
+      base.assets.push({ ...mia("Stocks/Brokerage", 0), assetType: "stock" });
+    }
+  }
+  if (data.liquid_assets && !data.checking_balance && !data.savings_balance && !data.emergency_fund) {
     const liquidItems = base.assets.filter((a) => !a.assetType || a.assetType === "manual");
     const currentTotal = liquidItems.reduce((s, i) => s + i.totalValue, 0);
     if (currentTotal > 0) {
@@ -49865,17 +49952,11 @@ var hydrateFromInitialData = (data) => {
       });
     }
   }
-  if (data.retirement_savings && base.retirement.length > 0) {
-    const currentTotal = base.retirement.reduce((s, i) => s + i.totalValue, 0);
-    if (currentTotal > 0) {
-      const ratio = data.retirement_savings / currentTotal;
-      base.retirement = base.retirement.map((i) => {
-        const newAmt = Math.round(i.amount * ratio);
-        return { ...i, amount: newAmt, totalValue: newAmt, monthlyValue: 0 };
-      });
-    }
-  }
-  if (data.nonliquid_assets && base.nonLiquidAssets.length > 0) {
+  if (data.home_value) base.nonLiquidAssets = upsert(base.nonLiquidAssets, "Home Value", data.home_value);
+  if (data.car_value) base.nonLiquidAssets = upsert(base.nonLiquidAssets, "Car Value", data.car_value);
+  if (data.jewelry_collectibles) base.nonLiquidAssets = upsert(base.nonLiquidAssets, "Jewelry / Collectibles", data.jewelry_collectibles);
+  if (data.business_equity) base.nonLiquidAssets = upsert(base.nonLiquidAssets, "Business Equity", data.business_equity);
+  if (data.nonliquid_assets && !data.home_value && !data.car_value) {
     const currentTotal = base.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
     if (currentTotal > 0) {
       const ratio = data.nonliquid_assets / currentTotal;
@@ -49885,7 +49966,32 @@ var hydrateFromInitialData = (data) => {
       });
     }
   }
-  if (data.liabilities && base.liabilities.length > 0) {
+  if (data.nonliquid_discount !== void 0) base.nonLiquidDiscount = data.nonliquid_discount;
+  if (data.balance_401k) base.retirement = upsert(base.retirement, "401k", data.balance_401k);
+  if (data.roth_ira) base.retirement = upsert(base.retirement, "Roth IRA", data.roth_ira);
+  if (data.traditional_ira) base.retirement = upsert(base.retirement, "Traditional IRA", data.traditional_ira);
+  if (data.pension_fund) base.retirement = upsert(base.retirement, "Pension Fund", data.pension_fund);
+  if (data.balance_403b) base.retirement = upsert(base.retirement, "403b", data.balance_403b);
+  if (data.sep_ira) base.retirement = upsert(base.retirement, "SEP IRA", data.sep_ira);
+  if (data.retirement_savings && !data.balance_401k && !data.roth_ira && !data.traditional_ira) {
+    const currentTotal = base.retirement.reduce((s, i) => s + i.totalValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.retirement_savings / currentTotal;
+      base.retirement = base.retirement.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, totalValue: newAmt, monthlyValue: 0 };
+      });
+    } else if (base.retirement.length === 0) {
+      base.retirement = [mia("Retirement Savings", data.retirement_savings)];
+    }
+  }
+  if (data.mortgage_balance) base.liabilities = upsert(base.liabilities, "Mortgage", data.mortgage_balance);
+  if (data.student_loans) base.liabilities = upsert(base.liabilities, "Student Loans", data.student_loans);
+  if (data.car_loan) base.liabilities = upsert(base.liabilities, "Car Loan", data.car_loan);
+  if (data.credit_card_debt) base.liabilities = upsert(base.liabilities, "Credit Card Debt", data.credit_card_debt);
+  if (data.personal_loan) base.liabilities = upsert(base.liabilities, "Personal Loan", data.personal_loan);
+  if (data.medical_debt) base.liabilities = upsert(base.liabilities, "Medical Bills", data.medical_debt);
+  if (data.liabilities && !data.mortgage_balance && !data.student_loans && !data.car_loan && !data.credit_card_debt) {
     const currentTotal = base.liabilities.reduce((s, i) => s + i.totalValue, 0);
     if (currentTotal > 0) {
       const ratio = data.liabilities / currentTotal;
@@ -49893,10 +49999,9 @@ var hydrateFromInitialData = (data) => {
         const newAmt = Math.round(i.amount * ratio);
         return { ...i, amount: newAmt, ...computeValues(newAmt, i.frequency) };
       });
+    } else if (base.liabilities.length === 0) {
+      base.liabilities = [mia("Total Debt", data.liabilities)];
     }
-  }
-  if (data.nonliquid_discount !== void 0) {
-    base.nonLiquidDiscount = data.nonliquid_discount;
   }
   return base;
 };

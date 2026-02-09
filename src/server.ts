@@ -290,22 +290,83 @@ widgets.forEach((widget) => {
 const toolInputSchema = {
   type: "object",
   properties: {
+    // ── Preset & context ──
     preset: {
       type: "string",
       enum: ["gen_z", "millennial", "family", "retiree"],
-      description: "Select a budget preset/template based on the user's life stage. Use 'gen_z' for ages 18-28 or college students or young people starting out. Use 'millennial' for ages 29-43 or career professionals or single adults. Use 'family' for ages 30-55 with kids or dual-income households. Use 'retiree' for ages 60+ or retired or on Social Security/pension. Only omit if the user provides specific numbers and doesn't fit any preset.",
+      description: "Budget template based on life stage. 'gen_z' for ages 18-28/students/young adults. 'millennial' for ages 29-43/career professionals/single adults. 'family' for ages 30-55 with kids/married/dual-income. 'retiree' for ages 60+/retired/Social Security/pension.",
     },
     budget_name: { type: "string", description: "Name for the budget (e.g., 'Monthly Budget', 'Household Budget')." },
-    monthly_income: { type: "number", description: "Total monthly income in dollars. Extract from phrases like 'I make $5000/mo' or 'salary of $60k/year' (divide annual by 12)." },
-    monthly_expenses: { type: "number", description: "Total monthly expenses in dollars." },
-    liquid_assets: { type: "number", description: "Total liquid assets (cash, savings, stocks) in dollars." },
-    nonliquid_assets: { type: "number", description: "Total non-liquid assets (real estate, vehicles) in dollars." },
-    retirement_savings: { type: "number", description: "Total 401k/retirement savings in dollars." },
-    liabilities: { type: "number", description: "Total liabilities/debts in dollars." },
+    budget_description: { type: "string", description: "The user's full original message for context parsing." },
+
+    // ── Context flags ──
+    is_homeowner: { type: "boolean", description: "True if the user owns a home (has mortgage, not renting)." },
+    is_unemployed: { type: "boolean", description: "True if the user is unemployed, between jobs, or has no income." },
+    num_children: { type: "number", description: "Number of children/kids the user has." },
+
+    // ── Income (monthly unless noted) ──
+    annual_income: { type: "number", description: "Annual salary/income before tax. Use when user says 'I make $X' or 'salary of $X' without specifying monthly. Converted to monthly by dividing by 12." },
+    monthly_income: { type: "number", description: "Total monthly take-home income." },
+    salary: { type: "number", description: "Monthly salary/wages from primary job." },
+    side_income: { type: "number", description: "Monthly freelance, side hustle, or gig income." },
+    rental_income: { type: "number", description: "Monthly rental property income." },
+    social_security: { type: "number", description: "Monthly Social Security benefit." },
+    pension_income: { type: "number", description: "Monthly pension income." },
+    investment_income: { type: "number", description: "Monthly dividends, interest, or investment income." },
+
+    // ── Expenses (monthly) ──
+    monthly_expenses: { type: "number", description: "Total monthly expenses if given as a lump sum." },
+    rent: { type: "number", description: "Monthly rent payment." },
+    mortgage_payment: { type: "number", description: "Monthly mortgage payment." },
+    utilities: { type: "number", description: "Monthly utilities (electric, water, gas)." },
+    groceries: { type: "number", description: "Monthly groceries spending." },
+    car_payment: { type: "number", description: "Monthly car/auto loan payment." },
+    car_insurance: { type: "number", description: "Monthly car insurance." },
+    health_insurance: { type: "number", description: "Monthly health/medical insurance premium." },
+    phone_bill: { type: "number", description: "Monthly phone/cell plan." },
+    internet: { type: "number", description: "Monthly internet bill." },
+    childcare: { type: "number", description: "Monthly childcare/daycare cost." },
+    subscriptions: { type: "number", description: "Monthly subscriptions (streaming, apps, gym, etc)." },
+    dining_out: { type: "number", description: "Monthly dining out / restaurants." },
+    transportation: { type: "number", description: "Monthly gas, transit, rideshare." },
+
+    // ── Liquid assets ──
+    liquid_assets: { type: "number", description: "Total liquid assets if given as a lump sum." },
+    checking_balance: { type: "number", description: "Checking account balance." },
+    savings_balance: { type: "number", description: "Savings account balance." },
+    emergency_fund: { type: "number", description: "Emergency fund balance." },
+    investment_balance: { type: "number", description: "Brokerage/investment account balance (non-retirement)." },
+    crypto_balance: { type: "number", description: "Total cryptocurrency holdings value in dollars." },
+    crypto_tickers: { type: "string", description: "Comma-separated CoinGecko IDs of crypto held, e.g. 'bitcoin,ethereum,solana'. Use lowercase." },
+    stock_tickers: { type: "string", description: "Comma-separated stock ticker symbols, e.g. 'AAPL,TSLA,VOO'. Use uppercase." },
+    has_crypto: { type: "boolean", description: "True if user mentions any cryptocurrency." },
+    has_stocks: { type: "boolean", description: "True if user mentions stocks, ETFs, or brokerage." },
+
+    // ── Non-liquid assets ──
+    nonliquid_assets: { type: "number", description: "Total non-liquid assets if given as a lump sum." },
+    home_value: { type: "number", description: "Home/property market value." },
+    car_value: { type: "number", description: "Car/vehicle market value." },
+    jewelry_collectibles: { type: "number", description: "Value of jewelry, watches, art, collectibles." },
+    business_equity: { type: "number", description: "Business ownership equity value." },
     nonliquid_discount: { type: "number", description: "Discount percentage for non-liquid assets (default 25)." },
-    has_crypto: { type: "boolean", description: "Set to true if the user mentions cryptocurrency, Bitcoin, Ethereum, or any crypto holdings." },
-    has_stocks: { type: "boolean", description: "Set to true if the user mentions stocks, brokerage accounts, ETFs, or equity investments." },
-    budget_description: { type: "string", description: "The user's original message/prompt about their budget situation. Pass the full user message so the widget can parse specific details." },
+
+    // ── Retirement accounts ──
+    retirement_savings: { type: "number", description: "Total retirement savings if given as a lump sum." },
+    balance_401k: { type: "number", description: "401k balance." },
+    roth_ira: { type: "number", description: "Roth IRA balance." },
+    traditional_ira: { type: "number", description: "Traditional IRA balance." },
+    pension_fund: { type: "number", description: "Pension fund balance." },
+    balance_403b: { type: "number", description: "403b balance." },
+    sep_ira: { type: "number", description: "SEP IRA balance." },
+
+    // ── Liabilities / debts ──
+    liabilities: { type: "number", description: "Total liabilities if given as a lump sum." },
+    mortgage_balance: { type: "number", description: "Remaining mortgage balance." },
+    student_loans: { type: "number", description: "Student loan balance." },
+    car_loan: { type: "number", description: "Auto/car loan balance." },
+    credit_card_debt: { type: "number", description: "Credit card debt balance." },
+    personal_loan: { type: "number", description: "Personal loan balance." },
+    medical_debt: { type: "number", description: "Medical debt/bills balance." },
   },
   required: [],
   additionalProperties: false,
@@ -315,16 +376,62 @@ const toolInputSchema = {
 const toolInputParser = z.object({
   preset: z.enum(["gen_z", "millennial", "family", "retiree"]).optional(),
   budget_name: z.string().optional(),
+  budget_description: z.string().optional(),
+  is_homeowner: z.boolean().optional(),
+  is_unemployed: z.boolean().optional(),
+  num_children: z.number().optional(),
+  annual_income: z.number().optional(),
   monthly_income: z.number().optional(),
+  salary: z.number().optional(),
+  side_income: z.number().optional(),
+  rental_income: z.number().optional(),
+  social_security: z.number().optional(),
+  pension_income: z.number().optional(),
+  investment_income: z.number().optional(),
   monthly_expenses: z.number().optional(),
+  rent: z.number().optional(),
+  mortgage_payment: z.number().optional(),
+  utilities: z.number().optional(),
+  groceries: z.number().optional(),
+  car_payment: z.number().optional(),
+  car_insurance: z.number().optional(),
+  health_insurance: z.number().optional(),
+  phone_bill: z.number().optional(),
+  internet: z.number().optional(),
+  childcare: z.number().optional(),
+  subscriptions: z.number().optional(),
+  dining_out: z.number().optional(),
+  transportation: z.number().optional(),
   liquid_assets: z.number().optional(),
-  nonliquid_assets: z.number().optional(),
-  retirement_savings: z.number().optional(),
-  liabilities: z.number().optional(),
-  nonliquid_discount: z.number().optional(),
+  checking_balance: z.number().optional(),
+  savings_balance: z.number().optional(),
+  emergency_fund: z.number().optional(),
+  investment_balance: z.number().optional(),
+  crypto_balance: z.number().optional(),
+  crypto_tickers: z.string().optional(),
+  stock_tickers: z.string().optional(),
   has_crypto: z.boolean().optional(),
   has_stocks: z.boolean().optional(),
-  budget_description: z.string().optional(),
+  nonliquid_assets: z.number().optional(),
+  home_value: z.number().optional(),
+  car_value: z.number().optional(),
+  jewelry_collectibles: z.number().optional(),
+  business_equity: z.number().optional(),
+  nonliquid_discount: z.number().optional(),
+  retirement_savings: z.number().optional(),
+  balance_401k: z.number().optional(),
+  roth_ira: z.number().optional(),
+  traditional_ira: z.number().optional(),
+  pension_fund: z.number().optional(),
+  balance_403b: z.number().optional(),
+  sep_ira: z.number().optional(),
+  liabilities: z.number().optional(),
+  mortgage_balance: z.number().optional(),
+  student_loans: z.number().optional(),
+  car_loan: z.number().optional(),
+  credit_card_debt: z.number().optional(),
+  personal_loan: z.number().optional(),
+  medical_debt: z.number().optional(),
 });
 
 const tools: Tool[] = widgets.map((widget) => ({
@@ -561,9 +668,35 @@ function createMyBudgetServer(): Server {
             }
           }
 
-          // Infer crypto/stock flags from user text
+          // ── Helper: extract dollar amount from a match ──
+          const parseDollars = (raw: string): number | null => {
+            const cleaned = raw.replace(/[,$\s]/g, "").trim();
+            let val = parseFloat(cleaned);
+            if (!Number.isFinite(val)) return null;
+            if (/k/i.test(raw)) val *= 1000;
+            if (/m/i.test(raw) && val < 1000) val *= 1_000_000;
+            return val;
+          };
+
+          // ── Context flags ──
+          if (args.is_homeowner === undefined && userText) {
+            if (/\b(?:own|bought|purchased)\s+(?:a\s+|my\s+)?(?:home|house|condo|property)\b/i.test(userText) || /\bhomeowner\b/i.test(userText) || /\bmortgage\b/i.test(userText)) {
+              args.is_homeowner = true;
+            }
+          }
+          if (args.is_unemployed === undefined && userText) {
+            if (/\bunemploy/i.test(userText) || /\bbetween\s+jobs\b/i.test(userText) || /\blost\s+(?:my\s+)?job\b/i.test(userText) || /\bno\s+(?:income|job|work)\b/i.test(userText) || /\blaid\s+off\b/i.test(userText)) {
+              args.is_unemployed = true;
+            }
+          }
+          if (args.num_children === undefined && userText) {
+            const kidMatch = userText.match(/\b(\d)\s*(?:kids?|children|child)\b/i) || userText.match(/\b(?:have|with)\s+(\d)\s+(?:kids?|children)\b/i);
+            if (kidMatch) args.num_children = parseInt(kidMatch[1], 10);
+          }
+
+          // ── Crypto/stock flags + tickers ──
           if (args.has_crypto === undefined && userText) {
-            if (/\bcrypto|bitcoin|btc|ethereum|eth|solana|sol\b/i.test(userText)) {
+            if (/\bcrypto|bitcoin|btc|ethereum|eth|solana|sol|dogecoin|doge\b/i.test(userText)) {
               args.has_crypto = true;
             }
           }
@@ -572,8 +705,23 @@ function createMyBudgetServer(): Server {
               args.has_stocks = true;
             }
           }
+          if (args.crypto_tickers === undefined && userText) {
+            const cryptoMap: Record<string, string> = { bitcoin: "bitcoin", btc: "bitcoin", ethereum: "ethereum", eth: "ethereum", solana: "solana", sol: "solana", dogecoin: "dogecoin", doge: "dogecoin", cardano: "cardano", ada: "cardano", xrp: "ripple" };
+            const found = new Set<string>();
+            for (const [kw, id] of Object.entries(cryptoMap)) {
+              if (new RegExp(`\\b${kw}\\b`, "i").test(userText)) found.add(id);
+            }
+            if (found.size > 0) args.crypto_tickers = [...found].join(",");
+          }
+          if (args.stock_tickers === undefined && userText) {
+            // Match $AAPL style or known tickers near "stock" context
+            const tickerMatches = userText.match(/\$([A-Z]{1,5})\b/g);
+            if (tickerMatches) {
+              args.stock_tickers = tickerMatches.map((t: string) => t.replace("$", "")).join(",");
+            }
+          }
 
-          // Infer budget name (e.g., "household budget", "monthly budget")
+          // ── Budget name ──
           if (args.budget_name === undefined) {
             const nameMatch = userText.match(/(?:my\s+|a\s+|create\s+(?:a\s+)?)?(\w+(?:\s+\w+)?)\s+budget/i);
             if (nameMatch && nameMatch[1]) {
@@ -581,55 +729,66 @@ function createMyBudgetServer(): Server {
             }
           }
 
-          // Infer monthly income (e.g., "I make $5000 a month", "income is 80k", "salary of $120,000")
-          if (args.monthly_income === undefined) {
+          // ── Income inference ──
+          if (args.monthly_income === undefined && args.annual_income === undefined && args.salary === undefined) {
             const incomeMatch = userText.match(/(?:make|earn|income|salary|take\s+home)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:month|mo|monthly|per\s+month))/i);
             if (incomeMatch) {
-              let val = parseFloat(incomeMatch[1].replace(/,/g, ""));
-              if (/k/i.test(incomeMatch[0])) val *= 1000;
-              args.monthly_income = val;
+              const val = parseDollars(incomeMatch[1]);
+              if (val) args.monthly_income = val;
             } else {
-              // Try annual salary and convert to monthly
-              const annualMatch = userText.match(/(?:make|earn|income|salary)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:year|yr|annual|annually|per\s+year))/i);
+              const annualMatch = userText.match(/(?:make|earn|income|salary)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(k|K)?/i);
               if (annualMatch) {
-                let val = parseFloat(annualMatch[1].replace(/,/g, ""));
-                if (/k/i.test(annualMatch[0])) val *= 1000;
-                args.monthly_income = Math.round(val / 12);
+                let val = parseDollars(annualMatch[1] + (annualMatch[2] || ""));
+                if (val && val > 10000) args.annual_income = val; // likely annual if > $10k
               }
             }
           }
 
-          // Infer monthly expenses (e.g., "I spend $3000 a month", "expenses are $4k/mo")
-          if (args.monthly_expenses === undefined) {
-            const expenseMatch = userText.match(/(?:spend|expenses?|bills?|costs?)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:month|mo|monthly|per\s+month))/i);
-            if (expenseMatch) {
-              let val = parseFloat(expenseMatch[1].replace(/,/g, ""));
-              if (/k/i.test(expenseMatch[0])) val *= 1000;
-              args.monthly_expenses = val;
-            }
+          // ── Specific expense inference ──
+          if (args.rent === undefined && userText) {
+            const m = userText.match(/\brent[^.]*?\$\s*([\d,]+(?:\.\d+)?)\s*(?:k)?/i) || userText.match(/\$\s*([\d,]+)\s*(?:\/?\s*(?:mo|month))?\s*(?:in\s+)?rent/i);
+            if (m) { const v = parseDollars(m[1]); if (v && v < 10000) args.rent = v; }
+          }
+          if (args.student_loans === undefined && userText) {
+            const m = userText.match(/\bstudent\s+loan[^.]*?\$\s*([\d,]+(?:\.\d+)?)\s*(k|K)?/i);
+            if (m) { const v = parseDollars(m[1] + (m[2] || "")); if (v) args.student_loans = v; }
+          }
+          if (args.credit_card_debt === undefined && userText) {
+            const m = userText.match(/\bcredit\s+card[^.]*?\$\s*([\d,]+(?:\.\d+)?)\s*(k|K)?/i);
+            if (m) { const v = parseDollars(m[1] + (m[2] || "")); if (v) args.credit_card_debt = v; }
           }
 
-          // Infer liquid assets (e.g., "I have $50k in savings", "$200,000 in the bank")
-          if (args.liquid_assets === undefined) {
+          // ── Liquid assets inference ──
+          if (args.liquid_assets === undefined && args.savings_balance === undefined) {
             const liquidMatch = userText.match(/(?:savings?|bank|liquid|cash|checking)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?/i);
             if (liquidMatch) {
-              let val = parseFloat(liquidMatch[1].replace(/,/g, ""));
-              if (/k/i.test(liquidMatch[0])) val *= 1000;
-              if (val > 100) args.liquid_assets = val; // sanity check
+              const val = parseDollars(liquidMatch[1] + (/k/i.test(liquidMatch[0]) ? "k" : ""));
+              if (val && val > 100) args.liquid_assets = val;
             }
           }
 
-          // Infer liabilities (e.g., "I owe $30k", "debt of $50,000")
-          if (args.liabilities === undefined) {
-            const debtMatch = userText.match(/(?:owe|debt|liabilit|loan|mortgage)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?/i);
+          // ── Liability inference ──
+          if (args.liabilities === undefined && !args.student_loans && !args.credit_card_debt && !args.mortgage_balance) {
+            const debtMatch = userText.match(/(?:owe|debt|liabilit)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?/i);
             if (debtMatch) {
-              let val = parseFloat(debtMatch[1].replace(/,/g, ""));
-              if (/k/i.test(debtMatch[0])) val *= 1000;
-              if (val > 100) args.liabilities = val;
+              const val = parseDollars(debtMatch[1] + (/k/i.test(debtMatch[0]) ? "k" : ""));
+              if (val && val > 100) args.liabilities = val;
             }
           }
 
-          // Store freeform text as description for AI parsing on the client
+          // ── Home value inference ──
+          if (args.home_value === undefined && userText) {
+            const m = userText.match(/\b(?:home|house|property)\s+(?:is\s+)?(?:worth|valued?\s+at)[^.]*?\$\s*([\d,]+(?:\.\d+)?)\s*(k|K|m|M)?/i);
+            if (m) { const v = parseDollars(m[1] + (m[2] || "")); if (v && v > 10000) args.home_value = v; }
+          }
+
+          // ── 401k / retirement inference ──
+          if (args.retirement_savings === undefined && args.balance_401k === undefined && userText) {
+            const m = userText.match(/\b(?:401k|retirement|ira)[^.]*?\$\s*([\d,]+(?:\.\d+)?)\s*(k|K)?/i);
+            if (m) { const v = parseDollars(m[1] + (m[2] || "")); if (v && v > 100) args.retirement_savings = v; }
+          }
+
+          // ── Store freeform text ──
           if (!args.budget_description && userText.length > 10 && !looksLikeToken(userText)) {
             args.budget_description = userText;
           }
