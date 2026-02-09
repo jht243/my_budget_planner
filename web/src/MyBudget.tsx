@@ -185,7 +185,7 @@ const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>>
 };
 
 // Finnhub free API key (free tier, 60 calls/min — same client-side pattern as CoinGecko)
-const FINNHUB_KEY = "cvt2rehr01qocsf0si2gcvt2rehr01qocsf0si30";
+const FINNHUB_KEY = "d652ethr01qqbln5kjjgd652ethr01qqbln5kjk0";
 
 const fetchStockPrices = async (symbols: string[]): Promise<Record<string, number>> => {
   if (symbols.length === 0) return {};
@@ -495,7 +495,7 @@ const CoinSearchDropdown = ({ onSelect, inputStyle }: {
   );
 };
 
-// ─── Stock Ticker Input (debounced auto-fetch) ───────────────────────────────
+// ─── Stock Ticker Input ──────────────────────────────────────────────────────
 
 const StockTickerInput = ({ draft, setDraft, inputStyle, color }: {
   draft: BudgetItem;
@@ -505,8 +505,12 @@ const StockTickerInput = ({ draft, setDraft, inputStyle, color }: {
 }) => {
   const [fetching, setFetching] = useState(false);
   const [tickerInput, setTickerInput] = useState(draft.ticker || "");
+  const [priceInput, setPriceInput] = useState(draft.livePrice ? String(draft.livePrice) : "");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const recalcAmount = (price: number, qty: number) => Math.round(price * qty * 100) / 100;
+
+  // Debounced price lookup when ticker changes
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const symbol = tickerInput.trim();
@@ -523,8 +527,9 @@ const StockTickerInput = ({ draft, setDraft, inputStyle, color }: {
         const prices = await fetchStockPrices([symbol]);
         if (prices[symbol]) {
           const price = prices[symbol];
+          setPriceInput(String(price));
           setDraft(d => {
-            const newAmount = d.quantity ? Math.round(price * d.quantity * 100) / 100 : price;
+            const newAmount = d.quantity ? recalcAmount(price, d.quantity) : price;
             return { ...d, livePrice: price, amount: newAmount };
           });
         }
@@ -535,34 +540,48 @@ const StockTickerInput = ({ draft, setDraft, inputStyle, color }: {
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [tickerInput]);
 
+  const hasTicker = tickerInput.trim().length >= 1;
+
   return (
     <div style={{ marginBottom: 8 }}>
       <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Ticker Symbol</label>
       <input style={{ ...inputStyle, textTransform: "uppercase" }} value={tickerInput}
         onChange={e => setTickerInput(e.target.value.toUpperCase().replace(/[^A-Z.]/g, ""))}
         placeholder="e.g. AAPL, TSLA, VOO" autoFocus />
-      {fetching && <div style={{ fontSize: 11, color: COLORS.textMuted, marginTop: 4 }}>Looking up {tickerInput}...</div>}
-      {draft.livePrice && !fetching && (
-        <>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginTop: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#2563EB" }}>📈 {draft.ticker}</span>
-            <span style={{ fontSize: 11, color: COLORS.textMuted }}>@ {fmtPrice(draft.livePrice)}</span>
+      {fetching && <div style={{ fontSize: 11, color: "#2563EB", marginTop: 4 }}>Looking up {tickerInput}...</div>}
+
+      {hasTicker && (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Price / Share</label>
+            <input style={inputStyle} type="number" step="any" value={priceInput}
+              onChange={e => {
+                setPriceInput(e.target.value);
+                const price = parseFloat(e.target.value) || 0;
+                const qty = draft.quantity || 0;
+                setDraft(d => ({ ...d, livePrice: price || undefined, amount: qty > 0 && price > 0 ? recalcAmount(price, qty) : price }));
+              }}
+              placeholder="$0.00" />
           </div>
-          <div style={{ marginBottom: 4 }}>
+          <div>
             <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Shares</label>
-            <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => {
-              const qty = parseFloat(e.target.value) || 0;
-              const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
-              setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
-            }} placeholder="How many shares?" />
+            <input style={inputStyle} type="number" step="any" value={draft.quantity || ""}
+              onChange={e => {
+                const qty = parseFloat(e.target.value) || 0;
+                const price = parseFloat(priceInput) || 0;
+                const newAmount = qty > 0 && price > 0 ? recalcAmount(price, qty) : draft.amount;
+                setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
+              }}
+              placeholder="Qty" />
           </div>
-          {draft.quantity ? (
-            <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
-              <span>Price: <strong>{fmtPrice(draft.livePrice)}</strong>/share</span>
-              <span>Total: <strong style={{ color }}>{fmt(draft.livePrice * draft.quantity)}</strong></span>
-            </div>
-          ) : null}
-        </>
+        </div>
+      )}
+
+      {hasTicker && draft.livePrice && draft.quantity && draft.quantity > 0 && (
+        <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 6, display: "flex", justifyContent: "space-between", padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30" }}>
+          <span>📈 {draft.ticker} × {draft.quantity}</span>
+          <span><strong style={{ color }}>{fmt(draft.amount)}</strong></span>
+        </div>
       )}
     </div>
   );

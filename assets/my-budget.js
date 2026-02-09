@@ -48712,7 +48712,7 @@ var fetchCryptoPrices = async (ids) => {
     return {};
   }
 };
-var FINNHUB_KEY = "cvt2rehr01qocsf0si2gcvt2rehr01qocsf0si30";
+var FINNHUB_KEY = "d652ethr01qqbln5kjjgd652ethr01qqbln5kjk0";
 var fetchStockPrices = async (symbols) => {
   if (symbols.length === 0) return {};
   const results = {};
@@ -49050,7 +49050,9 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
 var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
   const [fetching, setFetching] = (0, import_react51.useState)(false);
   const [tickerInput, setTickerInput] = (0, import_react51.useState)(draft.ticker || "");
+  const [priceInput, setPriceInput] = (0, import_react51.useState)(draft.livePrice ? String(draft.livePrice) : "");
   const debounceRef = (0, import_react51.useRef)(null);
+  const recalcAmount = (price, qty) => Math.round(price * qty * 100) / 100;
   (0, import_react51.useEffect)(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const symbol = tickerInput.trim();
@@ -49066,8 +49068,9 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         const prices = await fetchStockPrices([symbol]);
         if (prices[symbol]) {
           const price = prices[symbol];
+          setPriceInput(String(price));
           setDraft((d) => {
-            const newAmount = d.quantity ? Math.round(price * d.quantity * 100) / 100 : price;
+            const newAmount = d.quantity ? recalcAmount(price, d.quantity) : price;
             return { ...d, livePrice: price, amount: newAmount };
           });
         }
@@ -49079,6 +49082,7 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, [tickerInput]);
+  const hasTicker = tickerInput.trim().length >= 1;
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -49091,41 +49095,59 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         autoFocus: true
       }
     ),
-    fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: [
+    fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: "#2563EB", marginTop: 4 }, children: [
       "Looking up ",
       tickerInput,
       "..."
     ] }),
-    draft.livePrice && !fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginTop: 8, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#2563EB" }, children: [
-          "\u{1F4C8} ",
-          draft.ticker
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
-          "@ ",
-          fmtPrice(draft.livePrice)
-        ] })
+    hasTicker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Price / Share" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "input",
+          {
+            style: inputStyle,
+            type: "number",
+            step: "any",
+            value: priceInput,
+            onChange: (e) => {
+              setPriceInput(e.target.value);
+              const price = parseFloat(e.target.value) || 0;
+              const qty = draft.quantity || 0;
+              setDraft((d) => ({ ...d, livePrice: price || void 0, amount: qty > 0 && price > 0 ? recalcAmount(price, qty) : price }));
+            },
+            placeholder: "$0.00"
+          }
+        )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
-          const qty = parseFloat(e.target.value) || 0;
-          const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
-          setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
-        }, placeholder: "How many shares?" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "input",
+          {
+            style: inputStyle,
+            type: "number",
+            step: "any",
+            value: draft.quantity || "",
+            onChange: (e) => {
+              const qty = parseFloat(e.target.value) || 0;
+              const price = parseFloat(priceInput) || 0;
+              const newAmount = qty > 0 && price > 0 ? recalcAmount(price, qty) : draft.amount;
+              setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
+            },
+            placeholder: "Qty"
+          }
+        )
+      ] })
+    ] }),
+    hasTicker && draft.livePrice && draft.quantity && draft.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 6, display: "flex", justifyContent: "space-between", padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        "\u{1F4C8} ",
+        draft.ticker,
+        " \xD7 ",
+        draft.quantity
       ] }),
-      draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-          "Price: ",
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
-          "/share"
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-          "Total: ",
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
-        ] })
-      ] }) : null
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.amount) }) })
     ] })
   ] });
 };
