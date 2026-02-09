@@ -24741,32 +24741,58 @@ var __iconNode23 = [
 ];
 var Search = createLucideIcon("search", __iconNode23);
 
-// node_modules/lucide-react/dist/esm/icons/trash-2.js
+// node_modules/lucide-react/dist/esm/icons/thumbs-down.js
 var __iconNode24 = [
+  ["path", { d: "M17 14V2", key: "8ymqnk" }],
+  [
+    "path",
+    {
+      d: "M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z",
+      key: "m61m77"
+    }
+  ]
+];
+var ThumbsDown = createLucideIcon("thumbs-down", __iconNode24);
+
+// node_modules/lucide-react/dist/esm/icons/thumbs-up.js
+var __iconNode25 = [
+  ["path", { d: "M7 10v12", key: "1qc93n" }],
+  [
+    "path",
+    {
+      d: "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z",
+      key: "emmmcr"
+    }
+  ]
+];
+var ThumbsUp = createLucideIcon("thumbs-up", __iconNode25);
+
+// node_modules/lucide-react/dist/esm/icons/trash-2.js
+var __iconNode26 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode24);
+var Trash2 = createLucideIcon("trash-2", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode25 = [
+var __iconNode27 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode25);
+var TrendingDown = createLucideIcon("trending-down", __iconNode27);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode26 = [
+var __iconNode28 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode26);
+var TrendingUp = createLucideIcon("trending-up", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode27 = [
+var __iconNode29 = [
   [
     "path",
     {
@@ -24777,10 +24803,10 @@ var __iconNode27 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode27);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode29);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode28 = [
+var __iconNode30 = [
   [
     "path",
     {
@@ -24790,14 +24816,14 @@ var __iconNode28 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode28);
+var Wallet = createLucideIcon("wallet", __iconNode30);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode29 = [
+var __iconNode31 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode29);
+var X = createLucideIcon("x", __iconNode31);
 
 // src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -25710,9 +25736,47 @@ function MyBudget({ initialData: initialData2 }) {
   const [feedbackText, setFeedbackText] = (0, import_react3.useState)("");
   const [feedbackStatus, setFeedbackStatus] = (0, import_react3.useState)("idle");
   const [confirmDialog, setConfirmDialog] = (0, import_react3.useState)(null);
+  const [enjoyVote, setEnjoyVote] = (0, import_react3.useState)(null);
+  const containerRef = (0, import_react3.useRef)(null);
+  const [pillRight, setPillRight] = (0, import_react3.useState)(16);
   (0, import_react3.useEffect)(() => {
     saveCurrentBudget(budget);
   }, [budget]);
+  (0, import_react3.useEffect)(() => {
+    try {
+      const v = localStorage.getItem("enjoyVote_budget");
+      if (v === "up" || v === "down") setEnjoyVote(v);
+    } catch {
+    }
+  }, []);
+  (0, import_react3.useEffect)(() => {
+    const update = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setPillRight(Math.max(16, window.innerWidth - rect.right + 16));
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    if (ro && containerRef.current) ro.observe(containerRef.current);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update);
+      ro?.disconnect();
+    };
+  }, []);
+  const handleEnjoyVote = (vote) => {
+    if (enjoyVote) return;
+    setEnjoyVote(vote);
+    try {
+      localStorage.setItem("enjoyVote_budget", vote);
+    } catch {
+    }
+    trackEvent("enjoy_vote", { vote, budgetName: budget.name || null });
+    setShowFeedbackModal(true);
+  };
   const refreshPrices = (0, import_react3.useCallback)(async () => {
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter((i) => i.assetType === "crypto" && i.ticker);
@@ -25888,7 +25952,7 @@ function MyBudget({ initialData: initialData2 }) {
     window.print();
   };
   if (currentView === "home") {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }, children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 28 }),
@@ -25965,7 +26029,7 @@ function MyBudget({ initialData: initialData2 }) {
     ] });
   }
   const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => i.assetType === "crypto" && i.ticker);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }` }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }, children: [
@@ -26357,7 +26421,7 @@ function MyBudget({ initialData: initialData2 }) {
             style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
             onClick: (e) => e.stopPropagation(),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }, children: [
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Send Feedback" }),
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
                   setShowFeedbackModal(false);
@@ -26365,13 +26429,28 @@ function MyBudget({ initialData: initialData2 }) {
                   setFeedbackStatus("idle");
                 }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
               ] }),
+              enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+                padding: "8px 12px",
+                borderRadius: 8,
+                marginBottom: 12,
+                backgroundColor: enjoyVote === "up" ? `${COLORS.income}10` : `${COLORS.expense}10`,
+                color: enjoyVote === "up" ? COLORS.income : COLORS.expense,
+                fontSize: 13,
+                fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                gap: 6
+              }, children: [
+                enjoyVote === "up" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsUp, { size: 14 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsDown, { size: 14 }),
+                enjoyVote === "up" ? "Glad you're enjoying it!" : "Sorry to hear that."
+              ] }),
               feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: "Thank you for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
                 /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
                   "textarea",
                   {
                     value: feedbackText,
                     onChange: (e) => setFeedbackText(e.target.value),
-                    placeholder: "What can we improve? Bug reports, feature requests, anything...",
+                    placeholder: enjoyVote === "up" ? "What do you like most? Any features you'd love to see?" : enjoyVote === "down" ? "What went wrong? How can we improve?" : "What can we improve? Bug reports, feature requests, anything...",
                     autoFocus: true,
                     rows: 4,
                     style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }
@@ -26395,7 +26474,38 @@ function MyBudget({ initialData: initialData2 }) {
           }
         )
       }
-    )
+    ),
+    !enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "fixed", bottom: 20, right: pillRight, zIndex: 900, pointerEvents: "none" }, className: "no-print", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      pointerEvents: "auto",
+      backgroundColor: COLORS.card,
+      borderRadius: 24,
+      padding: "10px 16px",
+      boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+      border: `1px solid ${COLORS.border}`,
+      display: "flex",
+      alignItems: "center",
+      gap: 10
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: "Enjoying this app?" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => handleEnjoyVote("up"), style: {
+        padding: 6,
+        borderRadius: 8,
+        border: `1px solid ${COLORS.border}`,
+        backgroundColor: "white",
+        cursor: "pointer",
+        display: "flex",
+        color: COLORS.income
+      }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsUp, { size: 16 }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => handleEnjoyVote("down"), style: {
+        padding: 6,
+        borderRadius: 8,
+        border: `1px solid ${COLORS.border}`,
+        backgroundColor: "white",
+        cursor: "pointer",
+        display: "flex",
+        color: COLORS.expense
+      }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsDown, { size: 16 }) })
+    ] }) })
   ] });
 }
 
@@ -26792,6 +26902,22 @@ lucide-react/dist/esm/icons/save.js:
    *)
 
 lucide-react/dist/esm/icons/search.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/thumbs-down.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/thumbs-up.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

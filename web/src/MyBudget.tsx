@@ -4,7 +4,7 @@ import {
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
   Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
-  Mail, Heart, MessageSquare
+  Mail, Heart, MessageSquare, ThumbsUp, ThumbsDown
 } from "lucide-react";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
@@ -896,11 +896,47 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const [feedbackText, setFeedbackText] = useState("");
   const [feedbackStatus, setFeedbackStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
+  const [enjoyVote, setEnjoyVote] = useState<"up" | "down" | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [pillRight, setPillRight] = useState(16);
 
   // Persist budget on change
   useEffect(() => {
     saveCurrentBudget(budget);
   }, [budget]);
+
+  // Load enjoyVote from localStorage
+  useEffect(() => {
+    try { const v = localStorage.getItem("enjoyVote_budget"); if (v === "up" || v === "down") setEnjoyVote(v); } catch {}
+  }, []);
+
+  // Track container bounds so the fixed pill stays within the 600px widget
+  useEffect(() => {
+    const update = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setPillRight(Math.max(16, window.innerWidth - rect.right + 16));
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    if (ro && containerRef.current) ro.observe(containerRef.current);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update);
+      ro?.disconnect();
+    };
+  }, []);
+
+  const handleEnjoyVote = (vote: "up" | "down") => {
+    if (enjoyVote) return;
+    setEnjoyVote(vote);
+    try { localStorage.setItem("enjoyVote_budget", vote); } catch {}
+    trackEvent("enjoy_vote", { vote, budgetName: budget.name || null });
+    setShowFeedbackModal(true);
+  };
 
   // Refresh all crypto prices
   const refreshPrices = useCallback(async () => {
@@ -1088,7 +1124,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   // Homepage
   if (currentView === "home") {
     return (
-      <div style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }}>
+      <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
           <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
             <DollarSign size={28} /> My Budget
@@ -1148,7 +1184,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
   // Budget editor view
   return (
-    <div style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }}>
+    <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }}>
       <style>{`@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
       {/* Header */}
       <div style={{ backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }}>
@@ -1367,10 +1403,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onClick={() => { setShowFeedbackModal(false); setFeedbackText(""); setFeedbackStatus("idle"); }}>
           <div style={{ backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
             onClick={e => e.stopPropagation()}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }}>Send Feedback</h3>
               <button onClick={() => { setShowFeedbackModal(false); setFeedbackText(""); setFeedbackStatus("idle"); }} style={{ padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }}><X size={18} /></button>
             </div>
+            {enjoyVote && (
+              <div style={{
+                padding: "8px 12px", borderRadius: 8, marginBottom: 12,
+                backgroundColor: enjoyVote === "up" ? `${COLORS.income}10` : `${COLORS.expense}10`,
+                color: enjoyVote === "up" ? COLORS.income : COLORS.expense,
+                fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 6,
+              }}>
+                {enjoyVote === "up" ? <ThumbsUp size={14} /> : <ThumbsDown size={14} />}
+                {enjoyVote === "up" ? "Glad you're enjoying it!" : "Sorry to hear that."}
+              </div>
+            )}
             {feedbackStatus === "success" ? (
               <div style={{ padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }}>
                 Thank you for your feedback!
@@ -1378,7 +1425,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             ) : (
               <>
                 <textarea value={feedbackText} onChange={e => setFeedbackText(e.target.value)}
-                  placeholder="What can we improve? Bug reports, feature requests, anything..."
+                  placeholder={enjoyVote === "up" ? "What do you like most? Any features you'd love to see?" : enjoyVote === "down" ? "What went wrong? How can we improve?" : "What can we improve? Bug reports, feature requests, anything..."}
                   autoFocus rows={4}
                   style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }} />
                 {feedbackStatus === "error" && (
@@ -1394,6 +1441,28 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                 </button>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Floating Feedback Pill ─────────────────────────────────── */}
+      {!enjoyVote && (
+        <div style={{ position: "fixed", bottom: 20, right: pillRight, zIndex: 900, pointerEvents: "none" }} className="no-print">
+          <div style={{
+            pointerEvents: "auto",
+            backgroundColor: COLORS.card, borderRadius: 24, padding: "10px 16px",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.12)", border: `1px solid ${COLORS.border}`,
+            display: "flex", alignItems: "center", gap: 10,
+          }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: COLORS.textMain }}>Enjoying this app?</span>
+            <button onClick={() => handleEnjoyVote("up")} style={{
+              padding: 6, borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white",
+              cursor: "pointer", display: "flex", color: COLORS.income,
+            }}><ThumbsUp size={16} /></button>
+            <button onClick={() => handleEnjoyVote("down")} style={{
+              padding: 6, borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white",
+              cursor: "pointer", display: "flex", color: COLORS.expense,
+            }}><ThumbsDown size={16} /></button>
           </div>
         </div>
       )}
