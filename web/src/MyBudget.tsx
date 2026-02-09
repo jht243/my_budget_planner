@@ -1456,6 +1456,33 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           <SummarySection budget={budget} />
         )}
 
+        {/* Related Apps */}
+        <div style={{ padding: "16px 0", borderTop: `1px solid ${COLORS.borderLight}` }} className="no-print">
+          <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }}>Related Apps</div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {[
+              { icon: <X size={16} />, label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
+              { icon: <TrendingUp size={16} />, label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
+              { icon: <BarChart3 size={16} />, label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" },
+            ].map((app, i) => (
+              <button key={i} onClick={() => trackEvent("related_app_click", { app: app.label })} style={{
+                flex: "1 1 0", minWidth: 160, display: "flex", alignItems: "center", gap: 10,
+                padding: "12px 14px", borderRadius: 12,
+                border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card,
+                cursor: "pointer", textAlign: "left",
+              }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: `${COLORS.primary}15`, display: "flex", alignItems: "center", justifyContent: "center", color: COLORS.primary, flexShrink: 0 }}>
+                  {app.icon}
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.textMain }}>{app.label}</div>
+                  <div style={{ fontSize: 11, color: COLORS.textSecondary, marginTop: 2 }}>{app.desc}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Footer buttons */}
         <div style={{
           marginTop: 16, padding: "16px 0",

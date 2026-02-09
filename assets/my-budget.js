@@ -50160,6 +50160,32 @@ function MyBudget({ initialData: initialData2 }) {
         }
       ),
       (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SummarySection, { budget }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 0", borderTop: `1px solid ${COLORS.borderLight}` }, className: "no-print", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }, children: "Related Apps" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 10, flexWrap: "wrap" }, children: [
+          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 16 }), label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
+          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 16 }), label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
+          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartColumn, { size: 16 }), label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" }
+        ].map((app, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => trackEvent("related_app_click", { app: app.label }), style: {
+          flex: "1 1 0",
+          minWidth: 160,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "12px 14px",
+          borderRadius: 12,
+          border: `1px solid ${COLORS.border}`,
+          backgroundColor: COLORS.card,
+          cursor: "pointer",
+          textAlign: "left"
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 36, height: 36, borderRadius: 10, backgroundColor: `${COLORS.primary}15`, display: "flex", alignItems: "center", justifyContent: "center", color: COLORS.primary, flexShrink: 0 }, children: app.icon }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.textMain }, children: app.label }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textSecondary, marginTop: 2 }, children: app.desc })
+          ] })
+        ] }, i)) })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
         marginTop: 16,
         padding: "16px 0",
