@@ -48702,77 +48702,88 @@ var fetchCryptoPrices = async (ids) => {
     return {};
   }
 };
-var mi = (name, freq = "monthly") => ({
+var mi = (name, amount, freq = "monthly") => ({
   id: generateId(),
   name,
-  amount: 10,
+  amount,
   frequency: freq,
-  totalValue: freq === "monthly" ? 120 : 10,
-  monthlyValue: freq === "monthly" ? 10 : 0
+  totalValue: freq === "monthly" ? amount * 12 : freq === "yearly" ? amount : amount,
+  monthlyValue: freq === "monthly" ? amount : freq === "yearly" ? Math.round(amount / 12) : 0
 });
-var mia = (name) => ({ ...mi(name, "one_time"), totalValue: 10, monthlyValue: 0 });
+var mia = (name, amount) => ({
+  id: generateId(),
+  name,
+  amount,
+  frequency: "one_time",
+  totalValue: amount,
+  monthlyValue: 0
+});
 var BUDGET_PRESETS = [
   {
+    // Gen Z: ~22-28, median salary ~$40k, ~$2,800/mo after tax
     key: "gen_z",
     label: "Gen Z",
     emoji: "\u{1F4F1}",
     desc: "Starting out, side hustles & subscriptions",
     budget: {
       name: "Gen Z Budget",
-      income: [mi("Part-time Job"), mi("Freelance / Side Hustle"), mi("Tips")],
-      expenses: [mi("Rent (shared)"), mi("Groceries"), mi("Phone Plan"), mi("Streaming (Netflix, Spotify)"), mi("Dining Out"), mi("Uber / Transit"), mi("Gym Membership"), mi("Subscriptions (apps)")],
-      assets: [mia("Savings Account"), mia("Venmo / Cash App Balance"), mia("Crypto")],
-      nonLiquidAssets: [mia("Laptop"), mia("Phone")],
-      retirement: [mia("Roth IRA")],
-      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mi("Buy Now Pay Later")],
+      income: [mi("Part-time / Full-time Job", 2400), mi("Freelance / Side Hustle", 500), mi("Tips / Gig Work", 200)],
+      expenses: [mi("Rent (shared)", 950), mi("Groceries", 350), mi("Phone Plan", 80), mi("Streaming (Netflix, Spotify)", 30), mi("Dining Out", 200), mi("Uber / Transit", 120), mi("Gym Membership", 40), mi("Subscriptions (apps)", 25), mi("Clothing", 75), mi("Entertainment", 100)],
+      assets: [mia("Savings Account", 2500), mia("Venmo / Cash App Balance", 300), mia("Crypto", 500)],
+      nonLiquidAssets: [mia("Laptop", 1200), mia("Phone", 800)],
+      retirement: [mia("Roth IRA", 3e3)],
+      liabilities: [mia("Student Loans", 28e3), mia("Credit Card Balance", 2500), mi("Buy Now Pay Later", 50)],
       nonLiquidDiscount: 50
     }
   },
   {
+    // Millennial: ~29-43, median salary ~$65k, ~$4,200/mo after tax
     key: "millennial",
     label: "Millennial",
     emoji: "\u{1F4BC}",
     desc: "Career growth, building wealth",
     budget: {
       name: "Millennial Budget",
-      income: [mi("Salary"), mi("Bonus", "yearly"), mi("Side Project / Freelance")],
-      expenses: [mi("Rent / Mortgage"), mi("Groceries"), mi("Car Payment"), mi("Car Insurance"), mi("Utilities"), mi("Phone Plan"), mi("Internet"), mi("Streaming Services"), mi("Dining Out"), mi("Gym"), mi("Pet Expenses"), mi("Travel Fund")],
-      assets: [mia("Checking Account"), mia("Savings Account"), mia("Brokerage Account"), mia("Crypto Portfolio")],
-      nonLiquidAssets: [mia("Car"), mia("Furniture & Electronics")],
-      retirement: [mia("401k"), mia("Roth IRA")],
-      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mia("Car Loan")],
+      income: [mi("Salary", 4200), mi("Bonus", 5e3, "yearly"), mi("Side Project / Freelance", 400)],
+      expenses: [mi("Rent / Mortgage", 1500), mi("Groceries", 450), mi("Car Payment", 500), mi("Car Insurance", 150), mi("Utilities", 200), mi("Phone Plan", 85), mi("Internet", 70), mi("Streaming Services", 45), mi("Dining Out", 250), mi("Gym", 50), mi("Pet Expenses", 100), mi("Travel Fund", 200)],
+      assets: [mia("Checking Account", 4e3), mia("Savings Account", 12e3), mia("Brokerage Account", 15e3), mia("Crypto Portfolio", 3e3)],
+      nonLiquidAssets: [mia("Car", 18e3), mia("Furniture & Electronics", 5e3)],
+      retirement: [mia("401k", 35e3), mia("Roth IRA", 12e3)],
+      liabilities: [mia("Student Loans", 22e3), mia("Credit Card Balance", 4500), mia("Car Loan", 15e3)],
       nonLiquidDiscount: 30
     }
   },
   {
+    // Family: dual income, 35-54, combined ~$94k pre-tax → ~$6,500/mo after tax
     key: "family",
     label: "Family",
     emoji: "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}\u200D\u{1F466}",
     desc: "Dual income, kids, home ownership",
     budget: {
       name: "Family Budget",
-      income: [mi("Salary (Primary)"), mi("Salary (Spouse)"), mi("Child Tax Credit")],
-      expenses: [mi("Mortgage"), mi("Property Tax", "yearly"), mi("Homeowner's Insurance", "yearly"), mi("Groceries"), mi("Utilities"), mi("Childcare / Daycare"), mi("Kids Activities"), mi("Car Payment"), mi("Car Insurance"), mi("Gas"), mi("Phone Plans"), mi("Internet"), mi("Streaming"), mi("Dining Out"), mi("Clothing"), mi("Medical / Copays"), mi("School Supplies")],
-      assets: [mia("Checking Account"), mia("Joint Savings"), mia("529 College Fund"), mia("Brokerage Account")],
-      nonLiquidAssets: [mia("Home Equity"), mia("Car (Primary)"), mia("Car (Spouse)")],
-      retirement: [mia("401k (Primary)"), mia("401k (Spouse)"), mia("Roth IRA")],
-      liabilities: [mia("Mortgage Balance"), mia("Car Loan"), mia("Credit Card"), mia("Medical Bills")],
+      income: [mi("Salary (Primary)", 4e3), mi("Salary (Spouse)", 3200), mi("Child Tax Credit", 250)],
+      expenses: [mi("Mortgage", 2100), mi("Property Tax", 4800, "yearly"), mi("Homeowner's Insurance", 1800, "yearly"), mi("Groceries", 700), mi("Utilities", 380), mi("Childcare / Daycare", 1200), mi("Kids Activities", 150), mi("Car Payment", 550), mi("Car Insurance", 200), mi("Gas", 180), mi("Phone Plans", 140), mi("Internet", 75), mi("Streaming", 50), mi("Dining Out", 250), mi("Clothing", 170), mi("Medical / Copays", 100), mi("School Supplies", 50)],
+      assets: [mia("Checking Account", 6e3), mia("Joint Savings", 25e3), mia("529 College Fund", 18e3), mia("Brokerage Account", 3e4)],
+      nonLiquidAssets: [mia("Home Equity", 12e4), mia("Car (Primary)", 22e3), mia("Car (Spouse)", 15e3)],
+      retirement: [mia("401k (Primary)", 65e3), mia("401k (Spouse)", 4e4), mia("Roth IRA", 15e3)],
+      liabilities: [mia("Mortgage Balance", 28e4), mia("Car Loan", 18e3), mia("Credit Card", 6e3), mia("Medical Bills", 2e3)],
       nonLiquidDiscount: 20
     }
   },
   {
+    // Retiree: 65+, avg SS ~$1,907/mo, spending ~$4,600/mo
     key: "retiree",
     label: "Retiree",
     emoji: "\u{1F3D6}\uFE0F",
     desc: "Fixed income, low debt, enjoying life",
     budget: {
       name: "Retiree Budget",
-      income: [mi("Social Security"), mi("Pension"), mi("Retirement Withdrawals"), mi("Rental Income")],
-      expenses: [mi("Mortgage / Rent"), mi("Utilities"), mi("Groceries"), mi("Medicare / Health Insurance"), mi("Prescriptions"), mi("Car Insurance"), mi("Gas"), mi("Phone"), mi("Internet / Cable"), mi("Dining Out"), mi("Travel / Vacations"), mi("Hobbies"), mi("Gifts / Donations")],
-      assets: [mia("Checking Account"), mia("Savings Account"), mia("CDs / Bonds"), mia("Brokerage Account")],
-      nonLiquidAssets: [mia("Home"), mia("Car"), mia("Jewelry / Collectibles")],
-      retirement: [mia("401k / IRA"), mia("Pension Fund"), mia("Annuity")],
-      liabilities: [mia("Mortgage Balance"), mia("Medical Bills")],
+      income: [mi("Social Security", 1900), mi("Pension", 1500), mi("Retirement Withdrawals", 1200), mi("Rental Income", 800)],
+      expenses: [mi("Mortgage / Rent", 1200), mi("Utilities", 300), mi("Groceries", 500), mi("Medicare / Health Insurance", 340), mi("Prescriptions", 150), mi("Car Insurance", 120), mi("Gas", 100), mi("Phone", 60), mi("Internet / Cable", 90), mi("Dining Out", 200), mi("Travel / Vacations", 300), mi("Hobbies", 100), mi("Gifts / Donations", 150)],
+      assets: [mia("Checking Account", 8e3), mia("Savings Account", 45e3), mia("CDs / Bonds", 5e4), mia("Brokerage Account", 8e4)],
+      nonLiquidAssets: [mia("Home", 3e5), mia("Car", 15e3), mia("Jewelry / Collectibles", 1e4)],
+      retirement: [mia("401k / IRA", 25e4), mia("Pension Fund", 15e4), mia("Annuity", 75e3)],
+      liabilities: [mia("Mortgage Balance", 85e3), mia("Medical Bills", 3e3)],
       nonLiquidDiscount: 20
     }
   }

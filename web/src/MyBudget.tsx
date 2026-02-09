@@ -171,63 +171,73 @@ const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>>
   } catch { return {}; }
 };
 
-const mi = (name: string, freq: Frequency = "monthly"): BudgetItem => ({
-  id: generateId(), name, amount: 10, frequency: freq,
-  totalValue: freq === "monthly" ? 120 : 10,
-  monthlyValue: freq === "monthly" ? 10 : 0,
+// Helper: monthly recurring item
+const mi = (name: string, amount: number, freq: Frequency = "monthly"): BudgetItem => ({
+  id: generateId(), name, amount, frequency: freq,
+  totalValue: freq === "monthly" ? amount * 12 : freq === "yearly" ? amount : amount,
+  monthlyValue: freq === "monthly" ? amount : freq === "yearly" ? Math.round(amount / 12) : 0,
 });
-const mia = (name: string): BudgetItem => ({ ...mi(name, "one_time"), totalValue: 10, monthlyValue: 0 });
+// Helper: one-time / asset item
+const mia = (name: string, amount: number): BudgetItem => ({
+  id: generateId(), name, amount, frequency: "one_time", totalValue: amount, monthlyValue: 0,
+});
 
+// Sources: BLS Consumer Expenditure Survey 2024, Motley Fool avg monthly expenses 2024,
+// Bankrate household budget 2024, SSA avg benefits 2024, Census/BLS income by age.
 const BUDGET_PRESETS: { key: string; label: string; emoji: string; desc: string; budget: Omit<Budget, "id" | "createdAt" | "updatedAt"> }[] = [
   {
+    // Gen Z: ~22-28, median salary ~$40k, ~$2,800/mo after tax
     key: "gen_z", label: "Gen Z", emoji: "📱", desc: "Starting out, side hustles & subscriptions",
     budget: {
       name: "Gen Z Budget",
-      income: [mi("Part-time Job"), mi("Freelance / Side Hustle"), mi("Tips")],
-      expenses: [mi("Rent (shared)"), mi("Groceries"), mi("Phone Plan"), mi("Streaming (Netflix, Spotify)"), mi("Dining Out"), mi("Uber / Transit"), mi("Gym Membership"), mi("Subscriptions (apps)")],
-      assets: [mia("Savings Account"), mia("Venmo / Cash App Balance"), mia("Crypto")],
-      nonLiquidAssets: [mia("Laptop"), mia("Phone")],
-      retirement: [mia("Roth IRA")],
-      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mi("Buy Now Pay Later")],
+      income: [mi("Part-time / Full-time Job", 2400), mi("Freelance / Side Hustle", 500), mi("Tips / Gig Work", 200)],
+      expenses: [mi("Rent (shared)", 950), mi("Groceries", 350), mi("Phone Plan", 80), mi("Streaming (Netflix, Spotify)", 30), mi("Dining Out", 200), mi("Uber / Transit", 120), mi("Gym Membership", 40), mi("Subscriptions (apps)", 25), mi("Clothing", 75), mi("Entertainment", 100)],
+      assets: [mia("Savings Account", 2500), mia("Venmo / Cash App Balance", 300), mia("Crypto", 500)],
+      nonLiquidAssets: [mia("Laptop", 1200), mia("Phone", 800)],
+      retirement: [mia("Roth IRA", 3000)],
+      liabilities: [mia("Student Loans", 28000), mia("Credit Card Balance", 2500), mi("Buy Now Pay Later", 50)],
       nonLiquidDiscount: 50,
     },
   },
   {
+    // Millennial: ~29-43, median salary ~$65k, ~$4,200/mo after tax
     key: "millennial", label: "Millennial", emoji: "💼", desc: "Career growth, building wealth",
     budget: {
       name: "Millennial Budget",
-      income: [mi("Salary"), mi("Bonus", "yearly"), mi("Side Project / Freelance")],
-      expenses: [mi("Rent / Mortgage"), mi("Groceries"), mi("Car Payment"), mi("Car Insurance"), mi("Utilities"), mi("Phone Plan"), mi("Internet"), mi("Streaming Services"), mi("Dining Out"), mi("Gym"), mi("Pet Expenses"), mi("Travel Fund")],
-      assets: [mia("Checking Account"), mia("Savings Account"), mia("Brokerage Account"), mia("Crypto Portfolio")],
-      nonLiquidAssets: [mia("Car"), mia("Furniture & Electronics")],
-      retirement: [mia("401k"), mia("Roth IRA")],
-      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mia("Car Loan")],
+      income: [mi("Salary", 4200), mi("Bonus", 5000, "yearly"), mi("Side Project / Freelance", 400)],
+      expenses: [mi("Rent / Mortgage", 1500), mi("Groceries", 450), mi("Car Payment", 500), mi("Car Insurance", 150), mi("Utilities", 200), mi("Phone Plan", 85), mi("Internet", 70), mi("Streaming Services", 45), mi("Dining Out", 250), mi("Gym", 50), mi("Pet Expenses", 100), mi("Travel Fund", 200)],
+      assets: [mia("Checking Account", 4000), mia("Savings Account", 12000), mia("Brokerage Account", 15000), mia("Crypto Portfolio", 3000)],
+      nonLiquidAssets: [mia("Car", 18000), mia("Furniture & Electronics", 5000)],
+      retirement: [mia("401k", 35000), mia("Roth IRA", 12000)],
+      liabilities: [mia("Student Loans", 22000), mia("Credit Card Balance", 4500), mia("Car Loan", 15000)],
       nonLiquidDiscount: 30,
     },
   },
   {
+    // Family: dual income, 35-54, combined ~$94k pre-tax → ~$6,500/mo after tax
     key: "family", label: "Family", emoji: "👨‍👩‍👧‍👦", desc: "Dual income, kids, home ownership",
     budget: {
       name: "Family Budget",
-      income: [mi("Salary (Primary)"), mi("Salary (Spouse)"), mi("Child Tax Credit")],
-      expenses: [mi("Mortgage"), mi("Property Tax", "yearly"), mi("Homeowner's Insurance", "yearly"), mi("Groceries"), mi("Utilities"), mi("Childcare / Daycare"), mi("Kids Activities"), mi("Car Payment"), mi("Car Insurance"), mi("Gas"), mi("Phone Plans"), mi("Internet"), mi("Streaming"), mi("Dining Out"), mi("Clothing"), mi("Medical / Copays"), mi("School Supplies")],
-      assets: [mia("Checking Account"), mia("Joint Savings"), mia("529 College Fund"), mia("Brokerage Account")],
-      nonLiquidAssets: [mia("Home Equity"), mia("Car (Primary)"), mia("Car (Spouse)")],
-      retirement: [mia("401k (Primary)"), mia("401k (Spouse)"), mia("Roth IRA")],
-      liabilities: [mia("Mortgage Balance"), mia("Car Loan"), mia("Credit Card"), mia("Medical Bills")],
+      income: [mi("Salary (Primary)", 4000), mi("Salary (Spouse)", 3200), mi("Child Tax Credit", 250)],
+      expenses: [mi("Mortgage", 2100), mi("Property Tax", 4800, "yearly"), mi("Homeowner's Insurance", 1800, "yearly"), mi("Groceries", 700), mi("Utilities", 380), mi("Childcare / Daycare", 1200), mi("Kids Activities", 150), mi("Car Payment", 550), mi("Car Insurance", 200), mi("Gas", 180), mi("Phone Plans", 140), mi("Internet", 75), mi("Streaming", 50), mi("Dining Out", 250), mi("Clothing", 170), mi("Medical / Copays", 100), mi("School Supplies", 50)],
+      assets: [mia("Checking Account", 6000), mia("Joint Savings", 25000), mia("529 College Fund", 18000), mia("Brokerage Account", 30000)],
+      nonLiquidAssets: [mia("Home Equity", 120000), mia("Car (Primary)", 22000), mia("Car (Spouse)", 15000)],
+      retirement: [mia("401k (Primary)", 65000), mia("401k (Spouse)", 40000), mia("Roth IRA", 15000)],
+      liabilities: [mia("Mortgage Balance", 280000), mia("Car Loan", 18000), mia("Credit Card", 6000), mia("Medical Bills", 2000)],
       nonLiquidDiscount: 20,
     },
   },
   {
+    // Retiree: 65+, avg SS ~$1,907/mo, spending ~$4,600/mo
     key: "retiree", label: "Retiree", emoji: "🏖️", desc: "Fixed income, low debt, enjoying life",
     budget: {
       name: "Retiree Budget",
-      income: [mi("Social Security"), mi("Pension"), mi("Retirement Withdrawals"), mi("Rental Income")],
-      expenses: [mi("Mortgage / Rent"), mi("Utilities"), mi("Groceries"), mi("Medicare / Health Insurance"), mi("Prescriptions"), mi("Car Insurance"), mi("Gas"), mi("Phone"), mi("Internet / Cable"), mi("Dining Out"), mi("Travel / Vacations"), mi("Hobbies"), mi("Gifts / Donations")],
-      assets: [mia("Checking Account"), mia("Savings Account"), mia("CDs / Bonds"), mia("Brokerage Account")],
-      nonLiquidAssets: [mia("Home"), mia("Car"), mia("Jewelry / Collectibles")],
-      retirement: [mia("401k / IRA"), mia("Pension Fund"), mia("Annuity")],
-      liabilities: [mia("Mortgage Balance"), mia("Medical Bills")],
+      income: [mi("Social Security", 1900), mi("Pension", 1500), mi("Retirement Withdrawals", 1200), mi("Rental Income", 800)],
+      expenses: [mi("Mortgage / Rent", 1200), mi("Utilities", 300), mi("Groceries", 500), mi("Medicare / Health Insurance", 340), mi("Prescriptions", 150), mi("Car Insurance", 120), mi("Gas", 100), mi("Phone", 60), mi("Internet / Cable", 90), mi("Dining Out", 200), mi("Travel / Vacations", 300), mi("Hobbies", 100), mi("Gifts / Donations", 150)],
+      assets: [mia("Checking Account", 8000), mia("Savings Account", 45000), mia("CDs / Bonds", 50000), mia("Brokerage Account", 80000)],
+      nonLiquidAssets: [mia("Home", 300000), mia("Car", 15000), mia("Jewelry / Collectibles", 10000)],
+      retirement: [mia("401k / IRA", 250000), mia("Pension Fund", 150000), mia("Annuity", 75000)],
+      liabilities: [mia("Mortgage Balance", 85000), mia("Medical Bills", 3000)],
       nonLiquidDiscount: 20,
     },
   },
