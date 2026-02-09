@@ -314,6 +314,8 @@ const saveCurrentBudget = (budget: Budget) => {
 interface Preset {
   name: string;
   emoji: string;
+  persistent?: boolean;
+  assetType?: AssetType;
 }
 
 const PRESETS: Record<string, Preset[]> = {
@@ -341,7 +343,7 @@ const PRESETS: Record<string, Preset[]> = {
   assets: [
     { name: "Checking Account", emoji: "🏦" },
     { name: "Savings Account", emoji: "💰" },
-    { name: "Stocks/Brokerage", emoji: "📊" },
+    { name: "Stocks/Brokerage", emoji: "📊", persistent: true, assetType: "stock" },
     { name: "Crypto", emoji: "₿" },
     { name: "401k/Retirement", emoji: "🧓" },
     { name: "Emergency Fund", emoji: "🆘" },
@@ -756,7 +758,7 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, onReorder, inputMode, presets, footer }: {
   title: string; icon: React.ReactNode; color: string; bgColor: string;
   items: BudgetItem[]; onUpdate: (id: string, u: Partial<BudgetItem>) => void;
-  onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
+  onAdd: () => void; onAddPreset: (name: string, assetType?: AssetType) => void; onDelete: (id: string) => void;
   onReorder: (fromIndex: number, toIndex: number) => void;
   inputMode: InputMode; presets?: Preset[]; footer?: React.ReactNode;
 }) => {
@@ -769,7 +771,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
 
   // Filter out presets that already exist as items
   const existingNames = new Set(items.map(i => i.name.toLowerCase()));
-  const availablePresets = (presets || []).filter(p => !existingNames.has(p.name.toLowerCase()));
+  const availablePresets = (presets || []).filter(p => p.persistent || !existingNames.has(p.name.toLowerCase()));
 
   const handleDragStart = (e: React.DragEvent, idx: number) => {
     setDragIdx(idx);
@@ -811,7 +813,7 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
             )}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {availablePresets.map(p => (
-                <button key={p.name} onClick={() => onAddPreset(p.name)} style={{
+                <button key={p.name} onClick={() => onAddPreset(p.name, p.assetType)} style={{
                   padding: "6px 12px", borderRadius: 20, border: `1px solid ${color}30`,
                   backgroundColor: `${bgColor}`, color: color, fontSize: 12, fontWeight: 500,
                   cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
@@ -1268,11 +1270,11 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
-  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, name: string, freq: Frequency = "monthly") => {
-    trackEvent("add_preset_item", { section, presetName: name, frequency: freq });
+  const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, name: string, freq: Frequency = "monthly", assetType?: AssetType) => {
+    trackEvent("add_preset_item", { section, presetName: name, frequency: freq, assetType });
     setBudget(b => ({
       ...b,
-      [section]: [...b[section], { ...emptyItem(freq), name }],
+      [section]: [...b[section], { ...emptyItem(freq), name, ...(assetType ? { assetType } : {}) }],
       updatedAt: Date.now(),
     }));
   };
@@ -1593,7 +1595,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.income} inputMode="recurring" presets={PRESETS.income}
           onUpdate={(id, u) => updateItem("income", id, u)}
           onAdd={() => addItem("income", "monthly")}
-          onAddPreset={name => addPresetItem("income", name, "monthly")}
+          onAddPreset={(name, at) => addPresetItem("income", name, "monthly", at)}
           onDelete={id => deleteItem("income", id)}
           onReorder={(from, to) => reorderItems("income", from, to)} />
 
@@ -1602,7 +1604,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.expenses} inputMode="recurring" presets={PRESETS.expenses}
           onUpdate={(id, u) => updateItem("expenses", id, u)}
           onAdd={() => addItem("expenses", "monthly")}
-          onAddPreset={name => addPresetItem("expenses", name, "monthly")}
+          onAddPreset={(name, at) => addPresetItem("expenses", name, "monthly", at)}
           onDelete={id => deleteItem("expenses", id)}
           onReorder={(from, to) => reorderItems("expenses", from, to)} />
 
@@ -1611,7 +1613,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.assets} inputMode="asset" presets={PRESETS.assets}
           onUpdate={(id, u) => updateItem("assets", id, u)}
           onAdd={() => addItem("assets", "one_time")}
-          onAddPreset={name => addPresetItem("assets", name, "one_time")}
+          onAddPreset={(name, at) => addPresetItem("assets", name, "one_time", at)}
           onDelete={id => deleteItem("assets", id)}
           onReorder={(from, to) => reorderItems("assets", from, to)} />
 
@@ -1620,7 +1622,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.nonLiquidAssets} inputMode="value_only" presets={PRESETS.nonLiquidAssets}
           onUpdate={(id, u) => updateItem("nonLiquidAssets", id, u)}
           onAdd={() => addItem("nonLiquidAssets", "one_time")}
-          onAddPreset={name => addPresetItem("nonLiquidAssets", name, "one_time")}
+          onAddPreset={(name, at) => addPresetItem("nonLiquidAssets", name, "one_time", at)}
           onDelete={id => deleteItem("nonLiquidAssets", id)}
           onReorder={(from, to) => reorderItems("nonLiquidAssets", from, to)}
           footer={
@@ -1643,7 +1645,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.retirement} inputMode="value_only" presets={PRESETS.retirement}
           onUpdate={(id, u) => updateItem("retirement", id, u)}
           onAdd={() => addItem("retirement", "one_time")}
-          onAddPreset={name => addPresetItem("retirement", name, "one_time")}
+          onAddPreset={(name, at) => addPresetItem("retirement", name, "one_time", at)}
           onDelete={id => deleteItem("retirement", id)}
           onReorder={(from, to) => reorderItems("retirement", from, to)} />
 
@@ -1652,7 +1654,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           items={budget.liabilities} inputMode="recurring" presets={PRESETS.liabilities}
           onUpdate={(id, u) => updateItem("liabilities", id, u)}
           onAdd={() => addItem("liabilities", "one_time")}
-          onAddPreset={name => addPresetItem("liabilities", name, "one_time")}
+          onAddPreset={(name, at) => addPresetItem("liabilities", name, "one_time", at)}
           onDelete={id => deleteItem("liabilities", id)}
           onReorder={(from, to) => reorderItems("liabilities", from, to)} />
 

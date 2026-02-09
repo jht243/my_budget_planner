@@ -48877,7 +48877,7 @@ var PRESETS = {
   assets: [
     { name: "Checking Account", emoji: "\u{1F3E6}" },
     { name: "Savings Account", emoji: "\u{1F4B0}" },
-    { name: "Stocks/Brokerage", emoji: "\u{1F4CA}" },
+    { name: "Stocks/Brokerage", emoji: "\u{1F4CA}", persistent: true, assetType: "stock" },
     { name: "Crypto", emoji: "\u20BF" },
     { name: "401k/Retirement", emoji: "\u{1F9D3}" },
     { name: "Emergency Fund", emoji: "\u{1F198}" },
@@ -49370,7 +49370,7 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
   const existingNames = new Set(items.map((i) => i.name.toLowerCase()));
-  const availablePresets = (presets || []).filter((p) => !existingNames.has(p.name.toLowerCase()));
+  const availablePresets = (presets || []).filter((p) => p.persistent || !existingNames.has(p.name.toLowerCase()));
   const handleDragStart = (e, idx) => {
     setDragIdx(idx);
     e.dataTransfer.effectAllowed = "move";
@@ -49434,7 +49434,7 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
           availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
             "button",
             {
-              onClick: () => onAddPreset(p.name),
+              onClick: () => onAddPreset(p.name, p.assetType),
               style: {
                 padding: "6px 12px",
                 borderRadius: 20,
@@ -49894,11 +49894,11 @@ function MyBudget({ initialData: initialData2 }) {
       updatedAt: Date.now()
     }));
   };
-  const addPresetItem = (section, name, freq = "monthly") => {
-    trackEvent("add_preset_item", { section, presetName: name, frequency: freq });
+  const addPresetItem = (section, name, freq = "monthly", assetType) => {
+    trackEvent("add_preset_item", { section, presetName: name, frequency: freq, assetType });
     setBudget((b) => ({
       ...b,
-      [section]: [...b[section], { ...emptyItem(freq), name }],
+      [section]: [...b[section], { ...emptyItem(freq), name, ...assetType ? { assetType } : {} }],
       updatedAt: Date.now()
     }));
   };
@@ -50267,7 +50267,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.income,
           onUpdate: (id, u) => updateItem("income", id, u),
           onAdd: () => addItem("income", "monthly"),
-          onAddPreset: (name) => addPresetItem("income", name, "monthly"),
+          onAddPreset: (name, at) => addPresetItem("income", name, "monthly", at),
           onDelete: (id) => deleteItem("income", id),
           onReorder: (from2, to2) => reorderItems("income", from2, to2)
         }
@@ -50284,7 +50284,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.expenses,
           onUpdate: (id, u) => updateItem("expenses", id, u),
           onAdd: () => addItem("expenses", "monthly"),
-          onAddPreset: (name) => addPresetItem("expenses", name, "monthly"),
+          onAddPreset: (name, at) => addPresetItem("expenses", name, "monthly", at),
           onDelete: (id) => deleteItem("expenses", id),
           onReorder: (from2, to2) => reorderItems("expenses", from2, to2)
         }
@@ -50301,7 +50301,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.assets,
           onUpdate: (id, u) => updateItem("assets", id, u),
           onAdd: () => addItem("assets", "one_time"),
-          onAddPreset: (name) => addPresetItem("assets", name, "one_time"),
+          onAddPreset: (name, at) => addPresetItem("assets", name, "one_time", at),
           onDelete: (id) => deleteItem("assets", id),
           onReorder: (from2, to2) => reorderItems("assets", from2, to2)
         }
@@ -50318,7 +50318,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.nonLiquidAssets,
           onUpdate: (id, u) => updateItem("nonLiquidAssets", id, u),
           onAdd: () => addItem("nonLiquidAssets", "one_time"),
-          onAddPreset: (name) => addPresetItem("nonLiquidAssets", name, "one_time"),
+          onAddPreset: (name, at) => addPresetItem("nonLiquidAssets", name, "one_time", at),
           onDelete: (id) => deleteItem("nonLiquidAssets", id),
           onReorder: (from2, to2) => reorderItems("nonLiquidAssets", from2, to2),
           footer: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }, children: [
@@ -50361,7 +50361,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.retirement,
           onUpdate: (id, u) => updateItem("retirement", id, u),
           onAdd: () => addItem("retirement", "one_time"),
-          onAddPreset: (name) => addPresetItem("retirement", name, "one_time"),
+          onAddPreset: (name, at) => addPresetItem("retirement", name, "one_time", at),
           onDelete: (id) => deleteItem("retirement", id),
           onReorder: (from2, to2) => reorderItems("retirement", from2, to2)
         }
@@ -50378,7 +50378,7 @@ function MyBudget({ initialData: initialData2 }) {
           presets: PRESETS.liabilities,
           onUpdate: (id, u) => updateItem("liabilities", id, u),
           onAdd: () => addItem("liabilities", "one_time"),
-          onAddPreset: (name) => addPresetItem("liabilities", name, "one_time"),
+          onAddPreset: (name, at) => addPresetItem("liabilities", name, "one_time", at),
           onDelete: (id) => deleteItem("liabilities", id),
           onReorder: (from2, to2) => reorderItems("liabilities", from2, to2)
         }
