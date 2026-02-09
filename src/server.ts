@@ -251,7 +251,8 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
     "openai/widgetCSP": {
       connect_domains: [
         "https://my-budget-planner.onrender.com",
-        "https://api.coingecko.com"
+        "https://api.coingecko.com",
+        "https://finnhub.io"
       ],
       resource_domains: [
         "https://my-budget-planner.onrender.com"

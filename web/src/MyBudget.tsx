@@ -184,13 +184,21 @@ const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>>
   } catch { return {}; }
 };
 
+// Finnhub free API key (free tier, 60 calls/min — same client-side pattern as CoinGecko)
+const FINNHUB_KEY = "cvt2rehr01qocsf0si2gcvt2rehr01qocsf0si30";
+
 const fetchStockPrices = async (symbols: string[]): Promise<Record<string, number>> => {
   if (symbols.length === 0) return {};
-  try {
-    const res = await fetch(`${API_BASE}/api/stock-price?symbols=${symbols.join(",")}`);
-    if (!res.ok) return {};
-    return await res.json();
-  } catch { return {}; }
+  const results: Record<string, number> = {};
+  await Promise.all(symbols.map(async (symbol) => {
+    try {
+      const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_KEY}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.c && data.c > 0) results[symbol] = data.c;
+    } catch {}
+  }));
+  return results;
 };
 
 // Helper: monthly recurring item
