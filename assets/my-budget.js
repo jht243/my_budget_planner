@@ -24581,8 +24581,19 @@ var __iconNode8 = [
 ];
 var DollarSign = createLucideIcon("dollar-sign", __iconNode8);
 
-// node_modules/lucide-react/dist/esm/icons/house.js
+// node_modules/lucide-react/dist/esm/icons/grip-vertical.js
 var __iconNode9 = [
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
+  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
+  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
+  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+];
+var GripVertical = createLucideIcon("grip-vertical", __iconNode9);
+
+// node_modules/lucide-react/dist/esm/icons/house.js
+var __iconNode10 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -24592,10 +24603,10 @@ var __iconNode9 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode9);
+var House = createLucideIcon("house", __iconNode10);
 
 // node_modules/lucide-react/dist/esm/icons/landmark.js
-var __iconNode10 = [
+var __iconNode11 = [
   ["path", { d: "M10 18v-7", key: "wt116b" }],
   [
     "path",
@@ -24609,14 +24620,14 @@ var __iconNode10 = [
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M6 18v-7", key: "1ivflk" }]
 ];
-var Landmark = createLucideIcon("landmark", __iconNode10);
+var Landmark = createLucideIcon("landmark", __iconNode11);
 
 // node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode11 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode11);
+var __iconNode12 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode12 = [
+var __iconNode13 = [
   [
     "path",
     {
@@ -24625,10 +24636,10 @@ var __iconNode12 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode12);
+var Pen = createLucideIcon("pen", __iconNode13);
 
 // node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode13 = [
+var __iconNode14 = [
   [
     "path",
     {
@@ -24639,17 +24650,17 @@ var __iconNode13 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode13);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode14 = [
+var __iconNode15 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode14);
+var Plus = createLucideIcon("plus", __iconNode15);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode15 = [
+var __iconNode16 = [
   [
     "path",
     {
@@ -24660,26 +24671,26 @@ var __iconNode15 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode15);
+var Printer = createLucideIcon("printer", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode16 = [
+var __iconNode17 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode16);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode17 = [
+var __iconNode18 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode17);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode18 = [
+var __iconNode19 = [
   [
     "path",
     {
@@ -24690,41 +24701,41 @@ var __iconNode18 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode18);
+var Save = createLucideIcon("save", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode19 = [
+var __iconNode20 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode19);
+var Search = createLucideIcon("search", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode20 = [
+var __iconNode21 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode20);
+var Trash2 = createLucideIcon("trash-2", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode21 = [
+var __iconNode22 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode21);
+var TrendingDown = createLucideIcon("trending-down", __iconNode22);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode22 = [
+var __iconNode23 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode22);
+var TrendingUp = createLucideIcon("trending-up", __iconNode23);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode23 = [
+var __iconNode24 = [
   [
     "path",
     {
@@ -24735,10 +24746,10 @@ var __iconNode23 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode23);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode24 = [
+var __iconNode25 = [
   [
     "path",
     {
@@ -24748,14 +24759,14 @@ var __iconNode24 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode24);
+var Wallet = createLucideIcon("wallet", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode25 = [
+var __iconNode26 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode25);
+var X = createLucideIcon("x", __iconNode26);
 
 // src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -25314,14 +25325,15 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "10px 12px",
+    padding: "10px 6px 10px 4px",
     backgroundColor: COLORS.card,
     borderRadius: 10,
     border: `1px solid ${COLORS.borderLight}`,
     marginBottom: 4,
     transition: "all 0.15s"
   }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: 0 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "drag-handle", style: { padding: "4px 4px", cursor: "grab", color: COLORS.textMuted, display: "flex", flexShrink: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(GripVertical, { size: 16 }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: 0, paddingLeft: 4 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }, children: [
         item.assetType === "crypto" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#F7931A", fontWeight: 700 }, children: "\u20BF" }),
         item.name || "Unnamed"
@@ -25358,13 +25370,34 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     ] })
   ] });
 };
-var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets, footer }) => {
+var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, onReorder, inputMode, presets, footer }) => {
   const [isOpen, setIsOpen] = (0, import_react3.useState)(false);
+  const [dragIdx, setDragIdx] = (0, import_react3.useState)(null);
+  const [overIdx, setOverIdx] = (0, import_react3.useState)(null);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
   const existingNames = new Set(items.map((i) => i.name.toLowerCase()));
   const availablePresets = (presets || []).filter((p) => !existingNames.has(p.name.toLowerCase()));
+  const handleDragStart = (e, idx) => {
+    setDragIdx(idx);
+    e.dataTransfer.effectAllowed = "move";
+  };
+  const handleDragOver = (e, idx) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setOverIdx(idx);
+  };
+  const handleDrop = (e, idx) => {
+    e.preventDefault();
+    if (dragIdx !== null && dragIdx !== idx) onReorder(dragIdx, idx);
+    setDragIdx(null);
+    setOverIdx(null);
+  };
+  const handleDragEnd = () => {
+    setDragIdx(null);
+    setOverIdx(null);
+  };
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 12 }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       SectionHeader,
@@ -25381,14 +25414,25 @@ var BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAd
       }
     ),
     isOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px 12px", border: `1px solid ${color}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }, children: [
-      items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-        ItemRow,
+      items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "div",
         {
-          item,
-          color,
-          onUpdate: (u) => onUpdate(item.id, u),
-          onDelete: () => onDelete(item.id),
-          inputMode
+          draggable: true,
+          onDragStart: (e) => handleDragStart(e, idx),
+          onDragOver: (e) => handleDragOver(e, idx),
+          onDrop: (e) => handleDrop(e, idx),
+          onDragEnd: handleDragEnd,
+          style: { opacity: dragIdx === idx ? 0.4 : 1, borderTop: overIdx === idx && dragIdx !== null && dragIdx !== idx ? `2px solid ${color}` : "2px solid transparent", transition: "opacity 0.15s" },
+          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            ItemRow,
+            {
+              item,
+              color,
+              onUpdate: (u) => onUpdate(item.id, u),
+              onDelete: () => onDelete(item.id),
+              inputMode
+            }
+          )
         },
         item.id
       )),
@@ -25673,6 +25717,14 @@ function MyBudget({ initialData: initialData2 }) {
       updatedAt: Date.now()
     }));
   };
+  const reorderItems = (section, fromIndex, toIndex) => {
+    setBudget((b) => {
+      const arr = [...b[section]];
+      const [moved] = arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, moved);
+      return { ...b, [section]: arr, updatedAt: Date.now() };
+    });
+  };
   const deleteItem = (section, id) => {
     setBudget((b) => ({
       ...b,
@@ -25907,7 +25959,8 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("income", id, u),
           onAdd: () => addItem("income", "monthly"),
           onAddPreset: (name) => addPresetItem("income", name, "monthly"),
-          onDelete: (id) => deleteItem("income", id)
+          onDelete: (id) => deleteItem("income", id),
+          onReorder: (from, to) => reorderItems("income", from, to)
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25923,7 +25976,8 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("expenses", id, u),
           onAdd: () => addItem("expenses", "monthly"),
           onAddPreset: (name) => addPresetItem("expenses", name, "monthly"),
-          onDelete: (id) => deleteItem("expenses", id)
+          onDelete: (id) => deleteItem("expenses", id),
+          onReorder: (from, to) => reorderItems("expenses", from, to)
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25939,7 +25993,8 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("assets", id, u),
           onAdd: () => addItem("assets", "one_time"),
           onAddPreset: (name) => addPresetItem("assets", name, "one_time"),
-          onDelete: (id) => deleteItem("assets", id)
+          onDelete: (id) => deleteItem("assets", id),
+          onReorder: (from, to) => reorderItems("assets", from, to)
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -25956,6 +26011,7 @@ function MyBudget({ initialData: initialData2 }) {
           onAdd: () => addItem("nonLiquidAssets", "one_time"),
           onAddPreset: (name) => addPresetItem("nonLiquidAssets", name, "one_time"),
           onDelete: (id) => deleteItem("nonLiquidAssets", id),
+          onReorder: (from, to) => reorderItems("nonLiquidAssets", from, to),
           footer: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }, children: "Discount Rate" }),
@@ -25997,7 +26053,8 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("retirement", id, u),
           onAdd: () => addItem("retirement", "one_time"),
           onAddPreset: (name) => addPresetItem("retirement", name, "one_time"),
-          onDelete: (id) => deleteItem("retirement", id)
+          onDelete: (id) => deleteItem("retirement", id),
+          onReorder: (from, to) => reorderItems("retirement", from, to)
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -26013,7 +26070,8 @@ function MyBudget({ initialData: initialData2 }) {
           onUpdate: (id, u) => updateItem("liabilities", id, u),
           onAdd: () => addItem("liabilities", "one_time"),
           onAddPreset: (name) => addPresetItem("liabilities", name, "one_time"),
-          onDelete: (id) => deleteItem("liabilities", id)
+          onDelete: (id) => deleteItem("liabilities", id),
+          onReorder: (from, to) => reorderItems("liabilities", from, to)
         }
       ),
       (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SummarySection, { budget }),
@@ -26312,6 +26370,14 @@ lucide-react/dist/esm/icons/clock.js:
    *)
 
 lucide-react/dist/esm/icons/dollar-sign.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/grip-vertical.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

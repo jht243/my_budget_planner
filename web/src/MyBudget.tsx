@@ -3,7 +3,7 @@ import {
   Plus, X, Trash2, Save, RotateCcw, Home, Printer,
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
-  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2
+  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical
 } from "lucide-react";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
@@ -581,10 +581,13 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
   return (
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
-      padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10,
+      padding: "10px 6px 10px 4px", backgroundColor: COLORS.card, borderRadius: 10,
       border: `1px solid ${COLORS.borderLight}`, marginBottom: 4, transition: "all 0.15s",
     }}>
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div className="drag-handle" style={{ padding: "4px 4px", cursor: "grab", color: COLORS.textMuted, display: "flex", flexShrink: 0 }}>
+        <GripVertical size={16} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0, paddingLeft: 4 }}>
         <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }}>
           {item.assetType === "crypto" && <span style={{ fontSize: 11, color: "#F7931A", fontWeight: 700 }}>₿</span>}
           {item.name || "Unnamed"}
@@ -608,13 +611,16 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 
 // ─── Budget Section ───────────────────────────────────────────────────────────
 
-const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, inputMode, presets, footer }: {
+const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, onReorder, inputMode, presets, footer }: {
   title: string; icon: React.ReactNode; color: string; bgColor: string;
   items: BudgetItem[]; onUpdate: (id: string, u: Partial<BudgetItem>) => void;
   onAdd: () => void; onAddPreset: (name: string) => void; onDelete: (id: string) => void;
+  onReorder: (fromIndex: number, toIndex: number) => void;
   inputMode: InputMode; presets?: Preset[]; footer?: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [overIdx, setOverIdx] = useState<number | null>(null);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : undefined;
@@ -623,16 +629,37 @@ const BudgetSection = ({ title, icon, color, bgColor, items, onUpdate, onAdd, on
   const existingNames = new Set(items.map(i => i.name.toLowerCase()));
   const availablePresets = (presets || []).filter(p => !existingNames.has(p.name.toLowerCase()));
 
+  const handleDragStart = (e: React.DragEvent, idx: number) => {
+    setDragIdx(idx);
+    e.dataTransfer.effectAllowed = "move";
+  };
+  const handleDragOver = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setOverIdx(idx);
+  };
+  const handleDrop = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    if (dragIdx !== null && dragIdx !== idx) onReorder(dragIdx, idx);
+    setDragIdx(null);
+    setOverIdx(null);
+  };
+  const handleDragEnd = () => { setDragIdx(null); setOverIdx(null); };
+
   return (
     <div style={{ marginBottom: 12 }}>
       <SectionHeader title={title} icon={icon} color={color} bgColor={bgColor}
         total={total} monthlyTotal={monthlyTotal} count={items.length} isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />
       {isOpen && (
         <div style={{ padding: "10px 12px 12px", border: `1px solid ${color}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }}>
-          {items.map(item => (
-            <ItemRow key={item.id} item={item} color={color}
-              onUpdate={u => onUpdate(item.id, u)} onDelete={() => onDelete(item.id)}
-              inputMode={inputMode} />
+          {items.map((item, idx) => (
+            <div key={item.id} draggable onDragStart={e => handleDragStart(e, idx)} onDragOver={e => handleDragOver(e, idx)}
+              onDrop={e => handleDrop(e, idx)} onDragEnd={handleDragEnd}
+              style={{ opacity: dragIdx === idx ? 0.4 : 1, borderTop: overIdx === idx && dragIdx !== null && dragIdx !== idx ? `2px solid ${color}` : "2px solid transparent", transition: "opacity 0.15s" }}>
+              <ItemRow item={item} color={color}
+                onUpdate={u => onUpdate(item.id, u)} onDelete={() => onDelete(item.id)}
+                inputMode={inputMode} />
+            </div>
           ))}
 
           {/* Quick add chips + custom */}
@@ -916,6 +943,15 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     }));
   };
 
+  const reorderItems = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, fromIndex: number, toIndex: number) => {
+    setBudget(b => {
+      const arr = [...b[section]];
+      const [moved] = arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, moved);
+      return { ...b, [section]: arr, updatedAt: Date.now() };
+    });
+  };
+
   const deleteItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, id: string) => {
     setBudget(b => ({
       ...b,
@@ -1102,7 +1138,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("income", id, u)}
           onAdd={() => addItem("income", "monthly")}
           onAddPreset={name => addPresetItem("income", name, "monthly")}
-          onDelete={id => deleteItem("income", id)} />
+          onDelete={id => deleteItem("income", id)}
+          onReorder={(from, to) => reorderItems("income", from, to)} />
 
         {/* Expenses */}
         <BudgetSection title="Expenses" icon={<TrendingDown size={18} />} color={COLORS.expense} bgColor={COLORS.expenseBg}
@@ -1110,7 +1147,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("expenses", id, u)}
           onAdd={() => addItem("expenses", "monthly")}
           onAddPreset={name => addPresetItem("expenses", name, "monthly")}
-          onDelete={id => deleteItem("expenses", id)} />
+          onDelete={id => deleteItem("expenses", id)}
+          onReorder={(from, to) => reorderItems("expenses", from, to)} />
 
         {/* Assets */}
         <BudgetSection title="Assets" icon={<Wallet size={18} />} color={COLORS.asset} bgColor={COLORS.assetBg}
@@ -1118,7 +1156,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("assets", id, u)}
           onAdd={() => addItem("assets", "one_time")}
           onAddPreset={name => addPresetItem("assets", name, "one_time")}
-          onDelete={id => deleteItem("assets", id)} />
+          onDelete={id => deleteItem("assets", id)}
+          onReorder={(from, to) => reorderItems("assets", from, to)} />
 
         {/* Non-Liquid Assets */}
         <BudgetSection title="Non-Liquid Assets" icon={<Building2 size={18} />} color={COLORS.nonLiquid} bgColor={COLORS.nonLiquidBg}
@@ -1127,6 +1166,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onAdd={() => addItem("nonLiquidAssets", "one_time")}
           onAddPreset={name => addPresetItem("nonLiquidAssets", name, "one_time")}
           onDelete={id => deleteItem("nonLiquidAssets", id)}
+          onReorder={(from, to) => reorderItems("nonLiquidAssets", from, to)}
           footer={
             <div style={{ backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -1148,7 +1188,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("retirement", id, u)}
           onAdd={() => addItem("retirement", "one_time")}
           onAddPreset={name => addPresetItem("retirement", name, "one_time")}
-          onDelete={id => deleteItem("retirement", id)} />
+          onDelete={id => deleteItem("retirement", id)}
+          onReorder={(from, to) => reorderItems("retirement", from, to)} />
 
         {/* Liabilities */}
         <BudgetSection title="Liabilities" icon={<AlertTriangle size={18} />} color={COLORS.liability} bgColor={COLORS.liabilityBg}
@@ -1156,7 +1197,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           onUpdate={(id, u) => updateItem("liabilities", id, u)}
           onAdd={() => addItem("liabilities", "one_time")}
           onAddPreset={name => addPresetItem("liabilities", name, "one_time")}
-          onDelete={id => deleteItem("liabilities", id)} />
+          onDelete={id => deleteItem("liabilities", id)}
+          onReorder={(from, to) => reorderItems("liabilities", from, to)} />
 
         {/* Summary */}
         {(budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && (
