@@ -3,7 +3,7 @@ import {
   Plus, X, Trash2, Save, RotateCcw, Home, Printer,
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
-  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
+  Wallet, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
   Mail, Heart, MessageSquare, ThumbsUp, ThumbsDown
 } from "lucide-react";
 import {
@@ -171,53 +171,67 @@ const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>>
   } catch { return {}; }
 };
 
-const DEMO_BUDGET: Budget = {
-  id: "demo_budget",
-  name: "My Budget",
-  income: [
-    { id: "inc1", name: "rental income (house)", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
-    { id: "inc2", name: "rental income (properties)", amount: 2500, frequency: "monthly", totalValue: 30000, monthlyValue: 2500 },
-    { id: "inc3", name: "VA payments", amount: 1450, frequency: "monthly", totalValue: 17400, monthlyValue: 1450 },
-  ],
-  expenses: [
-    { id: "exp1", name: "finca", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
-    { id: "exp2", name: "parma rent", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
-  ],
-  assets: [
-    { id: "ast1", name: "Bitcoin", amount: 140000, frequency: "one_time", totalValue: 140000, monthlyValue: 0, quantity: 2, assetType: "crypto", ticker: "bitcoin", livePrice: 70000 },
-    { id: "ast2", name: "NEAR Protocol", amount: 7000, frequency: "one_time", totalValue: 7000, monthlyValue: 0, quantity: 7000, assetType: "crypto", ticker: "near", livePrice: 1 },
-    { id: "ast3", name: "Ethereum", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34, assetType: "crypto", ticker: "ethereum", livePrice: 1900 },
-    { id: "ast4", name: "USD Coin", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0, assetType: "crypto", ticker: "usd-coin", livePrice: 1 },
-    { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
-    { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
-    { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
-    { id: "ast8", name: "NEAR.WALLET", amount: 2000, frequency: "one_time", totalValue: 2000, monthlyValue: 0, quantity: 2000 },
-    { id: "ast9", name: "SoFi Investment", amount: 1000, frequency: "one_time", totalValue: 1000, monthlyValue: 0 },
-    { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
-  ],
-  nonLiquidAssets: [
-    { id: "nla1", name: "Breitling Gold", amount: 19000, frequency: "one_time", totalValue: 19000, monthlyValue: 0 },
-    { id: "nla2", name: "Breguet Tradition", amount: 15000, frequency: "one_time", totalValue: 15000, monthlyValue: 0 },
-    { id: "nla3", name: "Breguet Blue", amount: 25000, frequency: "one_time", totalValue: 25000, monthlyValue: 0 },
-    { id: "nla4", name: "JLC", amount: 25000, frequency: "one_time", totalValue: 25000, monthlyValue: 0 },
-    { id: "nla5", name: "All other watches", amount: 10000, frequency: "one_time", totalValue: 10000, monthlyValue: 0 },
-    { id: "nla6", name: "Car", amount: 15000, frequency: "one_time", totalValue: 15000, monthlyValue: 0 },
-    { id: "nla7", name: "MontBlanc Pens", amount: 5000, frequency: "one_time", totalValue: 5000, monthlyValue: 0 },
-  ],
-  retirement: [
-    { id: "ret1", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 },
-  ],
-  liabilities: [
-    { id: "lia1", name: "las palmas apt", amount: 50000, frequency: "one_time", totalValue: 50000, monthlyValue: 0 },
-    { id: "lia2", name: "repayment of tammy", amount: 20000, frequency: "one_time", totalValue: 20000, monthlyValue: 0 },
-    { id: "lia3", name: "personal monthly expenses", amount: 7000, frequency: "monthly", totalValue: 84000, monthlyValue: 7000 },
-    { id: "lia4", name: "remodel las palmas", amount: 10000, frequency: "one_time", totalValue: 10000, monthlyValue: 0 },
-  ],
-  nonLiquidDiscount: 25,
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
-};
+const mi = (name: string, freq: Frequency = "monthly"): BudgetItem => ({
+  id: generateId(), name, amount: 10, frequency: freq,
+  totalValue: freq === "monthly" ? 120 : 10,
+  monthlyValue: freq === "monthly" ? 10 : 0,
+});
+const mia = (name: string): BudgetItem => ({ ...mi(name, "one_time"), totalValue: 10, monthlyValue: 0 });
+
+const BUDGET_PRESETS: { key: string; label: string; emoji: string; desc: string; budget: Omit<Budget, "id" | "createdAt" | "updatedAt"> }[] = [
+  {
+    key: "gen_z", label: "Gen Z", emoji: "📱", desc: "Starting out, side hustles & subscriptions",
+    budget: {
+      name: "Gen Z Budget",
+      income: [mi("Part-time Job"), mi("Freelance / Side Hustle"), mi("Tips")],
+      expenses: [mi("Rent (shared)"), mi("Groceries"), mi("Phone Plan"), mi("Streaming (Netflix, Spotify)"), mi("Dining Out"), mi("Uber / Transit"), mi("Gym Membership"), mi("Subscriptions (apps)")],
+      assets: [mia("Savings Account"), mia("Venmo / Cash App Balance"), mia("Crypto")],
+      nonLiquidAssets: [mia("Laptop"), mia("Phone")],
+      retirement: [mia("Roth IRA")],
+      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mi("Buy Now Pay Later")],
+      nonLiquidDiscount: 50,
+    },
+  },
+  {
+    key: "millennial", label: "Millennial", emoji: "💼", desc: "Career growth, building wealth",
+    budget: {
+      name: "Millennial Budget",
+      income: [mi("Salary"), mi("Bonus", "yearly"), mi("Side Project / Freelance")],
+      expenses: [mi("Rent / Mortgage"), mi("Groceries"), mi("Car Payment"), mi("Car Insurance"), mi("Utilities"), mi("Phone Plan"), mi("Internet"), mi("Streaming Services"), mi("Dining Out"), mi("Gym"), mi("Pet Expenses"), mi("Travel Fund")],
+      assets: [mia("Checking Account"), mia("Savings Account"), mia("Brokerage Account"), mia("Crypto Portfolio")],
+      nonLiquidAssets: [mia("Car"), mia("Furniture & Electronics")],
+      retirement: [mia("401k"), mia("Roth IRA")],
+      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mia("Car Loan")],
+      nonLiquidDiscount: 30,
+    },
+  },
+  {
+    key: "family", label: "Family", emoji: "👨‍👩‍👧‍👦", desc: "Dual income, kids, home ownership",
+    budget: {
+      name: "Family Budget",
+      income: [mi("Salary (Primary)"), mi("Salary (Spouse)"), mi("Child Tax Credit")],
+      expenses: [mi("Mortgage"), mi("Property Tax", "yearly"), mi("Homeowner's Insurance", "yearly"), mi("Groceries"), mi("Utilities"), mi("Childcare / Daycare"), mi("Kids Activities"), mi("Car Payment"), mi("Car Insurance"), mi("Gas"), mi("Phone Plans"), mi("Internet"), mi("Streaming"), mi("Dining Out"), mi("Clothing"), mi("Medical / Copays"), mi("School Supplies")],
+      assets: [mia("Checking Account"), mia("Joint Savings"), mia("529 College Fund"), mia("Brokerage Account")],
+      nonLiquidAssets: [mia("Home Equity"), mia("Car (Primary)"), mia("Car (Spouse)")],
+      retirement: [mia("401k (Primary)"), mia("401k (Spouse)"), mia("Roth IRA")],
+      liabilities: [mia("Mortgage Balance"), mia("Car Loan"), mia("Credit Card"), mia("Medical Bills")],
+      nonLiquidDiscount: 20,
+    },
+  },
+  {
+    key: "retiree", label: "Retiree", emoji: "🏖️", desc: "Fixed income, low debt, enjoying life",
+    budget: {
+      name: "Retiree Budget",
+      income: [mi("Social Security"), mi("Pension"), mi("Retirement Withdrawals"), mi("Rental Income")],
+      expenses: [mi("Mortgage / Rent"), mi("Utilities"), mi("Groceries"), mi("Medicare / Health Insurance"), mi("Prescriptions"), mi("Car Insurance"), mi("Gas"), mi("Phone"), mi("Internet / Cable"), mi("Dining Out"), mi("Travel / Vacations"), mi("Hobbies"), mi("Gifts / Donations")],
+      assets: [mia("Checking Account"), mia("Savings Account"), mia("CDs / Bonds"), mia("Brokerage Account")],
+      nonLiquidAssets: [mia("Home"), mia("Car"), mia("Jewelry / Collectibles")],
+      retirement: [mia("401k / IRA"), mia("Pension Fund"), mia("Annuity")],
+      liabilities: [mia("Mortgage Balance"), mia("Medical Bills")],
+      nonLiquidDiscount: 20,
+    },
+  },
+];
 
 // Migrate old items that don't have amount/frequency fields
 const migrateItem = (item: any): BudgetItem => {
@@ -1416,15 +1430,45 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
       {/* Content */}
       <div style={{ padding: "16px 16px 40px" }}>
-        {/* Demo data loader - only shows when budget is completely empty */}
+        {/* Preset templates - only shows when budget is completely empty */}
         {budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && (
-          <button onClick={() => { setBudget({ ...DEMO_BUDGET, id: budget.id, createdAt: Date.now(), updatedAt: Date.now() }); setNameInput(DEMO_BUDGET.name); }} style={{
-            width: "100%", padding: 14, borderRadius: 12, border: `2px dashed ${COLORS.accent}`,
-            backgroundColor: COLORS.accentLight, color: COLORS.primaryDark, fontSize: 14, fontWeight: 600,
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16,
-          }}>
-            <BarChart3 size={18} /> Load Demo Data
-          </button>
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 8, textAlign: "center" }}>Start with a template</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              {BUDGET_PRESETS.map(p => (
+                <button key={p.key} onClick={() => {
+                  const now = Date.now();
+                  const preset = p.budget;
+                  const regenerated: Budget = {
+                    ...preset,
+                    id: budget.id,
+                    income: preset.income.map(i => ({ ...i, id: generateId() })),
+                    expenses: preset.expenses.map(i => ({ ...i, id: generateId() })),
+                    assets: preset.assets.map(i => ({ ...i, id: generateId() })),
+                    nonLiquidAssets: preset.nonLiquidAssets.map(i => ({ ...i, id: generateId() })),
+                    retirement: preset.retirement.map(i => ({ ...i, id: generateId() })),
+                    liabilities: preset.liabilities.map(i => ({ ...i, id: generateId() })),
+                    createdAt: now, updatedAt: now,
+                  };
+                  setBudget(regenerated);
+                  setNameInput(preset.name);
+                  trackEvent("load_preset", { preset: p.key });
+                }} style={{
+                  padding: "12px 10px", borderRadius: 12, border: `1.5px solid ${COLORS.border}`,
+                  backgroundColor: COLORS.card, cursor: "pointer", textAlign: "left",
+                  display: "flex", flexDirection: "column", gap: 4,
+                  transition: "border-color 0.15s, box-shadow 0.15s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = COLORS.accent; e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = COLORS.border; e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <span style={{ fontSize: 20 }}>{p.emoji}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.textMain }}>{p.label}</span>
+                  <span style={{ fontSize: 11, color: COLORS.textSecondary, lineHeight: 1.3 }}>{p.desc}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Income */}

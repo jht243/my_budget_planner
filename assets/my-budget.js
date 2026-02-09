@@ -27508,43 +27508,34 @@ var __iconNode2 = [
 ];
 var Building2 = createLucideIcon("building-2", __iconNode2);
 
-// node_modules/lucide-react/dist/esm/icons/chart-column.js
-var __iconNode3 = [
-  ["path", { d: "M3 3v16a2 2 0 0 0 2 2h16", key: "c24i48" }],
-  ["path", { d: "M18 17V9", key: "2bz60n" }],
-  ["path", { d: "M13 17V5", key: "1frdt8" }],
-  ["path", { d: "M8 17v-3", key: "17ska0" }]
-];
-var ChartColumn = createLucideIcon("chart-column", __iconNode3);
-
 // node_modules/lucide-react/dist/esm/icons/check.js
-var __iconNode4 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-var Check = createLucideIcon("check", __iconNode4);
+var __iconNode3 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("check", __iconNode3);
 
 // node_modules/lucide-react/dist/esm/icons/chevron-down.js
-var __iconNode5 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-var ChevronDown = createLucideIcon("chevron-down", __iconNode5);
+var __iconNode4 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+var ChevronDown = createLucideIcon("chevron-down", __iconNode4);
 
 // node_modules/lucide-react/dist/esm/icons/chevron-up.js
-var __iconNode6 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-var ChevronUp = createLucideIcon("chevron-up", __iconNode6);
+var __iconNode5 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+var ChevronUp = createLucideIcon("chevron-up", __iconNode5);
 
 // node_modules/lucide-react/dist/esm/icons/clock.js
-var __iconNode7 = [
+var __iconNode6 = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-var Clock = createLucideIcon("clock", __iconNode7);
+var Clock = createLucideIcon("clock", __iconNode6);
 
 // node_modules/lucide-react/dist/esm/icons/dollar-sign.js
-var __iconNode8 = [
+var __iconNode7 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-var DollarSign = createLucideIcon("dollar-sign", __iconNode8);
+var DollarSign = createLucideIcon("dollar-sign", __iconNode7);
 
 // node_modules/lucide-react/dist/esm/icons/grip-vertical.js
-var __iconNode9 = [
+var __iconNode8 = [
   ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
   ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
   ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
@@ -27552,10 +27543,10 @@ var __iconNode9 = [
   ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
   ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
 ];
-var GripVertical = createLucideIcon("grip-vertical", __iconNode9);
+var GripVertical = createLucideIcon("grip-vertical", __iconNode8);
 
 // node_modules/lucide-react/dist/esm/icons/heart.js
-var __iconNode10 = [
+var __iconNode9 = [
   [
     "path",
     {
@@ -27564,10 +27555,10 @@ var __iconNode10 = [
     }
   ]
 ];
-var Heart = createLucideIcon("heart", __iconNode10);
+var Heart = createLucideIcon("heart", __iconNode9);
 
 // node_modules/lucide-react/dist/esm/icons/house.js
-var __iconNode11 = [
+var __iconNode10 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -27577,10 +27568,10 @@ var __iconNode11 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode11);
+var House = createLucideIcon("house", __iconNode10);
 
 // node_modules/lucide-react/dist/esm/icons/landmark.js
-var __iconNode12 = [
+var __iconNode11 = [
   ["path", { d: "M10 18v-7", key: "wt116b" }],
   [
     "path",
@@ -27594,21 +27585,21 @@ var __iconNode12 = [
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M6 18v-7", key: "1ivflk" }]
 ];
-var Landmark = createLucideIcon("landmark", __iconNode12);
+var Landmark = createLucideIcon("landmark", __iconNode11);
 
 // node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode13 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode13);
+var __iconNode12 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/mail.js
-var __iconNode14 = [
+var __iconNode13 = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-var Mail = createLucideIcon("mail", __iconNode14);
+var Mail = createLucideIcon("mail", __iconNode13);
 
 // node_modules/lucide-react/dist/esm/icons/message-square.js
-var __iconNode15 = [
+var __iconNode14 = [
   [
     "path",
     {
@@ -27617,10 +27608,10 @@ var __iconNode15 = [
     }
   ]
 ];
-var MessageSquare = createLucideIcon("message-square", __iconNode15);
+var MessageSquare = createLucideIcon("message-square", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode16 = [
+var __iconNode15 = [
   [
     "path",
     {
@@ -27629,10 +27620,10 @@ var __iconNode16 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode16);
+var Pen = createLucideIcon("pen", __iconNode15);
 
 // node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode17 = [
+var __iconNode16 = [
   [
     "path",
     {
@@ -27643,17 +27634,17 @@ var __iconNode17 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode17);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode18 = [
+var __iconNode17 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode18);
+var Plus = createLucideIcon("plus", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode19 = [
+var __iconNode18 = [
   [
     "path",
     {
@@ -27664,26 +27655,26 @@ var __iconNode19 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode19);
+var Printer = createLucideIcon("printer", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode20 = [
+var __iconNode19 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode20);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode21 = [
+var __iconNode20 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode21);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode22 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -27694,17 +27685,17 @@ var __iconNode22 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode22);
+var Save = createLucideIcon("save", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode23 = [
+var __iconNode22 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode23);
+var Search = createLucideIcon("search", __iconNode22);
 
 // node_modules/lucide-react/dist/esm/icons/thumbs-down.js
-var __iconNode24 = [
+var __iconNode23 = [
   ["path", { d: "M17 14V2", key: "8ymqnk" }],
   [
     "path",
@@ -27714,10 +27705,10 @@ var __iconNode24 = [
     }
   ]
 ];
-var ThumbsDown = createLucideIcon("thumbs-down", __iconNode24);
+var ThumbsDown = createLucideIcon("thumbs-down", __iconNode23);
 
 // node_modules/lucide-react/dist/esm/icons/thumbs-up.js
-var __iconNode25 = [
+var __iconNode24 = [
   ["path", { d: "M7 10v12", key: "1qc93n" }],
   [
     "path",
@@ -27727,34 +27718,34 @@ var __iconNode25 = [
     }
   ]
 ];
-var ThumbsUp = createLucideIcon("thumbs-up", __iconNode25);
+var ThumbsUp = createLucideIcon("thumbs-up", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode26 = [
+var __iconNode25 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode26);
+var Trash2 = createLucideIcon("trash-2", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode27 = [
+var __iconNode26 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode27);
+var TrendingDown = createLucideIcon("trending-down", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode28 = [
+var __iconNode27 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode28);
+var TrendingUp = createLucideIcon("trending-up", __iconNode27);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode29 = [
+var __iconNode28 = [
   [
     "path",
     {
@@ -27765,10 +27756,10 @@ var __iconNode29 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode29);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode30 = [
+var __iconNode29 = [
   [
     "path",
     {
@@ -27778,14 +27769,14 @@ var __iconNode30 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode30);
+var Wallet = createLucideIcon("wallet", __iconNode29);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode31 = [
+var __iconNode30 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode31);
+var X = createLucideIcon("x", __iconNode30);
 
 // node_modules/recharts/es6/container/Surface.js
 var React = __toESM(require_react());
@@ -48711,53 +48702,81 @@ var fetchCryptoPrices = async (ids) => {
     return {};
   }
 };
-var DEMO_BUDGET = {
-  id: "demo_budget",
-  name: "My Budget",
-  income: [
-    { id: "inc1", name: "rental income (house)", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 },
-    { id: "inc2", name: "rental income (properties)", amount: 2500, frequency: "monthly", totalValue: 3e4, monthlyValue: 2500 },
-    { id: "inc3", name: "VA payments", amount: 1450, frequency: "monthly", totalValue: 17400, monthlyValue: 1450 }
-  ],
-  expenses: [
-    { id: "exp1", name: "finca", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 },
-    { id: "exp2", name: "parma rent", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 }
-  ],
-  assets: [
-    { id: "ast1", name: "Bitcoin", amount: 14e4, frequency: "one_time", totalValue: 14e4, monthlyValue: 0, quantity: 2, assetType: "crypto", ticker: "bitcoin", livePrice: 7e4 },
-    { id: "ast2", name: "NEAR Protocol", amount: 7e3, frequency: "one_time", totalValue: 7e3, monthlyValue: 0, quantity: 7e3, assetType: "crypto", ticker: "near", livePrice: 1 },
-    { id: "ast3", name: "Ethereum", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34, assetType: "crypto", ticker: "ethereum", livePrice: 1900 },
-    { id: "ast4", name: "USD Coin", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0, assetType: "crypto", ticker: "usd-coin", livePrice: 1 },
-    { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
-    { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
-    { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
-    { id: "ast8", name: "NEAR.WALLET", amount: 2e3, frequency: "one_time", totalValue: 2e3, monthlyValue: 0, quantity: 2e3 },
-    { id: "ast9", name: "SoFi Investment", amount: 1e3, frequency: "one_time", totalValue: 1e3, monthlyValue: 0 },
-    { id: "ast10", name: "Amazon Stock", amount: 17520, frequency: "one_time", totalValue: 17520, monthlyValue: 0, quantity: 219 },
-    { id: "ast12", name: "Settlement?", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 }
-  ],
-  nonLiquidAssets: [
-    { id: "nla1", name: "Breitling Gold", amount: 19e3, frequency: "one_time", totalValue: 19e3, monthlyValue: 0 },
-    { id: "nla2", name: "Breguet Tradition", amount: 15e3, frequency: "one_time", totalValue: 15e3, monthlyValue: 0 },
-    { id: "nla3", name: "Breguet Blue", amount: 25e3, frequency: "one_time", totalValue: 25e3, monthlyValue: 0 },
-    { id: "nla4", name: "JLC", amount: 25e3, frequency: "one_time", totalValue: 25e3, monthlyValue: 0 },
-    { id: "nla5", name: "All other watches", amount: 1e4, frequency: "one_time", totalValue: 1e4, monthlyValue: 0 },
-    { id: "nla6", name: "Car", amount: 15e3, frequency: "one_time", totalValue: 15e3, monthlyValue: 0 },
-    { id: "nla7", name: "MontBlanc Pens", amount: 5e3, frequency: "one_time", totalValue: 5e3, monthlyValue: 0 }
-  ],
-  retirement: [
-    { id: "ret1", name: "401k (Charles Schwab) (Acct 9586-3467)", amount: 22500, frequency: "one_time", totalValue: 22500, monthlyValue: 0 }
-  ],
-  liabilities: [
-    { id: "lia1", name: "las palmas apt", amount: 5e4, frequency: "one_time", totalValue: 5e4, monthlyValue: 0 },
-    { id: "lia2", name: "repayment of tammy", amount: 2e4, frequency: "one_time", totalValue: 2e4, monthlyValue: 0 },
-    { id: "lia3", name: "personal monthly expenses", amount: 7e3, frequency: "monthly", totalValue: 84e3, monthlyValue: 7e3 },
-    { id: "lia4", name: "remodel las palmas", amount: 1e4, frequency: "one_time", totalValue: 1e4, monthlyValue: 0 }
-  ],
-  nonLiquidDiscount: 25,
-  createdAt: Date.now(),
-  updatedAt: Date.now()
-};
+var mi = (name, freq = "monthly") => ({
+  id: generateId(),
+  name,
+  amount: 10,
+  frequency: freq,
+  totalValue: freq === "monthly" ? 120 : 10,
+  monthlyValue: freq === "monthly" ? 10 : 0
+});
+var mia = (name) => ({ ...mi(name, "one_time"), totalValue: 10, monthlyValue: 0 });
+var BUDGET_PRESETS = [
+  {
+    key: "gen_z",
+    label: "Gen Z",
+    emoji: "\u{1F4F1}",
+    desc: "Starting out, side hustles & subscriptions",
+    budget: {
+      name: "Gen Z Budget",
+      income: [mi("Part-time Job"), mi("Freelance / Side Hustle"), mi("Tips")],
+      expenses: [mi("Rent (shared)"), mi("Groceries"), mi("Phone Plan"), mi("Streaming (Netflix, Spotify)"), mi("Dining Out"), mi("Uber / Transit"), mi("Gym Membership"), mi("Subscriptions (apps)")],
+      assets: [mia("Savings Account"), mia("Venmo / Cash App Balance"), mia("Crypto")],
+      nonLiquidAssets: [mia("Laptop"), mia("Phone")],
+      retirement: [mia("Roth IRA")],
+      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mi("Buy Now Pay Later")],
+      nonLiquidDiscount: 50
+    }
+  },
+  {
+    key: "millennial",
+    label: "Millennial",
+    emoji: "\u{1F4BC}",
+    desc: "Career growth, building wealth",
+    budget: {
+      name: "Millennial Budget",
+      income: [mi("Salary"), mi("Bonus", "yearly"), mi("Side Project / Freelance")],
+      expenses: [mi("Rent / Mortgage"), mi("Groceries"), mi("Car Payment"), mi("Car Insurance"), mi("Utilities"), mi("Phone Plan"), mi("Internet"), mi("Streaming Services"), mi("Dining Out"), mi("Gym"), mi("Pet Expenses"), mi("Travel Fund")],
+      assets: [mia("Checking Account"), mia("Savings Account"), mia("Brokerage Account"), mia("Crypto Portfolio")],
+      nonLiquidAssets: [mia("Car"), mia("Furniture & Electronics")],
+      retirement: [mia("401k"), mia("Roth IRA")],
+      liabilities: [mia("Student Loans"), mia("Credit Card Balance"), mia("Car Loan")],
+      nonLiquidDiscount: 30
+    }
+  },
+  {
+    key: "family",
+    label: "Family",
+    emoji: "\u{1F468}\u200D\u{1F469}\u200D\u{1F467}\u200D\u{1F466}",
+    desc: "Dual income, kids, home ownership",
+    budget: {
+      name: "Family Budget",
+      income: [mi("Salary (Primary)"), mi("Salary (Spouse)"), mi("Child Tax Credit")],
+      expenses: [mi("Mortgage"), mi("Property Tax", "yearly"), mi("Homeowner's Insurance", "yearly"), mi("Groceries"), mi("Utilities"), mi("Childcare / Daycare"), mi("Kids Activities"), mi("Car Payment"), mi("Car Insurance"), mi("Gas"), mi("Phone Plans"), mi("Internet"), mi("Streaming"), mi("Dining Out"), mi("Clothing"), mi("Medical / Copays"), mi("School Supplies")],
+      assets: [mia("Checking Account"), mia("Joint Savings"), mia("529 College Fund"), mia("Brokerage Account")],
+      nonLiquidAssets: [mia("Home Equity"), mia("Car (Primary)"), mia("Car (Spouse)")],
+      retirement: [mia("401k (Primary)"), mia("401k (Spouse)"), mia("Roth IRA")],
+      liabilities: [mia("Mortgage Balance"), mia("Car Loan"), mia("Credit Card"), mia("Medical Bills")],
+      nonLiquidDiscount: 20
+    }
+  },
+  {
+    key: "retiree",
+    label: "Retiree",
+    emoji: "\u{1F3D6}\uFE0F",
+    desc: "Fixed income, low debt, enjoying life",
+    budget: {
+      name: "Retiree Budget",
+      income: [mi("Social Security"), mi("Pension"), mi("Retirement Withdrawals"), mi("Rental Income")],
+      expenses: [mi("Mortgage / Rent"), mi("Utilities"), mi("Groceries"), mi("Medicare / Health Insurance"), mi("Prescriptions"), mi("Car Insurance"), mi("Gas"), mi("Phone"), mi("Internet / Cable"), mi("Dining Out"), mi("Travel / Vacations"), mi("Hobbies"), mi("Gifts / Donations")],
+      assets: [mia("Checking Account"), mia("Savings Account"), mia("CDs / Bonds"), mia("Brokerage Account")],
+      nonLiquidAssets: [mia("Home"), mia("Car"), mia("Jewelry / Collectibles")],
+      retirement: [mia("401k / IRA"), mia("Pension Fund"), mia("Annuity")],
+      liabilities: [mia("Mortgage Balance"), mia("Medical Bills")],
+      nonLiquidDiscount: 20
+    }
+  }
+];
 var migrateItem = (item) => {
   if (item.amount !== void 0 && item.frequency !== void 0) return item;
   if (item.monthlyValue && item.monthlyValue > 0) {
@@ -50045,27 +50064,58 @@ function MyBudget({ initialData: initialData2 }) {
       ] })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
-      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => {
-        setBudget({ ...DEMO_BUDGET, id: budget.id, createdAt: Date.now(), updatedAt: Date.now() });
-        setNameInput(DEMO_BUDGET.name);
-      }, style: {
-        width: "100%",
-        padding: 14,
-        borderRadius: 12,
-        border: `2px dashed ${COLORS.accent}`,
-        backgroundColor: COLORS.accentLight,
-        color: COLORS.primaryDark,
-        fontSize: 14,
-        fontWeight: 600,
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 8,
-        marginBottom: 16
-      }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartColumn, { size: 18 }),
-        " Load Demo Data"
+      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 16 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 8, textAlign: "center" }, children: "Start with a template" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: BUDGET_PRESETS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            onClick: () => {
+              const now = Date.now();
+              const preset = p.budget;
+              const regenerated = {
+                ...preset,
+                id: budget.id,
+                income: preset.income.map((i) => ({ ...i, id: generateId() })),
+                expenses: preset.expenses.map((i) => ({ ...i, id: generateId() })),
+                assets: preset.assets.map((i) => ({ ...i, id: generateId() })),
+                nonLiquidAssets: preset.nonLiquidAssets.map((i) => ({ ...i, id: generateId() })),
+                retirement: preset.retirement.map((i) => ({ ...i, id: generateId() })),
+                liabilities: preset.liabilities.map((i) => ({ ...i, id: generateId() })),
+                createdAt: now,
+                updatedAt: now
+              };
+              setBudget(regenerated);
+              setNameInput(preset.name);
+              trackEvent("load_preset", { preset: p.key });
+            },
+            style: {
+              padding: "12px 10px",
+              borderRadius: 12,
+              border: `1.5px solid ${COLORS.border}`,
+              backgroundColor: COLORS.card,
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              flexDirection: "column",
+              gap: 4,
+              transition: "border-color 0.15s, box-shadow 0.15s"
+            },
+            onMouseEnter: (e) => {
+              e.currentTarget.style.borderColor = COLORS.accent;
+              e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`;
+            },
+            onMouseLeave: (e) => {
+              e.currentTarget.style.borderColor = COLORS.border;
+              e.currentTarget.style.boxShadow = "none";
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 20 }, children: p.emoji }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: p.label }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: COLORS.textSecondary, lineHeight: 1.3 }, children: p.desc })
+            ]
+          },
+          p.key
+        )) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
         BudgetSection,
@@ -50833,14 +50883,6 @@ lucide-react/dist/esm/icons/arrow-up-right.js:
    *)
 
 lucide-react/dist/esm/icons/building-2.js:
-  (**
-   * @license lucide-react v0.554.0 - ISC
-   *
-   * This source code is licensed under the ISC license.
-   * See the LICENSE file in the root directory of this source tree.
-   *)
-
-lucide-react/dist/esm/icons/chart-column.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
