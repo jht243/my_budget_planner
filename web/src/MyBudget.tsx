@@ -1265,7 +1265,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   // Homepage
   if (currentView === "home") {
     return (
-      <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box" }}>
+      <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16 }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
           <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
             <DollarSign size={28} /> My Budget
@@ -1325,7 +1325,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
   // Budget editor view
   return (
-    <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }}>
+    <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16, overflow: "hidden" }}>
       <style>{`@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
       {/* Header */}
       <div style={{ backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }}>
