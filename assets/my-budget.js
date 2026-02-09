@@ -24806,7 +24806,8 @@ var fmt = (n) => {
   if (Math.abs(n) >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
 };
-var fmtExact = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+var fmtExact = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+var fmtPrice = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
 var emptyBudget = () => ({
   id: generateId(),
   name: "My Budget",
@@ -25267,12 +25268,12 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
         draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
             "Price: ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtExact(draft.livePrice) }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
             "/unit"
           ] }),
           draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
             "Total: ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color }, children: fmtExact(draft.livePrice * draft.quantity) })
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color }, children: fmt(draft.livePrice * draft.quantity) })
           ] }) : null
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: "Fetching price..." })
       ] }),
@@ -25345,7 +25346,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
         ] }),
         item.assetType === "crypto" && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
           "@ ",
-          fmtExact(item.livePrice)
+          fmtPrice(item.livePrice)
         ] }),
         inputMode === "recurring" && item.frequency !== "one_time" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
           fmt(item.amount),

@@ -83,7 +83,8 @@ const fmt = (n: number) => {
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
 };
 
-const fmtExact = (n: number) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtExact = (n: number) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const fmtPrice = (n: number) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const emptyBudget = (): Budget => ({
   id: generateId(),
@@ -517,8 +518,8 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
             </div>
             {draft.livePrice ? (
               <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
-                <span>Price: <strong>{fmtExact(draft.livePrice)}</strong>/unit</span>
-                {draft.quantity ? <span>Total: <strong style={{ color }}>{fmtExact(draft.livePrice * draft.quantity)}</strong></span> : null}
+                <span>Price: <strong>{fmtPrice(draft.livePrice)}</strong>/unit</span>
+                {draft.quantity ? <span>Total: <strong style={{ color }}>{fmt(draft.livePrice * draft.quantity)}</strong></span> : null}
               </div>
             ) : (
               <div style={{ fontSize: 11, color: COLORS.textMuted, marginTop: 4 }}>Fetching price...</div>
@@ -594,7 +595,7 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
         </div>
         <div style={{ fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }}>
           {item.quantity !== undefined && item.quantity > 0 && <span>Qty: {item.quantity}</span>}
-          {item.assetType === "crypto" && item.livePrice && <span>@ {fmtExact(item.livePrice)}</span>}
+          {item.assetType === "crypto" && item.livePrice && <span>@ {fmtPrice(item.livePrice)}</span>}
           {inputMode === "recurring" && item.frequency !== "one_time" && <span>{fmt(item.amount)}{freqLabel(item.frequency)}</span>}
           {inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && <span>({fmt(item.monthlyValue)}/mo)</span>}
           {inputMode === "recurring" && item.frequency === "monthly" && <span>({fmt(item.totalValue)}/yr)</span>}
