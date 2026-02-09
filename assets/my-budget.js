@@ -50026,11 +50026,10 @@ function MyBudget({ initialData: initialData2 }) {
             opacity: refreshing ? 0.7 : 1
           }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, { size: 14, style: refreshing ? { animation: "spinBtn 1s linear infinite" } : void 0 }),
-            refreshing ? "Updating..." : "Refresh \u20BF"
+            refreshing ? "Updating..." : "Refresh"
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 16 }) }),
           hasBudgetContent && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleSaveBudget, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { size: 16 }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handlePrint, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: { padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
             " New"

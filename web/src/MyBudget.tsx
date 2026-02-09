@@ -1398,12 +1398,11 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                 fontSize: 11, fontWeight: 600, opacity: refreshing ? 0.7 : 1,
               }}>
                 <RefreshCw size={14} style={refreshing ? { animation: "spinBtn 1s linear infinite" } : undefined} />
-                {refreshing ? "Updating..." : "Refresh ₿"}
+                {refreshing ? "Updating..." : "Refresh"}
               </button>
             )}
             <button onClick={handleBackToHome} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Home size={16} /></button>
             {hasBudgetContent && <button onClick={handleSaveBudget} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>}
-            <button onClick={handlePrint} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Printer size={16} /></button>
             <button onClick={handleNewBudget} style={{ padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><Plus size={14} /> New</button>
           </div>
         </div>
