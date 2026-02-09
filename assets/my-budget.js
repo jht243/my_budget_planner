@@ -49809,11 +49809,7 @@ var SummarySection = ({ budget }) => {
 };
 function MyBudget({ initialData: initialData2 }) {
   const [savedBudgets, setSavedBudgets] = (0, import_react51.useState)(() => loadBudgets());
-  const [currentView, setCurrentView] = (0, import_react51.useState)(() => {
-    const current3 = loadCurrentBudget();
-    if (current3 && (current3.income.length > 0 || current3.expenses.length > 0 || current3.assets.length > 0)) return "budget";
-    return savedBudgets.length > 0 ? "home" : "budget";
-  });
+  const [currentView, setCurrentView] = (0, import_react51.useState)("budget");
   const [budget, setBudget] = (0, import_react51.useState)(() => loadCurrentBudget() || emptyBudget());
   const [editingName, setEditingName] = (0, import_react51.useState)(false);
   const [nameInput, setNameInput] = (0, import_react51.useState)(budget.name);

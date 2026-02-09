@@ -1176,11 +1176,7 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
 
 export default function MyBudget({ initialData }: { initialData?: any }) {
   const [savedBudgets, setSavedBudgets] = useState<Budget[]>(() => loadBudgets());
-  const [currentView, setCurrentView] = useState<"home" | "budget">(() => {
-    const current = loadCurrentBudget();
-    if (current && (current.income.length > 0 || current.expenses.length > 0 || current.assets.length > 0)) return "budget";
-    return savedBudgets.length > 0 ? "home" : "budget";
-  });
+  const [currentView, setCurrentView] = useState<"home" | "budget">("budget");
   const [budget, setBudget] = useState<Budget>(() => loadCurrentBudget() || emptyBudget());
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(budget.name);
