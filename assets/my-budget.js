@@ -49492,23 +49492,33 @@ var SummarySection = ({ budget }) => {
     ] }),
     (() => {
       const projectionYears = 20;
-      const startBalance = liquidAfterLiabilities;
-      const startBalanceExt = liquidAfterLiabilities + nonLiquidAtDiscount;
+      const startLiquid = Math.max(0, liquidAfterLiabilities);
+      const startExt = Math.max(0, netWorth);
       const data = [];
-      let balLiquid = startBalance;
-      let balExtended = startBalanceExt;
+      const annualBurn = monthlyBurn * 12;
+      let balLiquid = startLiquid;
+      let balExtended = startExt;
+      let liquidHitZero = false;
+      let extHitZero = false;
       for (let yr = 0; yr <= projectionYears; yr++) {
         data.push({
           year: yr,
-          liquid: Math.round(balLiquid),
-          extended: nonLiquidAtDiscount > 0 ? Math.round(balExtended) : 0
+          liquid: Math.round(Math.max(0, balLiquid)),
+          extended: nonLiquidAtDiscount > 0 || totalRetirement > 0 ? Math.round(Math.max(0, balExtended)) : 0
         });
-        balLiquid += annualNet;
-        balExtended += annualNet;
-        if (balLiquid < -startBalance * 3 && balExtended < -startBalanceExt * 3) break;
+        if (monthlyBurn > 0) {
+          balLiquid -= annualBurn;
+          balExtended -= annualBurn;
+        } else {
+          balLiquid += annualNet;
+          balExtended += annualNet;
+        }
+        if (balLiquid <= 0) liquidHitZero = true;
+        if (balExtended <= 0) extHitZero = true;
+        if (liquidHitZero && extHitZero) break;
       }
-      const liquidZeroYear = data.find((d) => d.liquid <= 0)?.year;
-      const extZeroYear = data.find((d) => d.extended <= 0)?.year;
+      const liquidZeroYear = monthlyBurn > 0 ? data.find((d, i) => i > 0 && d.liquid === 0)?.year : null;
+      const extZeroYear = monthlyBurn > 0 ? data.find((d, i) => i > 0 && d.extended === 0)?.year : null;
       const maxVal = Math.max(...data.map((d) => Math.max(d.liquid, d.extended)));
       const minVal = Math.min(...data.map((d) => Math.min(d.liquid, d.extended)));
       const formatYAxis = (val) => {

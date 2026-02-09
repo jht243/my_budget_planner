@@ -878,28 +878,43 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
       {/* ─── Runway Projection Chart ──────────────────────────────── */}
       {(() => {
         const projectionYears = 20;
-        const startBalance = liquidAfterLiabilities;
-        const startBalanceExt = liquidAfterLiabilities + nonLiquidAtDiscount;
+        // Liquid line starts at liquid available, extended starts at full net worth
+        const startLiquid = Math.max(0, liquidAfterLiabilities);
+        const startExt = Math.max(0, netWorth);
         const data: { year: number; liquid: number; extended: number }[] = [];
 
-        let balLiquid = startBalance;
-        let balExtended = startBalanceExt;
+        // Monthly burn is the net outflow (positive = spending more than earning)
+        const annualBurn = monthlyBurn * 12; // monthlyBurn > 0 means money going out
+
+        let balLiquid = startLiquid;
+        let balExtended = startExt;
+        let liquidHitZero = false;
+        let extHitZero = false;
 
         for (let yr = 0; yr <= projectionYears; yr++) {
           data.push({
             year: yr,
-            liquid: Math.round(balLiquid),
-            extended: nonLiquidAtDiscount > 0 ? Math.round(balExtended) : 0,
+            liquid: Math.round(Math.max(0, balLiquid)),
+            extended: nonLiquidAtDiscount > 0 || totalRetirement > 0 ? Math.round(Math.max(0, balExtended)) : 0,
           });
-          balLiquid += annualNet;
-          balExtended += annualNet;
-          // Stop tracking below a large negative floor to keep chart readable
-          if (balLiquid < -startBalance * 3 && balExtended < -startBalanceExt * 3) break;
+          if (monthlyBurn > 0) {
+            // Burning: subtract annual burn
+            balLiquid -= annualBurn;
+            balExtended -= annualBurn;
+          } else {
+            // Growing: add annual net (which is positive)
+            balLiquid += annualNet;
+            balExtended += annualNet;
+          }
+          // Once both hit zero, stop adding more points
+          if (balLiquid <= 0) liquidHitZero = true;
+          if (balExtended <= 0) extHitZero = true;
+          if (liquidHitZero && extHitZero) break;
         }
 
         // Find zero-crossing year for liquid
-        const liquidZeroYear = data.find(d => d.liquid <= 0)?.year;
-        const extZeroYear = data.find(d => d.extended <= 0)?.year;
+        const liquidZeroYear = monthlyBurn > 0 ? data.find((d, i) => i > 0 && d.liquid === 0)?.year : null;
+        const extZeroYear = monthlyBurn > 0 ? data.find((d, i) => i > 0 && d.extended === 0)?.year : null;
 
         const maxVal = Math.max(...data.map(d => Math.max(d.liquid, d.extended)));
         const minVal = Math.min(...data.map(d => Math.min(d.liquid, d.extended)));
