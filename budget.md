@@ -9,7 +9,7 @@
 ## Storage & State
 - [ ] **Local Storage**:
     - [ ] Implement persistent local storage (e.g., for email addresses).
-    - [ ] **Data Expiry**: Implement explicit expiry for `localStorage` (e.g., purge after 72 hours) OR expose a "Clear saved data" button with documentation.
+    - [x] **Data Persistence**: No expiry on localStorage data — users keep their budgets indefinitely (potentially years). Only the "Reset" button clears current budget data.
 - [ ] **Backend Storage**: Ensure backend storage is connected and functional.
 - [ ] **Widget State**: Use `window.openai.setWidgetState()` to preserve user context across conversations.
 - [ ] **User Database**: Verify user database integration.
