@@ -48662,8 +48662,18 @@ var computeValues = (amount, frequency) => {
       return { totalValue: amount, monthlyValue: 0 };
   }
 };
+var API_BASE = (() => {
+  try {
+    if (typeof window !== "undefined" && window.location.protocol === "file:") {
+      return "https://my-budget-planner.onrender.com";
+    }
+    return "";
+  } catch {
+    return "";
+  }
+})();
 var trackEvent = (event, data) => {
-  fetch("/api/track", {
+  fetch(`${API_BASE}/api/track`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ event, data: data || {} })
@@ -48705,7 +48715,7 @@ var fetchCryptoPrices = async (ids) => {
 var fetchStockPrices = async (symbols) => {
   if (symbols.length === 0) return {};
   try {
-    const res = await fetch(`/api/stock-price?symbols=${symbols.join(",")}`);
+    const res = await fetch(`${API_BASE}/api/stock-price?symbols=${symbols.join(",")}`);
     if (!res.ok) return {};
     return await res.json();
   } catch {
@@ -49032,6 +49042,88 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
     )) })
   ] });
 };
+var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
+  const [fetching, setFetching] = (0, import_react51.useState)(false);
+  const [tickerInput, setTickerInput] = (0, import_react51.useState)(draft.ticker || "");
+  const debounceRef = (0, import_react51.useRef)(null);
+  (0, import_react51.useEffect)(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const symbol = tickerInput.trim();
+    if (symbol.length < 1) {
+      setDraft((d) => ({ ...d, ticker: void 0, livePrice: void 0, name: "" }));
+      return;
+    }
+    setDraft((d) => ({ ...d, ticker: symbol, name: symbol }));
+    if (symbol.length < 2) return;
+    debounceRef.current = setTimeout(async () => {
+      setFetching(true);
+      try {
+        const prices = await fetchStockPrices([symbol]);
+        if (prices[symbol]) {
+          const price = prices[symbol];
+          setDraft((d) => {
+            const newAmount = d.quantity ? Math.round(price * d.quantity * 100) / 100 : price;
+            return { ...d, livePrice: price, amount: newAmount };
+          });
+        }
+      } catch {
+      }
+      setFetching(false);
+    }, 600);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [tickerInput]);
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "input",
+      {
+        style: { ...inputStyle, textTransform: "uppercase" },
+        value: tickerInput,
+        onChange: (e) => setTickerInput(e.target.value.toUpperCase().replace(/[^A-Z.]/g, "")),
+        placeholder: "e.g. AAPL, TSLA, VOO",
+        autoFocus: true
+      }
+    ),
+    fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: [
+      "Looking up ",
+      tickerInput,
+      "..."
+    ] }),
+    draft.livePrice && !fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginTop: 8, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#2563EB" }, children: [
+          "\u{1F4C8} ",
+          draft.ticker
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
+          "@ ",
+          fmtPrice(draft.livePrice)
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+          const qty = parseFloat(e.target.value) || 0;
+          const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+          setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
+        }, placeholder: "How many shares?" })
+      ] }),
+      draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          "Price: ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
+          "/share"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          "Total: ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
+        ] })
+      ] }) : null
+    ] })
+  ] });
+};
 var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
   const isNew = !item.amount;
   const [editing, setEditing] = (0, import_react51.useState)(isNew);
@@ -49174,71 +49266,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
           ] }) : null
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: "Fetching price..." })
       ] }),
-      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 6 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            "input",
-            {
-              style: { ...inputStyle, textTransform: "uppercase" },
-              value: draft.ticker || "",
-              onChange: (e) => setDraft((d) => ({ ...d, ticker: e.target.value.toUpperCase().replace(/[^A-Z.]/g, ""), name: e.target.value.toUpperCase().replace(/[^A-Z.]/g, "") })),
-              placeholder: "e.g. AAPL, TSLA, VOO",
-              autoFocus: true,
-              onKeyDown: async (e) => {
-                if (e.key === "Enter" && draft.ticker) {
-                  const prices = await fetchStockPrices([draft.ticker]);
-                  if (prices[draft.ticker]) {
-                    const price = prices[draft.ticker];
-                    const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
-                    setDraft((d) => ({ ...d, livePrice: price, amount: newAmount }));
-                  }
-                }
-              }
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: async () => {
-            if (!draft.ticker) return;
-            const prices = await fetchStockPrices([draft.ticker]);
-            if (prices[draft.ticker]) {
-              const price = prices[draft.ticker];
-              const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
-              setDraft((d) => ({ ...d, livePrice: price, amount: newAmount }));
-            }
-          }, style: { padding: "6px 10px", borderRadius: 6, border: `1px solid #2563EB`, backgroundColor: "#2563EB15", color: "#2563EB", fontSize: 11, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }, children: "Lookup" })
-        ] }),
-        draft.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginBottom: 8 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#2563EB" }, children: [
-              "\u{1F4C8} ",
-              draft.ticker
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
-              "@ ",
-              fmtPrice(draft.livePrice)
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
-              const qty = parseFloat(e.target.value) || 0;
-              const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
-              setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
-            }, placeholder: "How many shares?" })
-          ] }),
-          draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-              "Price: ",
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
-              "/share"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-              "Total: ",
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
-            ] })
-          ] }) : null
-        ] })
-      ] }),
+      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StockTickerInput, { draft, setDraft, inputStyle, color: color2 }),
       (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
@@ -49973,7 +50001,7 @@ function MyBudget({ initialData: initialData2 }) {
     }
     setSubscribeStatus("loading");
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch(`${API_BASE}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: subscribeEmail, topicId: "budget-planner-news", topicName: "Budget Planner Updates" })
@@ -50001,7 +50029,7 @@ function MyBudget({ initialData: initialData2 }) {
     if (!feedbackText.trim()) return;
     setFeedbackStatus("submitting");
     try {
-      const response = await fetch("/api/track", {
+      const response = await fetch(`${API_BASE}/api/track`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "budget-planner", budgetName: budget.name || null } })
