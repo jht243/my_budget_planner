@@ -13,7 +13,7 @@ import {
 // ─── Data Types ───────────────────────────────────────────────────────────────
 
 type Frequency = "monthly" | "yearly" | "one_time";
-type AssetType = "manual" | "crypto";
+type AssetType = "manual" | "crypto" | "stock";
 
 interface BudgetItem {
   id: string;
@@ -168,6 +168,15 @@ const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>>
       if (data[id]?.usd) prices[id] = data[id].usd;
     }
     return prices;
+  } catch { return {}; }
+};
+
+const fetchStockPrices = async (symbols: string[]): Promise<Record<string, number>> => {
+  if (symbols.length === 0) return {};
+  try {
+    const res = await fetch(`/api/stock-price?symbols=${symbols.join(",")}`);
+    if (!res.ok) return {};
+    return await res.json();
   } catch { return {}; }
 };
 
@@ -477,8 +486,8 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
   const save = () => {
     const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
     let amount = draft.amount;
-    // For crypto with quantity + livePrice, compute amount
-    if (draft.assetType === "crypto" && draft.ticker && draft.livePrice && draft.quantity) {
+    // For crypto/stock with quantity + livePrice, compute amount
+    if ((draft.assetType === "crypto" || draft.assetType === "stock") && draft.ticker && draft.livePrice && draft.quantity) {
       amount = Math.round(draft.livePrice * draft.quantity * 100) / 100;
     }
     const computed = computeValues(amount, freq);
@@ -524,6 +533,11 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
                 backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
                 color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
                 fontSize: 11, fontWeight: 600, cursor: "pointer" }}>₿ Crypto</button>
+            <button onClick={() => setDraft(d => ({ ...d, assetType: "stock" as AssetType, ticker: undefined, livePrice: undefined }))}
+              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS.border}`,
+                backgroundColor: draft.assetType === "stock" ? "#2563EB15" : "transparent",
+                color: draft.assetType === "stock" ? "#2563EB" : COLORS.textSecondary,
+                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>📈 Stock</button>
             <button onClick={() => setDraft(d => ({ ...d, assetType: undefined, ticker: undefined, livePrice: undefined }))}
               style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
                 backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
@@ -561,6 +575,57 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
               </div>
             ) : (
               <div style={{ fontSize: 11, color: COLORS.textMuted, marginTop: 4 }}>Fetching price...</div>
+            )}
+          </div>
+        )}
+
+        {inputMode === "asset" && draft.assetType === "stock" && (
+          <div style={{ marginBottom: 8 }}>
+            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Ticker Symbol</label>
+            <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
+              <input style={{ ...inputStyle, textTransform: "uppercase" }} value={draft.ticker || ""} onChange={e => setDraft(d => ({ ...d, ticker: e.target.value.toUpperCase().replace(/[^A-Z.]/g, ""), name: e.target.value.toUpperCase().replace(/[^A-Z.]/g, "") }))}
+                placeholder="e.g. AAPL, TSLA, VOO" autoFocus
+                onKeyDown={async e => {
+                  if (e.key === "Enter" && draft.ticker) {
+                    const prices = await fetchStockPrices([draft.ticker]);
+                    if (prices[draft.ticker]) {
+                      const price = prices[draft.ticker];
+                      const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
+                      setDraft(d => ({ ...d, livePrice: price, amount: newAmount }));
+                    }
+                  }
+                }} />
+              <button onClick={async () => {
+                if (!draft.ticker) return;
+                const prices = await fetchStockPrices([draft.ticker]);
+                if (prices[draft.ticker]) {
+                  const price = prices[draft.ticker];
+                  const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
+                  setDraft(d => ({ ...d, livePrice: price, amount: newAmount }));
+                }
+              }} style={{ padding: "6px 10px", borderRadius: 6, border: `1px solid #2563EB`, backgroundColor: "#2563EB15", color: "#2563EB", fontSize: 11, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>Lookup</button>
+            </div>
+            {draft.livePrice && (
+              <>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginBottom: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: "#2563EB" }}>📈 {draft.ticker}</span>
+                  <span style={{ fontSize: 11, color: COLORS.textMuted }}>@ {fmtPrice(draft.livePrice)}</span>
+                </div>
+                <div style={{ marginBottom: 4 }}>
+                  <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Shares</label>
+                  <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => {
+                    const qty = parseFloat(e.target.value) || 0;
+                    const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+                    setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
+                  }} placeholder="How many shares?" />
+                </div>
+                {draft.quantity ? (
+                  <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
+                    <span>Price: <strong>{fmtPrice(draft.livePrice)}</strong>/share</span>
+                    <span>Total: <strong style={{ color }}>{fmt(draft.livePrice * draft.quantity)}</strong></span>
+                  </div>
+                ) : null}
+              </>
             )}
           </div>
         )}
@@ -629,11 +694,12 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
       <div style={{ flex: 1, minWidth: 0, paddingLeft: 4 }}>
         <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }}>
           {item.assetType === "crypto" && <span style={{ fontSize: 11, color: "#F7931A", fontWeight: 700 }}>₿</span>}
+          {item.assetType === "stock" && <span style={{ fontSize: 11, color: "#2563EB", fontWeight: 700 }}>📈</span>}
           {item.name || "Unnamed"}
         </div>
         <div style={{ fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }}>
           {item.quantity !== undefined && item.quantity > 0 && <span>Qty: {item.quantity}</span>}
-          {item.assetType === "crypto" && item.livePrice && <span>@ {fmtPrice(item.livePrice)}</span>}
+          {(item.assetType === "crypto" || item.assetType === "stock") && item.livePrice && <span>@ {fmtPrice(item.livePrice)}</span>}
           {inputMode === "recurring" && item.frequency !== "one_time" && <span>{fmt(item.amount)}{freqLabel(item.frequency)}</span>}
           {inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && <span>({fmt(item.monthlyValue)}/mo)</span>}
           {inputMode === "recurring" && item.frequency === "monthly" && <span>({fmt(item.totalValue)}/yr)</span>}
@@ -1106,23 +1172,27 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     setShowFeedbackModal(true);
   };
 
-  // Refresh all crypto prices
+  // Refresh all crypto + stock prices
   const refreshPrices = useCallback(async () => {
-    trackEvent("refresh_crypto", { budgetName: budget.name || null });
+    trackEvent("refresh_prices", { budgetName: budget.name || null });
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter(i => i.assetType === "crypto" && i.ticker);
-    if (cryptoItems.length === 0) return;
+    const stockItems = allItems.filter(i => i.assetType === "stock" && i.ticker);
+    if (cryptoItems.length === 0 && stockItems.length === 0) return;
 
     setRefreshing(true);
     try {
-      const uniqueIds = [...new Set(cryptoItems.map(i => i.ticker!))];
-      const prices = await fetchCryptoPrices(uniqueIds);
+      const [cryptoPrices, stockPrices] = await Promise.all([
+        cryptoItems.length > 0 ? fetchCryptoPrices([...new Set(cryptoItems.map(i => i.ticker!))]) : {},
+        stockItems.length > 0 ? fetchStockPrices([...new Set(stockItems.map(i => i.ticker!))]) : {},
+      ]);
+      const allPrices: Record<string, number> = { ...cryptoPrices, ...stockPrices };
 
       setBudget(b => {
         const updateSection = (items: BudgetItem[]): BudgetItem[] =>
           items.map(item => {
-            if (item.assetType !== "crypto" || !item.ticker || !prices[item.ticker]) return item;
-            const newPrice = prices[item.ticker];
+            if ((!item.assetType || item.assetType === "manual") || !item.ticker || !allPrices[item.ticker]) return item;
+            const newPrice = allPrices[item.ticker];
             const newAmount = item.quantity ? Math.round(newPrice * item.quantity * 100) / 100 : item.amount;
             const computed = computeValues(newAmount, item.frequency);
             return { ...item, livePrice: newPrice, amount: newAmount, ...computed };
@@ -1389,8 +1459,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   // Check if budget has content worth saving
   const hasBudgetContent = budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.nonLiquidAssets.length > 0 || budget.retirement.length > 0 || budget.liabilities.length > 0;
 
-  // Check if there are any crypto items
-  const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some(i => i.assetType === "crypto" && i.ticker);
+  // Check if there are any crypto or stock items that need price refreshing
+  const hasLiveAssets = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some(i => (i.assetType === "crypto" || i.assetType === "stock") && i.ticker);
 
   // Budget editor view
   return (
@@ -1414,7 +1484,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             )}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            {hasCrypto && (
+            {hasLiveAssets && (
               <button onClick={refreshPrices} disabled={refreshing} style={{
                 padding: "6px 10px", borderRadius: 6, border: "none",
                 backgroundColor: refreshing ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.2)",

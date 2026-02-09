@@ -710,9 +710,54 @@ const sessions = new Map<string, SessionRecord>();
 const ssePath = "/mcp";
 const postPath = "/mcp/messages";
 const subscribePath = "/api/subscribe";
+const stockPricePath = "/api/stock-price";
 const analyticsPath = "/analytics";
 const trackEventPath = "/api/track";
 const healthPath = "/health";
+
+const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY || "";
+
+async function handleStockPrice(req: IncomingMessage, res: ServerResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.method !== "GET") {
+    res.writeHead(405).end(JSON.stringify({ error: "Method not allowed" }));
+    return;
+  }
+
+  if (!FINNHUB_API_KEY) {
+    res.writeHead(500).end(JSON.stringify({ error: "Stock API not configured" }));
+    return;
+  }
+
+  const url = new URL(req.url!, `http://${req.headers.host}`);
+  const symbols = url.searchParams.get("symbols");
+  if (!symbols) {
+    res.writeHead(400).end(JSON.stringify({ error: "Missing symbols parameter" }));
+    return;
+  }
+
+  try {
+    const symbolList = symbols.split(",").map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, 20);
+    const results: Record<string, number> = {};
+
+    await Promise.all(symbolList.map(async (symbol) => {
+      try {
+        const resp = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_KEY}`);
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data.c && data.c > 0) results[symbol] = data.c; // "c" = current price
+        }
+      } catch {}
+    }));
+
+    res.writeHead(200).end(JSON.stringify(results));
+  } catch (e) {
+    console.error("Stock price fetch error:", e);
+    res.writeHead(500).end(JSON.stringify({ error: "Failed to fetch stock prices" }));
+  }
+}
 
 
 const ANALYTICS_PASSWORD = process.env.ANALYTICS_PASSWORD || "changeme123";
@@ -750,6 +795,7 @@ function humanizeEventName(event: string): string {
     widget_delete_item: "Delete Item",
     // Crypto
     widget_refresh_crypto: "Refresh Crypto Prices",
+    widget_refresh_prices: "Refresh Prices (Crypto + Stock)",
     // Footer buttons
     widget_subscribe_click: "Subscribe (Click)",
     widget_donate_click: "Donate (Click)",
@@ -1902,6 +1948,11 @@ const httpServer = createServer(
 
     if (url.pathname === trackEventPath) {
       await handleTrackEvent(req, res);
+      return;
+    }
+
+    if (url.pathname === stockPricePath) {
+      await handleStockPrice(req, res);
       return;
     }
 

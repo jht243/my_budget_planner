@@ -48702,6 +48702,16 @@ var fetchCryptoPrices = async (ids) => {
     return {};
   }
 };
+var fetchStockPrices = async (symbols) => {
+  if (symbols.length === 0) return {};
+  try {
+    const res = await fetch(`/api/stock-price?symbols=${symbols.join(",")}`);
+    if (!res.ok) return {};
+    return await res.json();
+  } catch {
+    return {};
+  }
+};
 var mi = (name, amount, freq = "monthly") => ({
   id: generateId(),
   name,
@@ -49032,7 +49042,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
   const save = () => {
     const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
     let amount = draft.amount;
-    if (draft.assetType === "crypto" && draft.ticker && draft.livePrice && draft.quantity) {
+    if ((draft.assetType === "crypto" || draft.assetType === "stock") && draft.ticker && draft.livePrice && draft.quantity) {
       amount = Math.round(draft.livePrice * draft.quantity * 100) / 100;
     }
     const computed = computeValues(amount, freq);
@@ -49095,6 +49105,23 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {
+            onClick: () => setDraft((d) => ({ ...d, assetType: "stock", ticker: void 0, livePrice: void 0 })),
+            style: {
+              padding: "4px 10px",
+              borderRadius: 6,
+              border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS.border}`,
+              backgroundColor: draft.assetType === "stock" ? "#2563EB15" : "transparent",
+              color: draft.assetType === "stock" ? "#2563EB" : COLORS.textSecondary,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: "pointer"
+            },
+            children: "\u{1F4C8} Stock"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
             onClick: () => setDraft((d) => ({ ...d, assetType: void 0, ticker: void 0, livePrice: void 0 })),
             style: {
               padding: "4px 10px",
@@ -49146,6 +49173,71 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
           ] }) : null
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: "Fetching price..." })
+      ] }),
+      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 6 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "input",
+            {
+              style: { ...inputStyle, textTransform: "uppercase" },
+              value: draft.ticker || "",
+              onChange: (e) => setDraft((d) => ({ ...d, ticker: e.target.value.toUpperCase().replace(/[^A-Z.]/g, ""), name: e.target.value.toUpperCase().replace(/[^A-Z.]/g, "") })),
+              placeholder: "e.g. AAPL, TSLA, VOO",
+              autoFocus: true,
+              onKeyDown: async (e) => {
+                if (e.key === "Enter" && draft.ticker) {
+                  const prices = await fetchStockPrices([draft.ticker]);
+                  if (prices[draft.ticker]) {
+                    const price = prices[draft.ticker];
+                    const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
+                    setDraft((d) => ({ ...d, livePrice: price, amount: newAmount }));
+                  }
+                }
+              }
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: async () => {
+            if (!draft.ticker) return;
+            const prices = await fetchStockPrices([draft.ticker]);
+            if (prices[draft.ticker]) {
+              const price = prices[draft.ticker];
+              const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : price;
+              setDraft((d) => ({ ...d, livePrice: price, amount: newAmount }));
+            }
+          }, style: { padding: "6px 10px", borderRadius: 6, border: `1px solid #2563EB`, backgroundColor: "#2563EB15", color: "#2563EB", fontSize: 11, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }, children: "Lookup" })
+        ] }),
+        draft.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30", marginBottom: 8 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#2563EB" }, children: [
+              "\u{1F4C8} ",
+              draft.ticker
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
+              "@ ",
+              fmtPrice(draft.livePrice)
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+              const qty = parseFloat(e.target.value) || 0;
+              const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+              setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
+            }, placeholder: "How many shares?" })
+          ] }),
+          draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+              "Price: ",
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
+              "/share"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+              "Total: ",
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
+            ] })
+          ] }) : null
+        ] })
       ] }),
       (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
@@ -49207,6 +49299,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: 0, paddingLeft: 4 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }, children: [
         item.assetType === "crypto" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#F7931A", fontWeight: 700 }, children: "\u20BF" }),
+        item.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#2563EB", fontWeight: 700 }, children: "\u{1F4C8}" }),
         item.name || "Unnamed"
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }, children: [
@@ -49214,7 +49307,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
           "Qty: ",
           item.quantity
         ] }),
-        item.assetType === "crypto" && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        (item.assetType === "crypto" || item.assetType === "stock") && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
           "@ ",
           fmtPrice(item.livePrice)
         ] }),
@@ -49723,18 +49816,22 @@ function MyBudget({ initialData: initialData2 }) {
     setShowFeedbackModal(true);
   };
   const refreshPrices = (0, import_react51.useCallback)(async () => {
-    trackEvent("refresh_crypto", { budgetName: budget.name || null });
+    trackEvent("refresh_prices", { budgetName: budget.name || null });
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter((i) => i.assetType === "crypto" && i.ticker);
-    if (cryptoItems.length === 0) return;
+    const stockItems = allItems.filter((i) => i.assetType === "stock" && i.ticker);
+    if (cryptoItems.length === 0 && stockItems.length === 0) return;
     setRefreshing(true);
     try {
-      const uniqueIds = [...new Set(cryptoItems.map((i) => i.ticker))];
-      const prices = await fetchCryptoPrices(uniqueIds);
+      const [cryptoPrices, stockPrices] = await Promise.all([
+        cryptoItems.length > 0 ? fetchCryptoPrices([...new Set(cryptoItems.map((i) => i.ticker))]) : {},
+        stockItems.length > 0 ? fetchStockPrices([...new Set(stockItems.map((i) => i.ticker))]) : {}
+      ]);
+      const allPrices = { ...cryptoPrices, ...stockPrices };
       setBudget((b) => {
         const updateSection = (items) => items.map((item) => {
-          if (item.assetType !== "crypto" || !item.ticker || !prices[item.ticker]) return item;
-          const newPrice = prices[item.ticker];
+          if (!item.assetType || item.assetType === "manual" || !item.ticker || !allPrices[item.ticker]) return item;
+          const newPrice = allPrices[item.ticker];
           const newAmount = item.quantity ? Math.round(newPrice * item.quantity * 100) / 100 : item.amount;
           const computed = computeValues(newAmount, item.frequency);
           return { ...item, livePrice: newPrice, amount: newAmount, ...computed };
@@ -50009,7 +50106,7 @@ function MyBudget({ initialData: initialData2 }) {
     ] });
   }
   const hasBudgetContent = budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.nonLiquidAssets.length > 0 || budget.retirement.length > 0 || budget.liabilities.length > 0;
-  const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => i.assetType === "crypto" && i.ticker);
+  const hasLiveAssets = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => (i.assetType === "crypto" || i.assetType === "stock") && i.ticker);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16, overflow: "hidden" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }` }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }, children: [
@@ -50041,7 +50138,7 @@ function MyBudget({ initialData: initialData2 }) {
           ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { onClick: () => setEditingName(true), style: { margin: 0, fontSize: 20, fontWeight: 700, cursor: "pointer" }, children: budget.name })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-          hasCrypto && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
+          hasLiveAssets && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
             padding: "6px 10px",
             borderRadius: 6,
             border: "none",
