@@ -1434,7 +1434,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
         {budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && (
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 8, textAlign: "center" }}>Start with a template</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            <div style={{ display: "flex", gap: 6 }}>
               {BUDGET_PRESETS.map(p => (
                 <button key={p.key} onClick={() => {
                   const now = Date.now();
@@ -1454,17 +1454,17 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                   setNameInput(preset.name);
                   trackEvent("load_preset", { preset: p.key });
                 }} style={{
-                  padding: "12px 10px", borderRadius: 12, border: `1.5px solid ${COLORS.border}`,
-                  backgroundColor: COLORS.card, cursor: "pointer", textAlign: "left",
-                  display: "flex", flexDirection: "column", gap: 4,
+                  flex: 1, padding: "8px 4px", borderRadius: 10, border: `1.5px solid ${COLORS.border}`,
+                  backgroundColor: COLORS.card, cursor: "pointer", textAlign: "center",
+                  display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                   transition: "border-color 0.15s, box-shadow 0.15s",
                 }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = COLORS.accent; e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = COLORS.border; e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  <span style={{ fontSize: 20 }}>{p.emoji}</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: COLORS.textMain }}>{p.label}</span>
-                  <span style={{ fontSize: 11, color: COLORS.textSecondary, lineHeight: 1.3 }}>{p.desc}</span>
+                  <span style={{ fontSize: 16 }}>{p.emoji}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.textMain }}>{p.label}</span>
+                  <span style={{ fontSize: 10, color: COLORS.textSecondary, lineHeight: 1.2 }}>{p.desc}</span>
                 </button>
               ))}
             </div>

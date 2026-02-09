@@ -50066,7 +50066,7 @@ function MyBudget({ initialData: initialData2 }) {
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
       budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 16 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 8, textAlign: "center" }, children: "Start with a template" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: BUDGET_PRESETS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 6 }, children: BUDGET_PRESETS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
           "button",
           {
             onClick: () => {
@@ -50089,15 +50089,17 @@ function MyBudget({ initialData: initialData2 }) {
               trackEvent("load_preset", { preset: p.key });
             },
             style: {
-              padding: "12px 10px",
-              borderRadius: 12,
+              flex: 1,
+              padding: "8px 4px",
+              borderRadius: 10,
               border: `1.5px solid ${COLORS.border}`,
               backgroundColor: COLORS.card,
               cursor: "pointer",
-              textAlign: "left",
+              textAlign: "center",
               display: "flex",
               flexDirection: "column",
-              gap: 4,
+              alignItems: "center",
+              gap: 2,
               transition: "border-color 0.15s, box-shadow 0.15s"
             },
             onMouseEnter: (e) => {
@@ -50109,9 +50111,9 @@ function MyBudget({ initialData: initialData2 }) {
               e.currentTarget.style.boxShadow = "none";
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 20 }, children: p.emoji }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: p.label }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: COLORS.textSecondary, lineHeight: 1.3 }, children: p.desc })
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16 }, children: p.emoji }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textMain }, children: p.label }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 10, color: COLORS.textSecondary, lineHeight: 1.2 }, children: p.desc })
             ]
           },
           p.key
