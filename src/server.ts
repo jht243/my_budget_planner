@@ -124,38 +124,39 @@ function classifyDevice(userAgent?: string | null): string {
 }
 
 function computeSummary(args: any) {
-  const destination = args.destination || null;
-  const departureCity = args.departure_city || null;
-  const tripType = args.trip_type || "round_trip";
-  const travelers = Number(args.travelers) || 1;
-  const departureDate = args.departure_date || null;
-  const returnDate = args.return_date || null;
-  const departureMode = args.departure_mode || "plane";
-  const multiCityLegs = args.multi_city_legs || [];
-  
-  // Calculate budget period duration from dates if available
-  let tripDays: number | null = null;
-  if (departureDate && returnDate) {
-    const diff = new Date(returnDate).getTime() - new Date(departureDate).getTime();
-    tripDays = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
-  }
-  
-  // Count expected legs
-  const expectedFlights = tripType === "one_way" ? 1 : tripType === "round_trip" ? 2 : multiCityLegs.length;
-  const expectedHotels = tripType === "multi_city" ? multiCityLegs.length : (tripType === "one_way" ? 1 : 1);
-  
+  const budgetName = args.budget_name || null;
+  const monthlyIncome = Number(args.monthly_income) || 0;
+  const monthlyExpenses = Number(args.monthly_expenses) || 0;
+  const liquidAssets = Number(args.liquid_assets) || 0;
+  const nonliquidAssets = Number(args.nonliquid_assets) || 0;
+  const retirementSavings = Number(args.retirement_savings) || 0;
+  const liabilities = Number(args.liabilities) || 0;
+  const nonliquidDiscount = Number(args.nonliquid_discount) || 25;
+
+  const monthlyNet = monthlyIncome - monthlyExpenses;
+  const annualNet = monthlyNet * 12;
+  const nonliquidAtDiscount = nonliquidAssets * (1 - nonliquidDiscount / 100);
+  const liquidAvailable = Math.max(0, liquidAssets - liabilities);
+  const netWorth = liquidAvailable + nonliquidAtDiscount + retirementSavings;
+
+  // Runway: how many months liquid assets last if burning
+  const monthlyBurn = monthlyExpenses - monthlyIncome;
+  const runwayMonths = monthlyBurn > 0 && liquidAvailable > 0 ? liquidAvailable / monthlyBurn : null;
+
   return {
-    destination,
-    departure_city: departureCity,
-    trip_type: tripType,
-    travelers,
-    departure_date: departureDate,
-    return_date: returnDate,
-    trip_days: tripDays,
-    departure_mode: departureMode,
-    expected_flights: expectedFlights,
-    expected_hotels: expectedHotels,
-    multi_city_legs: multiCityLegs.length > 0 ? multiCityLegs : null,
+    budget_name: budgetName,
+    monthly_income: monthlyIncome,
+    monthly_expenses: monthlyExpenses,
+    monthly_net: monthlyNet,
+    annual_net: annualNet,
+    liquid_assets: liquidAssets,
+    nonliquid_assets: nonliquidAssets,
+    nonliquid_at_discount: nonliquidAtDiscount,
+    retirement_savings: retirementSavings,
+    liabilities,
+    liquid_available: liquidAvailable,
+    net_worth: netWorth,
+    runway_months: runwayMonths,
   };
 }
 
@@ -250,9 +251,7 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
     "openai/widgetCSP": {
       connect_domains: [
         "https://my-budget.onrender.com",
-        "https://nominatim.openstreetmap.org",
-        "https://api.open-meteo.com",
-        "https://geocoding-api.open-meteo.com"
+        "https://api.coingecko.com"
       ],
       resource_domains: [
         "https://my-budget.onrender.com"
@@ -290,15 +289,15 @@ widgets.forEach((widget) => {
 const toolInputSchema = {
   type: "object",
   properties: {
-    destination: { type: "string", description: "Primary budget category or goal." },
-    departure_city: { type: "string", description: "Source of income or funds." },
-    trip_type: { type: "string", enum: ["round_trip", "one_way", "multi_city"], description: "Type of budget." },
-    departure_date: { type: "string", description: "Budget start date in YYYY-MM-DD format." },
-    return_date: { type: "string", description: "Budget end date in YYYY-MM-DD format." },
-    travelers: { type: "number", description: "Number of budget participants." },
-    departure_mode: { type: "string", enum: ["plane", "rail", "bus", "ferry"], description: "Primary budget category." },
-    multi_city_legs: { type: "array", items: { type: "object", properties: { from: { type: "string" }, to: { type: "string" }, date: { type: "string" }, mode: { type: "string" } } }, description: "Array of budget line items." },
-    trip_description: { type: "string", description: "Freeform text describing the budget for AI-powered parsing." },
+    budget_name: { type: "string", description: "Name for the budget (e.g., 'Monthly Budget', 'Household Budget')." },
+    monthly_income: { type: "number", description: "Total monthly income in dollars." },
+    monthly_expenses: { type: "number", description: "Total monthly expenses in dollars." },
+    liquid_assets: { type: "number", description: "Total liquid assets (cash, savings, stocks) in dollars." },
+    nonliquid_assets: { type: "number", description: "Total non-liquid assets (real estate, vehicles) in dollars." },
+    retirement_savings: { type: "number", description: "Total 401k/retirement savings in dollars." },
+    liabilities: { type: "number", description: "Total liabilities/debts in dollars." },
+    nonliquid_discount: { type: "number", description: "Discount percentage for non-liquid assets (default 25)." },
+    budget_description: { type: "string", description: "Freeform text describing the budget for AI-powered parsing." },
   },
   required: [],
   additionalProperties: false,
@@ -306,15 +305,15 @@ const toolInputSchema = {
 } as const;
 
 const toolInputParser = z.object({
-  destination: z.string().optional(),
-  departure_city: z.string().optional(),
-  trip_type: z.enum(["round_trip", "one_way", "multi_city"]).optional(),
-  departure_date: z.string().optional(),
-  return_date: z.string().optional(),
-  travelers: z.number().optional(),
-  departure_mode: z.enum(["plane", "rail", "bus", "ferry"]).optional(),
-  multi_city_legs: z.array(z.object({ from: z.string().optional(), to: z.string().optional(), date: z.string().optional(), mode: z.string().optional() })).optional(),
-  trip_description: z.string().optional(),
+  budget_name: z.string().optional(),
+  monthly_income: z.number().optional(),
+  monthly_expenses: z.number().optional(),
+  liquid_assets: z.number().optional(),
+  nonliquid_assets: z.number().optional(),
+  retirement_savings: z.number().optional(),
+  liabilities: z.number().optional(),
+  nonliquid_discount: z.number().optional(),
+  budget_description: z.string().optional(),
 });
 
 const tools: Tool[] = widgets.map((widget) => ({
@@ -327,28 +326,31 @@ const tools: Tool[] = widgets.map((widget) => ({
     properties: {
       ready: { type: "boolean" },
       timestamp: { type: "string" },
-      destination: { type: ["string", "null"] },
-      departure_city: { type: ["string", "null"] },
-      trip_type: { type: ["string", "null"] },
-      departure_date: { type: ["string", "null"] },
-      return_date: { type: ["string", "null"] },
-      travelers: { type: ["number", "null"] },
-      departure_mode: { type: ["string", "null"] },
+      budget_name: { type: ["string", "null"] },
+      monthly_income: { type: ["number", "null"] },
+      monthly_expenses: { type: ["number", "null"] },
+      liquid_assets: { type: ["number", "null"] },
+      nonliquid_assets: { type: ["number", "null"] },
+      retirement_savings: { type: ["number", "null"] },
+      liabilities: { type: ["number", "null"] },
+      nonliquid_discount: { type: ["number", "null"] },
       input_source: { type: "string", enum: ["user", "default"] },
       summary: {
         type: "object",
         properties: {
-          destination: { type: ["string", "null"] },
-          departure_city: { type: ["string", "null"] },
-          trip_type: { type: ["string", "null"] },
-          travelers: { type: ["number", "null"] },
-          departure_date: { type: ["string", "null"] },
-          return_date: { type: ["string", "null"] },
-          trip_days: { type: ["number", "null"] },
-          departure_mode: { type: ["string", "null"] },
-          expected_flights: { type: ["number", "null"] },
-          expected_hotels: { type: ["number", "null"] },
-          multi_city_legs: { type: ["array", "null"] },
+          budget_name: { type: ["string", "null"] },
+          monthly_income: { type: ["number", "null"] },
+          monthly_expenses: { type: ["number", "null"] },
+          monthly_net: { type: ["number", "null"] },
+          annual_net: { type: ["number", "null"] },
+          liquid_assets: { type: ["number", "null"] },
+          nonliquid_assets: { type: ["number", "null"] },
+          nonliquid_at_discount: { type: ["number", "null"] },
+          retirement_savings: { type: ["number", "null"] },
+          liabilities: { type: ["number", "null"] },
+          liquid_available: { type: ["number", "null"] },
+          net_worth: { type: ["number", "null"] },
+          runway_months: { type: ["number", "null"] },
         },
       },
       suggested_followups: {
@@ -480,8 +482,8 @@ function createMyBudgetServer(): Server {
         try {
           args = toolInputParser.parse(request.params.arguments ?? {});
           // Strip description if it looks like an encoded token
-          if (args.trip_description && looksLikeToken(args.trip_description)) {
-            args.trip_description = undefined;
+          if (args.budget_description && looksLikeToken(args.budget_description)) {
+            args.budget_description = undefined;
           }
         } catch (parseError: any) {
           logAnalytics("parameter_parse_error", {
@@ -515,123 +517,65 @@ function createMyBudgetServer(): Server {
           ];
           const userText = candidates.find((t) => typeof t === "string" && t.trim().length > 0) || "";
 
-          // Infer destination (e.g., "budget for rent", "saving for vacation")
-          if (args.destination === undefined) {
-            const destMatch = userText.match(/(?:budget|saving|spending|expense|plan)\s+(?:for|on|in)\s+([A-Za-z\s,]+?)(?:\.|,|for|on|\s+\d|\s*$)/i);
-            if (destMatch) {
-              args.destination = destMatch[1].trim();
+          // Infer budget name (e.g., "household budget", "monthly budget")
+          if (args.budget_name === undefined) {
+            const nameMatch = userText.match(/(?:my\s+|a\s+|create\s+(?:a\s+)?)?(\w+(?:\s+\w+)?)\s+budget/i);
+            if (nameMatch && nameMatch[1]) {
+              args.budget_name = nameMatch[1].trim().replace(/^(?:my|a|create)\s*/i, "") + " Budget";
             }
           }
 
-          // Infer departure city (e.g., "from Boston", "leaving from NYC")
-          if (args.departure_city === undefined) {
-            const fromMatch = userText.match(/(?:from|leaving|departing)\s+([A-Za-z\s]+?)(?:\s+to\s|\.|,|on|\s*$)/i);
-            if (fromMatch) {
-              args.departure_city = fromMatch[1].trim();
-            }
-          }
-
-          // Infer multi-city legs from chains like "from X, to Y, to Z, to W"
-          // or "from X to Y to Z" or "X, then Y, then Z"
-          if (!args.multi_city_legs?.length) {
-            // Pattern: "from City1, to City2, to City3, ..." or "from City1 to City2 to City3"
-            const chainMatch = userText.match(/from\s+([A-Za-z][A-Za-z\s]*?)(?:,?\s+to\s+)([A-Za-z][A-Za-z\s]*?)(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:(?:,?\s+(?:to|then(?:\s+to)?)\s+)([A-Za-z][A-Za-z\s]*?))?(?:\.|,|\s+(?:i\s|and\s|for\s|on\s|in\s|$)|\s*$)/i);
-            if (chainMatch) {
-              const cities = [chainMatch[1], chainMatch[2], chainMatch[3], chainMatch[4], chainMatch[5]]
-                .filter(Boolean)
-                .map(c => c.trim().replace(/[,.\s]+$/, ""));
-              if (cities.length >= 3) {
-                // Extract per-leg transport modes from text
-                const getMode = (from: string, to: string): string => {
-                  const lcText = userText.toLowerCase();
-                  const lcFrom = from.toLowerCase();
-                  const lcTo = to.toLowerCase();
-                  // Check for specific mode mentions for this leg pair
-                  const legPattern = new RegExp(`(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})[^.]*?\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b`, "i");
-                  const revPattern = new RegExp(`\\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\\b[^.]*?(?:${lcFrom}\\s+to\\s+${lcTo}|${lcFrom}[^.]*?${lcTo})`, "i");
-                  const match = lcText.match(legPattern) || lcText.match(revPattern);
-                  if (match) {
-                    const m = match[1].toLowerCase();
-                    if (["plane", "fly", "flight"].includes(m)) return "plane";
-                    if (["train", "rail"].includes(m)) return "rail";
-                    if (m === "bus") return "bus";
-                    if (["ferry"].includes(m)) return "ferry";
-                    if (["drive", "car"].includes(m)) return "car";
-                  }
-                  return "plane"; // default
-                };
-                
-                // Check for "train for the rest" / "plane for the rest" patterns
-                const restModeMatch = userText.match(/\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b[^.]*?\b(?:the\s+rest|remaining|other)/i)
-                  || userText.match(/\b(?:the\s+rest|remaining|other)[^.]*?\b(plane|fly|flight|train|rail|bus|ferry|drive|car)\b/i);
-                let restMode = "plane";
-                if (restModeMatch) {
-                  const m = restModeMatch[1].toLowerCase();
-                  if (["plane", "fly", "flight"].includes(m)) restMode = "plane";
-                  else if (["train", "rail"].includes(m)) restMode = "rail";
-                  else if (m === "bus") restMode = "bus";
-                  else if (["ferry"].includes(m)) restMode = "ferry";
-                  else if (["drive", "car"].includes(m)) restMode = "car";
-                }
-                
-                const legs: { from: string; to: string; date: string; mode: string }[] = [];
-                for (let i = 0; i < cities.length - 1; i++) {
-                  let mode = getMode(cities[i], cities[i + 1]);
-                  // If no specific match found and "rest" mode exists, use it for legs after first
-                  if (mode === "plane" && restModeMatch && i > 0) {
-                    mode = restMode;
-                  }
-                  legs.push({ from: cities[i], to: cities[i + 1], date: "", mode });
-                }
-                args.multi_city_legs = legs;
-                args.trip_type = "multi_city";
-                args.departure_city = cities[0];
-                args.destination = cities[cities.length - 1];
+          // Infer monthly income (e.g., "I make $5000 a month", "income is 80k", "salary of $120,000")
+          if (args.monthly_income === undefined) {
+            const incomeMatch = userText.match(/(?:make|earn|income|salary|take\s+home)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:month|mo|monthly|per\s+month))/i);
+            if (incomeMatch) {
+              let val = parseFloat(incomeMatch[1].replace(/,/g, ""));
+              if (/k/i.test(incomeMatch[0])) val *= 1000;
+              args.monthly_income = val;
+            } else {
+              // Try annual salary and convert to monthly
+              const annualMatch = userText.match(/(?:make|earn|income|salary)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:year|yr|annual|annually|per\s+year))/i);
+              if (annualMatch) {
+                let val = parseFloat(annualMatch[1].replace(/,/g, ""));
+                if (/k/i.test(annualMatch[0])) val *= 1000;
+                args.monthly_income = Math.round(val / 12);
               }
             }
           }
 
-          // Infer trip type
-          if (args.trip_type === undefined) {
-            if (/multi[\s-]?city|multiple\s+cities|several\s+cities|then\s+to/i.test(userText)) {
-              args.trip_type = "multi_city";
-            } else if (/one[\s-]?way|not\s+coming\s+back|moving/i.test(userText)) {
-              args.trip_type = "one_way";
-            } else if (/round[\s-]?trip|return|coming\s+back|back\s+to/i.test(userText)) {
-              args.trip_type = "round_trip";
+          // Infer monthly expenses (e.g., "I spend $3000 a month", "expenses are $4k/mo")
+          if (args.monthly_expenses === undefined) {
+            const expenseMatch = userText.match(/(?:spend|expenses?|bills?|costs?)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?\s*(?:\/?\s*(?:month|mo|monthly|per\s+month))/i);
+            if (expenseMatch) {
+              let val = parseFloat(expenseMatch[1].replace(/,/g, ""));
+              if (/k/i.test(expenseMatch[0])) val *= 1000;
+              args.monthly_expenses = val;
             }
           }
 
-          // Infer dates (e.g., "June 11", "on 2026-06-11")
-          if (args.departure_date === undefined) {
-            const dateMatch = userText.match(/(\d{4}-\d{2}-\d{2})/i);
-            if (dateMatch) {
-              args.departure_date = dateMatch[1];
+          // Infer liquid assets (e.g., "I have $50k in savings", "$200,000 in the bank")
+          if (args.liquid_assets === undefined) {
+            const liquidMatch = userText.match(/(?:savings?|bank|liquid|cash|checking)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?/i);
+            if (liquidMatch) {
+              let val = parseFloat(liquidMatch[1].replace(/,/g, ""));
+              if (/k/i.test(liquidMatch[0])) val *= 1000;
+              if (val > 100) args.liquid_assets = val; // sanity check
             }
           }
 
-          // Infer travelers count
-          if (args.travelers === undefined) {
-            const travelerMatch = userText.match(/(\d+)\s*(?:traveler|people|person|of us)/i);
-            if (travelerMatch) {
-              args.travelers = parseInt(travelerMatch[1]);
-            } else if (/\b(girlfriend|wife|boyfriend|husband|partner|spouse)\b/i.test(userText)) {
-              args.travelers = 2;
-            } else if (/\bsolo\b|\balone\b|\bjust\s+me\b/i.test(userText)) {
-              args.travelers = 1;
+          // Infer liabilities (e.g., "I owe $30k", "debt of $50,000")
+          if (args.liabilities === undefined) {
+            const debtMatch = userText.match(/(?:owe|debt|liabilit|loan|mortgage)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k|K)?/i);
+            if (debtMatch) {
+              let val = parseFloat(debtMatch[1].replace(/,/g, ""));
+              if (/k/i.test(debtMatch[0])) val *= 1000;
+              if (val > 100) args.liabilities = val;
             }
-          }
-
-          // Infer transport mode
-          if (args.departure_mode === undefined) {
-            if (/\btrain\b|\brail\b|\bamtrak\b|\beurostar\b/i.test(userText)) args.departure_mode = "rail";
-            else if (/\bbus\b|\bgreyhound\b|\bcoach\b/i.test(userText)) args.departure_mode = "bus";
-            else if (/\bferry\b|\bboat\b|\bcruise\b/i.test(userText)) args.departure_mode = "ferry";
           }
 
           // Store freeform text as description for AI parsing on the client
-          if (!args.trip_description && userText.length > 10 && !looksLikeToken(userText)) {
-            args.trip_description = userText;
+          if (!args.budget_description && userText.length > 10 && !looksLikeToken(userText)) {
+            args.budget_description = userText;
           }
 
         } catch (e) {
@@ -646,13 +590,13 @@ function createMyBudgetServer(): Server {
 
         // Infer likely user query from parameters
         const inferredQuery = [] as string[];
-        if (args.departure_city) inferredQuery.push(`From: ${args.departure_city}`);
-        if (args.destination) inferredQuery.push(`To: ${args.destination}`);
-        if (args.trip_type) inferredQuery.push(`Type: ${args.trip_type}`);
-        if (args.departure_date) inferredQuery.push(`Departs: ${args.departure_date}`);
-        if (args.return_date) inferredQuery.push(`Returns: ${args.return_date}`);
-        if (args.travelers) inferredQuery.push(`Travelers: ${args.travelers}`);
-        if (args.departure_mode) inferredQuery.push(`Mode: ${args.departure_mode}`);
+        if (args.budget_name) inferredQuery.push(`Budget: ${args.budget_name}`);
+        if (args.monthly_income) inferredQuery.push(`Income: $${args.monthly_income.toLocaleString()}/mo`);
+        if (args.monthly_expenses) inferredQuery.push(`Expenses: $${args.monthly_expenses.toLocaleString()}/mo`);
+        if (args.liquid_assets) inferredQuery.push(`Liquid: $${args.liquid_assets.toLocaleString()}`);
+        if (args.nonliquid_assets) inferredQuery.push(`Non-liquid: $${args.nonliquid_assets.toLocaleString()}`);
+        if (args.retirement_savings) inferredQuery.push(`Retirement: $${args.retirement_savings.toLocaleString()}`);
+        if (args.liabilities) inferredQuery.push(`Liabilities: $${args.liabilities.toLocaleString()}`);
 
         logAnalytics("tool_call_success", {
           toolName: request.params.name,
@@ -678,19 +622,17 @@ function createMyBudgetServer(): Server {
         console.log(`[MCP] Tool called: ${request.params.name}, returning templateUri: ${(widgetMetadata as any)["openai/outputTemplate"]}`);
 
         // Build structured content once so we can log it and return it.
-        // For my budget, expose fields relevant to budget details
         const structured = {
           ready: true,
           timestamp: new Date().toISOString(),
           ...args,
           input_source: usedDefaults ? "default" : "user",
-          // Summary + follow-ups for natural language UX
           summary: computeSummary(args),
           suggested_followups: [
-            "Add expense categories",
-            "Set up savings goals",
-            "Show me my budget overview",
-            "Help me track my spending"
+            "Add your income sources",
+            "Track your monthly expenses",
+            "Add your assets and savings",
+            "See your net worth and runway"
           ],
         } as const;
 
@@ -714,7 +656,7 @@ function createMyBudgetServer(): Server {
         // Log success analytics
         try {
           // Check for "empty" result - when no main budget inputs are provided
-          const hasMainInputs = args.destination || args.departure_city || args.trip_type || args.departure_date;
+          const hasMainInputs = args.budget_name || args.monthly_income || args.monthly_expenses || args.liquid_assets || args.liabilities;
           
           if (!hasMainInputs) {
              logAnalytics("tool_call_empty", {
@@ -796,17 +738,13 @@ function humanizeEventName(event: string): string {
     tool_call_empty: "Tool Call (Empty)",
     parameter_parse_error: "Parameter Parse Error",
     // In-app budget actions
-    widget_parse_trip: "Analyze Budget (AI)",
-    widget_add_leg: "Add Entry",
-    widget_delete_leg: "Delete Entry",
-    widget_save_trip: "Save Budget",
-    widget_open_trip: "Open Budget",
-    widget_new_trip: "New Budget",
-    widget_delete_trip: "Delete Budget",
-    widget_duplicate_trip: "Duplicate Budget",
+    widget_save_budget: "Save Budget",
+    widget_open_budget: "Open Budget",
+    widget_new_budget: "New Budget",
+    widget_delete_budget: "Delete Budget",
+    widget_duplicate_budget: "Duplicate Budget",
     widget_reset: "Reset Budget",
     widget_back_to_home: "Back to Home",
-    widget_input_mode: "Input Mode Toggle",
     // Footer buttons
     widget_subscribe_click: "Subscribe (Click)",
     widget_donate_click: "Donate (Click)",
@@ -958,8 +896,16 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
 
   // --- Prompt-level analytics (from tool calls) ---
   const paramUsage: Record<string, number> = {};
-  const tripTypeDist: Record<string, number> = {};
-  const transportModeDist: Record<string, number> = {};
+  const incomeRanges: Record<string, number> = {};
+  const expenseRanges: Record<string, number> = {};
+  
+  const bucketAmount = (val: number): string => {
+    if (val <= 2000) return "$0–2K";
+    if (val <= 5000) return "$2K–5K";
+    if (val <= 10000) return "$5K–10K";
+    if (val <= 20000) return "$10K–20K";
+    return "$20K+";
+  };
   
   successLogs.forEach((log) => {
     if (log.params) {
@@ -968,40 +914,31 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
           paramUsage[key] = (paramUsage[key] || 0) + 1;
         }
       });
-      if (log.params.trip_type) {
-        const tt = log.params.trip_type;
-        tripTypeDist[tt] = (tripTypeDist[tt] || 0) + 1;
+      if (log.params.monthly_income) {
+        const bucket = bucketAmount(log.params.monthly_income);
+        incomeRanges[bucket] = (incomeRanges[bucket] || 0) + 1;
       }
-      if (log.params.departure_mode) {
-        const mode = log.params.departure_mode;
-        transportModeDist[mode] = (transportModeDist[mode] || 0) + 1;
+      if (log.params.monthly_expenses) {
+        const bucket = bucketAmount(log.params.monthly_expenses);
+        expenseRanges[bucket] = (expenseRanges[bucket] || 0) + 1;
       }
     }
   });
 
-  // Destinations (top 10)
-  const destinationDist: Record<string, number> = {};
+  // Budget names (top 10)
+  const budgetNameDist: Record<string, number> = {};
   successLogs.forEach((log) => {
-    if (log.params?.destination) {
-      const dest = log.params.destination;
-      destinationDist[dest] = (destinationDist[dest] || 0) + 1;
-    }
-  });
-
-  // Departure cities (top 10)
-  const departureCityDist: Record<string, number> = {};
-  successLogs.forEach((log) => {
-    if (log.params?.departure_city) {
-      const city = log.params.departure_city;
-      departureCityDist[city] = (departureCityDist[city] || 0) + 1;
+    if (log.params?.budget_name) {
+      const name = log.params.budget_name;
+      budgetNameDist[name] = (budgetNameDist[name] || 0) + 1;
     }
   });
 
   // --- In-app analytics (from widget events) ---
-  // Trip management actions
-  const tripActions: Record<string, number> = {};
-  const tripActionEvents = ["widget_parse_trip", "widget_add_leg", "widget_delete_leg", "widget_save_trip", "widget_open_trip", "widget_new_trip", "widget_delete_trip", "widget_duplicate_trip", "widget_reset", "widget_back_to_home", "widget_input_mode"];
-  tripActionEvents.forEach(e => { tripActions[humanizeEventName(e)] = 0; });
+  // Budget management actions
+  const budgetActions: Record<string, number> = {};
+  const budgetActionEvents = ["widget_save_budget", "widget_open_budget", "widget_new_budget", "widget_delete_budget", "widget_duplicate_budget", "widget_reset", "widget_back_to_home"];
+  budgetActionEvents.forEach(e => { budgetActions[humanizeEventName(e)] = 0; });
   
   // Footer button clicks
   const footerClicks: Record<string, number> = {};
@@ -1018,13 +955,6 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
   // Feedback with votes
   const feedbackLogs: AnalyticsEvent[] = [];
 
-  // Input mode preferences
-  let freeformCount = 0;
-  let manualCount = 0;
-
-  // Leg type distribution (from add_leg events)
-  const legTypeDist: Record<string, number> = {};
-
   // All widget interactions (catch-all)
   const allWidgetCounts: Record<string, number> = {};
 
@@ -1032,9 +962,9 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     const humanName = humanizeEventName(log.event);
     allWidgetCounts[humanName] = (allWidgetCounts[humanName] || 0) + 1;
 
-    // Trip management
-    if (tripActionEvents.includes(log.event)) {
-      tripActions[humanName] = (tripActions[humanName] || 0) + 1;
+    // Budget management
+    if (budgetActionEvents.includes(log.event)) {
+      budgetActions[humanName] = (budgetActions[humanName] || 0) + 1;
     }
     // Footer
     if (footerEvents.includes(log.event)) {
@@ -1053,15 +983,6 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     // Feedback
     if (log.event === "widget_user_feedback") {
       feedbackLogs.push(log);
-    }
-    // Input mode
-    if (log.event === "widget_input_mode") {
-      if (log.mode === "freeform") freeformCount++;
-      else if (log.mode === "manual") manualCount++;
-    }
-    // Leg types
-    if (log.event === "widget_add_leg" && log.legType) {
-      legTypeDist[log.legType] = (legTypeDist[log.legType] || 0) + 1;
     }
   });
 
@@ -1191,24 +1112,23 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="section-title">🔍 Prompt Analytics (What's Being Called)</div>
     <div class="grid-3">
       <div class="card">
-        <h2>Trip Type Distribution</h2>
+        <h2>💰 Income Ranges</h2>
         ${renderTable(
-          ["Type", "Count", "%"],
-          Object.entries(tripTypeDist).sort((a, b) => b[1] - a[1]).map(([tt, count]) => {
+          ["Range", "Count", "%"],
+          Object.entries(incomeRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
             const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
-            const label = tt === "round_trip" ? "🔄 Round Trip" : tt === "one_way" ? "➡️ One Way" : tt === "multi_city" ? "🌍 Multi-City" : tt;
-            return [label, String(count), `${pct}%`];
+            return [range, String(count), `${pct}%`];
           }),
           "No data yet"
         )}
       </div>
       <div class="card">
-        <h2>Transport Mode</h2>
+        <h2>💸 Expense Ranges</h2>
         ${renderTable(
-          ["Mode", "Count"],
-          Object.entries(transportModeDist).sort((a, b) => b[1] - a[1]).map(([mode, count]) => {
-            const icon = mode === "plane" ? "✈️" : mode === "car" ? "🚗" : mode === "train" ? "🚂" : mode === "bus" ? "🚌" : mode === "ferry" ? "⛴️" : "🚐";
-            return [`${icon} ${mode}`, String(count)];
+          ["Range", "Count", "%"],
+          Object.entries(expenseRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
+            const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
+            return [range, String(count), `${pct}%`];
           }),
           "No data yet"
         )}
@@ -1227,39 +1147,14 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       </div>
     </div>
 
-    <div class="grid-3">
+    <div class="grid-2">
       <div class="card">
-        <h2>🏙️ Top Destinations</h2>
+        <h2>📋 Budget Names</h2>
         ${renderTable(
-          ["City", "Count"],
-          Object.entries(destinationDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
+          ["Name", "Count"],
+          Object.entries(budgetNameDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
           "No data yet"
         )}
-      </div>
-      <div class="card">
-        <h2>🛫 Top Departure Cities</h2>
-        ${renderTable(
-          ["City", "Count"],
-          Object.entries(departureCityDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
-          "No data yet"
-        )}
-      </div>
-      <div class="card">
-        <h2>🗺️ Popular Routes</h2>
-        ${(() => {
-          const routes: Record<string, number> = {};
-          successLogs.forEach(l => {
-            if (l.params?.departure_city && l.params?.destination) {
-              const route = l.params.departure_city + " → " + l.params.destination;
-              routes[route] = (routes[route] || 0) + 1;
-            }
-          });
-          return renderTable(
-            ["Route", "Count"],
-            Object.entries(routes).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([r, c]) => [r, String(c)]),
-            "No data yet"
-          );
-        })()}
       </div>
     </div>
 
@@ -1267,10 +1162,10 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="section-title">🖱️ In-App Actions (After Tool Call)</div>
     <div class="grid-3">
       <div class="card">
-        <h2>Trip Management</h2>
+        <h2>Budget Management</h2>
         ${renderTable(
           ["Action", "Count"],
-          Object.entries(tripActions).filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+          Object.entries(budgetActions).filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
           "No in-app actions yet"
         )}
       </div>
@@ -1288,31 +1183,6 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
           ["App", "Clicks"],
           Object.entries(relatedAppClicks).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
           "No clicks yet"
-        )}
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-bottom:20px;">
-      <div class="card">
-        <h2>Input Mode Preference</h2>
-        ${renderTable(
-          ["Mode", "Count"],
-          [
-            ["✨ Freeform (AI Describe)", String(freeformCount)],
-            ["✏️ Manual (Add Manually)", String(manualCount)],
-          ],
-          "No data yet"
-        )}
-      </div>
-      <div class="card">
-        <h2>Leg Types Added</h2>
-        ${renderTable(
-          ["Type", "Count"],
-          Object.entries(legTypeDist).sort((a, b) => b[1] - a[1]).map(([t, c]) => {
-            const icon = t === "flight" ? "✈️" : t === "hotel" ? "🏨" : t === "car" ? "🚗" : t === "train" ? "🚂" : t === "bus" ? "🚌" : "📌";
-            return [`${icon} ${t}`, String(c)];
-          }),
-          "No legs added yet"
         )}
       </div>
     </div>
@@ -1348,12 +1218,12 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>Feedback Submissions</h2>
         ${feedbackLogs.length > 0 ? renderTable(
-          ["Date", "Vote", "Feedback", "Trip"],
+          ["Date", "Vote", "Feedback", "Budget"],
           feedbackLogs.slice(0, 15).map(l => [
             `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
             l.enjoymentVote === "up" ? '<span class="badge badge-green">👍</span>' : l.enjoymentVote === "down" ? '<span class="badge badge-red">👎</span>' : "—",
             `<div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">${l.feedback || "—"}</div>`,
-            l.tripName || "—"
+            l.budgetName || "—"
           ]),
           "No feedback yet"
         ) : '<p style="color:#9ca3af;font-size:13px;">No feedback submitted yet</p>'}
@@ -1364,12 +1234,10 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="section-title">📋 Recent Queries</div>
     <div class="card" style="margin-bottom:20px;">
       ${renderTable(
-        ["Date", "Query", "Trip Type", "From → To", "Location", "Locale"],
+        ["Date", "Query", "Location", "Locale"],
         successLogs.slice(0, 25).map(l => [
           `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
-          `<div style="max-width:250px;overflow:hidden;text-overflow:ellipsis;">${l.inferredQuery || "—"}</div>`,
-          l.params?.trip_type ? `<span class="badge badge-blue">${l.params.trip_type}</span>` : "—",
-          l.params?.departure_city && l.params?.destination ? `${l.params.departure_city} → ${l.params.destination}` : (l.params?.destination || "—"),
+          `<div style="max-width:350px;overflow:hidden;text-overflow:ellipsis;">${l.inferredQuery || "—"}</div>`,
           l.userLocation ? `${l.userLocation.city || ""}${l.userLocation.region ? ", " + l.userLocation.region : ""}${l.userLocation.country ? ", " + l.userLocation.country : ""}`.replace(/^, /, "") : "—",
           l.userLocale || "—"
         ]),
@@ -1702,7 +1570,7 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
 }
 
 // AI-powered budget parsing using OpenAI
-async function handleParseTripAI(req: IncomingMessage, res: ServerResponse) {
+async function handleParseBudgetAI(req: IncomingMessage, res: ServerResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   
@@ -1729,33 +1597,28 @@ async function handleParseTripAI(req: IncomingMessage, res: ServerResponse) {
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     
     if (!OPENAI_API_KEY) {
-      // Fallback to basic parsing if no API key
       console.log("[Parse Budget] No OPENAI_API_KEY, using fallback parsing");
-      const legs = fallbackParseTripText(text);
+      const items = fallbackParseBudgetText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ legs, source: "fallback" }));
+      res.end(JSON.stringify({ items, source: "fallback" }));
       return;
     }
 
-    const systemPrompt = `You are a budget assistant that extracts budget information from natural language descriptions.
+    const systemPrompt = `You are a budget assistant that extracts financial information from natural language descriptions.
 
-Extract all budget components (income, expenses, savings) from the user's text and return them as a JSON array.
+Extract all budget items (income, expenses, assets, liabilities) from the user's text and return them as a JSON array.
 
 Each item should have:
-- type: "flight" | "hotel" | "car" | "train" | "bus" | "ferry"
-- status: always "pending"
-- title: descriptive title (e.g., "Expense: Rent")
-- date: ISO date string (YYYY-MM-DD) if mentioned, otherwise empty string
-- endDate: for recurring items, the end date if mentioned
-- from: source of funds
-- to: destination of funds
-- location: category
-- time: time if mentioned (HH:MM format)
+- category: "income" | "expense" | "asset" | "liability"
+- name: descriptive name (e.g., "Salary", "Rent", "Savings Account")
+- amount: numeric dollar amount
+- frequency: "monthly" | "yearly" | "one_time"
 
 Rules:
 1. Only extract what the user explicitly mentions - do NOT infer or auto-add items
-2. Parse dates like "June 11th, 2026" to "2026-06-11"
-3. If no year mentioned, assume current year or next year if month has passed
+2. Parse dollar amounts like "$5k" to 5000, "$120,000" to 120000
+3. Default to "monthly" frequency if not specified for income/expenses
+4. Default to "one_time" frequency for assets/liabilities
 
 Return ONLY valid JSON array, no explanation.`;
 
@@ -1779,33 +1642,30 @@ Return ONLY valid JSON array, no explanation.`;
     if (!response.ok) {
       const errorText = await response.text();
       console.error("[Parse Budget] OpenAI API error:", response.status, errorText);
-      // Fallback on API error
-      const legs = fallbackParseTripText(text);
+      const items = fallbackParseBudgetText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ legs, source: "fallback" }));
+      res.end(JSON.stringify({ items, source: "fallback" }));
       return;
     }
 
     const data = await response.json() as any;
     const content = data.choices?.[0]?.message?.content || "[]";
     
-    // Parse the JSON response
-    let legs;
+    let items;
     try {
-      // Handle potential markdown code blocks
       const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-      legs = JSON.parse(jsonStr);
+      items = JSON.parse(jsonStr);
     } catch (parseError) {
       console.error("[Parse Budget] Failed to parse AI response:", content);
-      legs = fallbackParseTripText(text);
+      items = fallbackParseBudgetText(text);
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ legs, source: "fallback" }));
+      res.end(JSON.stringify({ items, source: "fallback" }));
       return;
     }
 
-    console.log("[Parse Budget] AI parsed entries:", legs.length);
+    console.log("[Parse Budget] AI parsed entries:", items.length);
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ legs, source: "ai" }));
+    res.end(JSON.stringify({ items, source: "ai" }));
 
   } catch (error: any) {
     console.error("[Parse Budget] Error:", error);
@@ -1814,90 +1674,44 @@ Return ONLY valid JSON array, no explanation.`;
 }
 
 // Fallback parsing when OpenAI is not available
-function fallbackParseTripText(text: string): any[] {
-  const legs: any[] = [];
+function fallbackParseBudgetText(text: string): any[] {
+  const items: any[] = [];
   const lower = text.toLowerCase();
   
-  // Simple pattern matching
-  const fromToMatch = lower.match(/from\s+([a-z\s]+?)\s+to\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
-  const toFromMatch = lower.match(/to\s+([a-z\s]+?)\s+from\s+([a-z\s]+?)(?:\s|$|,|\.)/i);
-  
-  // Check for return/round trip
-  const isRoundTrip = /return|round\s*trip|coming back|fly back|back to/i.test(lower);
-  
-  let fromCity = "";
-  let toCity = "";
-  
-  if (fromToMatch) {
-    fromCity = fromToMatch[1].trim();
-    toCity = fromToMatch[2].trim();
-  } else if (toFromMatch) {
-    toCity = toFromMatch[1].trim();
-    fromCity = toFromMatch[2].trim();
+  // Try to extract income
+  const incomeMatch = lower.match(/(?:make|earn|income|salary)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
+  if (incomeMatch) {
+    let val = parseFloat(incomeMatch[1].replace(/,/g, ""));
+    if (/k/i.test(incomeMatch[0])) val *= 1000;
+    items.push({ category: "income", name: "Salary", amount: val, frequency: "monthly" });
   }
   
-  if (fromCity && toCity) {
-    // Add outbound flight
-    legs.push({
-      type: "flight",
-      status: "pending",
-      title: `Flight: ${fromCity} → ${toCity}`,
-      from: fromCity,
-      to: toCity,
-      date: ""
-    });
-    
-    // Outbound transport: to departure airport
-    legs.push({
-      type: "car",
-      status: "pending",
-      title: `Transport to ${fromCity} Airport`,
-      to: `${fromCity} Airport`,
-      date: ""
-    });
-    
-    // Outbound transport: from arrival airport to hotel
-    legs.push({
-      type: "car",
-      status: "pending",
-      title: `Transport from ${toCity} Airport`,
-      from: `${toCity} Airport`,
-      date: ""
-    });
-    
-    // If round trip, add return flight and transports
-    if (isRoundTrip) {
-      // Return flight
-      legs.push({
-        type: "flight",
-        status: "pending",
-        title: `Flight: ${toCity} → ${fromCity}`,
-        from: toCity,
-        to: fromCity,
-        date: ""
-      });
-      
-      // Return transport: from hotel to departure airport
-      legs.push({
-        type: "car",
-        status: "pending",
-        title: `Transport to ${toCity} Airport`,
-        to: `${toCity} Airport`,
-        date: ""
-      });
-      
-      // Return transport: from arrival airport to home
-      legs.push({
-        type: "car",
-        status: "pending",
-        title: `Transport from ${fromCity} Airport`,
-        from: `${fromCity} Airport`,
-        date: ""
-      });
-    }
+  // Try to extract expenses
+  const expenseMatch = lower.match(/(?:spend|expense|rent|mortgage|bills?)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
+  if (expenseMatch) {
+    let val = parseFloat(expenseMatch[1].replace(/,/g, ""));
+    if (/k/i.test(expenseMatch[0])) val *= 1000;
+    const name = /rent/i.test(expenseMatch[0]) ? "Rent" : /mortgage/i.test(expenseMatch[0]) ? "Mortgage" : "Monthly Expenses";
+    items.push({ category: "expense", name, amount: val, frequency: "monthly" });
   }
   
-  return legs;
+  // Try to extract savings/assets
+  const savingsMatch = lower.match(/(?:savings?|bank|cash)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
+  if (savingsMatch) {
+    let val = parseFloat(savingsMatch[1].replace(/,/g, ""));
+    if (/k/i.test(savingsMatch[0])) val *= 1000;
+    if (val > 100) items.push({ category: "asset", name: "Savings", amount: val, frequency: "one_time" });
+  }
+  
+  // Try to extract debt/liabilities
+  const debtMatch = lower.match(/(?:owe|debt|loan|liabilit)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
+  if (debtMatch) {
+    let val = parseFloat(debtMatch[1].replace(/,/g, ""));
+    if (/k/i.test(debtMatch[0])) val *= 1000;
+    if (val > 100) items.push({ category: "liability", name: "Debt", amount: val, frequency: "one_time" });
+  }
+  
+  return items;
 }
 
 async function handleSseRequest(res: ServerResponse) {
@@ -2014,13 +1828,13 @@ const httpServer = createServer(
       return;
     }
 
-    // AI-powered trip parsing endpoint
-    if (req.method === "POST" && url.pathname === "/api/parse-trip") {
-      await handleParseTripAI(req, res);
+    // AI-powered budget parsing endpoint
+    if (req.method === "POST" && url.pathname === "/api/parse-budget") {
+      await handleParseBudgetAI(req, res);
       return;
     }
 
-    if (req.method === "OPTIONS" && url.pathname === "/api/parse-trip") {
+    if (req.method === "OPTIONS" && url.pathname === "/api/parse-budget") {
       res.writeHead(204, {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
