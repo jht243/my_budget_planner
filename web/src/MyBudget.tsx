@@ -56,7 +56,7 @@ const COLORS = {
   primaryLight: "#2D6A4F",
   accent: "#40916C",
   accentLight: "#E8F5E9",
-  bg: "#FAFAFA",
+  bg: "#F5F5F0",
   card: "#FFFFFF",
   border: "#E5E7EB",
   borderLight: "#F0F0F0",
