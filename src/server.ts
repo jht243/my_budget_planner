@@ -290,15 +290,22 @@ widgets.forEach((widget) => {
 const toolInputSchema = {
   type: "object",
   properties: {
+    preset: {
+      type: "string",
+      enum: ["gen_z", "millennial", "family", "retiree"],
+      description: "Select a budget preset/template based on the user's life stage. Use 'gen_z' for ages 18-28 or college students or young people starting out. Use 'millennial' for ages 29-43 or career professionals or single adults. Use 'family' for ages 30-55 with kids or dual-income households. Use 'retiree' for ages 60+ or retired or on Social Security/pension. Only omit if the user provides specific numbers and doesn't fit any preset.",
+    },
     budget_name: { type: "string", description: "Name for the budget (e.g., 'Monthly Budget', 'Household Budget')." },
-    monthly_income: { type: "number", description: "Total monthly income in dollars." },
+    monthly_income: { type: "number", description: "Total monthly income in dollars. Extract from phrases like 'I make $5000/mo' or 'salary of $60k/year' (divide annual by 12)." },
     monthly_expenses: { type: "number", description: "Total monthly expenses in dollars." },
     liquid_assets: { type: "number", description: "Total liquid assets (cash, savings, stocks) in dollars." },
     nonliquid_assets: { type: "number", description: "Total non-liquid assets (real estate, vehicles) in dollars." },
     retirement_savings: { type: "number", description: "Total 401k/retirement savings in dollars." },
     liabilities: { type: "number", description: "Total liabilities/debts in dollars." },
     nonliquid_discount: { type: "number", description: "Discount percentage for non-liquid assets (default 25)." },
-    budget_description: { type: "string", description: "Freeform text describing the budget for AI-powered parsing." },
+    has_crypto: { type: "boolean", description: "Set to true if the user mentions cryptocurrency, Bitcoin, Ethereum, or any crypto holdings." },
+    has_stocks: { type: "boolean", description: "Set to true if the user mentions stocks, brokerage accounts, ETFs, or equity investments." },
+    budget_description: { type: "string", description: "The user's original message/prompt about their budget situation. Pass the full user message so the widget can parse specific details." },
   },
   required: [],
   additionalProperties: false,
@@ -306,6 +313,7 @@ const toolInputSchema = {
 } as const;
 
 const toolInputParser = z.object({
+  preset: z.enum(["gen_z", "millennial", "family", "retiree"]).optional(),
   budget_name: z.string().optional(),
   monthly_income: z.number().optional(),
   monthly_expenses: z.number().optional(),
@@ -314,19 +322,24 @@ const toolInputParser = z.object({
   retirement_savings: z.number().optional(),
   liabilities: z.number().optional(),
   nonliquid_discount: z.number().optional(),
+  has_crypto: z.boolean().optional(),
+  has_stocks: z.boolean().optional(),
   budget_description: z.string().optional(),
 });
 
 const tools: Tool[] = widgets.map((widget) => ({
   name: widget.id,
   description:
-    "Use this tool to create and manage a personal budget including income, expenses, and savings goals. Call this tool immediately with NO arguments to let the user enter their budget details manually. Only provide arguments if the user has explicitly stated them.",
+    "Use this tool to create and manage a personal budget. ALWAYS try to infer and pass a 'preset' parameter based on the user's age, life stage, or demographic (gen_z for 18-28/students, millennial for 29-43/professionals, family for 30-55 with kids/married, retiree for 60+/retired). Pass 'has_crypto' or 'has_stocks' if mentioned. Pass 'budget_description' with the user's full message. Pass any specific numbers the user provides (monthly_income, liquid_assets, etc.). If the user gives no details at all, call with NO arguments.",
   inputSchema: toolInputSchema,
   outputSchema: {
     type: "object",
     properties: {
       ready: { type: "boolean" },
       timestamp: { type: "string" },
+      preset: { type: ["string", "null"] },
+      has_crypto: { type: ["boolean", "null"] },
+      has_stocks: { type: ["boolean", "null"] },
       budget_name: { type: ["string", "null"] },
       monthly_income: { type: ["number", "null"] },
       monthly_expenses: { type: ["number", "null"] },
@@ -517,6 +530,48 @@ function createMyBudgetServer(): Server {
             meta["openai/requestText"],
           ];
           const userText = candidates.find((t) => typeof t === "string" && t.trim().length > 0) || "";
+
+          // Infer preset from age or life stage keywords
+          if (args.preset === undefined && userText) {
+            const lc = userText.toLowerCase();
+
+            // Age-based inference
+            const ageMatch = userText.match(/\b(\d{1,3})\s*(?:year|yr|y\.?o\.?)s?\s*old\b/i)
+              || userText.match(/\bage\s*(?:of\s*)?(\d{1,3})\b/i)
+              || userText.match(/\bi(?:'m|am)\s+(\d{1,3})\b/i);
+            if (ageMatch) {
+              const age = parseInt(ageMatch[1], 10);
+              if (age >= 60) args.preset = "retiree";
+              else if (age >= 30 && (lc.includes("kid") || lc.includes("child") || lc.includes("family") || lc.includes("married"))) args.preset = "family";
+              else if (age >= 29) args.preset = "millennial";
+              else if (age >= 14) args.preset = "gen_z";
+            }
+
+            // Keyword-based inference (if age didn't match)
+            if (args.preset === undefined) {
+              if (/\bretir/i.test(lc) || /\bsocial\s+security\b/i.test(lc) || /\bpension\b/i.test(lc) || /\bsenior\b/i.test(lc) || /\belder/i.test(lc)) {
+                args.preset = "retiree";
+              } else if (/\bfamil/i.test(lc) || /\bkid/i.test(lc) || /\bchild/i.test(lc) || /\bparent/i.test(lc) || /\bdual[\s-]*income/i.test(lc) || /\bmarried/i.test(lc) || /\bcouple/i.test(lc) || /\bhousehold/i.test(lc)) {
+                args.preset = "family";
+              } else if (/\bmillennial/i.test(lc) || /\bmid[\s-]*career/i.test(lc) || /\bprofessional/i.test(lc) || /\bsingle\s+adult/i.test(lc)) {
+                args.preset = "millennial";
+              } else if (/\bgen[\s-]*z\b/i.test(lc) || /\bcollege/i.test(lc) || /\bstudent/i.test(lc) || /\byoung/i.test(lc) || /\bteen/i.test(lc) || /\bentry[\s-]*level/i.test(lc) || /\bstarting\s+out/i.test(lc) || /\bfirst\s+job/i.test(lc)) {
+                args.preset = "gen_z";
+              }
+            }
+          }
+
+          // Infer crypto/stock flags from user text
+          if (args.has_crypto === undefined && userText) {
+            if (/\bcrypto|bitcoin|btc|ethereum|eth|solana|sol\b/i.test(userText)) {
+              args.has_crypto = true;
+            }
+          }
+          if (args.has_stocks === undefined && userText) {
+            if (/\bstock|brokerage|etf|equity|shares|portfolio|invest/i.test(userText)) {
+              args.has_stocks = true;
+            }
+          }
 
           // Infer budget name (e.g., "household budget", "monthly budget")
           if (args.budget_name === undefined) {

@@ -49807,10 +49807,107 @@ var SummarySection = ({ budget }) => {
     })()
   ] });
 };
+var hydrateFromInitialData = (data) => {
+  if (!data || typeof data !== "object") return null;
+  const hasAny = data.preset || data.budget_name || data.monthly_income || data.monthly_expenses || data.liquid_assets || data.nonliquid_assets || data.retirement_savings || data.liabilities || data.has_crypto || data.has_stocks || data.budget_description;
+  if (!hasAny) return null;
+  console.log("[Hydration] Applying initialData:", data);
+  let base;
+  if (data.preset) {
+    const preset = BUDGET_PRESETS.find((p) => p.key === data.preset);
+    if (preset) {
+      const now = Date.now();
+      base = { ...emptyBudget(), ...preset.budget, id: generateId(), createdAt: now, updatedAt: now };
+    } else {
+      base = emptyBudget();
+    }
+  } else {
+    base = emptyBudget();
+  }
+  if (data.budget_name) base.name = data.budget_name;
+  if (data.has_crypto && !base.assets.some((a) => a.assetType === "crypto" || /crypto/i.test(a.name))) {
+    base.assets.push({ ...mia("Crypto Portfolio", 0), assetType: "crypto", ticker: "bitcoin" });
+  }
+  if (data.has_stocks && !base.assets.some((a) => a.assetType === "stock" || /stock|brokerage/i.test(a.name))) {
+    base.assets.push({ ...mia("Stocks/Brokerage", 0), assetType: "stock" });
+  }
+  if (data.monthly_income && base.income.length > 0) {
+    const currentTotal = base.income.reduce((s, i) => s + i.monthlyValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.monthly_income / currentTotal;
+      base.income = base.income.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, ...computeValues(newAmt, i.frequency) };
+      });
+    } else {
+      base.income = [mi("Income", data.monthly_income)];
+    }
+  }
+  if (data.monthly_expenses && base.expenses.length > 0) {
+    const currentTotal = base.expenses.reduce((s, i) => s + i.monthlyValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.monthly_expenses / currentTotal;
+      base.expenses = base.expenses.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, ...computeValues(newAmt, i.frequency) };
+      });
+    }
+  }
+  if (data.liquid_assets && base.assets.length > 0) {
+    const liquidItems = base.assets.filter((a) => !a.assetType || a.assetType === "manual");
+    const currentTotal = liquidItems.reduce((s, i) => s + i.totalValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.liquid_assets / currentTotal;
+      base.assets = base.assets.map((i) => {
+        if (i.assetType && i.assetType !== "manual") return i;
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, totalValue: newAmt, monthlyValue: 0 };
+      });
+    }
+  }
+  if (data.retirement_savings && base.retirement.length > 0) {
+    const currentTotal = base.retirement.reduce((s, i) => s + i.totalValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.retirement_savings / currentTotal;
+      base.retirement = base.retirement.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, totalValue: newAmt, monthlyValue: 0 };
+      });
+    }
+  }
+  if (data.nonliquid_assets && base.nonLiquidAssets.length > 0) {
+    const currentTotal = base.nonLiquidAssets.reduce((s, i) => s + i.totalValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.nonliquid_assets / currentTotal;
+      base.nonLiquidAssets = base.nonLiquidAssets.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, totalValue: newAmt, monthlyValue: 0 };
+      });
+    }
+  }
+  if (data.liabilities && base.liabilities.length > 0) {
+    const currentTotal = base.liabilities.reduce((s, i) => s + i.totalValue, 0);
+    if (currentTotal > 0) {
+      const ratio = data.liabilities / currentTotal;
+      base.liabilities = base.liabilities.map((i) => {
+        const newAmt = Math.round(i.amount * ratio);
+        return { ...i, amount: newAmt, ...computeValues(newAmt, i.frequency) };
+      });
+    }
+  }
+  if (data.nonliquid_discount !== void 0) {
+    base.nonLiquidDiscount = data.nonliquid_discount;
+  }
+  return base;
+};
 function MyBudget({ initialData: initialData2 }) {
   const [savedBudgets, setSavedBudgets] = (0, import_react51.useState)(() => loadBudgets());
   const [currentView, setCurrentView] = (0, import_react51.useState)("budget");
-  const [budget, setBudget] = (0, import_react51.useState)(() => loadCurrentBudget() || emptyBudget());
+  const [budget, setBudget] = (0, import_react51.useState)(() => {
+    const hydrated = hydrateFromInitialData(initialData2);
+    if (hydrated) return hydrated;
+    return loadCurrentBudget() || emptyBudget();
+  });
   const [editingName, setEditingName] = (0, import_react51.useState)(false);
   const [nameInput, setNameInput] = (0, import_react51.useState)(budget.name);
   const [refreshing, setRefreshing] = (0, import_react51.useState)(false);
