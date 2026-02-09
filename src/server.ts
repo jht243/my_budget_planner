@@ -250,11 +250,11 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
     "openai/widgetPrefersBorder": true,
     "openai/widgetCSP": {
       connect_domains: [
-        "https://my-budget.onrender.com",
+        "https://my-budget-planner.onrender.com",
         "https://api.coingecko.com"
       ],
       resource_domains: [
-        "https://my-budget.onrender.com"
+        "https://my-budget-planner.onrender.com"
       ],
     },
     "openai/widgetDomain": "https://web-sandbox.oaiusercontent.com",

@@ -24,7 +24,7 @@ The issue was with **how the external React JavaScript bundle was being loaded**
 
 2. **Absolute Script URLs with Regular src Attribute**
    ```html
-   <script type="module" src="https://my-budget.onrender.com/assets/my-budget.js"></script>
+   <script type="module" src="https://my-budget-planner.onrender.com/assets/my-budget.js"></script>
    ```
    - Failed even with proper CSP `script_src_domains` configured
    - ChatGPT's HTML inlining process may interfere with external script loading via `src` attribute
@@ -43,7 +43,7 @@ Use **dynamic `import()` within an inline `<script>` tag** to load the external 
   Load script via import() to avoid HTML parser issues with inline code
 -->
 <script type="module">
-  import('https://my-budget.onrender.com/assets/my-budget.js')
+  import('https://my-budget-planner.onrender.com/assets/my-budget.js')
     .catch(err => {
       console.error('[My Budget] Failed to load script:', err);
       document.getElementById('my-budget-root').innerHTML = 
@@ -66,10 +66,10 @@ Ensure your MCP server's CSP includes:
 ```typescript
 "openai/widgetCSP": {
   connect_domains: [
-    "https://my-budget.onrender.com"
+    "https://my-budget-planner.onrender.com"
   ],
   script_src_domains: [
-    "https://my-budget.onrender.com"
+    "https://my-budget-planner.onrender.com"
   ],
   resource_domains: [],
 }

@@ -54,7 +54,7 @@ Server runs on `http://localhost:8000`. **Note:** HTTP endpoints are for local d
 ## How to Use in ChatGPT
 
 1. Open ChatGPT in **Developer Mode**
-2. Add MCP Connector with your deployed HTTPS URL (e.g. `https://my-budget-xxxx.onrender.com`)
+2. Add MCP Connector with your deployed HTTPS URL (e.g. `https://my-budget-planner.onrender.com`)
 3. Say: **"Help me manage my budget"** or **"Create a monthly budget"**
 4. The interactive widget appears!
 
