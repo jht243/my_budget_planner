@@ -1107,7 +1107,7 @@ var require_react_development = __commonJS({
           var dispatcher = resolveDispatcher();
           return dispatcher.useLayoutEffect(create, deps);
         }
-        function useCallback(callback, deps) {
+        function useCallback2(callback, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useCallback(callback, deps);
         }
@@ -1874,7 +1874,7 @@ var require_react_development = __commonJS({
         exports.memo = memo;
         exports.startTransition = startTransition;
         exports.unstable_act = act;
-        exports.useCallback = useCallback;
+        exports.useCallback = useCallback2;
         exports.useContext = useContext;
         exports.useDebugValue = useDebugValue;
         exports.useDeferredValue = useDeferredValue;
@@ -24611,8 +24611,12 @@ var __iconNode10 = [
 ];
 var Landmark = createLucideIcon("landmark", __iconNode10);
 
+// node_modules/lucide-react/dist/esm/icons/loader-circle.js
+var __iconNode11 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode11);
+
 // node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode11 = [
+var __iconNode12 = [
   [
     "path",
     {
@@ -24621,10 +24625,10 @@ var __iconNode11 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode11);
+var Pen = createLucideIcon("pen", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode12 = [
+var __iconNode13 = [
   [
     "path",
     {
@@ -24635,17 +24639,17 @@ var __iconNode12 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode12);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode13);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode13 = [
+var __iconNode14 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode13);
+var Plus = createLucideIcon("plus", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode14 = [
+var __iconNode15 = [
   [
     "path",
     {
@@ -24656,17 +24660,26 @@ var __iconNode14 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode14);
+var Printer = createLucideIcon("printer", __iconNode15);
+
+// node_modules/lucide-react/dist/esm/icons/refresh-cw.js
+var __iconNode16 = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode15 = [
+var __iconNode17 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode15);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode16 = [
+var __iconNode18 = [
   [
     "path",
     {
@@ -24677,34 +24690,41 @@ var __iconNode16 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode16);
+var Save = createLucideIcon("save", __iconNode18);
+
+// node_modules/lucide-react/dist/esm/icons/search.js
+var __iconNode19 = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+var Search = createLucideIcon("search", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode17 = [
+var __iconNode20 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode17);
+var Trash2 = createLucideIcon("trash-2", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode18 = [
+var __iconNode21 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode18);
+var TrendingDown = createLucideIcon("trending-down", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode19 = [
+var __iconNode22 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode19);
+var TrendingUp = createLucideIcon("trending-up", __iconNode22);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode20 = [
+var __iconNode23 = [
   [
     "path",
     {
@@ -24715,10 +24735,10 @@ var __iconNode20 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode20);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode23);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode21 = [
+var __iconNode24 = [
   [
     "path",
     {
@@ -24728,7 +24748,14 @@ var __iconNode21 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode21);
+var Wallet = createLucideIcon("wallet", __iconNode24);
+
+// node_modules/lucide-react/dist/esm/icons/x.js
+var __iconNode25 = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+var X = createLucideIcon("x", __iconNode25);
 
 // src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -24800,6 +24827,38 @@ var computeValues = (amount, frequency) => {
       return { totalValue: amount, monthlyValue: 0 };
   }
 };
+var COINGECKO_BASE = "https://api.coingecko.com/api/v3";
+var searchCoins = async (query) => {
+  if (!query || query.length < 2) return [];
+  try {
+    const res = await fetch(`${COINGECKO_BASE}/search?query=${encodeURIComponent(query)}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.coins || []).slice(0, 8).map((c) => ({
+      id: c.id,
+      name: c.name,
+      symbol: c.symbol,
+      thumb: c.thumb
+    }));
+  } catch {
+    return [];
+  }
+};
+var fetchCryptoPrices = async (ids) => {
+  if (ids.length === 0) return {};
+  try {
+    const res = await fetch(`${COINGECKO_BASE}/simple/price?ids=${ids.join(",")}&vs_currencies=usd`);
+    if (!res.ok) return {};
+    const data = await res.json();
+    const prices = {};
+    for (const id of ids) {
+      if (data[id]?.usd) prices[id] = data[id].usd;
+    }
+    return prices;
+  } catch {
+    return {};
+  }
+};
 var DEMO_BUDGET = {
   id: "demo_budget",
   name: "My Budget",
@@ -24813,10 +24872,10 @@ var DEMO_BUDGET = {
     { id: "exp2", name: "parma rent", amount: 1e3, frequency: "monthly", totalValue: 12e3, monthlyValue: 1e3 }
   ],
   assets: [
-    { id: "ast1", name: "btc", amount: 14e4, frequency: "one_time", totalValue: 14e4, monthlyValue: 0, quantity: 2 },
-    { id: "ast2", name: "near", amount: 7e3, frequency: "one_time", totalValue: 7e3, monthlyValue: 0, quantity: 7e3 },
-    { id: "ast3", name: "eth", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
-    { id: "ast4", name: "usdc", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0 },
+    { id: "ast1", name: "Bitcoin", amount: 14e4, frequency: "one_time", totalValue: 14e4, monthlyValue: 0, quantity: 2, assetType: "crypto", ticker: "bitcoin", livePrice: 7e4 },
+    { id: "ast2", name: "NEAR Protocol", amount: 7e3, frequency: "one_time", totalValue: 7e3, monthlyValue: 0, quantity: 7e3, assetType: "crypto", ticker: "near", livePrice: 1 },
+    { id: "ast3", name: "Ethereum", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34, assetType: "crypto", ticker: "ethereum", livePrice: 1900 },
+    { id: "ast4", name: "USD Coin", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0, assetType: "crypto", ticker: "usd-coin", livePrice: 1 },
     { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
     { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
     { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
@@ -24982,6 +25041,105 @@ var SectionHeader = ({ title, icon, color, bgColor, total, monthlyTotal, count, 
     isOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { size: 18, color: COLORS.textSecondary }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 18, color: COLORS.textSecondary })
   ] })
 ] });
+var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
+  const [query, setQuery] = (0, import_react3.useState)("");
+  const [results, setResults] = (0, import_react3.useState)([]);
+  const [loading, setLoading] = (0, import_react3.useState)(false);
+  const [showDropdown, setShowDropdown] = (0, import_react3.useState)(false);
+  const timerRef = (0, import_react3.useRef)(null);
+  const containerRef = (0, import_react3.useRef)(null);
+  (0, import_react3.useEffect)(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) setShowDropdown(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  const handleSearch = (val) => {
+    setQuery(val);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (val.length < 2) {
+      setResults([]);
+      setShowDropdown(false);
+      return;
+    }
+    setLoading(true);
+    timerRef.current = setTimeout(async () => {
+      const coins = await searchCoins(val);
+      setResults(coins);
+      setShowDropdown(coins.length > 0);
+      setLoading(false);
+    }, 300);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { position: "relative" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { size: 14, style: { position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted } }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "input",
+        {
+          style: { ...inputStyle, paddingLeft: 28 },
+          value: query,
+          onChange: (e) => handleSearch(e.target.value),
+          onFocus: () => {
+            if (results.length > 0) setShowDropdown(true);
+          },
+          placeholder: "Search crypto (e.g. bitcoin)"
+        }
+      ),
+      loading && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { size: 14, style: { position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted, animation: "spin 1s linear infinite" } })
+    ] }),
+    showDropdown && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
+      position: "absolute",
+      top: "100%",
+      left: 0,
+      right: 0,
+      zIndex: 50,
+      backgroundColor: COLORS.card,
+      borderRadius: 8,
+      border: `1px solid ${COLORS.border}`,
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      maxHeight: 200,
+      overflowY: "auto",
+      marginTop: 2
+    }, children: results.map((coin) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+      "button",
+      {
+        onClick: () => {
+          onSelect(coin);
+          setQuery("");
+          setShowDropdown(false);
+          setResults([]);
+        },
+        style: {
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 10px",
+          border: "none",
+          backgroundColor: "transparent",
+          cursor: "pointer",
+          textAlign: "left",
+          fontSize: 13,
+          color: COLORS.textMain,
+          borderBottom: `1px solid ${COLORS.borderLight}`
+        },
+        onMouseEnter: (e) => {
+          e.currentTarget.style.backgroundColor = COLORS.assetBg;
+        },
+        onMouseLeave: (e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+        },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: coin.thumb, alt: "", style: { width: 20, height: 20, borderRadius: 10 } }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 600 }, children: coin.name }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.textMuted, fontSize: 11, textTransform: "uppercase" }, children: coin.symbol })
+        ]
+      },
+      coin.id
+    )) })
+  ] });
+};
 var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
   const isNew = !item.amount;
   const [editing, setEditing] = (0, import_react3.useState)(isNew);
@@ -24991,8 +25149,12 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
   }, [item]);
   const save = () => {
     const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
-    const computed = computeValues(draft.amount, freq);
-    onUpdate({ ...draft, frequency: freq, ...computed });
+    let amount = draft.amount;
+    if (draft.assetType === "crypto" && draft.ticker && draft.livePrice && draft.quantity) {
+      amount = Math.round(draft.livePrice * draft.quantity * 100) / 100;
+    }
+    const computed = computeValues(amount, freq);
+    onUpdate({ ...draft, amount, frequency: freq, ...computed });
     setEditing(false);
   };
   const inputStyle = {
@@ -25014,9 +25176,88 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     paddingRight: 24
   };
   const freqLabel = (f) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
+  const handleCoinSelect = (coin) => {
+    setDraft((d) => ({ ...d, name: coin.name, assetType: "crypto", ticker: coin.id }));
+  };
   if (editing) {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+      inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setDraft((d) => ({ ...d, assetType: void 0, ticker: void 0, livePrice: void 0 })),
+            style: {
+              padding: "4px 10px",
+              borderRadius: 6,
+              border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
+              backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
+              color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: "pointer"
+            },
+            children: "Manual"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setDraft((d) => ({ ...d, assetType: "crypto" })),
+            style: {
+              padding: "4px 10px",
+              borderRadius: 6,
+              border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
+              backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
+              color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: "pointer"
+            },
+            children: "\u20BF Crypto"
+          }
+        )
+      ] }),
+      inputMode === "asset" && draft.assetType === "crypto" && !draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Search Cryptocurrency" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoinSearchDropdown, { onSelect: handleCoinSelect, inputStyle })
+      ] }),
+      inputMode === "asset" && draft.assetType === "crypto" && draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#F7931A10", borderRadius: 8, border: "1px solid #F7931A30", marginBottom: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#F7931A" }, children: [
+            "\u20BF ",
+            draft.name
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
+            "(",
+            draft.ticker,
+            ")"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setDraft((d) => ({ ...d, ticker: void 0, name: "", livePrice: void 0 })), style: { marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 14 }) })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+              const qty = parseFloat(e.target.value) || 0;
+              const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+              setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
+            }, placeholder: "How many?", autoFocus: true })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Price/unit" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.livePrice || "", onChange: (e) => {
+              const price = parseFloat(e.target.value) || 0;
+              const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : draft.amount;
+              setDraft((d) => ({ ...d, livePrice: price || void 0, amount: newAmount }));
+            }, placeholder: "$0" })
+          ] })
+        ] }),
+        draft.quantity && draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }, children: [
+          "Total: ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color }, children: fmtExact(draft.livePrice * draft.quantity) })
+        ] }) : null
+      ] }),
+      (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
       ] }),
@@ -25034,7 +25275,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
           ] })
         ] })
       ] }),
-      inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
+      inputMode === "asset" && (!draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
@@ -25073,11 +25314,18 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     transition: "all 0.15s"
   }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: 0 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }, children: item.name || "Unnamed" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }, children: [
+        item.assetType === "crypto" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#F7931A", fontWeight: 700 }, children: "\u20BF" }),
+        item.name || "Unnamed"
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }, children: [
         item.quantity !== void 0 && item.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
           "Qty: ",
           item.quantity
+        ] }),
+        item.assetType === "crypto" && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          "@ ",
+          fmtExact(item.livePrice)
         ] }),
         inputMode === "recurring" && item.frequency !== "one_time" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
           fmt(item.amount),
@@ -25361,9 +25609,41 @@ function MyBudget({ initialData: initialData2 }) {
   const [budget, setBudget] = (0, import_react3.useState)(() => loadCurrentBudget() || emptyBudget());
   const [editingName, setEditingName] = (0, import_react3.useState)(false);
   const [nameInput, setNameInput] = (0, import_react3.useState)(budget.name);
+  const [refreshing, setRefreshing] = (0, import_react3.useState)(false);
   (0, import_react3.useEffect)(() => {
     saveCurrentBudget(budget);
   }, [budget]);
+  const refreshPrices = (0, import_react3.useCallback)(async () => {
+    const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
+    const cryptoItems = allItems.filter((i) => i.assetType === "crypto" && i.ticker);
+    if (cryptoItems.length === 0) return;
+    setRefreshing(true);
+    try {
+      const uniqueIds = [...new Set(cryptoItems.map((i) => i.ticker))];
+      const prices = await fetchCryptoPrices(uniqueIds);
+      setBudget((b) => {
+        const updateSection = (items) => items.map((item) => {
+          if (item.assetType !== "crypto" || !item.ticker || !prices[item.ticker]) return item;
+          const newPrice = prices[item.ticker];
+          const newAmount = item.quantity ? Math.round(newPrice * item.quantity * 100) / 100 : item.amount;
+          const computed = computeValues(newAmount, item.frequency);
+          return { ...item, livePrice: newPrice, amount: newAmount, ...computed };
+        });
+        return {
+          ...b,
+          assets: updateSection(b.assets),
+          nonLiquidAssets: updateSection(b.nonLiquidAssets),
+          retirement: updateSection(b.retirement),
+          lastPriceRefresh: Date.now(),
+          updatedAt: Date.now()
+        };
+      });
+    } catch (e) {
+      console.error("Failed to refresh prices", e);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [budget.assets, budget.nonLiquidAssets, budget.retirement]);
   const updateItem = (section, id, updates) => {
     setBudget((b) => ({
       ...b,
@@ -25515,7 +25795,9 @@ function MyBudget({ initialData: initialData2 }) {
       ] })
     ] });
   }
+  const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => i.assetType === "crypto" && i.ticker);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }` }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
@@ -25545,6 +25827,23 @@ function MyBudget({ initialData: initialData2 }) {
           ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { onClick: () => setEditingName(true), style: { margin: 0, fontSize: 20, fontWeight: 700, cursor: "pointer" }, children: budget.name })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+          hasCrypto && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
+            padding: "6px 10px",
+            borderRadius: 6,
+            border: "none",
+            backgroundColor: refreshing ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.2)",
+            color: "white",
+            cursor: refreshing ? "default" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 11,
+            fontWeight: 600,
+            opacity: refreshing ? 0.7 : 1
+          }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, { size: 14, style: refreshing ? { animation: "spinBtn 1s linear infinite" } : void 0 }),
+            refreshing ? "Updating..." : "Refresh \u20BF"
+          ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
             saveBudgetToList();
@@ -25556,7 +25855,13 @@ function MyBudget({ initialData: initialData2 }) {
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 13, opacity: 0.8 }, children: "Track your income, expenses, assets & liabilities" })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 13, opacity: 0.8 }, children: "Track your income, expenses, assets & liabilities" }),
+        budget.lastPriceRefresh && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 10, opacity: 0.6 }, children: [
+          "Prices: ",
+          new Date(budget.lastPriceRefresh).toLocaleTimeString()
+        ] })
+      ] })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
       budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => {
@@ -26022,6 +26327,14 @@ lucide-react/dist/esm/icons/landmark.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/loader-circle.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/pen.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -26054,6 +26367,14 @@ lucide-react/dist/esm/icons/printer.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/refresh-cw.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/rotate-ccw.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -26063,6 +26384,14 @@ lucide-react/dist/esm/icons/rotate-ccw.js:
    *)
 
 lucide-react/dist/esm/icons/save.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/search.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
@@ -26103,6 +26432,14 @@ lucide-react/dist/esm/icons/triangle-alert.js:
    *)
 
 lucide-react/dist/esm/icons/wallet.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/x.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

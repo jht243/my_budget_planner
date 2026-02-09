@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   Plus, X, Trash2, Save, RotateCcw, Home, Printer,
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
-  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight
+  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2
 } from "lucide-react";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
 
 type Frequency = "monthly" | "yearly" | "one_time";
+type AssetType = "manual" | "crypto";
 
 interface BudgetItem {
   id: string;
@@ -19,6 +20,9 @@ interface BudgetItem {
   monthlyValue: number;
   quantity?: number;
   notes?: string;
+  assetType?: AssetType;
+  ticker?: string; // CoinGecko ID for crypto
+  livePrice?: number; // last fetched price per unit
 }
 
 interface Budget {
@@ -31,6 +35,7 @@ interface Budget {
   retirement: BudgetItem[];
   liabilities: BudgetItem[];
   nonLiquidDiscount: number;
+  lastPriceRefresh?: number;
   createdAt: number;
   updatedAt: number;
 }
@@ -111,6 +116,46 @@ const computeValues = (amount: number, frequency: Frequency): { totalValue: numb
   }
 };
 
+// ─── CoinGecko API ───────────────────────────────────────────────────────────
+
+const COINGECKO_BASE = "https://api.coingecko.com/api/v3";
+
+interface CoinSearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+}
+
+const searchCoins = async (query: string): Promise<CoinSearchResult[]> => {
+  if (!query || query.length < 2) return [];
+  try {
+    const res = await fetch(`${COINGECKO_BASE}/search?query=${encodeURIComponent(query)}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.coins || []).slice(0, 8).map((c: any) => ({
+      id: c.id,
+      name: c.name,
+      symbol: c.symbol,
+      thumb: c.thumb,
+    }));
+  } catch { return []; }
+};
+
+const fetchCryptoPrices = async (ids: string[]): Promise<Record<string, number>> => {
+  if (ids.length === 0) return {};
+  try {
+    const res = await fetch(`${COINGECKO_BASE}/simple/price?ids=${ids.join(",")}&vs_currencies=usd`);
+    if (!res.ok) return {};
+    const data = await res.json();
+    const prices: Record<string, number> = {};
+    for (const id of ids) {
+      if (data[id]?.usd) prices[id] = data[id].usd;
+    }
+    return prices;
+  } catch { return {}; }
+};
+
 const DEMO_BUDGET: Budget = {
   id: "demo_budget",
   name: "My Budget",
@@ -124,10 +169,10 @@ const DEMO_BUDGET: Budget = {
     { id: "exp2", name: "parma rent", amount: 1000, frequency: "monthly", totalValue: 12000, monthlyValue: 1000 },
   ],
   assets: [
-    { id: "ast1", name: "btc", amount: 140000, frequency: "one_time", totalValue: 140000, monthlyValue: 0, quantity: 2 },
-    { id: "ast2", name: "near", amount: 7000, frequency: "one_time", totalValue: 7000, monthlyValue: 0, quantity: 7000 },
-    { id: "ast3", name: "eth", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34 },
-    { id: "ast4", name: "usdc", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0 },
+    { id: "ast1", name: "Bitcoin", amount: 140000, frequency: "one_time", totalValue: 140000, monthlyValue: 0, quantity: 2, assetType: "crypto", ticker: "bitcoin", livePrice: 70000 },
+    { id: "ast2", name: "NEAR Protocol", amount: 7000, frequency: "one_time", totalValue: 7000, monthlyValue: 0, quantity: 7000, assetType: "crypto", ticker: "near", livePrice: 1 },
+    { id: "ast3", name: "Ethereum", amount: 10146, frequency: "one_time", totalValue: 10146, monthlyValue: 0, quantity: 5.34, assetType: "crypto", ticker: "ethereum", livePrice: 1900 },
+    { id: "ast4", name: "USD Coin", amount: 3500, frequency: "one_time", totalValue: 3500, monthlyValue: 0, assetType: "crypto", ticker: "usd-coin", livePrice: 1 },
     { id: "ast5", name: "coinbase account", amount: 73500, frequency: "one_time", totalValue: 73500, monthlyValue: 0 },
     { id: "ast6", name: "loan from Alex (10,000)", amount: 0, frequency: "one_time", totalValue: 0, monthlyValue: 0 },
     { id: "ast7", name: "stock market (betterment)", amount: 14571, frequency: "one_time", totalValue: 14571, monthlyValue: 0 },
@@ -306,6 +351,81 @@ type InputMode = "recurring" | "asset" | "value_only";
 
 // ─── Editable Item Row ────────────────────────────────────────────────────────
 
+// ─── Crypto Search Dropdown ───────────────────────────────────────────────────
+
+const CoinSearchDropdown = ({ onSelect, inputStyle }: {
+  onSelect: (coin: CoinSearchResult) => void;
+  inputStyle: React.CSSProperties;
+}) => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<CoinSearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const timerRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setShowDropdown(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSearch = (val: string) => {
+    setQuery(val);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (val.length < 2) { setResults([]); setShowDropdown(false); return; }
+    setLoading(true);
+    timerRef.current = setTimeout(async () => {
+      const coins = await searchCoins(val);
+      setResults(coins);
+      setShowDropdown(coins.length > 0);
+      setLoading(false);
+    }, 300);
+  };
+
+  return (
+    <div ref={containerRef} style={{ position: "relative" }}>
+      <div style={{ position: "relative" }}>
+        <Search size={14} style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted }} />
+        <input
+          style={{ ...inputStyle, paddingLeft: 28 }}
+          value={query}
+          onChange={e => handleSearch(e.target.value)}
+          onFocus={() => { if (results.length > 0) setShowDropdown(true); }}
+          placeholder="Search crypto (e.g. bitcoin)"
+        />
+        {loading && <Loader2 size={14} style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted, animation: "spin 1s linear infinite" }} />}
+      </div>
+      {showDropdown && (
+        <div style={{
+          position: "absolute", top: "100%", left: 0, right: 0, zIndex: 50,
+          backgroundColor: COLORS.card, borderRadius: 8, border: `1px solid ${COLORS.border}`,
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)", maxHeight: 200, overflowY: "auto", marginTop: 2,
+        }}>
+          {results.map(coin => (
+            <button key={coin.id} onClick={() => { onSelect(coin); setQuery(""); setShowDropdown(false); setResults([]); }} style={{
+              width: "100%", display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+              border: "none", backgroundColor: "transparent", cursor: "pointer", textAlign: "left",
+              fontSize: 13, color: COLORS.textMain, borderBottom: `1px solid ${COLORS.borderLight}`,
+            }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = COLORS.assetBg; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
+            >
+              <img src={coin.thumb} alt="" style={{ width: 20, height: 20, borderRadius: 10 }} />
+              <span style={{ fontWeight: 600 }}>{coin.name}</span>
+              <span style={{ color: COLORS.textMuted, fontSize: 11, textTransform: "uppercase" }}>{coin.symbol}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ─── Editable Item Row ────────────────────────────────────────────────────────
+
 const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
   item: BudgetItem; onUpdate: (u: Partial<BudgetItem>) => void; onDelete: () => void; inputMode: InputMode; color: string;
 }) => {
@@ -317,8 +437,13 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 
   const save = () => {
     const freq = draft.frequency || (inputMode === "recurring" ? "monthly" : "one_time");
-    const computed = computeValues(draft.amount, freq);
-    onUpdate({ ...draft, frequency: freq, ...computed });
+    let amount = draft.amount;
+    // For crypto with quantity + livePrice, compute amount
+    if (draft.assetType === "crypto" && draft.ticker && draft.livePrice && draft.quantity) {
+      amount = Math.round(draft.livePrice * draft.quantity * 100) / 100;
+    }
+    const computed = computeValues(amount, freq);
+    onUpdate({ ...draft, amount, frequency: freq, ...computed });
     setEditing(false);
   };
 
@@ -335,13 +460,74 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 
   const freqLabel = (f: Frequency) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
 
+  const handleCoinSelect = (coin: CoinSearchResult) => {
+    setDraft(d => ({ ...d, name: coin.name, assetType: "crypto" as AssetType, ticker: coin.id }));
+  };
+
   if (editing) {
     return (
       <div style={{ padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }}>
-        <div style={{ marginBottom: 8 }}>
-          <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Name</label>
-          <input autoFocus={!draft.name} style={inputStyle} value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Description" />
-        </div>
+        {inputMode === "asset" && (
+          <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+            <button onClick={() => setDraft(d => ({ ...d, assetType: undefined, ticker: undefined, livePrice: undefined }))}
+              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
+                backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
+                color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
+                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Manual</button>
+            <button onClick={() => setDraft(d => ({ ...d, assetType: "crypto" as AssetType }))}
+              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
+                backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
+                color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
+                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>₿ Crypto</button>
+          </div>
+        )}
+
+        {inputMode === "asset" && draft.assetType === "crypto" && !draft.ticker && (
+          <div style={{ marginBottom: 8 }}>
+            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Search Cryptocurrency</label>
+            <CoinSearchDropdown onSelect={handleCoinSelect} inputStyle={inputStyle} />
+          </div>
+        )}
+
+        {inputMode === "asset" && draft.assetType === "crypto" && draft.ticker && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#F7931A10", borderRadius: 8, border: "1px solid #F7931A30", marginBottom: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: "#F7931A" }}>₿ {draft.name}</span>
+              <span style={{ fontSize: 11, color: COLORS.textMuted }}>({draft.ticker})</span>
+              <button onClick={() => setDraft(d => ({ ...d, ticker: undefined, name: "", livePrice: undefined }))} style={{ marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }}><X size={14} /></button>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Quantity</label>
+                <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => {
+                  const qty = parseFloat(e.target.value) || 0;
+                  const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+                  setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
+                }} placeholder="How many?" autoFocus />
+              </div>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Price/unit</label>
+                <input style={inputStyle} type="number" step="any" value={draft.livePrice || ""} onChange={e => {
+                  const price = parseFloat(e.target.value) || 0;
+                  const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : draft.amount;
+                  setDraft(d => ({ ...d, livePrice: price || undefined, amount: newAmount }));
+                }} placeholder="$0" />
+              </div>
+            </div>
+            {draft.quantity && draft.livePrice ? (
+              <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }}>
+                Total: <strong style={{ color }}>{fmtExact(draft.livePrice * draft.quantity)}</strong>
+              </div>
+            ) : null}
+          </div>
+        )}
+
+        {(inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && (
+          <div style={{ marginBottom: 8 }}>
+            <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Name</label>
+            <input autoFocus={!draft.name} style={inputStyle} value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Description" />
+          </div>
+        )}
 
         {inputMode === "recurring" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
@@ -360,7 +546,7 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
           </div>
         )}
 
-        {inputMode === "asset" && (
+        {inputMode === "asset" && (!draft.assetType || draft.assetType === "manual") && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Value</label>
@@ -395,9 +581,13 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
       border: `1px solid ${COLORS.borderLight}`, marginBottom: 4, transition: "all 0.15s",
     }}>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.name || "Unnamed"}</div>
+        <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }}>
+          {item.assetType === "crypto" && <span style={{ fontSize: 11, color: "#F7931A", fontWeight: 700 }}>₿</span>}
+          {item.name || "Unnamed"}
+        </div>
         <div style={{ fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }}>
           {item.quantity !== undefined && item.quantity > 0 && <span>Qty: {item.quantity}</span>}
+          {item.assetType === "crypto" && item.livePrice && <span>@ {fmtExact(item.livePrice)}</span>}
           {inputMode === "recurring" && item.frequency !== "one_time" && <span>{fmt(item.amount)}{freqLabel(item.frequency)}</span>}
           {inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && <span>({fmt(item.monthlyValue)}/mo)</span>}
           {inputMode === "recurring" && item.frequency === "monthly" && <span>({fmt(item.totalValue)}/yr)</span>}
@@ -654,11 +844,48 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const [budget, setBudget] = useState<Budget>(() => loadCurrentBudget() || emptyBudget());
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(budget.name);
+  const [refreshing, setRefreshing] = useState(false);
 
   // Persist budget on change
   useEffect(() => {
     saveCurrentBudget(budget);
   }, [budget]);
+
+  // Refresh all crypto prices
+  const refreshPrices = useCallback(async () => {
+    const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
+    const cryptoItems = allItems.filter(i => i.assetType === "crypto" && i.ticker);
+    if (cryptoItems.length === 0) return;
+
+    setRefreshing(true);
+    try {
+      const uniqueIds = [...new Set(cryptoItems.map(i => i.ticker!))];
+      const prices = await fetchCryptoPrices(uniqueIds);
+
+      setBudget(b => {
+        const updateSection = (items: BudgetItem[]): BudgetItem[] =>
+          items.map(item => {
+            if (item.assetType !== "crypto" || !item.ticker || !prices[item.ticker]) return item;
+            const newPrice = prices[item.ticker];
+            const newAmount = item.quantity ? Math.round(newPrice * item.quantity * 100) / 100 : item.amount;
+            const computed = computeValues(newAmount, item.frequency);
+            return { ...item, livePrice: newPrice, amount: newAmount, ...computed };
+          });
+        return {
+          ...b,
+          assets: updateSection(b.assets),
+          nonLiquidAssets: updateSection(b.nonLiquidAssets),
+          retirement: updateSection(b.retirement),
+          lastPriceRefresh: Date.now(),
+          updatedAt: Date.now(),
+        };
+      });
+    } catch (e) {
+      console.error("Failed to refresh prices", e);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [budget.assets, budget.nonLiquidAssets, budget.retirement]);
 
   // Helper to update a section
   const updateItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, id: string, updates: Partial<BudgetItem>) => {
@@ -802,9 +1029,13 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     );
   }
 
+  // Check if there are any crypto items
+  const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some(i => i.assetType === "crypto" && i.ticker);
+
   // Budget editor view
   return (
     <div style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box" }}>
+      <style>{`@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
       {/* Header */}
       <div style={{ backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -823,13 +1054,29 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             )}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {hasCrypto && (
+              <button onClick={refreshPrices} disabled={refreshing} style={{
+                padding: "6px 10px", borderRadius: 6, border: "none",
+                backgroundColor: refreshing ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.2)",
+                color: "white", cursor: refreshing ? "default" : "pointer", display: "flex", alignItems: "center", gap: 4,
+                fontSize: 11, fontWeight: 600, opacity: refreshing ? 0.7 : 1,
+              }}>
+                <RefreshCw size={14} style={refreshing ? { animation: "spinBtn 1s linear infinite" } : undefined} />
+                {refreshing ? "Updating..." : "Refresh ₿"}
+              </button>
+            )}
             <button onClick={handleBackToHome} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Home size={16} /></button>
             <button onClick={() => { saveBudgetToList(); }} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>
             <button onClick={handlePrint} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Printer size={16} /></button>
             <button onClick={handleNewBudget} style={{ padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><Plus size={14} /> New</button>
           </div>
         </div>
-        <p style={{ margin: 0, fontSize: 13, opacity: 0.8 }}>Track your income, expenses, assets & liabilities</p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <p style={{ margin: 0, fontSize: 13, opacity: 0.8 }}>Track your income, expenses, assets & liabilities</p>
+          {budget.lastPriceRefresh && (
+            <span style={{ fontSize: 10, opacity: 0.6 }}>Prices: {new Date(budget.lastPriceRefresh).toLocaleTimeString()}</span>
+          )}
+        </div>
       </div>
 
       {/* Content */}
