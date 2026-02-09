@@ -18,7 +18,7 @@ When the widget is invoked inside ChatGPT, the following data may be received by
 | **Location** (city, region, country) | `openai/userLocation` | "Boston, MA, US" |
 | **Locale** | `openai/locale` | "en-US" |
 | **Device / browser fingerprint** | `openai/userAgent` | "Mozilla/5.0 … Safari/537.36" |
-| **Inferred budget query** | Parsed from tool arguments | "Category: Housing, Amount: $1500, Type: expense" |
+| **Inferred budget query** | Parsed from tool arguments | "Income: $8,000/mo, Expenses: $5,000/mo, Liquid: $50,000" |
 | **Log timestamp** | Server clock (UTC) | "2026-02-07T19:14:00Z" |
 | **Response time** | Server-measured latency | "42 ms" |
 | **App enjoyment vote** | User-initiated thumbs up/down | "up" or "down" |
@@ -52,6 +52,7 @@ All budget management is performed:
 | **Render.com** | Server hosting | Server logs (auto-deleted by retention policy) |
 | **Buttondown** | Email subscriptions | Email address (opt-in only) |
 | **OpenAI API** | AI-powered budget description parsing | Budget description text (not stored) |
+| **CoinGecko API** | Cryptocurrency price lookups | Coin ticker symbols only (no user data) |
 
 We do not sell, rent, or share your data with third parties for marketing purposes. Anonymous, aggregated analytics may be used to improve the service.
 
@@ -59,7 +60,7 @@ We do not sell, rent, or share your data with third parties for marketing purpos
 
 | Data type | Retention period | How to delete |
 |---|---|---|
-| **localStorage budget data** | Indefinite (until user action) | Use "Reset" button or delete individual budgets |
+| **localStorage budget data** | **No expiry** — persists indefinitely (potentially years) | Use "Reset" button or delete individual budgets |
 | **Server analytics logs** | 30 days | Automatic rotation; or email us for early deletion |
 | **Email subscriptions** | Until unsubscribed | Unsubscribe link in emails, or email us |
 | **Feedback submissions** | 30 days (in server logs) | Email us for deletion |

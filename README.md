@@ -6,18 +6,16 @@ A Model Context Protocol (MCP) server that provides an interactive personal budg
 
 ## Features
 
-- 💰 Track income, expenses, and savings goals in one place
-- 📊 Budget overview with progress tracking per category
-- 🤖 AI-powered budget description parsing (describe your budget in plain English)
-- 📅 Monthly and yearly budget views
-- 💾 Save and manage multiple budgets
-- 🖨️ Print-friendly output
-
-## Budget Types
-
-- **Monthly Budget** — Track income and expenses on a monthly basis
-- **Yearly Budget** — Annual financial planning with savings goals
-- **Custom Budget** — Flexible budget categories tailored to your needs
+- 💰 **Income & Expense Tracking** — Add income sources and expense items with monthly/yearly/one-time frequencies
+- 📊 **Net Worth Calculator** — Liquid assets, non-liquid assets (with configurable discount), retirement savings, and liabilities
+- 📈 **Interactive Runway Chart** — Year-by-year projection showing how long your money lasts (powered by Recharts)
+- 🏦 **Asset Breakdown** — Visual breakdown of liquid, non-liquid, and retirement assets
+- 🪙 **Crypto Price Tracking** — Real-time crypto prices via CoinGecko for BTC, ETH, SOL, and more
+- 🤖 **AI-Powered Parsing** — Describe your budget in plain English and let AI extract the details
+- 💾 **Multiple Budgets** — Save, open, duplicate, and manage multiple budgets
+- 🖨️ **Print-Friendly** — Clean print layout with no-print elements hidden
+- 👍 **In-App Feedback** — Floating enjoyment pill and feedback modal
+- 🔗 **Related Apps** — Discover Just Cancel It, Retirement Calculator, and Portfolio Optimizer
 
 ## Quick Start
 
@@ -63,27 +61,32 @@ Server runs on `http://localhost:8000`. **Note:** HTTP endpoints are for local d
 ### Example Prompts
 
 - "Help me create a monthly budget"
+- "I make $8,000/month and spend about $5,000"
 - "Track my income and expenses"
-- "I need to manage my household budget"
-- "Set up savings goals for this year"
-- "Organize my personal finances"
+- "I have $50k in savings and $200k in retirement"
+- "Help me figure out my net worth"
+- "How long will my money last?"
 
 ## Tech Stack
 
-- **MCP SDK** - Model Context Protocol for ChatGPT integration
-- **Node.js + TypeScript** - Server runtime
-- **Server-Sent Events (SSE)** - Real-time communication
-- **React** - Widget UI components
-- **Lucide Icons** - Beautiful icons
+- **MCP SDK** — Model Context Protocol for ChatGPT integration
+- **Node.js + TypeScript** — Server runtime
+- **Server-Sent Events (SSE)** — Real-time communication
+- **React 18** — Widget UI components
+- **Recharts** — Interactive charts for runway projection
+- **Lucide Icons** — Icon library
+- **CoinGecko API** — Real-time cryptocurrency prices
+- **Buttondown** — Email subscription management
+- **esbuild** — Fast bundling
 
 ## Environment Variables
 
 Copy `.env.example` to `.env` and configure:
 
 ```bash
-OPENAI_API_KEY=your_openai_key    # For AI-powered budget parsing
-BUTTONDOWN_API_KEY=your_api_key   # For email subscriptions
-ANALYTICS_PASSWORD=your_password  # For /analytics dashboard
+OPENAI_API_KEY=your_openai_key    # For AI-powered budget parsing (optional)
+BUTTONDOWN_API_KEY=your_api_key   # For email subscriptions (optional)
+ANALYTICS_PASSWORD=your_password  # For /analytics dashboard (default: changeme123)
 ```
 
 ## Privacy & Data Use
@@ -93,7 +96,7 @@ See the full **[Privacy Policy](PRIVACY.md)** for complete details.
 - **What we collect:** When the widget runs inside ChatGPT, our server receives location (city/region/country), locale, device/browser fingerprint, inferred budget query, and log timestamps via the MCP `_meta` object.
 - **How we use it:** These fields feed the `/analytics` dashboard only. We do not sell, rent, or share this data.
 - **Server log retention:** Analytics logs are stored for **30 days** in the `/logs` directory and then automatically rotated and deleted.
-- **Local budget data:** Your budget details are cached in browser `localStorage` and persist indefinitely — data is only removed when you manually delete a saved budget or use the "Reset" button.
+- **Local budget data:** Your budget details are stored in browser `localStorage` with **no expiry** — data persists indefinitely (potentially years) and is only removed when you manually delete a saved budget or use the "Reset" button.
 - **Deletion requests:** Email **support@layer3labs.io** with the approximate UTC date/time of your session. We will delete associated server logs within 7 business days.
 
 ## Monitoring & Alerts
