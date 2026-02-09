@@ -2433,7 +2433,7 @@ var require_react_dom_development = __commonJS({
         var HostPortal = 4;
         var HostComponent = 5;
         var HostText = 6;
-        var Fragment = 7;
+        var Fragment2 = 7;
         var Mode = 8;
         var ContextConsumer = 9;
         var ContextProvider = 10;
@@ -3589,7 +3589,7 @@ var require_react_dom_development = __commonJS({
               return "DehydratedFragment";
             case ForwardRef:
               return getWrappedName$1(type, type.render, "ForwardRef");
-            case Fragment:
+            case Fragment2:
               return "Fragment";
             case HostComponent:
               return type;
@@ -11972,7 +11972,7 @@ var require_react_dom_development = __commonJS({
             }
           }
           function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-            if (current2 === null || current2.tag !== Fragment) {
+            if (current2 === null || current2.tag !== Fragment2) {
               var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
               created.return = returnFiber;
               return created;
@@ -12375,7 +12375,7 @@ var require_react_dom_development = __commonJS({
               if (child.key === key) {
                 var elementType = element.type;
                 if (elementType === REACT_FRAGMENT_TYPE) {
-                  if (child.tag === Fragment) {
+                  if (child.tag === Fragment2) {
                     deleteRemainingChildren(returnFiber, child.sibling);
                     var existing = useFiber(child, element.props.children);
                     existing.return = returnFiber;
@@ -17850,7 +17850,7 @@ var require_react_dom_development = __commonJS({
               var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
               return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
             }
-            case Fragment:
+            case Fragment2:
               return updateFragment(current2, workInProgress2, renderLanes2);
             case Mode:
               return updateMode(current2, workInProgress2, renderLanes2);
@@ -18122,7 +18122,7 @@ var require_react_dom_development = __commonJS({
             case SimpleMemoComponent:
             case FunctionComponent:
             case ForwardRef:
-            case Fragment:
+            case Fragment2:
             case Mode:
             case Profiler:
             case ContextConsumer:
@@ -22373,7 +22373,7 @@ var require_react_dom_development = __commonJS({
           return fiber;
         }
         function createFiberFromFragment(elements, mode, lanes, key) {
-          var fiber = createFiber(Fragment, elements, key, mode);
+          var fiber = createFiber(Fragment2, elements, key, mode);
           fiber.lanes = lanes;
           return fiber;
         }
@@ -24592,8 +24592,20 @@ var __iconNode9 = [
 ];
 var GripVertical = createLucideIcon("grip-vertical", __iconNode9);
 
-// node_modules/lucide-react/dist/esm/icons/house.js
+// node_modules/lucide-react/dist/esm/icons/heart.js
 var __iconNode10 = [
+  [
+    "path",
+    {
+      d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
+      key: "mvr1a0"
+    }
+  ]
+];
+var Heart = createLucideIcon("heart", __iconNode10);
+
+// node_modules/lucide-react/dist/esm/icons/house.js
+var __iconNode11 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -24603,10 +24615,10 @@ var __iconNode10 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode10);
+var House = createLucideIcon("house", __iconNode11);
 
 // node_modules/lucide-react/dist/esm/icons/landmark.js
-var __iconNode11 = [
+var __iconNode12 = [
   ["path", { d: "M10 18v-7", key: "wt116b" }],
   [
     "path",
@@ -24620,14 +24632,33 @@ var __iconNode11 = [
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M6 18v-7", key: "1ivflk" }]
 ];
-var Landmark = createLucideIcon("landmark", __iconNode11);
+var Landmark = createLucideIcon("landmark", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode12 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode12);
+var __iconNode13 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode13);
+
+// node_modules/lucide-react/dist/esm/icons/mail.js
+var __iconNode14 = [
+  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+];
+var Mail = createLucideIcon("mail", __iconNode14);
+
+// node_modules/lucide-react/dist/esm/icons/message-square.js
+var __iconNode15 = [
+  [
+    "path",
+    {
+      d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
+      key: "18887p"
+    }
+  ]
+];
+var MessageSquare = createLucideIcon("message-square", __iconNode15);
 
 // node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode13 = [
+var __iconNode16 = [
   [
     "path",
     {
@@ -24636,10 +24667,10 @@ var __iconNode13 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode13);
+var Pen = createLucideIcon("pen", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode14 = [
+var __iconNode17 = [
   [
     "path",
     {
@@ -24650,17 +24681,17 @@ var __iconNode14 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode14);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode15 = [
+var __iconNode18 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode15);
+var Plus = createLucideIcon("plus", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode16 = [
+var __iconNode19 = [
   [
     "path",
     {
@@ -24671,26 +24702,26 @@ var __iconNode16 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode16);
+var Printer = createLucideIcon("printer", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode17 = [
+var __iconNode20 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode17);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode18 = [
+var __iconNode21 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode18);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode19 = [
+var __iconNode22 = [
   [
     "path",
     {
@@ -24701,41 +24732,41 @@ var __iconNode19 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode19);
+var Save = createLucideIcon("save", __iconNode22);
 
 // node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode20 = [
+var __iconNode23 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode20);
+var Search = createLucideIcon("search", __iconNode23);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode21 = [
+var __iconNode24 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode21);
+var Trash2 = createLucideIcon("trash-2", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode22 = [
+var __iconNode25 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode22);
+var TrendingDown = createLucideIcon("trending-down", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode23 = [
+var __iconNode26 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode23);
+var TrendingUp = createLucideIcon("trending-up", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode24 = [
+var __iconNode27 = [
   [
     "path",
     {
@@ -24746,10 +24777,10 @@ var __iconNode24 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode24);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode27);
 
 // node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode25 = [
+var __iconNode28 = [
   [
     "path",
     {
@@ -24759,14 +24790,14 @@ var __iconNode25 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode25);
+var Wallet = createLucideIcon("wallet", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode26 = [
+var __iconNode29 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode26);
+var X = createLucideIcon("x", __iconNode29);
 
 // src/MyBudget.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -24838,6 +24869,14 @@ var computeValues = (amount, frequency) => {
     case "one_time":
       return { totalValue: amount, monthlyValue: 0 };
   }
+};
+var trackEvent = (event, data) => {
+  fetch("/api/track", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event, data: data || {} })
+  }).catch(() => {
+  });
 };
 var COINGECKO_BASE = "https://api.coingecko.com/api/v3";
 var searchCoins = async (query) => {
@@ -25663,6 +25702,14 @@ function MyBudget({ initialData: initialData2 }) {
   const [editingName, setEditingName] = (0, import_react3.useState)(false);
   const [nameInput, setNameInput] = (0, import_react3.useState)(budget.name);
   const [refreshing, setRefreshing] = (0, import_react3.useState)(false);
+  const [showSubscribeModal, setShowSubscribeModal] = (0, import_react3.useState)(false);
+  const [subscribeEmail, setSubscribeEmail] = (0, import_react3.useState)("");
+  const [subscribeStatus, setSubscribeStatus] = (0, import_react3.useState)("idle");
+  const [subscribeMessage, setSubscribeMessage] = (0, import_react3.useState)("");
+  const [showFeedbackModal, setShowFeedbackModal] = (0, import_react3.useState)(false);
+  const [feedbackText, setFeedbackText] = (0, import_react3.useState)("");
+  const [feedbackStatus, setFeedbackStatus] = (0, import_react3.useState)("idle");
+  const [confirmDialog, setConfirmDialog] = (0, import_react3.useState)(null);
   (0, import_react3.useEffect)(() => {
     saveCurrentBudget(budget);
   }, [budget]);
@@ -25768,9 +25815,70 @@ function MyBudget({ initialData: initialData2 }) {
     setSavedBudgets(updated);
   };
   const handleReset = () => {
-    const newB = emptyBudget();
-    setBudget(newB);
-    setNameInput(newB.name);
+    setConfirmDialog({
+      message: "Clear all budget data on the current screen?",
+      onConfirm: () => {
+        trackEvent("reset", { budgetName: budget.name, itemCount: budget.income.length + budget.expenses.length + budget.assets.length });
+        const newB = emptyBudget();
+        setBudget(newB);
+        setNameInput(newB.name);
+      }
+    });
+  };
+  const handleSubscribe = async () => {
+    if (!subscribeEmail || !subscribeEmail.includes("@")) {
+      setSubscribeMessage("Please enter a valid email.");
+      setSubscribeStatus("error");
+      return;
+    }
+    setSubscribeStatus("loading");
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: subscribeEmail, topicId: "budget-planner-news", topicName: "Budget Planner Updates" })
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setSubscribeStatus("success");
+        setSubscribeMessage(data.message);
+        setTimeout(() => {
+          setShowSubscribeModal(false);
+          setSubscribeEmail("");
+          setSubscribeStatus("idle");
+          setSubscribeMessage("");
+        }, 3e3);
+      } else {
+        setSubscribeStatus("error");
+        setSubscribeMessage(data.error || "Failed to subscribe.");
+      }
+    } catch {
+      setSubscribeStatus("error");
+      setSubscribeMessage("Network error. Please try again.");
+    }
+  };
+  const handleFeedbackSubmit = async () => {
+    if (!feedbackText.trim()) return;
+    setFeedbackStatus("submitting");
+    try {
+      const response = await fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "budget-planner", budgetName: budget.name || null } })
+      });
+      if (response.ok) {
+        setFeedbackStatus("success");
+        setTimeout(() => {
+          setShowFeedbackModal(false);
+          setFeedbackText("");
+          setFeedbackStatus("idle");
+        }, 2e3);
+      } else {
+        setFeedbackStatus("error");
+      }
+    } catch {
+      setFeedbackStatus("error");
+    }
   };
   const handleBackToHome = () => {
     saveBudgetToList();
@@ -26076,25 +26184,218 @@ function MyBudget({ initialData: initialData2 }) {
         }
       ),
       (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SummarySection, { budget }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleReset, style: {
-        width: "100%",
-        padding: 12,
-        borderRadius: 10,
-        border: `1px solid ${COLORS.border}`,
-        backgroundColor: COLORS.card,
-        color: COLORS.textSecondary,
-        fontSize: 13,
-        cursor: "pointer",
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+        marginTop: 16,
+        padding: "16px 0",
+        borderTop: `1px solid ${COLORS.border}`,
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
-        gap: 6,
-        marginTop: 8
-      }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { size: 14 }),
-        " Reset Budget"
+        gap: 8,
+        flexWrap: "wrap"
+      }, className: "no-print", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            onClick: () => {
+              trackEvent("subscribe_click");
+              setShowSubscribeModal(true);
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, { size: 15 }),
+              " Subscribe"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            onClick: handleReset,
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { size: 15 }),
+              " Reset"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            onClick: () => trackEvent("donate_click"),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { size: 15 }),
+              " Donate"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            onClick: () => {
+              trackEvent("feedback_click");
+              setShowFeedbackModal(true);
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageSquare, { size: 15 }),
+              " Feedback"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            onClick: () => {
+              trackEvent("print_click");
+              window.print();
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 15 }),
+              " Print"
+            ]
+          }
+        )
       ] })
-    ] })
+    ] }),
+    confirmDialog && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "div",
+      {
+        style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
+        onClick: () => setConfirmDialog(null),
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "div",
+          {
+            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 340, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            onClick: (e) => e.stopPropagation(),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS.textMain, marginBottom: 16 }, children: confirmDialog.message }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setConfirmDialog(null), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }, children: "Cancel" }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+                  confirmDialog.onConfirm();
+                  setConfirmDialog(null);
+                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.expense, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Confirm" })
+              ] })
+            ]
+          }
+        )
+      }
+    ),
+    showSubscribeModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "div",
+      {
+        style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
+        onClick: () => {
+          setShowSubscribeModal(false);
+          setSubscribeEmail("");
+          setSubscribeStatus("idle");
+          setSubscribeMessage("");
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "div",
+          {
+            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            onClick: (e) => e.stopPropagation(),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Subscribe to Updates" }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+                  setShowSubscribeModal(false);
+                  setSubscribeEmail("");
+                  setSubscribeStatus("idle");
+                  setSubscribeMessage("");
+                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 13, color: COLORS.textSecondary, margin: "0 0 12px" }, children: "Get notified about new features and updates." }),
+              subscribeStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: subscribeMessage || "Subscribed!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                  "input",
+                  {
+                    value: subscribeEmail,
+                    onChange: (e) => setSubscribeEmail(e.target.value),
+                    onKeyDown: (e) => {
+                      if (e.key === "Enter") handleSubscribe();
+                    },
+                    placeholder: "your@email.com",
+                    autoFocus: true,
+                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8 }
+                  }
+                ),
+                subscribeMessage && subscribeStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.expense, marginBottom: 8 }, children: subscribeMessage }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleSubscribe, disabled: subscribeStatus === "loading", style: {
+                  width: "100%",
+                  padding: "10px 16px",
+                  borderRadius: 8,
+                  border: "none",
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: subscribeStatus === "loading" ? "default" : "pointer",
+                  opacity: subscribeStatus === "loading" ? 0.7 : 1
+                }, children: subscribeStatus === "loading" ? "Subscribing..." : "Subscribe" })
+              ] })
+            ]
+          }
+        )
+      }
+    ),
+    showFeedbackModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "div",
+      {
+        style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
+        onClick: () => {
+          setShowFeedbackModal(false);
+          setFeedbackText("");
+          setFeedbackStatus("idle");
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "div",
+          {
+            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            onClick: (e) => e.stopPropagation(),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Send Feedback" }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+                  setShowFeedbackModal(false);
+                  setFeedbackText("");
+                  setFeedbackStatus("idle");
+                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+              ] }),
+              feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: "Thank you for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                  "textarea",
+                  {
+                    value: feedbackText,
+                    onChange: (e) => setFeedbackText(e.target.value),
+                    placeholder: "What can we improve? Bug reports, feature requests, anything...",
+                    autoFocus: true,
+                    rows: 4,
+                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }
+                  }
+                ),
+                feedbackStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.expense, marginBottom: 8 }, children: "Failed to send. Please try again." }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleFeedbackSubmit, disabled: feedbackStatus === "submitting" || !feedbackText.trim(), style: {
+                  width: "100%",
+                  padding: "10px 16px",
+                  borderRadius: 8,
+                  border: "none",
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: feedbackStatus === "submitting" || !feedbackText.trim() ? "default" : "pointer",
+                  opacity: feedbackStatus === "submitting" || !feedbackText.trim() ? 0.7 : 1
+                }, children: feedbackStatus === "submitting" ? "Sending..." : "Submit Feedback" })
+              ] })
+            ]
+          }
+        )
+      }
+    )
   ] });
 }
 
@@ -26386,6 +26687,14 @@ lucide-react/dist/esm/icons/grip-vertical.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/heart.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/house.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -26403,6 +26712,22 @@ lucide-react/dist/esm/icons/landmark.js:
    *)
 
 lucide-react/dist/esm/icons/loader-circle.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/mail.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/message-square.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

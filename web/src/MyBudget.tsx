@@ -3,7 +3,8 @@ import {
   Plus, X, Trash2, Save, RotateCcw, Home, Printer,
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
-  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical
+  Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
+  Mail, Heart, MessageSquare
 } from "lucide-react";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
@@ -115,6 +116,16 @@ const computeValues = (amount: number, frequency: Frequency): { totalValue: numb
     case "yearly": return { totalValue: amount, monthlyValue: Math.round((amount / 12) * 100) / 100 };
     case "one_time": return { totalValue: amount, monthlyValue: 0 };
   }
+};
+
+// ─── Analytics ────────────────────────────────────────────────────────────────
+
+const trackEvent = (event: string, data?: Record<string, any>) => {
+  fetch("/api/track", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ event, data: data || {} }),
+  }).catch(() => {});
 };
 
 // ─── CoinGecko API ───────────────────────────────────────────────────────────
@@ -877,6 +888,14 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(budget.name);
   const [refreshing, setRefreshing] = useState(false);
+  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [subscribeMessage, setSubscribeMessage] = useState("");
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackStatus, setFeedbackStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
   // Persist budget on change
   useEffect(() => {
@@ -1000,9 +1019,63 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const handleReset = () => {
-    const newB = emptyBudget();
-    setBudget(newB);
-    setNameInput(newB.name);
+    setConfirmDialog({
+      message: "Clear all budget data on the current screen?",
+      onConfirm: () => {
+        trackEvent("reset", { budgetName: budget.name, itemCount: budget.income.length + budget.expenses.length + budget.assets.length });
+        const newB = emptyBudget();
+        setBudget(newB);
+        setNameInput(newB.name);
+      },
+    });
+  };
+
+  const handleSubscribe = async () => {
+    if (!subscribeEmail || !subscribeEmail.includes("@")) {
+      setSubscribeMessage("Please enter a valid email.");
+      setSubscribeStatus("error");
+      return;
+    }
+    setSubscribeStatus("loading");
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: subscribeEmail, topicId: "budget-planner-news", topicName: "Budget Planner Updates" }),
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setSubscribeStatus("success");
+        setSubscribeMessage(data.message);
+        setTimeout(() => { setShowSubscribeModal(false); setSubscribeEmail(""); setSubscribeStatus("idle"); setSubscribeMessage(""); }, 3000);
+      } else {
+        setSubscribeStatus("error");
+        setSubscribeMessage(data.error || "Failed to subscribe.");
+      }
+    } catch {
+      setSubscribeStatus("error");
+      setSubscribeMessage("Network error. Please try again.");
+    }
+  };
+
+  const handleFeedbackSubmit = async () => {
+    if (!feedbackText.trim()) return;
+    setFeedbackStatus("submitting");
+    try {
+      const response = await fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "user_feedback", data: { feedback: feedbackText, tool: "budget-planner", budgetName: budget.name || null } }),
+      });
+      if (response.ok) {
+        setFeedbackStatus("success");
+        setTimeout(() => { setShowFeedbackModal(false); setFeedbackText(""); setFeedbackStatus("idle"); }, 2000);
+      } else {
+        setFeedbackStatus("error");
+      }
+    } catch {
+      setFeedbackStatus("error");
+    }
   };
 
   const handleBackToHome = () => {
@@ -1206,15 +1279,124 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           <SummarySection budget={budget} />
         )}
 
-        {/* Reset */}
-        <button onClick={handleReset} style={{
-          width: "100%", padding: 12, borderRadius: 10, border: `1px solid ${COLORS.border}`,
-          backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13,
-          cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 8,
-        }}>
-          <RotateCcw size={14} /> Reset Budget
-        </button>
+        {/* Footer buttons */}
+        <div style={{
+          marginTop: 16, padding: "16px 0",
+          borderTop: `1px solid ${COLORS.border}`,
+          display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap",
+        }} className="no-print">
+          <button style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            onClick={() => { trackEvent("subscribe_click"); setShowSubscribeModal(true); }}>
+            <Mail size={15} /> Subscribe
+          </button>
+          <button style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            onClick={handleReset}>
+            <RotateCcw size={15} /> Reset
+          </button>
+          <button style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            onClick={() => trackEvent("donate_click")}>
+            <Heart size={15} /> Donate
+          </button>
+          <button style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            onClick={() => { trackEvent("feedback_click"); setShowFeedbackModal(true); }}>
+            <MessageSquare size={15} /> Feedback
+          </button>
+          <button style={{ padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            onClick={() => { trackEvent("print_click"); window.print(); }}>
+            <Printer size={15} /> Print
+          </button>
+        </div>
       </div>
+
+      {/* ─── Confirm Dialog ─────────────────────────────────────────── */}
+      {confirmDialog && (
+        <div style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}
+          onClick={() => setConfirmDialog(null)}>
+          <div style={{ backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 340, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ fontSize: 15, fontWeight: 600, color: COLORS.textMain, marginBottom: 16 }}>{confirmDialog.message}</div>
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button onClick={() => setConfirmDialog(null)} style={{ padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }}>Cancel</button>
+              <button onClick={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }} style={{ padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.expense, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Subscribe Modal ───────────────────────────────────────── */}
+      {showSubscribeModal && (
+        <div style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}
+          onClick={() => { setShowSubscribeModal(false); setSubscribeEmail(""); setSubscribeStatus("idle"); setSubscribeMessage(""); }}>
+          <div style={{ backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }}>Subscribe to Updates</h3>
+              <button onClick={() => { setShowSubscribeModal(false); setSubscribeEmail(""); setSubscribeStatus("idle"); setSubscribeMessage(""); }} style={{ padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }}><X size={18} /></button>
+            </div>
+            <p style={{ fontSize: 13, color: COLORS.textSecondary, margin: "0 0 12px" }}>Get notified about new features and updates.</p>
+            {subscribeStatus === "success" ? (
+              <div style={{ padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }}>
+                {subscribeMessage || "Subscribed!"}
+              </div>
+            ) : (
+              <>
+                <input value={subscribeEmail} onChange={e => setSubscribeEmail(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter") handleSubscribe(); }}
+                  placeholder="your@email.com" autoFocus
+                  style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8 }} />
+                {subscribeMessage && subscribeStatus === "error" && (
+                  <div style={{ fontSize: 12, color: COLORS.expense, marginBottom: 8 }}>{subscribeMessage}</div>
+                )}
+                <button onClick={handleSubscribe} disabled={subscribeStatus === "loading"} style={{
+                  width: "100%", padding: "10px 16px", borderRadius: 8, border: "none",
+                  backgroundColor: COLORS.primary, color: "white", fontSize: 14, fontWeight: 600,
+                  cursor: subscribeStatus === "loading" ? "default" : "pointer",
+                  opacity: subscribeStatus === "loading" ? 0.7 : 1,
+                }}>
+                  {subscribeStatus === "loading" ? "Subscribing..." : "Subscribe"}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Feedback Modal ────────────────────────────────────────── */}
+      {showFeedbackModal && (
+        <div style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}
+          onClick={() => { setShowFeedbackModal(false); setFeedbackText(""); setFeedbackStatus("idle"); }}>
+          <div style={{ backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }}>Send Feedback</h3>
+              <button onClick={() => { setShowFeedbackModal(false); setFeedbackText(""); setFeedbackStatus("idle"); }} style={{ padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }}><X size={18} /></button>
+            </div>
+            {feedbackStatus === "success" ? (
+              <div style={{ padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }}>
+                Thank you for your feedback!
+              </div>
+            ) : (
+              <>
+                <textarea value={feedbackText} onChange={e => setFeedbackText(e.target.value)}
+                  placeholder="What can we improve? Bug reports, feature requests, anything..."
+                  autoFocus rows={4}
+                  style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }} />
+                {feedbackStatus === "error" && (
+                  <div style={{ fontSize: 12, color: COLORS.expense, marginBottom: 8 }}>Failed to send. Please try again.</div>
+                )}
+                <button onClick={handleFeedbackSubmit} disabled={feedbackStatus === "submitting" || !feedbackText.trim()} style={{
+                  width: "100%", padding: "10px 16px", borderRadius: 8, border: "none",
+                  backgroundColor: COLORS.primary, color: "white", fontSize: 14, fontWeight: 600,
+                  cursor: feedbackStatus === "submitting" || !feedbackText.trim() ? "default" : "pointer",
+                  opacity: feedbackStatus === "submitting" || !feedbackText.trim() ? 0.7 : 1,
+                }}>
+                  {feedbackStatus === "submitting" ? "Sending..." : "Submit Feedback"}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
