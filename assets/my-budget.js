@@ -50163,28 +50163,46 @@ function MyBudget({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 0", borderTop: `1px solid ${COLORS.borderLight}` }, className: "no-print", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }, children: "Related Apps" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 10, flexWrap: "wrap" }, children: [
-          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 16 }), label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
-          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 16 }), label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
-          { icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartColumn, { size: 16 }), label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" }
-        ].map((app, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => trackEvent("related_app_click", { app: app.label }), style: {
-          flex: "1 1 0",
-          minWidth: 160,
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          padding: "12px 14px",
-          borderRadius: 12,
-          border: `1px solid ${COLORS.border}`,
-          backgroundColor: COLORS.card,
-          cursor: "pointer",
-          textAlign: "left"
-        }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 36, height: 36, borderRadius: 10, backgroundColor: `${COLORS.primary}15`, display: "flex", alignItems: "center", justifyContent: "center", color: COLORS.primary, flexShrink: 0 }, children: app.icon }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.textMain }, children: app.label }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textSecondary, marginTop: 2 }, children: app.desc })
-          ] })
-        ] }, i)) })
+          { emoji: "\u2702\uFE0F", accent: "#EF4444", accentBg: "#FEF2F2", label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
+          { emoji: "\u{1F3D6}\uFE0F", accent: "#F59E0B", accentBg: "#FFFBEB", label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
+          { emoji: "\u{1F4CA}", accent: "#6366F1", accentBg: "#EEF2FF", label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" }
+        ].map((app, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "button",
+          {
+            onClick: () => trackEvent("related_app_click", { app: app.label }),
+            style: {
+              flex: "1 1 0",
+              minWidth: 140,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              padding: "16px 12px",
+              borderRadius: 14,
+              border: `1px solid ${app.accent}20`,
+              backgroundColor: app.accentBg,
+              cursor: "pointer",
+              textAlign: "center",
+              transition: "transform 0.15s, box-shadow 0.15s"
+            },
+            onMouseEnter: (e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = `0 4px 12px ${app.accent}20`;
+            },
+            onMouseLeave: (e) => {
+              e.currentTarget.style.transform = "";
+              e.currentTarget.style.boxShadow = "";
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${app.accent}20, ${app.accent}08)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }, children: app.emoji }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.textMain }, children: app.label }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textSecondary, marginTop: 2 }, children: app.desc })
+              ] })
+            ]
+          },
+          i
+        )) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
         marginTop: 16,

@@ -1461,18 +1461,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }}>Related Apps</div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {[
-              { icon: <X size={16} />, label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
-              { icon: <TrendingUp size={16} />, label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
-              { icon: <BarChart3 size={16} />, label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" },
+              { emoji: "✂️", accent: "#EF4444", accentBg: "#FEF2F2", label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
+              { emoji: "🏖️", accent: "#F59E0B", accentBg: "#FFFBEB", label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
+              { emoji: "📊", accent: "#6366F1", accentBg: "#EEF2FF", label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" },
             ].map((app, i) => (
               <button key={i} onClick={() => trackEvent("related_app_click", { app: app.label })} style={{
-                flex: "1 1 0", minWidth: 160, display: "flex", alignItems: "center", gap: 10,
-                padding: "12px 14px", borderRadius: 12,
-                border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card,
-                cursor: "pointer", textAlign: "left",
-              }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: `${COLORS.primary}15`, display: "flex", alignItems: "center", justifyContent: "center", color: COLORS.primary, flexShrink: 0 }}>
-                  {app.icon}
+                flex: "1 1 0", minWidth: 140, display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+                padding: "16px 12px", borderRadius: 14,
+                border: `1px solid ${app.accent}20`, backgroundColor: app.accentBg,
+                cursor: "pointer", textAlign: "center",
+                transition: "transform 0.15s, box-shadow 0.15s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 12px ${app.accent}20`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${app.accent}20, ${app.accent}08)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>
+                  {app.emoji}
                 </div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.textMain }}>{app.label}</div>
