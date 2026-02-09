@@ -1038,6 +1038,9 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const [feedbackStatus, setFeedbackStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
   const [enjoyVote, setEnjoyVote] = useState<"up" | "down" | null>(null);
+  const [showNameBudgetModal, setShowNameBudgetModal] = useState(false);
+  const [nameBudgetValue, setNameBudgetValue] = useState("");
+  const [saveToast, setSaveToast] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [pillRight, setPillRight] = useState(16);
 
@@ -1159,6 +1162,37 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
       [section]: b[section].filter(item => item.id !== id),
       updatedAt: Date.now(),
     }));
+  };
+
+  const doSaveBudget = (budgetToSave: Budget) => {
+    const updatedBudget = { ...budgetToSave, updatedAt: Date.now() };
+    const existing = loadBudgets();
+    const idx = existing.findIndex(b => b.id === updatedBudget.id);
+    const isNew = idx < 0;
+    if (idx >= 0) {
+      existing[idx] = updatedBudget;
+    } else {
+      existing.push(updatedBudget);
+    }
+    saveBudgets(existing);
+    setSavedBudgets(existing);
+    setBudget(updatedBudget);
+    trackEvent("save_budget", { budgetName: updatedBudget.name, isNew });
+    // Show toast
+    setSaveToast(true);
+    setTimeout(() => setSaveToast(false), 1500);
+  };
+
+  const handleSaveBudget = () => {
+    const isFirstSave = !savedBudgets.some(b => b.id === budget.id);
+    if (isFirstSave) {
+      // First save — prompt to name the budget
+      const suggested = budget.name !== "My Budget" ? budget.name : "";
+      setNameBudgetValue(suggested);
+      setShowNameBudgetModal(true);
+    } else {
+      doSaveBudget(budget);
+    }
   };
 
   const saveBudgetToList = () => {
@@ -1328,13 +1362,16 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     );
   }
 
+  // Check if budget has content worth saving
+  const hasBudgetContent = budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.nonLiquidAssets.length > 0 || budget.retirement.length > 0 || budget.liabilities.length > 0;
+
   // Check if there are any crypto items
   const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some(i => i.assetType === "crypto" && i.ticker);
 
   // Budget editor view
   return (
     <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16, overflow: "hidden" }}>
-      <style>{`@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+      <style>{`@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }`}</style>
       {/* Header */}
       <div style={{ backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -1365,7 +1402,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
               </button>
             )}
             <button onClick={handleBackToHome} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Home size={16} /></button>
-            <button onClick={() => { trackEvent("save_budget", { budgetName: budget.name || null }); saveBudgetToList(); }} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>
+            {hasBudgetContent && <button onClick={handleSaveBudget} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>}
             <button onClick={handlePrint} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Printer size={16} /></button>
             <button onClick={handleNewBudget} style={{ padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><Plus size={14} /> New</button>
           </div>
@@ -1621,6 +1658,47 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
               </>
             )}
           </div>
+        </div>
+      )}
+
+      {/* ─── Name Budget Modal (first save) ─────────────────────────── */}
+      {showNameBudgetModal && (
+        <div style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}
+          onClick={() => setShowNameBudgetModal(false)}>
+          <div style={{ backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }}>Name Your Budget</h3>
+              <button onClick={() => setShowNameBudgetModal(false)} style={{ padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }}><X size={18} /></button>
+            </div>
+            <input value={nameBudgetValue} onChange={e => setNameBudgetValue(e.target.value)}
+              onKeyDown={e => { if (e.key === "Enter" && nameBudgetValue.trim()) { const named = { ...budget, name: nameBudgetValue.trim() }; setBudget(named); setNameInput(nameBudgetValue.trim()); doSaveBudget(named); setShowNameBudgetModal(false); } }}
+              placeholder="e.g. Monthly Budget, Household, Side Hustle" autoFocus
+              style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }} />
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button onClick={() => setShowNameBudgetModal(false)} style={{ padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }}>Cancel</button>
+              <button onClick={() => {
+                const name = nameBudgetValue.trim() || "My Budget";
+                const named = { ...budget, name };
+                setBudget(named);
+                setNameInput(name);
+                doSaveBudget(named);
+                setShowNameBudgetModal(false);
+              }} style={{ padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Save</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Save Toast ────────────────────────────────────────────── */}
+      {saveToast && (
+        <div style={{
+          position: "fixed", top: 20, left: "50%", transform: "translateX(-50%)", zIndex: 1100,
+          backgroundColor: COLORS.primary, color: "white", padding: "10px 20px", borderRadius: 12,
+          fontSize: 13, fontWeight: 600, boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+          display: "flex", alignItems: "center", gap: 8, animation: "fadeInOut 1.5s ease",
+        }}>
+          <Check size={16} /> Budget saved!
         </div>
       )}
 

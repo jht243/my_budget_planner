@@ -49649,6 +49649,9 @@ function MyBudget({ initialData: initialData2 }) {
   const [feedbackStatus, setFeedbackStatus] = (0, import_react51.useState)("idle");
   const [confirmDialog, setConfirmDialog] = (0, import_react51.useState)(null);
   const [enjoyVote, setEnjoyVote] = (0, import_react51.useState)(null);
+  const [showNameBudgetModal, setShowNameBudgetModal] = (0, import_react51.useState)(false);
+  const [nameBudgetValue, setNameBudgetValue] = (0, import_react51.useState)("");
+  const [saveToast, setSaveToast] = (0, import_react51.useState)(false);
   const containerRef = (0, import_react51.useRef)(null);
   const [pillRight, setPillRight] = (0, import_react51.useState)(16);
   (0, import_react51.useEffect)(() => {
@@ -49759,6 +49762,33 @@ function MyBudget({ initialData: initialData2 }) {
       [section]: b[section].filter((item) => item.id !== id),
       updatedAt: Date.now()
     }));
+  };
+  const doSaveBudget = (budgetToSave) => {
+    const updatedBudget = { ...budgetToSave, updatedAt: Date.now() };
+    const existing = loadBudgets();
+    const idx = existing.findIndex((b) => b.id === updatedBudget.id);
+    const isNew = idx < 0;
+    if (idx >= 0) {
+      existing[idx] = updatedBudget;
+    } else {
+      existing.push(updatedBudget);
+    }
+    saveBudgets(existing);
+    setSavedBudgets(existing);
+    setBudget(updatedBudget);
+    trackEvent("save_budget", { budgetName: updatedBudget.name, isNew });
+    setSaveToast(true);
+    setTimeout(() => setSaveToast(false), 1500);
+  };
+  const handleSaveBudget = () => {
+    const isFirstSave = !savedBudgets.some((b) => b.id === budget.id);
+    if (isFirstSave) {
+      const suggested = budget.name !== "My Budget" ? budget.name : "";
+      setNameBudgetValue(suggested);
+      setShowNameBudgetModal(true);
+    } else {
+      doSaveBudget(budget);
+    }
   };
   const saveBudgetToList = () => {
     const existing = loadBudgets();
@@ -49948,9 +49978,10 @@ function MyBudget({ initialData: initialData2 }) {
       ] })
     ] });
   }
+  const hasBudgetContent = budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.nonLiquidAssets.length > 0 || budget.retirement.length > 0 || budget.liabilities.length > 0;
   const hasCrypto = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => i.assetType === "crypto" && i.ticker);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16, overflow: "hidden" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }` }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }` }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
@@ -49998,10 +50029,7 @@ function MyBudget({ initialData: initialData2 }) {
             refreshing ? "Updating..." : "Refresh \u20BF"
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 16 }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
-            trackEvent("save_budget", { budgetName: budget.name || null });
-            saveBudgetToList();
-          }, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { size: 16 }) }),
+          hasBudgetContent && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleSaveBudget, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handlePrint, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: { padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
@@ -50440,6 +50468,77 @@ function MyBudget({ initialData: initialData2 }) {
         )
       }
     ),
+    showNameBudgetModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "div",
+      {
+        style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
+        onClick: () => setShowNameBudgetModal(false),
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          "div",
+          {
+            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            onClick: (e) => e.stopPropagation(),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Name Your Budget" }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                "input",
+                {
+                  value: nameBudgetValue,
+                  onChange: (e) => setNameBudgetValue(e.target.value),
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" && nameBudgetValue.trim()) {
+                      const named2 = { ...budget, name: nameBudgetValue.trim() };
+                      setBudget(named2);
+                      setNameInput(nameBudgetValue.trim());
+                      doSaveBudget(named2);
+                      setShowNameBudgetModal(false);
+                    }
+                  },
+                  placeholder: "e.g. Monthly Budget, Household, Side Hustle",
+                  autoFocus: true,
+                  style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }, children: "Cancel" }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+                  const name = nameBudgetValue.trim() || "My Budget";
+                  const named2 = { ...budget, name };
+                  setBudget(named2);
+                  setNameInput(name);
+                  doSaveBudget(named2);
+                  setShowNameBudgetModal(false);
+                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Save" })
+              ] })
+            ]
+          }
+        )
+      }
+    ),
+    saveToast && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      position: "fixed",
+      top: 20,
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 1100,
+      backgroundColor: COLORS.primary,
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: 12,
+      fontSize: 13,
+      fontWeight: 600,
+      boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      animation: "fadeInOut 1.5s ease"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 16 }),
+      " Budget saved!"
+    ] }),
     !enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "fixed", bottom: 20, right: pillRight, zIndex: 900, pointerEvents: "none" }, className: "no-print", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
       pointerEvents: "auto",
       backgroundColor: COLORS.card,
