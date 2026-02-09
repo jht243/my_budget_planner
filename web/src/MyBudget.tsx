@@ -1081,6 +1081,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
   // Refresh all crypto prices
   const refreshPrices = useCallback(async () => {
+    trackEvent("refresh_crypto", { budgetName: budget.name || null });
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter(i => i.assetType === "crypto" && i.ticker);
     if (cryptoItems.length === 0) return;
@@ -1125,6 +1126,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const addItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, freq: Frequency = "monthly") => {
+    trackEvent("add_item", { section, frequency: freq, budgetName: budget.name || null });
     setBudget(b => ({
       ...b,
       [section]: [...b[section], emptyItem(freq)],
@@ -1133,6 +1135,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const addPresetItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, name: string, freq: Frequency = "monthly") => {
+    trackEvent("add_preset_item", { section, presetName: name, frequency: freq });
     setBudget(b => ({
       ...b,
       [section]: [...b[section], { ...emptyItem(freq), name }],
@@ -1150,6 +1153,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const deleteItem = (section: keyof Pick<Budget, "income" | "expenses" | "assets" | "nonLiquidAssets" | "retirement" | "liabilities">, id: string) => {
+    trackEvent("delete_item", { section, budgetName: budget.name || null });
     setBudget(b => ({
       ...b,
       [section]: b[section].filter(item => item.id !== id),
@@ -1170,6 +1174,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const handleNewBudget = () => {
+    trackEvent("new_budget");
     if (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0) {
       saveBudgetToList();
     }
@@ -1180,6 +1185,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const handleOpenBudget = (b: Budget) => {
+    trackEvent("open_budget", { budgetName: b.name || null });
     if (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0) {
       saveBudgetToList();
     }
@@ -1190,6 +1196,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const handleDeleteBudget = (id: string) => {
+    trackEvent("delete_budget", { budgetId: id });
     const updated = savedBudgets.filter(b => b.id !== id);
     saveBudgets(updated);
     setSavedBudgets(updated);
@@ -1256,6 +1263,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   };
 
   const handleBackToHome = () => {
+    trackEvent("back_to_home");
     saveBudgetToList();
     setCurrentView("home");
   };
@@ -1357,7 +1365,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
               </button>
             )}
             <button onClick={handleBackToHome} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Home size={16} /></button>
-            <button onClick={() => { saveBudgetToList(); }} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>
+            <button onClick={() => { trackEvent("save_budget", { budgetName: budget.name || null }); saveBudgetToList(); }} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Save size={16} /></button>
             <button onClick={handlePrint} style={{ padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }}><Printer size={16} /></button>
             <button onClick={handleNewBudget} style={{ padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><Plus size={14} /> New</button>
           </div>

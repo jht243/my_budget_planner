@@ -49690,6 +49690,7 @@ function MyBudget({ initialData: initialData2 }) {
     setShowFeedbackModal(true);
   };
   const refreshPrices = (0, import_react51.useCallback)(async () => {
+    trackEvent("refresh_crypto", { budgetName: budget.name || null });
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter((i) => i.assetType === "crypto" && i.ticker);
     if (cryptoItems.length === 0) return;
@@ -49728,6 +49729,7 @@ function MyBudget({ initialData: initialData2 }) {
     }));
   };
   const addItem = (section, freq = "monthly") => {
+    trackEvent("add_item", { section, frequency: freq, budgetName: budget.name || null });
     setBudget((b) => ({
       ...b,
       [section]: [...b[section], emptyItem(freq)],
@@ -49735,6 +49737,7 @@ function MyBudget({ initialData: initialData2 }) {
     }));
   };
   const addPresetItem = (section, name, freq = "monthly") => {
+    trackEvent("add_preset_item", { section, presetName: name, frequency: freq });
     setBudget((b) => ({
       ...b,
       [section]: [...b[section], { ...emptyItem(freq), name }],
@@ -49750,6 +49753,7 @@ function MyBudget({ initialData: initialData2 }) {
     });
   };
   const deleteItem = (section, id) => {
+    trackEvent("delete_item", { section, budgetName: budget.name || null });
     setBudget((b) => ({
       ...b,
       [section]: b[section].filter((item) => item.id !== id),
@@ -49768,6 +49772,7 @@ function MyBudget({ initialData: initialData2 }) {
     setSavedBudgets(existing);
   };
   const handleNewBudget = () => {
+    trackEvent("new_budget");
     if (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0) {
       saveBudgetToList();
     }
@@ -49777,6 +49782,7 @@ function MyBudget({ initialData: initialData2 }) {
     setCurrentView("budget");
   };
   const handleOpenBudget = (b) => {
+    trackEvent("open_budget", { budgetName: b.name || null });
     if (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0) {
       saveBudgetToList();
     }
@@ -49786,6 +49792,7 @@ function MyBudget({ initialData: initialData2 }) {
     setCurrentView("budget");
   };
   const handleDeleteBudget = (id) => {
+    trackEvent("delete_budget", { budgetId: id });
     const updated = savedBudgets.filter((b) => b.id !== id);
     saveBudgets(updated);
     setSavedBudgets(updated);
@@ -49857,6 +49864,7 @@ function MyBudget({ initialData: initialData2 }) {
     }
   };
   const handleBackToHome = () => {
+    trackEvent("back_to_home");
     saveBudgetToList();
     setCurrentView("home");
   };
@@ -49991,6 +49999,7 @@ function MyBudget({ initialData: initialData2 }) {
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+            trackEvent("save_budget", { budgetName: budget.name || null });
             saveBudgetToList();
           }, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { size: 16 }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handlePrint, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 16 }) }),

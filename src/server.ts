@@ -737,14 +737,19 @@ function humanizeEventName(event: string): string {
     tool_call_error: "Tool Call (Error)",
     tool_call_empty: "Tool Call (Empty)",
     parameter_parse_error: "Parameter Parse Error",
-    // In-app budget actions
-    widget_save_budget: "Save Budget",
-    widget_open_budget: "Open Budget",
+    // Budget management
     widget_new_budget: "New Budget",
+    widget_open_budget: "Open Budget",
+    widget_save_budget: "Save Budget",
     widget_delete_budget: "Delete Budget",
-    widget_duplicate_budget: "Duplicate Budget",
     widget_reset: "Reset Budget",
     widget_back_to_home: "Back to Home",
+    // Item management
+    widget_add_item: "Add Item",
+    widget_add_preset_item: "Add Preset Item",
+    widget_delete_item: "Delete Item",
+    // Crypto
+    widget_refresh_crypto: "Refresh Crypto Prices",
     // Footer buttons
     widget_subscribe_click: "Subscribe (Click)",
     widget_donate_click: "Donate (Click)",
@@ -937,9 +942,21 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
   // --- In-app analytics (from widget events) ---
   // Budget management actions
   const budgetActions: Record<string, number> = {};
-  const budgetActionEvents = ["widget_save_budget", "widget_open_budget", "widget_new_budget", "widget_delete_budget", "widget_duplicate_budget", "widget_reset", "widget_back_to_home"];
+  const budgetActionEvents = ["widget_new_budget", "widget_open_budget", "widget_save_budget", "widget_delete_budget", "widget_reset", "widget_back_to_home"];
   budgetActionEvents.forEach(e => { budgetActions[humanizeEventName(e)] = 0; });
   
+  // Item management actions
+  const itemActions: Record<string, number> = {};
+  const itemActionEvents = ["widget_add_item", "widget_add_preset_item", "widget_delete_item"];
+  itemActionEvents.forEach(e => { itemActions[humanizeEventName(e)] = 0; });
+
+  // Items added by section (income, expenses, assets, etc.)
+  const addsBySection: Record<string, number> = {};
+  const deletesBySection: Record<string, number> = {};
+  
+  // Preset items used
+  const presetUsage: Record<string, number> = {};
+
   // Footer button clicks
   const footerClicks: Record<string, number> = {};
   const footerEvents = ["widget_subscribe_click", "widget_donate_click", "widget_feedback_click", "widget_print_click"];
@@ -954,6 +971,9 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
 
   // Feedback with votes
   const feedbackLogs: AnalyticsEvent[] = [];
+  
+  // Crypto refresh count
+  let cryptoRefreshCount = 0;
 
   // All widget interactions (catch-all)
   const allWidgetCounts: Record<string, number> = {};
@@ -965,6 +985,23 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     // Budget management
     if (budgetActionEvents.includes(log.event)) {
       budgetActions[humanName] = (budgetActions[humanName] || 0) + 1;
+    }
+    // Item management
+    if (itemActionEvents.includes(log.event)) {
+      itemActions[humanName] = (itemActions[humanName] || 0) + 1;
+    }
+    // Track adds/deletes by section
+    if (log.event === "widget_add_item" || log.event === "widget_add_preset_item") {
+      const section = log.section || "unknown";
+      addsBySection[section] = (addsBySection[section] || 0) + 1;
+    }
+    if (log.event === "widget_delete_item") {
+      const section = log.section || "unknown";
+      deletesBySection[section] = (deletesBySection[section] || 0) + 1;
+    }
+    // Preset usage
+    if (log.event === "widget_add_preset_item" && log.presetName) {
+      presetUsage[log.presetName] = (presetUsage[log.presetName] || 0) + 1;
     }
     // Footer
     if (footerEvents.includes(log.event)) {
@@ -983,6 +1020,10 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     // Feedback
     if (log.event === "widget_user_feedback") {
       feedbackLogs.push(log);
+    }
+    // Crypto
+    if (log.event === "widget_refresh_crypto") {
+      cryptoRefreshCount++;
     }
   });
 
@@ -1162,15 +1203,51 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="section-title">🖱️ In-App Actions (After Tool Call)</div>
     <div class="grid-3">
       <div class="card">
-        <h2>Budget Management</h2>
+        <h2>📂 Budget Management</h2>
         ${renderTable(
           ["Action", "Count"],
-          Object.entries(budgetActions).filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
-          "No in-app actions yet"
+          Object.entries(budgetActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+          "No actions yet"
         )}
       </div>
       <div class="card">
-        <h2>Footer Buttons</h2>
+        <h2>📝 Item Actions</h2>
+        ${renderTable(
+          ["Action", "Count"],
+          Object.entries(itemActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+          "No item actions yet"
+        )}
+        ${cryptoRefreshCount > 0 ? `<div style="margin-top:8px;padding:8px 10px;background:#f0fdf4;border-radius:8px;font-size:12px;">🪙 Crypto refreshes: <strong>${cryptoRefreshCount}</strong></div>` : ""}
+      </div>
+      <div class="card">
+        <h2>📊 Items Added by Section</h2>
+        ${(() => {
+          const sections = [...new Set([...Object.keys(addsBySection), ...Object.keys(deletesBySection)])];
+          const sectionIcon = (s: string) => s === "income" ? "💰" : s === "expenses" ? "💸" : s === "assets" ? "🏦" : s === "nonLiquidAssets" ? "🏠" : s === "retirement" ? "🏛️" : s === "liabilities" ? "⚠️" : "📌";
+          const rows = sections.sort((a, b) => (addsBySection[b] || 0) - (addsBySection[a] || 0)).map(s => {
+            const added = addsBySection[s] || 0;
+            const deleted = deletesBySection[s] || 0;
+            const net = added - deleted;
+            const color = net >= 0 ? "#16a34a" : "#dc2626";
+            const sign = net >= 0 ? "+" : "";
+            return [sectionIcon(s) + " " + s, String(added), String(deleted), '<span style="color:' + color + ';font-weight:600;">' + sign + net + '</span>'];
+          });
+          return renderTable(["Section", "Added", "Deleted", "Net"], rows, "No items added yet");
+        })()}
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h2>⭐ Top Preset Items</h2>
+        ${renderTable(
+          ["Preset", "Times Used"],
+          Object.entries(presetUsage).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([p, c]) => [p, String(c)]),
+          "No presets used yet"
+        )}
+      </div>
+      <div class="card">
+        <h2>🔗 Footer Buttons</h2>
         ${renderTable(
           ["Button", "Clicks"],
           Object.entries(footerClicks).sort((a, b) => b[1] - a[1]).map(([b, c]) => [b, String(c)]),
@@ -1178,7 +1255,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
         )}
       </div>
       <div class="card">
-        <h2>Related App Clicks</h2>
+        <h2>🔗 Related App Clicks</h2>
         ${renderTable(
           ["App", "Clicks"],
           Object.entries(relatedAppClicks).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
