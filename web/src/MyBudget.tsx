@@ -6,6 +6,9 @@ import {
   Wallet, BarChart3, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
   Mail, Heart, MessageSquare, ThumbsUp, ThumbsDown
 } from "lucide-react";
+import {
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+} from "recharts";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
 
@@ -871,6 +874,129 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
           </div>
         </div>
       </div>
+
+      {/* ─── Runway Projection Chart ──────────────────────────────── */}
+      {(() => {
+        const projectionYears = 20;
+        const startBalance = liquidAfterLiabilities;
+        const startBalanceExt = liquidAfterLiabilities + nonLiquidAtDiscount;
+        const data: { year: number; liquid: number; extended: number }[] = [];
+
+        let balLiquid = startBalance;
+        let balExtended = startBalanceExt;
+
+        for (let yr = 0; yr <= projectionYears; yr++) {
+          data.push({
+            year: yr,
+            liquid: Math.round(balLiquid),
+            extended: nonLiquidAtDiscount > 0 ? Math.round(balExtended) : 0,
+          });
+          balLiquid += annualNet;
+          balExtended += annualNet;
+          // Stop tracking below a large negative floor to keep chart readable
+          if (balLiquid < -startBalance * 3 && balExtended < -startBalanceExt * 3) break;
+        }
+
+        // Find zero-crossing year for liquid
+        const liquidZeroYear = data.find(d => d.liquid <= 0)?.year;
+        const extZeroYear = data.find(d => d.extended <= 0)?.year;
+
+        const maxVal = Math.max(...data.map(d => Math.max(d.liquid, d.extended)));
+        const minVal = Math.min(...data.map(d => Math.min(d.liquid, d.extended)));
+
+        const formatYAxis = (val: number) => {
+          if (Math.abs(val) >= 1000000) return `$${(val / 1000000).toFixed(1)}M`;
+          if (Math.abs(val) >= 1000) return `$${(val / 1000).toFixed(0)}K`;
+          return `$${val}`;
+        };
+
+        return (
+          <div style={{
+            backgroundColor: COLORS.card, borderRadius: 12, padding: "16px",
+            border: `1px solid ${COLORS.border}`, marginBottom: 12,
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }}>
+              {monthlyBurn > 0 ? "Runway Projection" : "Wealth Projection"} — {projectionYears} Years
+            </div>
+            <div style={{ height: 240, width: "100%", fontSize: 11 }}>
+              <ResponsiveContainer>
+                <AreaChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="gradLiquid" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={monthlyBurn > 0 ? COLORS.expense : COLORS.income} stopOpacity={0.15} />
+                      <stop offset="95%" stopColor={monthlyBurn > 0 ? COLORS.expense : COLORS.income} stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="gradExtended" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={COLORS.nonLiquid} stopOpacity={0.1} />
+                      <stop offset="95%" stopColor={COLORS.nonLiquid} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={COLORS.borderLight} />
+                  <XAxis
+                    dataKey="year"
+                    tick={{ fill: COLORS.textSecondary, fontSize: 11 }}
+                    tickLine={false}
+                    axisLine={{ stroke: COLORS.border }}
+                    tickFormatter={(v) => `Yr ${v}`}
+                  />
+                  <YAxis
+                    tick={{ fill: COLORS.textSecondary, fontSize: 11 }}
+                    tickFormatter={formatYAxis}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        const liq = payload.find(p => p.dataKey === "liquid")?.value as number;
+                        const ext = payload.find(p => p.dataKey === "extended")?.value as number;
+                        return (
+                          <div style={{ backgroundColor: "white", padding: 12, borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: `1px solid ${COLORS.border}`, fontSize: 12 }}>
+                            <div style={{ fontWeight: 700, marginBottom: 6, color: COLORS.textMain }}>Year {label}</div>
+                            <div style={{ display: "flex", justifyContent: "space-between", gap: 16, marginBottom: 3 }}>
+                              <span style={{ color: monthlyBurn > 0 ? COLORS.expense : COLORS.income, fontWeight: 600 }}>Liquid</span>
+                              <span style={{ fontWeight: 700, color: liq >= 0 ? COLORS.positive : COLORS.negative }}>{fmt(liq)}</span>
+                            </div>
+                            {nonLiquidAtDiscount > 0 && (
+                              <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
+                                <span style={{ color: COLORS.nonLiquid, fontWeight: 600 }}>+ Non-liquid</span>
+                                <span style={{ fontWeight: 700, color: ext >= 0 ? COLORS.positive : COLORS.negative }}>{fmt(ext)}</span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  {nonLiquidAtDiscount > 0 && (
+                    <Area type="monotone" dataKey="extended" stroke={COLORS.nonLiquid} fill="url(#gradExtended)" strokeWidth={2} strokeDasharray="5 5" name="Extended" />
+                  )}
+                  <Area type="monotone" dataKey="liquid" stroke={monthlyBurn > 0 ? COLORS.expense : COLORS.income} fill="url(#gradLiquid)" strokeWidth={2} name="Liquid" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 8, fontSize: 11 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <div style={{ width: 16, height: 3, backgroundColor: monthlyBurn > 0 ? COLORS.expense : COLORS.income, borderRadius: 2 }} />
+                <span style={{ color: COLORS.textSecondary }}>Liquid assets</span>
+              </div>
+              {nonLiquidAtDiscount > 0 && (
+                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <div style={{ width: 16, height: 3, backgroundColor: COLORS.nonLiquid, borderRadius: 2, borderTop: "1px dashed" }} />
+                  <span style={{ color: COLORS.textSecondary }}>+ Non-liquid sold</span>
+                </div>
+              )}
+            </div>
+            {monthlyBurn > 0 && (liquidZeroYear || extZeroYear) && (
+              <div style={{ marginTop: 8, padding: "8px 12px", borderRadius: 8, backgroundColor: `${COLORS.expense}08`, fontSize: 11, color: COLORS.textSecondary }}>
+                {liquidZeroYear && <div>Liquid assets depleted at <strong style={{ color: COLORS.expense }}>year {liquidZeroYear}</strong></div>}
+                {extZeroYear && nonLiquidAtDiscount > 0 && <div>All assets depleted at <strong style={{ color: COLORS.nonLiquid }}>year {extZeroYear}</strong></div>}
+              </div>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 };
