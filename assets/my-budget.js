@@ -25176,29 +25176,23 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
     paddingRight: 24
   };
   const freqLabel = (f) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
-  const handleCoinSelect = (coin) => {
+  const handleCoinSelect = async (coin) => {
     setDraft((d) => ({ ...d, name: coin.name, assetType: "crypto", ticker: coin.id }));
+    try {
+      const prices = await fetchCryptoPrices([coin.id]);
+      if (prices[coin.id]) {
+        setDraft((d) => {
+          const price = prices[coin.id];
+          const newAmount = d.quantity ? Math.round(price * d.quantity * 100) / 100 : d.amount;
+          return { ...d, livePrice: price, amount: newAmount };
+        });
+      }
+    } catch {
+    }
   };
   if (editing) {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }, children: [
       inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "button",
-          {
-            onClick: () => setDraft((d) => ({ ...d, assetType: void 0, ticker: void 0, livePrice: void 0 })),
-            style: {
-              padding: "4px 10px",
-              borderRadius: 6,
-              border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
-              backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
-              color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
-              fontSize: 11,
-              fontWeight: 600,
-              cursor: "pointer"
-            },
-            children: "Manual"
-          }
-        ),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {
@@ -25214,6 +25208,23 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
               cursor: "pointer"
             },
             children: "\u20BF Crypto"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setDraft((d) => ({ ...d, assetType: void 0, ticker: void 0, livePrice: void 0 })),
+            style: {
+              padding: "4px 10px",
+              borderRadius: 6,
+              border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
+              backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
+              color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: "pointer"
+            },
+            children: "Manual"
           }
         )
       ] }),
@@ -25234,28 +25245,25 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color }) => {
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setDraft((d) => ({ ...d, ticker: void 0, name: "", livePrice: void 0 })), style: { marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 14 }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
-              const qty = parseFloat(e.target.value) || 0;
-              const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
-              setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
-            }, placeholder: "How many?", autoFocus: true })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Price/unit" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.livePrice || "", onChange: (e) => {
-              const price = parseFloat(e.target.value) || 0;
-              const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : draft.amount;
-              setDraft((d) => ({ ...d, livePrice: price || void 0, amount: newAmount }));
-            }, placeholder: "$0" })
-          ] })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+            const qty = parseFloat(e.target.value) || 0;
+            const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+            setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
+          }, placeholder: "How many?", autoFocus: true })
         ] }),
-        draft.quantity && draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }, children: [
-          "Total: ",
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color }, children: fmtExact(draft.livePrice * draft.quantity) })
-        ] }) : null
+        draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+            "Price: ",
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtExact(draft.livePrice) }),
+            "/unit"
+          ] }),
+          draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+            "Total: ",
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color }, children: fmtExact(draft.livePrice * draft.quantity) })
+          ] }) : null
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: "Fetching price..." })
       ] }),
       (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),

@@ -460,8 +460,19 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
 
   const freqLabel = (f: Frequency) => f === "monthly" ? "/mo" : f === "yearly" ? "/yr" : "";
 
-  const handleCoinSelect = (coin: CoinSearchResult) => {
+  const handleCoinSelect = async (coin: CoinSearchResult) => {
     setDraft(d => ({ ...d, name: coin.name, assetType: "crypto" as AssetType, ticker: coin.id }));
+    // Auto-fetch live price
+    try {
+      const prices = await fetchCryptoPrices([coin.id]);
+      if (prices[coin.id]) {
+        setDraft(d => {
+          const price = prices[coin.id];
+          const newAmount = d.quantity ? Math.round(price * d.quantity * 100) / 100 : d.amount;
+          return { ...d, livePrice: price, amount: newAmount };
+        });
+      }
+    } catch {}
   };
 
   if (editing) {
@@ -469,16 +480,16 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
       <div style={{ padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }}>
         {inputMode === "asset" && (
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-            <button onClick={() => setDraft(d => ({ ...d, assetType: undefined, ticker: undefined, livePrice: undefined }))}
-              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
-                backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
-                color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
-                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Manual</button>
             <button onClick={() => setDraft(d => ({ ...d, assetType: "crypto" as AssetType }))}
               style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
                 backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
                 color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
                 fontSize: 11, fontWeight: 600, cursor: "pointer" }}>₿ Crypto</button>
+            <button onClick={() => setDraft(d => ({ ...d, assetType: undefined, ticker: undefined, livePrice: undefined }))}
+              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
+                backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
+                color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
+                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Manual</button>
           </div>
         )}
 
@@ -496,29 +507,22 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
               <span style={{ fontSize: 11, color: COLORS.textMuted }}>({draft.ticker})</span>
               <button onClick={() => setDraft(d => ({ ...d, ticker: undefined, name: "", livePrice: undefined }))} style={{ marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }}><X size={14} /></button>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Quantity</label>
-                <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => {
-                  const qty = parseFloat(e.target.value) || 0;
-                  const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
-                  setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
-                }} placeholder="How many?" autoFocus />
-              </div>
-              <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Price/unit</label>
-                <input style={inputStyle} type="number" step="any" value={draft.livePrice || ""} onChange={e => {
-                  const price = parseFloat(e.target.value) || 0;
-                  const newAmount = draft.quantity ? Math.round(price * draft.quantity * 100) / 100 : draft.amount;
-                  setDraft(d => ({ ...d, livePrice: price || undefined, amount: newAmount }));
-                }} placeholder="$0" />
-              </div>
+            <div style={{ marginBottom: 4 }}>
+              <label style={{ fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }}>Quantity</label>
+              <input style={inputStyle} type="number" step="any" value={draft.quantity || ""} onChange={e => {
+                const qty = parseFloat(e.target.value) || 0;
+                const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
+                setDraft(d => ({ ...d, quantity: qty || undefined, amount: newAmount }));
+              }} placeholder="How many?" autoFocus />
             </div>
-            {draft.quantity && draft.livePrice ? (
-              <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4 }}>
-                Total: <strong style={{ color }}>{fmtExact(draft.livePrice * draft.quantity)}</strong>
+            {draft.livePrice ? (
+              <div style={{ fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }}>
+                <span>Price: <strong>{fmtExact(draft.livePrice)}</strong>/unit</span>
+                {draft.quantity ? <span>Total: <strong style={{ color }}>{fmtExact(draft.livePrice * draft.quantity)}</strong></span> : null}
               </div>
-            ) : null}
+            ) : (
+              <div style={{ fontSize: 11, color: COLORS.textMuted, marginTop: 4 }}>Fetching price...</div>
+            )}
           </div>
         )}
 
