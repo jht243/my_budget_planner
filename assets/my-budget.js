@@ -50286,7 +50286,7 @@ function MyBudget({ initialData: initialData2 }) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 28 }),
-          " The Net Worth & Budget Planner"
+          " The Personal Budget Planner"
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Aligned with the 50/30/20 framework recommended by the CFPB" })
       ] }),

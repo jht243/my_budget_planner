@@ -213,15 +213,15 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
   return {
     "openai/outputTemplate": templateUri,
     "openai/widgetDescription":
-      "The Net Worth & Budget Planner — a comprehensive personal finance tool aligned with the 50/30/20 budgeting framework recommended by the CFPB. Tracks income, expenses, liquid & non-liquid assets, retirement accounts, and liabilities to calculate your complete net worth. Call this tool immediately with NO arguments to let the user enter their budget details manually. Only provide arguments if the user has explicitly stated them.",
+      "The Personal Budget Planner — a comprehensive financial planning tool aligned with the 50/30/20 budgeting framework recommended by the CFPB. Helps users build a complete budget covering income, expenses, savings, assets, and debts. Call this tool immediately with NO arguments to let the user enter their budget details manually. Only provide arguments if the user has explicitly stated them.",
     "openai/componentDescriptions": {
       "budget-form": "Input form for building a personal budget with income, expenses, assets, retirement, and liabilities.",
-      "budget-display": "Comprehensive net worth dashboard showing all financial categories with real-time totals.",
-      "budget-checklist": "Financial health summary with net worth calculation and budget category breakdowns.",
+      "budget-display": "Comprehensive budget dashboard showing all financial categories with real-time totals.",
+      "budget-checklist": "Financial health summary with budget category breakdowns and savings analysis.",
     },
     "openai/widgetKeywords": [
-      "net worth calculator",
       "personal budget planner",
+      "financial planning tool",
       "budget tracker",
       "expense tracker",
       "income tracker",
@@ -234,9 +234,9 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
       "budget categories"
     ],
     "openai/sampleConversations": [
-      { "user": "Help me manage my budget", "assistant": "Here's The Net Worth & Budget Planner. Add your income, expenses, assets, and debts to get a complete picture of your finances." },
-      { "user": "I want to track my monthly expenses", "assistant": "I've opened The Net Worth & Budget Planner. Add your income and expense categories to build your 50/30/20 budget breakdown." },
-      { "user": "What is my net worth?", "assistant": "Here's The Net Worth & Budget Planner. Enter your assets, retirement accounts, and liabilities to calculate your complete net worth." },
+      { "user": "Help me manage my budget", "assistant": "Here's The Personal Budget Planner. Add your income, expenses, and savings goals to build your complete financial plan." },
+      { "user": "I want to track my monthly expenses", "assistant": "I've opened The Personal Budget Planner. Add your income and expense categories to build your 50/30/20 budget breakdown." },
+      { "user": "Help me plan my finances", "assistant": "Here's The Personal Budget Planner. Enter your income, expenses, assets, and debts to create a comprehensive financial plan." },
     ],
     "openai/starterPrompts": [
       "Help me create a monthly budget",
@@ -269,10 +269,10 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
 const widgets: MyBudgetWidget[] = [
   {
     id: "my-budget",
-    title: "The Net Worth & Budget Planner — Aligned with the 50/30/20 framework recommended by the CFPB",
+    title: "The Personal Budget Planner — Aligned with the 50/30/20 framework recommended by the CFPB",
     templateUri: `ui://widget/my-budget.html?v=${VERSION}`,
     invoking:
-      "Opening The Net Worth & Budget Planner...",
+      "Opening The Personal Budget Planner...",
     invoked:
       "",
     html: readWidgetHtml("my-budget"),
