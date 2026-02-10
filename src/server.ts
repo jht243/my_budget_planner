@@ -269,7 +269,7 @@ function widgetMeta(widget: MyBudgetWidget, bustCache: boolean = false) {
 const widgets: MyBudgetWidget[] = [
   {
     id: "my-budget",
-    title: "The Personal Budget Planner — Aligned with the 50/30/20 framework recommended by the CFPB",
+    title: "The Personal Budget Planner — Built on the 50/30/20 rule used by financial advisors",
     templateUri: `ui://widget/my-budget.html?v=${VERSION}`,
     invoking:
       "Opening The Personal Budget Planner...",

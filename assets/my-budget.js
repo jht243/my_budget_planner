@@ -50288,7 +50288,7 @@ function MyBudget({ initialData: initialData2 }) {
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 28 }),
           " The Personal Budget Planner"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Aligned with the 50/30/20 framework recommended by the CFPB" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 20 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: {
@@ -50417,7 +50417,7 @@ function MyBudget({ initialData: initialData2 }) {
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }, children: "Aligned with the 50/30/20 framework recommended by the CFPB" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" }),
         budget.lastPriceRefresh && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 10, opacity: 0.6 }, children: [
           "Prices: ",
           new Date(budget.lastPriceRefresh).toLocaleTimeString()

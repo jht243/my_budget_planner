@@ -1738,7 +1738,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
             <DollarSign size={28} /> The Personal Budget Planner
           </h1>
-          <p style={{ margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }}>Aligned with the 50/30/20 framework recommended by the CFPB</p>
+          <p style={{ margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }}>Built on the 50/30/20 rule used by financial advisors</p>
         </div>
         <div style={{ padding: 20 }}>
           <button onClick={handleNewBudget} style={{
@@ -1833,7 +1833,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <p style={{ margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }}>Aligned with the 50/30/20 framework recommended by the CFPB</p>
+          <p style={{ margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }}>Built on the 50/30/20 rule used by financial advisors</p>
           {budget.lastPriceRefresh && (
             <span style={{ fontSize: 10, opacity: 0.6 }}>Prices: {new Date(budget.lastPriceRefresh).toLocaleTimeString()}</span>
           )}
