@@ -92,7 +92,7 @@ const fmtPrice = (n: number) => n.toLocaleString("en-US", { style: "currency", c
 
 const emptyBudget = (): Budget => ({
   id: generateId(),
-  name: "My Budget",
+  name: "My Budget Plan",
   income: [],
   expenses: [],
   assets: [],
@@ -1613,7 +1613,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     const isFirstSave = !savedBudgets.some(b => b.id === budget.id);
     if (isFirstSave) {
       // First save — prompt to name the budget
-      const suggested = budget.name !== "My Budget" ? budget.name : "";
+      const suggested = budget.name !== "My Budget Plan" ? budget.name : "";
       setNameBudgetValue(suggested);
       setShowNameBudgetModal(true);
     } else {
@@ -1735,10 +1735,10 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     return (
       <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16 }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
-            <DollarSign size={28} /> My Budget
+          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
+            <DollarSign size={28} /> The Net Worth & Budget Planner
           </h1>
-          <p style={{ margin: "4px 0 0", fontSize: 14, opacity: 0.9 }}>Your saved budgets</p>
+          <p style={{ margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }}>Aligned with the 50/30/20 framework recommended by the CFPB</p>
         </div>
         <div style={{ padding: 20 }}>
           <button onClick={handleNewBudget} style={{
@@ -1833,7 +1833,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <p style={{ margin: 0, fontSize: 13, opacity: 0.8 }}>Track your income, expenses, assets & liabilities</p>
+          <p style={{ margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }}>Aligned with the 50/30/20 framework recommended by the CFPB</p>
           {budget.lastPriceRefresh && (
             <span style={{ fontSize: 10, opacity: 0.6 }}>Prices: {new Date(budget.lastPriceRefresh).toLocaleTimeString()}</span>
           )}

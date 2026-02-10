@@ -48633,7 +48633,7 @@ var fmtExact = (n) => n.toLocaleString("en-US", { style: "currency", currency: "
 var fmtPrice = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
 var emptyBudget = () => ({
   id: generateId(),
-  name: "My Budget",
+  name: "My Budget Plan",
   income: [],
   expenses: [],
   assets: [],
@@ -50163,7 +50163,7 @@ function MyBudget({ initialData: initialData2 }) {
   const handleSaveBudget = () => {
     const isFirstSave = !savedBudgets.some((b) => b.id === budget.id);
     if (isFirstSave) {
-      const suggested = budget.name !== "My Budget" ? budget.name : "";
+      const suggested = budget.name !== "My Budget Plan" ? budget.name : "";
       setNameBudgetValue(suggested);
       setShowNameBudgetModal(true);
     } else {
@@ -50284,11 +50284,11 @@ function MyBudget({ initialData: initialData2 }) {
   if (currentView === "home") {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16 }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 24, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 28 }),
-          " My Budget"
+          " The Net Worth & Budget Planner"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 14, opacity: 0.9 }, children: "Your saved budgets" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Aligned with the 50/30/20 framework recommended by the CFPB" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 20 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: {
@@ -50417,7 +50417,7 @@ function MyBudget({ initialData: initialData2 }) {
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 13, opacity: 0.8 }, children: "Track your income, expenses, assets & liabilities" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }, children: "Aligned with the 50/30/20 framework recommended by the CFPB" }),
         budget.lastPriceRefresh && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 10, opacity: 0.6 }, children: [
           "Prices: ",
           new Date(budget.lastPriceRefresh).toLocaleTimeString()
