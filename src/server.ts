@@ -2136,6 +2136,11 @@ const httpServer = createServer(
       return;
     }
 
+    if (req.method === "GET" && url.pathname === "/.well-known/openai-apps-challenge") {
+      res.writeHead(200, { "Content-Type": "text/plain" }).end("vucLzgCxCt9--0ZLAZ5QB5av-VfkDh3QlHhyuIfPvoM");
+      return;
+    }
+
     if (req.method === "GET" && url.pathname === healthPath) {
       res.writeHead(200, { "Content-Type": "text/plain" }).end("OK");
       return;
