@@ -105,7 +105,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                             {step === 'EMAIL' ? (mode === 'LOGIN' ? 'Login' : 'Sign Up') : 'Verify Email'}
                         </h2>
                         <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }}>
-                            {step === 'EMAIL' ? 'Enter your email and we will send you a secure link and code to log in.' : `Enter the 6-digit code sent to ${email}`}
+                            {step === 'EMAIL'
+                                ? (mode === 'LOGIN'
+                                    ? 'Enter your email to receive a 6-digit secure login code.'
+                                    : 'Enter your email to receive a 6-digit code to create your account.')
+                                : `Enter the 6-digit code sent to ${email}`}
                         </p>
                     </div>
                     <button onClick={onClose} style={{
@@ -159,7 +163,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                                 onMouseEnter={e => { if (!loading && email) e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.backgroundColor = COLORS.primaryDark; }}
                                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = COLORS.primary; }}
                             >
-                                {loading ? 'Sending Link...' : 'Continue with Email'}
+                                {loading ? 'Sending Code...' : 'Send Login Code'}
                             </button>
 
                             <div style={{ display: 'flex', justifyContent: 'center', marginTop: -4 }}>
