@@ -60241,7 +60241,7 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "24px 32px 20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: step === "EMAIL" ? mode === "LOGIN" ? "Login" : "Sign Up" : "Verify Email" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? "Enter your email and we will send you a secure link and code to log in." : `Enter the 6-digit code sent to ${email}` })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? mode === "LOGIN" ? "Enter your email to receive a 6-digit secure login code." : "Enter your email to receive a 6-digit code to create your account." : `Enter the 6-digit code sent to ${email}` })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onClose, style: {
           background: "none",
@@ -60338,7 +60338,7 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.backgroundColor = COLORS.primary;
               },
-              children: loading ? "Sending Link..." : "Continue with Email"
+              children: loading ? "Sending Code..." : "Send Login Code"
             }
           ),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center", marginTop: -4 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textSecondary }, children: [
