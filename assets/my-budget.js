@@ -62266,7 +62266,7 @@ function MyBudget({ initialData: initialData2 }) {
             display: "flex",
             alignItems: "center"
           }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LogOut, { size: 14 }) })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+        ] }) : savedBudgets.some((b) => b.income.length > 0 || b.expenses.length > 0 || b.assets.length > 0 || b.nonLiquidAssets.length > 0 || b.retirement.length > 0 || b.liabilities.length > 0) ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
           padding: "6px 10px",
           borderRadius: 6,
           border: "none",
@@ -62278,7 +62278,7 @@ function MyBudget({ initialData: initialData2 }) {
           gap: 4,
           fontSize: 11,
           fontWeight: 600
-        }, children: "Log In" }) })
+        }, children: "Log In" }) : null })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: 20 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: handleNewBudget, style: {
@@ -62407,7 +62407,7 @@ function MyBudget({ initialData: initialData2 }) {
               display: "flex",
               alignItems: "center"
             }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LogOut, { size: 14 }) })
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+          ] }) : hasBudgetContent ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
             padding: "6px 10px",
             borderRadius: 6,
             border: "none",
@@ -62419,7 +62419,7 @@ function MyBudget({ initialData: initialData2 }) {
             gap: 4,
             fontSize: 11,
             fontWeight: 600
-          }, children: "Log In" }),
+          }, children: "Log In" }) : null,
           hasLiveAssets && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
             padding: "6px 10px",
             borderRadius: 6,

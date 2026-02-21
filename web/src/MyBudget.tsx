@@ -1888,14 +1888,14 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                     <LogOut size={14} />
                   </button>
                 </>
-              ) : (
+              ) : savedBudgets.some(b => b.income.length > 0 || b.expenses.length > 0 || b.assets.length > 0 || b.nonLiquidAssets.length > 0 || b.retirement.length > 0 || b.liabilities.length > 0) ? (
                 <button onClick={() => setShowLoginModal(true)} style={{
                   padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
                   color: COLORS.primary, cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
                 }}>
                   Log In
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
@@ -1991,14 +1991,14 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                   <LogOut size={14} />
                 </button>
               </>
-            ) : (
+            ) : hasBudgetContent ? (
               <button onClick={() => setShowLoginModal(true)} style={{
                 padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
                 color: COLORS.primary, cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
               }}>
                 Log In
               </button>
-            )}
+            ) : null}
             {hasLiveAssets && (
               <button onClick={refreshPrices} disabled={refreshing} style={{
                 padding: "6px 10px", borderRadius: 6, border: "none",
