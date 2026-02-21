@@ -9,6 +9,8 @@ import {
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
+import { supabase } from "./supabase";
+import { LoginModal } from "./components/LoginModal";
 
 // ─── Data Types ───────────────────────────────────────────────────────────────
 
@@ -141,7 +143,7 @@ const trackEvent = (event: string, data?: Record<string, any>) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ event, data: data || {} }),
-  }).catch(() => {});
+  }).catch(() => { });
 };
 
 // ─── CoinGecko API ───────────────────────────────────────────────────────────
@@ -196,7 +198,7 @@ const fetchStockPrices = async (symbols: string[]): Promise<Record<string, numbe
       if (!res.ok) return;
       const data = await res.json();
       if (data.c && data.c > 0) results[symbol] = data.c;
-    } catch {}
+    } catch { }
   }));
   return results;
 };
@@ -297,24 +299,24 @@ const loadBudgets = (): Budget[] => {
   try {
     const data = localStorage.getItem(BUDGETS_LIST_KEY);
     if (data) return JSON.parse(data).map(migrateBudget);
-  } catch {}
+  } catch { }
   return [];
 };
 
 const saveBudgets = (budgets: Budget[]) => {
-  try { localStorage.setItem(BUDGETS_LIST_KEY, JSON.stringify(budgets)); } catch {}
+  try { localStorage.setItem(BUDGETS_LIST_KEY, JSON.stringify(budgets)); } catch { }
 };
 
 const loadCurrentBudget = (): Budget | null => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (data) return migrateBudget(JSON.parse(data));
-  } catch {}
+  } catch { }
   return null;
 };
 
 const saveCurrentBudget = (budget: Budget) => {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(budget)); } catch {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(budget)); } catch { }
 };
 
 // ─── Presets ──────────────────────────────────────────────────────────────────
@@ -533,7 +535,7 @@ const StockTickerInput = ({ draft, setDraft, inputStyle, color }: {
             return { ...d, livePrice: price, amount: newAmount };
           });
         }
-      } catch {}
+      } catch { }
       setFetching(false);
     }, 600);
 
@@ -635,7 +637,7 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
           return { ...d, livePrice: price, amount: newAmount };
         });
       }
-    } catch {}
+    } catch { }
   };
 
   if (editing) {
@@ -644,20 +646,26 @@ const ItemRow = ({ item, onUpdate, onDelete, inputMode, color }: {
         {inputMode === "asset" && (
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             <button onClick={() => setDraft(d => ({ ...d, assetType: "crypto" as AssetType }))}
-              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
+              style={{
+                padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
                 backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
                 color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
-                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>₿ Crypto</button>
+                fontSize: 11, fontWeight: 600, cursor: "pointer"
+              }}>₿ Crypto</button>
             <button onClick={() => setDraft(d => ({ ...d, assetType: "stock" as AssetType, ticker: undefined, livePrice: undefined }))}
-              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS.border}`,
+              style={{
+                padding: "4px 10px", borderRadius: 6, border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS.border}`,
                 backgroundColor: draft.assetType === "stock" ? "#2563EB15" : "transparent",
                 color: draft.assetType === "stock" ? "#2563EB" : COLORS.textSecondary,
-                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>📈 Stock</button>
+                fontSize: 11, fontWeight: 600, cursor: "pointer"
+              }}>📈 Stock</button>
             <button onClick={() => setDraft(d => ({ ...d, assetType: undefined, ticker: undefined, livePrice: undefined }))}
-              style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
+              style={{
+                padding: "4px 10px", borderRadius: 6, border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color : COLORS.border}`,
                 backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color}15` : "transparent",
                 color: !draft.assetType || draft.assetType === "manual" ? color : COLORS.textSecondary,
-                fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Manual</button>
+                fontSize: 11, fontWeight: 600, cursor: "pointer"
+              }}>Manual</button>
           </div>
         )}
 
@@ -981,7 +989,7 @@ const SummarySection = ({ budget }: { budget: Budget }) => {
                 <strong>{fmt(annualNet)}</strong>/yr
               </div>
               <div style={{ fontSize: 10, color: COLORS.textSecondary, marginTop: 4 }}>
-                2yr: +{fmt(annualNet * 2)}<br/>5yr: +{fmt(annualNet * 5)}
+                2yr: +{fmt(annualNet * 2)}<br />5yr: +{fmt(annualNet * 5)}
               </div>
             </div>
           ) : null}
@@ -1441,6 +1449,8 @@ const hydrateFromInitialData = (data: any): Budget | null => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function MyBudget({ initialData }: { initialData?: any }) {
+  const [session, setSession] = useState<any>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [savedBudgets, setSavedBudgets] = useState<Budget[]>(() => loadBudgets());
   const [currentView, setCurrentView] = useState<"home" | "budget">("budget");
   const [budget, setBudget] = useState<Budget>(() => {
@@ -1469,11 +1479,73 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   // Persist budget on change
   useEffect(() => {
     saveCurrentBudget(budget);
-  }, [budget]);
+
+    // Auto-save to Supabase if logged in
+    if (session && supabase && budget.id) {
+      const syncToCloud = async () => {
+        try {
+          await supabase!.from('budgets').upsert({
+            id: budget.id,
+            user_id: session.user.id,
+            budget_data: budget,
+            updated_at: new Date().toISOString()
+          });
+        } catch (e) {
+          console.error("Failed to sync budget to cloud", e);
+        }
+      };
+      // Debounce slightly by just running it (in a real app we'd debounce this)
+      syncToCloud();
+    }
+  }, [budget, session]);
+
+  // Supabase Auth Listener & Initial Cloud Load
+  useEffect(() => {
+    if (!supabase) return;
+
+    const loadCloudData = async (userId: string) => {
+      try {
+        const { data, error } = await supabase!.from('budgets')
+          .select('budget_data')
+          .eq('user_id', userId);
+
+        if (!error && data && data.length > 0) {
+          const cloudBudgets: Budget[] = data.map(row => {
+            if (!row.budget_data.updatedAt) row.budget_data.updatedAt = Date.now();
+            return row.budget_data as Budget;
+          });
+
+          if (cloudBudgets.length > 0) {
+            setSavedBudgets(cloudBudgets);
+            const mostRecent = [...cloudBudgets].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+            setBudget(mostRecent);
+            saveCurrentBudget(mostRecent);
+            saveBudgets(cloudBudgets);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load cloud budgets", e);
+      }
+    };
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session) loadCloudData(session.user.id);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) loadCloudData(session.user.id);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Load enjoyVote from localStorage
   useEffect(() => {
-    try { const v = localStorage.getItem("enjoyVote_budget"); if (v === "up" || v === "down") setEnjoyVote(v); } catch {}
+    try { const v = localStorage.getItem("enjoyVote_budget"); if (v === "up" || v === "down") setEnjoyVote(v); } catch { }
   }, []);
 
   // Track container bounds so the fixed pill stays within the 600px widget
@@ -1499,7 +1571,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const handleEnjoyVote = (vote: "up" | "down") => {
     if (enjoyVote) return;
     setEnjoyVote(vote);
-    try { localStorage.setItem("enjoyVote_budget", vote); } catch {}
+    try { localStorage.setItem("enjoyVote_budget", vote); } catch { }
     trackEvent("enjoy_vote", { vote, budgetName: budget.name || null });
     setShowFeedbackModal(true);
   };
@@ -1735,10 +1807,31 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
     return (
       <div ref={containerRef} style={{ backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16 }}>
         <div style={{ backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }}>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
-            <DollarSign size={28} /> The Personal Budget Planner
-          </h1>
-          <p style={{ margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }}>Built on the 50/30/20 rule used by financial advisors</p>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
+                <DollarSign size={28} /> The Personal Budget Planner
+              </h1>
+              <p style={{ margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }}>Built on the 50/30/20 rule used by financial advisors</p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              {session ? (
+                <button onClick={() => supabase?.auth.signOut()} style={{
+                  padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
+                  color: "white", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
+                }}>
+                  Log Out
+                </button>
+              ) : (
+                <button onClick={() => setShowLoginModal(true)} style={{
+                  padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
+                  color: COLORS.primary, cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
+                }}>
+                  Log In
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         <div style={{ padding: 20 }}>
           <button onClick={handleNewBudget} style={{
@@ -1816,6 +1909,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             )}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {session ? (
+              <button onClick={() => supabase?.auth.signOut()} style={{
+                padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
+                color: "white", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
+              }}>
+                Log Out
+              </button>
+            ) : (
+              <button onClick={() => setShowLoginModal(true)} style={{
+                padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
+                color: COLORS.primary, cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
+              }}>
+                Log In
+              </button>
+            )}
             {hasLiveAssets && (
               <button onClick={refreshPrices} disabled={refreshing} style={{
                 padding: "6px 10px", borderRadius: 6, border: "none",
@@ -1871,8 +1979,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                   display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                   transition: "border-color 0.15s, box-shadow 0.15s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = COLORS.accent; e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = COLORS.border; e.currentTarget.style.boxShadow = "none"; }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = COLORS.accent; e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = COLORS.border; e.currentTarget.style.boxShadow = "none"; }}
                 >
                   <span style={{ fontSize: 16 }}>{p.emoji}</span>
                   <span style={{ fontSize: 12, fontWeight: 700, color: COLORS.textMain }}>{p.label}</span>
@@ -1972,8 +2080,8 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
                 cursor: "pointer", textAlign: "center",
                 transition: "transform 0.15s, box-shadow 0.15s",
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 12px ${app.accent}20`; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}>
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 12px ${app.accent}20`; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${app.accent}20, ${app.accent}08)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>
                   {app.emoji}
                 </div>
@@ -2177,6 +2285,16 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             }}><ThumbsDown size={16} /></button>
           </div>
         </div>
+      )}
+
+      {/* ─── Login Modal ────────────────────────────────────────────── */}
+      {showLoginModal && (
+        <LoginModal
+          onClose={() => setShowLoginModal(false)}
+          onLoginSuccess={() => {
+            setShowLoginModal(false);
+          }}
+        />
       )}
     </div>
   );

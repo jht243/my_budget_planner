@@ -103,7 +103,7 @@ function getRecentLogs(days: number = 7): AnalyticsEvent[] {
       lines.forEach((line) => {
         try {
           logs.push(JSON.parse(line));
-        } catch (e) {}
+        } catch (e) { }
       });
     }
   }
@@ -193,6 +193,12 @@ function readWidgetHtml(componentName: string): string {
     throw new Error(
       `Widget HTML for "${componentName}" not found in ${ASSETS_DIR}. Run "pnpm run build" to generate the assets.`
     );
+  }
+
+  // Inject Supabase env vars if present
+  if (process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY) {
+    const scriptStr = `<script>window.SUPABASE_ENV = { url: "${process.env.VITE_SUPABASE_URL}", anonKey: "${process.env.VITE_SUPABASE_ANON_KEY}" };</script>`;
+    htmlContents = htmlContents.replace("</head>", `${scriptStr}</head>`);
   }
 
   console.log(`[Widget Load] File: ${loadedFrom}`);
@@ -580,10 +586,10 @@ function createMyBudgetServer(): Server {
       const startTime = Date.now();
       let userAgentString: string | null = null;
       let deviceCategory = "Unknown";
-      
+
       // Log the full request to debug _meta location
       console.log("Full request object:", JSON.stringify(request, null, 2));
-      
+
       try {
         const widget = widgetsById.get(request.params.name);
 
@@ -622,7 +628,7 @@ function createMyBudgetServer(): Server {
         const userAgent = meta["openai/userAgent"];
         userAgentString = typeof userAgent === "string" ? userAgent : null;
         deviceCategory = classifyDevice(userAgentString);
-        
+
         // Debug log
         console.log("Captured meta:", { userLocation, userLocale, userAgent });
 
@@ -822,11 +828,11 @@ function createMyBudgetServer(): Server {
           device: deviceCategory,
           userLocation: userLocation
             ? {
-                city: userLocation.city,
-                region: userLocation.region,
-                country: userLocation.country,
-                timezone: userLocation.timezone,
-              }
+              city: userLocation.city,
+              region: userLocation.region,
+              country: userLocation.country,
+              timezone: userLocation.timezone,
+            }
             : null,
           userLocale,
           userAgent,
@@ -872,24 +878,24 @@ function createMyBudgetServer(): Server {
         try {
           // Check for "empty" result - when no main budget inputs are provided
           const hasMainInputs = args.budget_name || args.monthly_income || args.monthly_expenses || args.liquid_assets || args.liabilities;
-          
+
           if (!hasMainInputs) {
-             logAnalytics("tool_call_empty", {
-               toolName: request.params.name,
-               params: request.params.arguments || {},
-               reason: "No budget details provided"
-             });
+            logAnalytics("tool_call_empty", {
+              toolName: request.params.name,
+              params: request.params.arguments || {},
+              reason: "No budget details provided"
+            });
           } else {
-          logAnalytics("tool_call_success", {
-            responseTime,
-            params: request.params.arguments || {},
-            inferredQuery: inferredQuery.join(", "),
-            userLocation,
-            userLocale,
-            device: deviceCategory,
-          });
+            logAnalytics("tool_call_success", {
+              responseTime,
+              params: request.params.arguments || {},
+              inferredQuery: inferredQuery.join(", "),
+              userLocation,
+              userLocale,
+              device: deviceCategory,
+            });
           }
-        } catch {}
+        } catch { }
 
         // TEXT SUPPRESSION: Return empty content array to prevent ChatGPT from adding
         // any text after the widget. The widget provides all necessary UI.
@@ -964,7 +970,7 @@ async function handleStockPrice(req: IncomingMessage, res: ServerResponse) {
           const data = await resp.json();
           if (data.c && data.c > 0) results[symbol] = data.c; // "c" = current price
         }
-      } catch {}
+      } catch { }
     }));
 
     res.writeHead(200).end(JSON.stringify(results));
@@ -1034,17 +1040,17 @@ function humanizeEventName(event: string): string {
 function formatEventDetails(log: AnalyticsEvent): string {
   const excludeKeys = ["timestamp", "event"];
   const details: Record<string, any> = {};
-  
+
   Object.keys(log).forEach((key) => {
     if (!excludeKeys.includes(key)) {
       details[key] = log[key];
     }
   });
-  
+
   if (Object.keys(details).length === 0) {
     return "—";
   }
-  
+
   return JSON.stringify(details, null, 0);
 }
 
@@ -1157,14 +1163,14 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
   const avgResponseTime =
     successLogs.length > 0
       ? (successLogs.reduce((sum, l) => sum + (l.responseTime || 0), 0) /
-          successLogs.length).toFixed(0)
+        successLogs.length).toFixed(0)
       : "N/A";
 
   // --- Prompt-level analytics (from tool calls) ---
   const paramUsage: Record<string, number> = {};
   const incomeRanges: Record<string, number> = {};
   const expenseRanges: Record<string, number> = {};
-  
+
   const bucketAmount = (val: number): string => {
     if (val <= 2000) return "$0–2K";
     if (val <= 5000) return "$2K–5K";
@@ -1172,7 +1178,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     if (val <= 20000) return "$10K–20K";
     return "$20K+";
   };
-  
+
   successLogs.forEach((log) => {
     if (log.params) {
       Object.keys(log.params).forEach((key) => {
@@ -1205,7 +1211,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
   const budgetActions: Record<string, number> = {};
   const budgetActionEvents = ["widget_new_budget", "widget_open_budget", "widget_save_budget", "widget_delete_budget", "widget_reset", "widget_back_to_home"];
   budgetActionEvents.forEach(e => { budgetActions[humanizeEventName(e)] = 0; });
-  
+
   // Item management actions
   const itemActions: Record<string, number> = {};
   const itemActionEvents = ["widget_add_item", "widget_add_preset_item", "widget_delete_item"];
@@ -1214,7 +1220,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
   // Items added by section (income, expenses, assets, etc.)
   const addsBySection: Record<string, number> = {};
   const deletesBySection: Record<string, number> = {};
-  
+
   // Preset items used
   const presetUsage: Record<string, number> = {};
 
@@ -1232,7 +1238,7 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
 
   // Feedback with votes
   const feedbackLogs: AnalyticsEvent[] = [];
-  
+
   // Crypto refresh count
   let cryptoRefreshCount = 0;
 
@@ -1399,15 +1405,15 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="card" style="margin-bottom:20px;">
       <h2>📅 Daily Volume (7 Days)</h2>
       ${renderTable(
-        ["Date", "Tool Calls", "Widget Events", "Errors"],
-        Object.entries(dailyCounts).map(([day, c]) => [
-          `<span class="timestamp">${day}</span>`,
-          String(c.toolCalls),
-          String(c.widgetEvents),
-          c.errors > 0 ? `<span style="color:#dc2626;font-weight:600;">${c.errors}</span>` : "0"
-        ]),
-        "No data"
-      )}
+    ["Date", "Tool Calls", "Widget Events", "Errors"],
+    Object.entries(dailyCounts).map(([day, c]) => [
+      `<span class="timestamp">${day}</span>`,
+      String(c.toolCalls),
+      String(c.widgetEvents),
+      c.errors > 0 ? `<span style="color:#dc2626;font-weight:600;">${c.errors}</span>` : "0"
+    ]),
+    "No data"
+  )}
     </div>
 
     <!-- ========== PROMPT ANALYTICS ========== -->
@@ -1416,36 +1422,36 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>💰 Income Ranges</h2>
         ${renderTable(
-          ["Range", "Count", "%"],
-          Object.entries(incomeRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
-            const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
-            return [range, String(count), `${pct}%`];
-          }),
-          "No data yet"
-        )}
+    ["Range", "Count", "%"],
+    Object.entries(incomeRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
+      const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
+      return [range, String(count), `${pct}%`];
+    }),
+    "No data yet"
+  )}
       </div>
       <div class="card">
         <h2>💸 Expense Ranges</h2>
         ${renderTable(
-          ["Range", "Count", "%"],
-          Object.entries(expenseRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
-            const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
-            return [range, String(count), `${pct}%`];
-          }),
-          "No data yet"
-        )}
+    ["Range", "Count", "%"],
+    Object.entries(expenseRanges).sort((a, b) => b[1] - a[1]).map(([range, count]) => {
+      const pct = successLogs.length > 0 ? ((count / successLogs.length) * 100).toFixed(0) : "0";
+      return [range, String(count), `${pct}%`];
+    }),
+    "No data yet"
+  )}
       </div>
       <div class="card">
         <h2>Parameter Usage</h2>
         ${renderTable(
-          ["Parameter", "Used", "%"],
-          Object.entries(paramUsage).sort((a, b) => b[1] - a[1]).map(([p, c]) => [
-            `<code>${p}</code>`,
-            String(c),
-            successLogs.length > 0 ? `${((c / successLogs.length) * 100).toFixed(0)}%` : "0%"
-          ]),
-          "No data yet"
-        )}
+    ["Parameter", "Used", "%"],
+    Object.entries(paramUsage).sort((a, b) => b[1] - a[1]).map(([p, c]) => [
+      `<code>${p}</code>`,
+      String(c),
+      successLogs.length > 0 ? `${((c / successLogs.length) * 100).toFixed(0)}%` : "0%"
+    ]),
+    "No data yet"
+  )}
       </div>
     </div>
 
@@ -1453,10 +1459,10 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>📋 Budget Names</h2>
         ${renderTable(
-          ["Name", "Count"],
-          Object.entries(budgetNameDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
-          "No data yet"
-        )}
+    ["Name", "Count"],
+    Object.entries(budgetNameDist).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([d, c]) => [d, String(c)]),
+    "No data yet"
+  )}
       </div>
     </div>
 
@@ -1466,35 +1472,35 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>📂 Budget Management</h2>
         ${renderTable(
-          ["Action", "Count"],
-          Object.entries(budgetActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
-          "No actions yet"
-        )}
+    ["Action", "Count"],
+    Object.entries(budgetActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+    "No actions yet"
+  )}
       </div>
       <div class="card">
         <h2>📝 Item Actions</h2>
         ${renderTable(
-          ["Action", "Count"],
-          Object.entries(itemActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
-          "No item actions yet"
-        )}
+    ["Action", "Count"],
+    Object.entries(itemActions).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+    "No item actions yet"
+  )}
         ${cryptoRefreshCount > 0 ? `<div style="margin-top:8px;padding:8px 10px;background:#f0fdf4;border-radius:8px;font-size:12px;">🪙 Crypto refreshes: <strong>${cryptoRefreshCount}</strong></div>` : ""}
       </div>
       <div class="card">
         <h2>📊 Items Added by Section</h2>
         ${(() => {
-          const sections = [...new Set([...Object.keys(addsBySection), ...Object.keys(deletesBySection)])];
-          const sectionIcon = (s: string) => s === "income" ? "💰" : s === "expenses" ? "💸" : s === "assets" ? "🏦" : s === "nonLiquidAssets" ? "🏠" : s === "retirement" ? "🏛️" : s === "liabilities" ? "⚠️" : "📌";
-          const rows = sections.sort((a, b) => (addsBySection[b] || 0) - (addsBySection[a] || 0)).map(s => {
-            const added = addsBySection[s] || 0;
-            const deleted = deletesBySection[s] || 0;
-            const net = added - deleted;
-            const color = net >= 0 ? "#16a34a" : "#dc2626";
-            const sign = net >= 0 ? "+" : "";
-            return [sectionIcon(s) + " " + s, String(added), String(deleted), '<span style="color:' + color + ';font-weight:600;">' + sign + net + '</span>'];
-          });
-          return renderTable(["Section", "Added", "Deleted", "Net"], rows, "No items added yet");
-        })()}
+      const sections = [...new Set([...Object.keys(addsBySection), ...Object.keys(deletesBySection)])];
+      const sectionIcon = (s: string) => s === "income" ? "💰" : s === "expenses" ? "💸" : s === "assets" ? "🏦" : s === "nonLiquidAssets" ? "🏠" : s === "retirement" ? "🏛️" : s === "liabilities" ? "⚠️" : "📌";
+      const rows = sections.sort((a, b) => (addsBySection[b] || 0) - (addsBySection[a] || 0)).map(s => {
+        const added = addsBySection[s] || 0;
+        const deleted = deletesBySection[s] || 0;
+        const net = added - deleted;
+        const color = net >= 0 ? "#16a34a" : "#dc2626";
+        const sign = net >= 0 ? "+" : "";
+        return [sectionIcon(s) + " " + s, String(added), String(deleted), '<span style="color:' + color + ';font-weight:600;">' + sign + net + '</span>'];
+      });
+      return renderTable(["Section", "Added", "Deleted", "Net"], rows, "No items added yet");
+    })()}
       </div>
     </div>
 
@@ -1502,26 +1508,26 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>⭐ Top Preset Items</h2>
         ${renderTable(
-          ["Preset", "Times Used"],
-          Object.entries(presetUsage).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([p, c]) => [p, String(c)]),
-          "No presets used yet"
-        )}
+      ["Preset", "Times Used"],
+      Object.entries(presetUsage).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([p, c]) => [p, String(c)]),
+      "No presets used yet"
+    )}
       </div>
       <div class="card">
         <h2>🔗 Footer Buttons</h2>
         ${renderTable(
-          ["Button", "Clicks"],
-          Object.entries(footerClicks).sort((a, b) => b[1] - a[1]).map(([b, c]) => [b, String(c)]),
-          "No clicks yet"
-        )}
+      ["Button", "Clicks"],
+      Object.entries(footerClicks).sort((a, b) => b[1] - a[1]).map(([b, c]) => [b, String(c)]),
+      "No clicks yet"
+    )}
       </div>
       <div class="card">
         <h2>🔗 Related App Clicks</h2>
         ${renderTable(
-          ["App", "Clicks"],
-          Object.entries(relatedAppClicks).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
-          "No clicks yet"
-        )}
+      ["App", "Clicks"],
+      Object.entries(relatedAppClicks).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+      "No clicks yet"
+    )}
       </div>
     </div>
 
@@ -1556,15 +1562,15 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
       <div class="card">
         <h2>Feedback Submissions</h2>
         ${feedbackLogs.length > 0 ? renderTable(
-          ["Date", "Vote", "Feedback", "Budget"],
-          feedbackLogs.slice(0, 15).map(l => [
-            `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
-            l.enjoymentVote === "up" ? '<span class="badge badge-green">👍</span>' : l.enjoymentVote === "down" ? '<span class="badge badge-red">👎</span>' : "—",
-            `<div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">${l.feedback || "—"}</div>`,
-            l.budgetName || "—"
-          ]),
-          "No feedback yet"
-        ) : '<p style="color:#9ca3af;font-size:13px;">No feedback submitted yet</p>'}
+      ["Date", "Vote", "Feedback", "Budget"],
+      feedbackLogs.slice(0, 15).map(l => [
+        `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
+        l.enjoymentVote === "up" ? '<span class="badge badge-green">👍</span>' : l.enjoymentVote === "down" ? '<span class="badge badge-red">👎</span>' : "—",
+        `<div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">${l.feedback || "—"}</div>`,
+        l.budgetName || "—"
+      ]),
+      "No feedback yet"
+    ) : '<p style="color:#9ca3af;font-size:13px;">No feedback submitted yet</p>'}
       </div>
     </div>
 
@@ -1572,25 +1578,25 @@ function generateAnalyticsDashboard(logs: AnalyticsEvent[], alerts: AlertEntry[]
     <div class="section-title">📋 Recent Queries</div>
     <div class="card" style="margin-bottom:20px;">
       ${renderTable(
-        ["Date", "Query", "Location", "Locale"],
-        successLogs.slice(0, 25).map(l => [
-          `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
-          `<div style="max-width:350px;overflow:hidden;text-overflow:ellipsis;">${l.inferredQuery || "—"}</div>`,
-          l.userLocation ? `${l.userLocation.city || ""}${l.userLocation.region ? ", " + l.userLocation.region : ""}${l.userLocation.country ? ", " + l.userLocation.country : ""}`.replace(/^, /, "") : "—",
-          l.userLocale || "—"
-        ]),
-        "No queries yet"
-      )}
+      ["Date", "Query", "Location", "Locale"],
+      successLogs.slice(0, 25).map(l => [
+        `<span class="timestamp">${new Date(l.timestamp).toLocaleString()}</span>`,
+        `<div style="max-width:350px;overflow:hidden;text-overflow:ellipsis;">${l.inferredQuery || "—"}</div>`,
+        l.userLocation ? `${l.userLocation.city || ""}${l.userLocation.region ? ", " + l.userLocation.region : ""}${l.userLocation.country ? ", " + l.userLocation.country : ""}`.replace(/^, /, "") : "—",
+        l.userLocale || "—"
+      ]),
+      "No queries yet"
+    )}
     </div>
 
     <!-- ========== ALL WIDGET EVENTS ========== -->
     <div class="section-title">📊 All Widget Interactions (Aggregated)</div>
     <div class="card" style="margin-bottom:20px;">
       ${renderTable(
-        ["Event", "Count"],
-        Object.entries(allWidgetCounts).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
-        "No widget events yet"
-      )}
+      ["Event", "Count"],
+      Object.entries(allWidgetCounts).sort((a, b) => b[1] - a[1]).map(([a, c]) => [a, String(c)]),
+      "No widget events yet"
+    )}
     </div>
 
     <!-- ========== RAW EVENT LOG ========== -->
@@ -1680,7 +1686,7 @@ async function handleTrackEvent(req: IncomingMessage, res: ServerResponse) {
 // Buttondown API integration
 async function subscribeToButtondown(email: string, topicId: string, topicName: string) {
   const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY;
-  
+
   console.log("[Buttondown] subscribeToButtondown called", { email, topicId, topicName });
   console.log("[Buttondown] API key present:", !!BUTTONDOWN_API_KEY, "length:", BUTTONDOWN_API_KEY?.length ?? 0);
 
@@ -1716,7 +1722,7 @@ async function subscribeToButtondown(email: string, topicId: string, topicName: 
   if (!response.ok) {
     const errorText = await response.text();
     let errorMessage = "Failed to subscribe";
-    
+
     try {
       const errorData = JSON.parse(errorText);
       if (errorData.detail) {
@@ -1727,7 +1733,7 @@ async function subscribeToButtondown(email: string, topicId: string, topicName: 
     } catch {
       errorMessage = errorText;
     }
-    
+
     throw new Error(errorMessage);
   }
 
@@ -1737,7 +1743,7 @@ async function subscribeToButtondown(email: string, topicId: string, topicName: 
 // Update existing subscriber with new topic
 async function updateButtondownSubscriber(email: string, topicId: string, topicName: string) {
   const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY;
-  
+
   if (!BUTTONDOWN_API_KEY) {
     throw new Error("BUTTONDOWN_API_KEY not set in environment variables");
   }
@@ -1776,7 +1782,7 @@ async function updateButtondownSubscriber(email: string, topicId: string, topicN
     name: topicName,
     subscribedAt: new Date().toISOString(),
   });
-  
+
   const updatedMetadata = {
     ...existingMetadata,
     [topicKey]: topicData,
@@ -1849,9 +1855,9 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
 
     try {
       await subscribeToButtondown(email, topicId, topicName);
-      res.writeHead(200).end(JSON.stringify({ 
-        success: true, 
-        message: "Successfully subscribed! You'll receive budget tips and updates." 
+      res.writeHead(200).end(JSON.stringify({
+        success: true,
+        message: "Successfully subscribed! You'll receive budget tips and updates."
       }));
     } catch (subscribeError: any) {
       const rawMessage = String(subscribeError?.message ?? "").trim();
@@ -1862,9 +1868,9 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
         console.log("Subscriber already on list, attempting update", { email, topicId, message: rawMessage });
         try {
           await updateButtondownSubscriber(email, topicId, topicName);
-          res.writeHead(200).end(JSON.stringify({ 
-            success: true, 
-            message: "You're now subscribed to this topic!" 
+          res.writeHead(200).end(JSON.stringify({
+            success: true,
+            message: "You're now subscribed to this topic!"
           }));
         } catch (updateError: any) {
           console.warn("Update subscriber failed, returning graceful success", {
@@ -1901,8 +1907,8 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
       email: undefined,
       error: error.message || "unknown_error",
     });
-    res.writeHead(500).end(JSON.stringify({ 
-      error: error.message || "Failed to subscribe. Please try again." 
+    res.writeHead(500).end(JSON.stringify({
+      error: error.message || "Failed to subscribe. Please try again."
     }));
   }
 }
@@ -1911,7 +1917,7 @@ async function handleSubscribe(req: IncomingMessage, res: ServerResponse) {
 async function handleParseBudgetAI(req: IncomingMessage, res: ServerResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
-  
+
   if (req.method !== "POST") {
     res.writeHead(405).end("Method not allowed");
     return;
@@ -1926,14 +1932,14 @@ async function handleParseBudgetAI(req: IncomingMessage, res: ServerResponse) {
     });
 
     const { text } = JSON.parse(body);
-    
+
     if (!text || typeof text !== "string") {
       res.writeHead(400).end(JSON.stringify({ error: "Missing 'text' field" }));
       return;
     }
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-    
+
     if (!OPENAI_API_KEY) {
       console.log("[Parse Budget] No OPENAI_API_KEY, using fallback parsing");
       const items = fallbackParseBudgetText(text);
@@ -1988,7 +1994,7 @@ Return ONLY valid JSON array, no explanation.`;
 
     const data = await response.json() as any;
     const content = data.choices?.[0]?.message?.content || "[]";
-    
+
     let items;
     try {
       const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
@@ -2015,7 +2021,7 @@ Return ONLY valid JSON array, no explanation.`;
 function fallbackParseBudgetText(text: string): any[] {
   const items: any[] = [];
   const lower = text.toLowerCase();
-  
+
   // Try to extract income
   const incomeMatch = lower.match(/(?:make|earn|income|salary)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
   if (incomeMatch) {
@@ -2023,7 +2029,7 @@ function fallbackParseBudgetText(text: string): any[] {
     if (/k/i.test(incomeMatch[0])) val *= 1000;
     items.push({ category: "income", name: "Salary", amount: val, frequency: "monthly" });
   }
-  
+
   // Try to extract expenses
   const expenseMatch = lower.match(/(?:spend|expense|rent|mortgage|bills?)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
   if (expenseMatch) {
@@ -2032,7 +2038,7 @@ function fallbackParseBudgetText(text: string): any[] {
     const name = /rent/i.test(expenseMatch[0]) ? "Rent" : /mortgage/i.test(expenseMatch[0]) ? "Mortgage" : "Monthly Expenses";
     items.push({ category: "expense", name, amount: val, frequency: "monthly" });
   }
-  
+
   // Try to extract savings/assets
   const savingsMatch = lower.match(/(?:savings?|bank|cash)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
   if (savingsMatch) {
@@ -2040,7 +2046,7 @@ function fallbackParseBudgetText(text: string): any[] {
     if (/k/i.test(savingsMatch[0])) val *= 1000;
     if (val > 100) items.push({ category: "asset", name: "Savings", amount: val, frequency: "one_time" });
   }
-  
+
   // Try to extract debt/liabilities
   const debtMatch = lower.match(/(?:owe|debt|loan|liabilit)[^.]*?\$?([\d,]+(?:\.\d+)?)\s*(?:k)?/i);
   if (debtMatch) {
@@ -2048,7 +2054,7 @@ function fallbackParseBudgetText(text: string): any[] {
     if (/k/i.test(debtMatch[0])) val *= 1000;
     if (val > 100) items.push({ category: "liability", name: "Debt", amount: val, frequency: "one_time" });
   }
-  
+
   return items;
 }
 
@@ -2194,15 +2200,18 @@ const httpServer = createServer(
 
     // Serve alias for legacy loader path -> our main widget HTML
     if (req.method === "GET" && url.pathname === "/assets/my-budget.html") {
-      const mainAssetPath = path.join(ASSETS_DIR, "my-budget.html");
-      console.log(`[Debug Legacy] Request: ${url.pathname}, Main Path: ${mainAssetPath}, Exists: ${fs.existsSync(mainAssetPath)}`);
-      if (fs.existsSync(mainAssetPath) && fs.statSync(mainAssetPath).isFile()) {
+      try {
+        const injectedHtml = readWidgetHtml("my-budget");
         res.writeHead(200, {
           "Content-Type": "text/html",
           "Access-Control-Allow-Origin": "*",
           "Cache-Control": "no-cache",
         });
-        fs.createReadStream(mainAssetPath).pipe(res);
+        res.end(injectedHtml);
+        return;
+      } catch (e) {
+        console.error("Error serving widget HTML:", e);
+        res.writeHead(500).end("Internal Server Error");
         return;
       }
     }
@@ -2224,7 +2233,7 @@ const httpServer = createServer(
           ".svg": "image/svg+xml"
         };
         const contentType = contentTypeMap[ext] || "application/octet-stream";
-        res.writeHead(200, { 
+        res.writeHead(200, {
           "Content-Type": contentType,
           "Access-Control-Allow-Origin": "*",
           "Cache-Control": "no-cache"
@@ -2250,7 +2259,7 @@ function startMonitoring() {
     try {
       const logs = getRecentLogs(7);
       const alerts = evaluateAlerts(logs);
-      
+
       if (alerts.length > 0) {
         console.log("\n=== 🚨 ACTIVE ALERTS 🚨 ===");
         alerts.forEach(alert => {

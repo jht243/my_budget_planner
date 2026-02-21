@@ -28,9 +28,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/react/cjs/react.development.js
+// node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
-  "node_modules/react/cjs/react.development.js"(exports, module) {
+  "node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.development.js"(exports, module) {
     "use strict";
     if (true) {
       (function() {
@@ -776,7 +776,7 @@ var require_react_development = __commonJS({
             forEachFunc.apply(this, arguments);
           }, forEachContext);
         }
-        function toArray(children) {
+        function toArray2(children) {
           return mapChildren(children, function(child) {
             return child;
           }) || [];
@@ -1087,7 +1087,7 @@ var require_react_development = __commonJS({
           }
           return dispatcher.useContext(Context);
         }
-        function useState12(initialState13) {
+        function useState13(initialState13) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useState(initialState13);
         }
@@ -1855,7 +1855,7 @@ var require_react_development = __commonJS({
           map: mapChildren,
           forEach: forEachChildren,
           count: countChildren,
-          toArray,
+          toArray: toArray2,
           only: onlyChild
         };
         exports.Children = Children2;
@@ -1890,7 +1890,7 @@ var require_react_development = __commonJS({
         exports.useMemo = useMemo9;
         exports.useReducer = useReducer;
         exports.useRef = useRef16;
-        exports.useState = useState12;
+        exports.useState = useState13;
         exports.useSyncExternalStore = useSyncExternalStore2;
         exports.useTransition = useTransition;
         exports.version = ReactVersion;
@@ -1902,9 +1902,9 @@ var require_react_development = __commonJS({
   }
 });
 
-// node_modules/react/index.js
+// node_modules/.pnpm/react@18.3.1/node_modules/react/index.js
 var require_react = __commonJS({
-  "node_modules/react/index.js"(exports, module) {
+  "node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -1914,9 +1914,9 @@ var require_react = __commonJS({
   }
 });
 
-// node_modules/scheduler/cjs/scheduler.development.js
+// node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/cjs/scheduler.development.js
 var require_scheduler_development = __commonJS({
-  "node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+  "node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -2364,9 +2364,9 @@ var require_scheduler_development = __commonJS({
   }
 });
 
-// node_modules/scheduler/index.js
+// node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/index.js
 var require_scheduler = __commonJS({
-  "node_modules/scheduler/index.js"(exports, module) {
+  "node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -2376,9 +2376,9 @@ var require_scheduler = __commonJS({
   }
 });
 
-// node_modules/react-dom/cjs/react-dom.development.js
+// node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js
 var require_react_dom_development = __commonJS({
-  "node_modules/react-dom/cjs/react-dom.development.js"(exports) {
+  "node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -2386,9 +2386,9 @@ var require_react_dom_development = __commonJS({
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
           __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
         }
-        var React38 = require_react();
+        var React39 = require_react();
         var Scheduler = require_scheduler();
-        var ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React39.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         var suppressWarning = false;
         function setSuppressWarning(newSuppressWarning) {
           {
@@ -3756,11 +3756,11 @@ var require_react_dom_development = __commonJS({
           if (node.hasOwnProperty(valueField) || typeof descriptor === "undefined" || typeof descriptor.get !== "function" || typeof descriptor.set !== "function") {
             return;
           }
-          var get6 = descriptor.get, set4 = descriptor.set;
+          var get7 = descriptor.get, set4 = descriptor.set;
           Object.defineProperty(node, valueField, {
             configurable: true,
             get: function() {
-              return get6.call(this);
+              return get7.call(this);
             },
             set: function(value) {
               {
@@ -3993,7 +3993,7 @@ var require_react_dom_development = __commonJS({
           {
             if (props.value == null) {
               if (typeof props.children === "object" && props.children !== null) {
-                React38.Children.forEach(props.children, function(child) {
+                React39.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -5672,7 +5672,7 @@ var require_react_dom_development = __commonJS({
             throw new Error("clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.");
           }
         }
-        function get5(key) {
+        function get6(key) {
           return key._reactInternals;
         }
         function has3(key) {
@@ -5847,7 +5847,7 @@ var require_react_dom_development = __commonJS({
               instance._warnedAboutRefsInRender = true;
             }
           }
-          var fiber = get5(component);
+          var fiber = get6(component);
           if (!fiber) {
             return false;
           }
@@ -6012,7 +6012,7 @@ var require_react_dom_development = __commonJS({
         var injectedProfilingHooks = null;
         var hasLoggedError = false;
         var isDevToolsPresent = typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined";
-        function injectInternals(internals) {
+        function injectInternals(internals2) {
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
             return false;
           }
@@ -6028,12 +6028,12 @@ var require_react_dom_development = __commonJS({
           }
           try {
             if (enableSchedulingProfiler) {
-              internals = assign2({}, internals, {
+              internals2 = assign2({}, internals2, {
                 getLaneLabelMap,
                 injectProfilingHooks
               });
             }
-            rendererID = hook.inject(internals);
+            rendererID = hook.inject(internals2);
             injectedHook = hook;
           } catch (err) {
             {
@@ -9324,10 +9324,10 @@ var require_react_dom_development = __commonJS({
         function getOwnerDocumentFromRootContainer(rootContainerElement) {
           return rootContainerElement.nodeType === DOCUMENT_NODE ? rootContainerElement : rootContainerElement.ownerDocument;
         }
-        function noop4() {
+        function noop6() {
         }
         function trapClickOnNonInteractiveElement(node) {
-          node.onclick = noop4;
+          node.onclick = noop6;
         }
         function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProps, isCustomComponentTag) {
           for (var propKey in nextProps) {
@@ -13329,11 +13329,11 @@ var require_react_dom_development = __commonJS({
         }
         function registerMutableSourceForHydration(root3, mutableSource) {
           var getVersion = mutableSource._getVersion;
-          var version2 = getVersion(mutableSource._source);
+          var version6 = getVersion(mutableSource._source);
           if (root3.mutableSourceEagerHydrationData == null) {
-            root3.mutableSourceEagerHydrationData = [mutableSource, version2];
+            root3.mutableSourceEagerHydrationData = [mutableSource, version6];
           } else {
-            root3.mutableSourceEagerHydrationData.push(mutableSource, version2);
+            root3.mutableSourceEagerHydrationData.push(mutableSource, version6);
           }
         }
         var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher, ReactCurrentBatchConfig$2 = ReactSharedInternals.ReactCurrentBatchConfig;
@@ -15360,7 +15360,7 @@ var require_react_dom_development = __commonJS({
         var classComponentUpdater = {
           isMounted,
           enqueueSetState: function(inst, payload, callback) {
-            var fiber = get5(inst);
+            var fiber = get6(inst);
             var eventTime = requestEventTime();
             var lane = requestUpdateLane(fiber);
             var update = createUpdate(eventTime, lane);
@@ -15381,7 +15381,7 @@ var require_react_dom_development = __commonJS({
             }
           },
           enqueueReplaceState: function(inst, payload, callback) {
-            var fiber = get5(inst);
+            var fiber = get6(inst);
             var eventTime = requestEventTime();
             var lane = requestUpdateLane(fiber);
             var update = createUpdate(eventTime, lane);
@@ -15403,7 +15403,7 @@ var require_react_dom_development = __commonJS({
             }
           },
           enqueueForceUpdate: function(inst, callback) {
-            var fiber = get5(inst);
+            var fiber = get6(inst);
             var eventTime = requestEventTime();
             var lane = requestUpdateLane(fiber);
             var update = createUpdate(eventTime, lane);
@@ -20914,7 +20914,7 @@ var require_react_dom_development = __commonJS({
           }
           return rootWorkInProgress;
         }
-        function handleError(root3, thrownValue) {
+        function handleError3(root3, thrownValue) {
           do {
             var erroredWork = workInProgress;
             try {
@@ -21025,7 +21025,7 @@ var require_react_dom_development = __commonJS({
               workLoopSync();
               break;
             } catch (thrownValue) {
-              handleError(root3, thrownValue);
+              handleError3(root3, thrownValue);
             }
           } while (true);
           resetContextDependencies();
@@ -21073,7 +21073,7 @@ var require_react_dom_development = __commonJS({
               workLoopConcurrent();
               break;
             } catch (thrownValue) {
-              handleError(root3, thrownValue);
+              handleError3(root3, thrownValue);
             }
           } while (true);
           resetContextDependencies();
@@ -22578,7 +22578,7 @@ var require_react_dom_development = __commonJS({
           if (!parentComponent) {
             return emptyContextObject;
           }
-          var fiber = get5(parentComponent);
+          var fiber = get6(parentComponent);
           var parentContext = findCurrentUnmaskedContext(fiber);
           if (fiber.tag === ClassComponent) {
             var Component = fiber.type;
@@ -22590,7 +22590,7 @@ var require_react_dom_development = __commonJS({
         }
         function findHostInstanceWithWarning(component, methodName) {
           {
-            var fiber = get5(component);
+            var fiber = get6(component);
             if (fiber === void 0) {
               if (typeof component.render === "function") {
                 throw new Error("Unable to find node on an unmounted component.");
@@ -23482,9 +23482,9 @@ var require_react_dom_development = __commonJS({
   }
 });
 
-// node_modules/react-dom/index.js
+// node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/index.js
 var require_react_dom = __commonJS({
-  "node_modules/react-dom/index.js"(exports, module) {
+  "node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/index.js"(exports, module) {
     "use strict";
     if (false) {
       checkDCE();
@@ -23495,9 +23495,9 @@ var require_react_dom = __commonJS({
   }
 });
 
-// node_modules/react-dom/client.js
+// node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/client.js
 var require_client = __commonJS({
-  "node_modules/react-dom/client.js"(exports) {
+  "node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/client.js"(exports) {
     "use strict";
     var m = require_react_dom();
     if (false) {
@@ -23526,9 +23526,9 @@ var require_client = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js
 var require_isUnsafeProperty = __commonJS({
-  "node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isUnsafeProperty(key) {
@@ -23538,9 +23538,9 @@ var require_isUnsafeProperty = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js
 var require_isDeepKey = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isDeepKey(key) {
@@ -23558,9 +23558,9 @@ var require_isDeepKey = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/toKey.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/toKey.js
 var require_toKey = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/toKey.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/toKey.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function toKey(value) {
@@ -23576,9 +23576,9 @@ var require_toKey = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/toString.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toString.js
 var require_toString = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/toString.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toString.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function toString(value) {
@@ -23601,9 +23601,9 @@ var require_toString = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/toPath.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toPath.js
 var require_toPath = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/toPath.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toPath.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var toString = require_toString();
@@ -23677,16 +23677,16 @@ var require_toPath = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/object/get.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/get.js
 var require_get = __commonJS({
-  "node_modules/es-toolkit/dist/compat/object/get.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/get.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isUnsafeProperty = require_isUnsafeProperty();
     var isDeepKey = require_isDeepKey();
     var toKey = require_toKey();
     var toPath = require_toPath();
-    function get5(object, path2, defaultValue) {
+    function get6(object, path2, defaultValue) {
       if (object == null) {
         return defaultValue;
       }
@@ -23698,7 +23698,7 @@ var require_get = __commonJS({
           const result = object[path2];
           if (result === void 0) {
             if (isDeepKey.isDeepKey(path2)) {
-              return get5(object, toPath.toPath(path2), defaultValue);
+              return get6(object, toPath.toPath(path2), defaultValue);
             } else {
               return defaultValue;
             }
@@ -23755,20 +23755,20 @@ var require_get = __commonJS({
       }
       return current3;
     }
-    exports.get = get5;
+    exports.get = get6;
   }
 });
 
-// node_modules/es-toolkit/compat/get.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/get.js
 var require_get2 = __commonJS({
-  "node_modules/es-toolkit/compat/get.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/get.js"(exports, module) {
     module.exports = require_get().get;
   }
 });
 
-// node_modules/es-toolkit/dist/array/uniqBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/uniqBy.js
 var require_uniqBy = __commonJS({
-  "node_modules/es-toolkit/dist/array/uniqBy.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/uniqBy.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function uniqBy2(arr, mapper) {
@@ -23786,9 +23786,9 @@ var require_uniqBy = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/function/identity.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/function/identity.js
 var require_identity = __commonJS({
-  "node_modules/es-toolkit/dist/function/identity.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/function/identity.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function identity4(x2) {
@@ -23798,9 +23798,9 @@ var require_identity = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/predicate/isLength.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isLength.js
 var require_isLength = __commonJS({
-  "node_modules/es-toolkit/dist/predicate/isLength.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isLength.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isLength(value) {
@@ -23810,9 +23810,9 @@ var require_isLength = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js
 var require_isArrayLike = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isLength = require_isLength();
@@ -23823,9 +23823,9 @@ var require_isArrayLike = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isObjectLike.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isObjectLike.js
 var require_isObjectLike = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isObjectLike.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isObjectLike.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isObjectLike(value) {
@@ -23835,9 +23835,9 @@ var require_isObjectLike = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isArrayLikeObject.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArrayLikeObject.js
 var require_isArrayLikeObject = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isArrayLikeObject.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArrayLikeObject.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isArrayLike = require_isArrayLike();
@@ -23849,24 +23849,24 @@ var require_isArrayLikeObject = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/object/property.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/property.js
 var require_property = __commonJS({
-  "node_modules/es-toolkit/dist/compat/object/property.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/property.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-    var get5 = require_get();
+    var get6 = require_get();
     function property(path2) {
       return function(object) {
-        return get5.get(object, path2);
+        return get6.get(object, path2);
       };
     }
     exports.property = property;
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isObject.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isObject.js
 var require_isObject = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isObject.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isObject.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isObject(value) {
@@ -23876,9 +23876,9 @@ var require_isObject = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/predicate/isPrimitive.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isPrimitive.js
 var require_isPrimitive = __commonJS({
-  "node_modules/es-toolkit/dist/predicate/isPrimitive.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isPrimitive.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isPrimitive(value) {
@@ -23888,9 +23888,9 @@ var require_isPrimitive = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/eq.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/eq.js
 var require_eq = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/eq.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/eq.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function eq(value, other) {
@@ -23900,9 +23900,9 @@ var require_eq = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js
 var require_isMatchWith = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isObject = require_isObject();
@@ -24055,9 +24055,9 @@ var require_isMatchWith = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isMatch.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isMatch.js
 var require_isMatch = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isMatch.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isMatch.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isMatchWith = require_isMatchWith();
@@ -24068,9 +24068,9 @@ var require_isMatch = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/getSymbols.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/getSymbols.js
 var require_getSymbols = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/getSymbols.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/getSymbols.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function getSymbols(object) {
@@ -24080,9 +24080,9 @@ var require_getSymbols = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/getTag.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/getTag.js
 var require_getTag = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/getTag.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/getTag.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function getTag(value) {
@@ -24095,9 +24095,9 @@ var require_getTag = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/tags.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/tags.js
 var require_tags = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/tags.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/tags.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var regexpTag = "[object RegExp]";
@@ -24155,9 +24155,9 @@ var require_tags = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/predicate/isTypedArray.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isTypedArray.js
 var require_isTypedArray = __commonJS({
-  "node_modules/es-toolkit/dist/predicate/isTypedArray.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/predicate/isTypedArray.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isTypedArray(x2) {
@@ -24167,9 +24167,9 @@ var require_isTypedArray = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/object/cloneDeepWith.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/object/cloneDeepWith.js
 var require_cloneDeepWith = __commonJS({
-  "node_modules/es-toolkit/dist/object/cloneDeepWith.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/object/cloneDeepWith.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var getSymbols = require_getSymbols();
@@ -24346,9 +24346,9 @@ var require_cloneDeepWith = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/object/cloneDeep.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/object/cloneDeep.js
 var require_cloneDeep = __commonJS({
-  "node_modules/es-toolkit/dist/object/cloneDeep.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/object/cloneDeep.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var cloneDeepWith = require_cloneDeepWith();
@@ -24359,9 +24359,9 @@ var require_cloneDeep = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/matches.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/matches.js
 var require_matches = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/matches.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/matches.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isMatch = require_isMatch();
@@ -24376,9 +24376,9 @@ var require_matches = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js
 var require_cloneDeepWith2 = __commonJS({
-  "node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var cloneDeepWith$1 = require_cloneDeepWith();
@@ -24417,9 +24417,9 @@ var require_cloneDeepWith2 = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/object/cloneDeep.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/cloneDeep.js
 var require_cloneDeep2 = __commonJS({
-  "node_modules/es-toolkit/dist/compat/object/cloneDeep.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/cloneDeep.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var cloneDeepWith = require_cloneDeepWith2();
@@ -24430,9 +24430,9 @@ var require_cloneDeep2 = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/isIndex.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isIndex.js
 var require_isIndex = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/isIndex.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isIndex.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var IS_UNSIGNED_INTEGER = /^(?:0|[1-9]\d*)$/;
@@ -24453,9 +24453,9 @@ var require_isIndex = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isArguments.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArguments.js
 var require_isArguments = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isArguments.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isArguments.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var getTag = require_getTag();
@@ -24466,9 +24466,9 @@ var require_isArguments = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/object/has.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/has.js
 var require_has = __commonJS({
-  "node_modules/es-toolkit/dist/compat/object/has.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/object/has.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isDeepKey = require_isDeepKey();
@@ -24504,15 +24504,15 @@ var require_has = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js
 var require_matchesProperty = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isMatch = require_isMatch();
     var toKey = require_toKey();
     var cloneDeep = require_cloneDeep2();
-    var get5 = require_get();
+    var get6 = require_get();
     var has3 = require_has();
     function matchesProperty(property, source) {
       switch (typeof property) {
@@ -24529,7 +24529,7 @@ var require_matchesProperty = __commonJS({
       }
       source = cloneDeep.cloneDeep(source);
       return function(target) {
-        const result = get5.get(target, property);
+        const result = get6.get(target, property);
         if (result === void 0) {
           return has3.has(target, property);
         }
@@ -24543,9 +24543,9 @@ var require_matchesProperty = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/iteratee.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/iteratee.js
 var require_iteratee = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/iteratee.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/iteratee.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var identity4 = require_identity();
@@ -24577,9 +24577,9 @@ var require_iteratee = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/array/uniqBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/uniqBy.js
 var require_uniqBy2 = __commonJS({
-  "node_modules/es-toolkit/dist/compat/array/uniqBy.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/uniqBy.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var uniqBy$1 = require_uniqBy();
@@ -24596,23 +24596,23 @@ var require_uniqBy2 = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/compat/uniqBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/uniqBy.js
 var require_uniqBy3 = __commonJS({
-  "node_modules/es-toolkit/compat/uniqBy.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/uniqBy.js"(exports, module) {
     module.exports = require_uniqBy2().uniqBy;
   }
 });
 
-// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
 var require_use_sync_external_store_shim_development = __commonJS({
-  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js"(exports) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js"(exports) {
     "use strict";
     (function() {
       function is4(x2, y2) {
         return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
       }
       function useSyncExternalStore$2(subscribe, getSnapshot) {
-        didWarnOld18Alpha || void 0 === React38.startTransition || (didWarnOld18Alpha = true, console.error(
+        didWarnOld18Alpha || void 0 === React39.startTransition || (didWarnOld18Alpha = true, console.error(
           "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
         ));
         var value = getSnapshot();
@@ -24622,7 +24622,7 @@ var require_use_sync_external_store_shim_development = __commonJS({
             "The result of getSnapshot should be cached to avoid an infinite loop"
           ), didWarnUncachedGetSnapshot = true);
         }
-        cachedValue = useState12({
+        cachedValue = useState13({
           inst: { value, getSnapshot }
         });
         var inst = cachedValue[0].inst, forceUpdate = cachedValue[1];
@@ -24660,16 +24660,16 @@ var require_use_sync_external_store_shim_development = __commonJS({
         return getSnapshot();
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React38 = require_react(), objectIs = "function" === typeof Object.is ? Object.is : is4, useState12 = React38.useState, useEffect14 = React38.useEffect, useLayoutEffect9 = React38.useLayoutEffect, useDebugValue2 = React38.useDebugValue, didWarnOld18Alpha = false, didWarnUncachedGetSnapshot = false, shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
-      exports.useSyncExternalStore = void 0 !== React38.useSyncExternalStore ? React38.useSyncExternalStore : shim;
+      var React39 = require_react(), objectIs = "function" === typeof Object.is ? Object.is : is4, useState13 = React39.useState, useEffect14 = React39.useEffect, useLayoutEffect9 = React39.useLayoutEffect, useDebugValue2 = React39.useDebugValue, didWarnOld18Alpha = false, didWarnUncachedGetSnapshot = false, shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+      exports.useSyncExternalStore = void 0 !== React39.useSyncExternalStore ? React39.useSyncExternalStore : shim;
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
     })();
   }
 });
 
-// node_modules/use-sync-external-store/shim/index.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/shim/index.js
 var require_shim = __commonJS({
-  "node_modules/use-sync-external-store/shim/index.js"(exports, module) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/shim/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -24679,16 +24679,16 @@ var require_shim = __commonJS({
   }
 });
 
-// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js
 var require_with_selector_development = __commonJS({
-  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js"(exports) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js"(exports) {
     "use strict";
     (function() {
       function is4(x2, y2) {
         return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React38 = require_react(), shim = require_shim(), objectIs = "function" === typeof Object.is ? Object.is : is4, useSyncExternalStore2 = shim.useSyncExternalStore, useRef16 = React38.useRef, useEffect14 = React38.useEffect, useMemo9 = React38.useMemo, useDebugValue2 = React38.useDebugValue;
+      var React39 = require_react(), shim = require_shim(), objectIs = "function" === typeof Object.is ? Object.is : is4, useSyncExternalStore2 = shim.useSyncExternalStore, useRef16 = React39.useRef, useEffect14 = React39.useEffect, useMemo9 = React39.useMemo, useDebugValue2 = React39.useDebugValue;
       exports.useSyncExternalStoreWithSelector = function(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
         var instRef = useRef16(null);
         if (null === instRef.current) {
@@ -24746,9 +24746,9 @@ var require_with_selector_development = __commonJS({
   }
 });
 
-// node_modules/use-sync-external-store/shim/with-selector.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/shim/with-selector.js
 var require_with_selector = __commonJS({
-  "node_modules/use-sync-external-store/shim/with-selector.js"(exports, module) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/shim/with-selector.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -24758,9 +24758,9 @@ var require_with_selector = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/compareValues.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/compareValues.js
 var require_compareValues = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/compareValues.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/compareValues.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function getPriority(a) {
@@ -24798,9 +24798,9 @@ var require_compareValues = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/predicate/isSymbol.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js
 var require_isSymbol = __commonJS({
-  "node_modules/es-toolkit/dist/compat/predicate/isSymbol.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function isSymbol(value) {
@@ -24810,9 +24810,9 @@ var require_isSymbol = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/isKey.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isKey.js
 var require_isKey = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/isKey.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isKey.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isSymbol = require_isSymbol();
@@ -24831,9 +24831,9 @@ var require_isKey = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/array/orderBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/orderBy.js
 var require_orderBy = __commonJS({
-  "node_modules/es-toolkit/dist/compat/array/orderBy.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/orderBy.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var compareValues = require_compareValues();
@@ -24912,9 +24912,9 @@ var require_orderBy = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/array/flatten.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/flatten.js
 var require_flatten = __commonJS({
-  "node_modules/es-toolkit/dist/array/flatten.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/flatten.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function flatten(arr, depth = 1) {
@@ -24937,9 +24937,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js
 var require_isIterateeCall = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isIndex = require_isIndex();
@@ -24959,9 +24959,9 @@ var require_isIterateeCall = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/array/sortBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/sortBy.js
 var require_sortBy = __commonJS({
-  "node_modules/es-toolkit/dist/compat/array/sortBy.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/sortBy.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var orderBy = require_orderBy();
@@ -24980,16 +24980,16 @@ var require_sortBy = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/compat/sortBy.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/sortBy.js
 var require_sortBy2 = __commonJS({
-  "node_modules/es-toolkit/compat/sortBy.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/sortBy.js"(exports, module) {
     module.exports = require_sortBy().sortBy;
   }
 });
 
-// node_modules/es-toolkit/dist/function/debounce.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/function/debounce.js
 var require_debounce = __commonJS({
-  "node_modules/es-toolkit/dist/function/debounce.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/function/debounce.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function debounce(func, debounceMs, { signal, edges } = {}) {
@@ -25056,9 +25056,9 @@ var require_debounce = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/function/debounce.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/function/debounce.js
 var require_debounce2 = __commonJS({
-  "node_modules/es-toolkit/dist/compat/function/debounce.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/function/debounce.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var debounce$1 = require_debounce();
@@ -25108,9 +25108,9 @@ var require_debounce2 = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/function/throttle.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/function/throttle.js
 var require_throttle = __commonJS({
-  "node_modules/es-toolkit/dist/compat/function/throttle.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/function/throttle.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var debounce = require_debounce2();
@@ -25126,40 +25126,40 @@ var require_throttle = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/compat/throttle.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/throttle.js
 var require_throttle2 = __commonJS({
-  "node_modules/es-toolkit/compat/throttle.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/throttle.js"(exports, module) {
     module.exports = require_throttle().throttle;
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/toNumber.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toNumber.js
 var require_toNumber = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/toNumber.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toNumber.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isSymbol = require_isSymbol();
-    function toNumber(value) {
+    function toNumber2(value) {
       if (isSymbol.isSymbol(value)) {
         return NaN;
       }
       return Number(value);
     }
-    exports.toNumber = toNumber;
+    exports.toNumber = toNumber2;
   }
 });
 
-// node_modules/es-toolkit/dist/compat/util/toFinite.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toFinite.js
 var require_toFinite = __commonJS({
-  "node_modules/es-toolkit/dist/compat/util/toFinite.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/util/toFinite.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-    var toNumber = require_toNumber();
+    var toNumber2 = require_toNumber();
     function toFinite(value) {
       if (!value) {
         return value === 0 ? value : 0;
       }
-      value = toNumber.toNumber(value);
+      value = toNumber2.toNumber(value);
       if (value === Infinity || value === -Infinity) {
         const sign2 = value < 0 ? -1 : 1;
         return sign2 * Number.MAX_VALUE;
@@ -25170,9 +25170,9 @@ var require_toFinite = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/math/range.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/math/range.js
 var require_range = __commonJS({
-  "node_modules/es-toolkit/dist/compat/math/range.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/math/range.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var isIterateeCall = require_isIterateeCall();
@@ -25201,16 +25201,16 @@ var require_range = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/compat/range.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/range.js
 var require_range2 = __commonJS({
-  "node_modules/es-toolkit/compat/range.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/range.js"(exports, module) {
     module.exports = require_range().range;
   }
 });
 
-// node_modules/decimal.js-light/decimal.js
+// node_modules/.pnpm/decimal.js-light@2.5.1/node_modules/decimal.js-light/decimal.js
 var require_decimal = __commonJS({
-  "node_modules/decimal.js-light/decimal.js"(exports, module) {
+  "node_modules/.pnpm/decimal.js-light@2.5.1/node_modules/decimal.js-light/decimal.js"(exports, module) {
     (function(globalScope) {
       "use strict";
       var MAX_DIGITS = 1e9, Decimal3 = {
@@ -26194,9 +26194,9 @@ var require_decimal = __commonJS({
   }
 });
 
-// node_modules/eventemitter3/index.js
+// node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.js
 var require_eventemitter3 = __commonJS({
-  "node_modules/eventemitter3/index.js"(exports, module) {
+  "node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.js"(exports, module) {
     "use strict";
     var has3 = Object.prototype.hasOwnProperty;
     var prefix = "~";
@@ -26356,9 +26356,9 @@ var require_eventemitter3 = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/array/last.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/last.js
 var require_last = __commonJS({
-  "node_modules/es-toolkit/dist/array/last.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/array/last.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     function last2(arr) {
@@ -26368,53 +26368,53 @@ var require_last = __commonJS({
   }
 });
 
-// node_modules/es-toolkit/dist/compat/_internal/toArray.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/toArray.js
 var require_toArray = __commonJS({
-  "node_modules/es-toolkit/dist/compat/_internal/toArray.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/_internal/toArray.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-    function toArray(value) {
+    function toArray2(value) {
       return Array.isArray(value) ? value : Array.from(value);
     }
-    exports.toArray = toArray;
+    exports.toArray = toArray2;
   }
 });
 
-// node_modules/es-toolkit/dist/compat/array/last.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/last.js
 var require_last2 = __commonJS({
-  "node_modules/es-toolkit/dist/compat/array/last.js"(exports) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/dist/compat/array/last.js"(exports) {
     "use strict";
     Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
     var last$1 = require_last();
-    var toArray = require_toArray();
+    var toArray2 = require_toArray();
     var isArrayLike = require_isArrayLike();
     function last2(array) {
       if (!isArrayLike.isArrayLike(array)) {
         return void 0;
       }
-      return last$1.last(toArray.toArray(array));
+      return last$1.last(toArray2.toArray(array));
     }
     exports.last = last2;
   }
 });
 
-// node_modules/es-toolkit/compat/last.js
+// node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/last.js
 var require_last3 = __commonJS({
-  "node_modules/es-toolkit/compat/last.js"(exports, module) {
+  "node_modules/.pnpm/es-toolkit@1.42.0/node_modules/es-toolkit/compat/last.js"(exports, module) {
     module.exports = require_last2().last;
   }
 });
 
-// node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js
 var require_use_sync_external_store_with_selector_development = __commonJS({
-  "node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js"(exports) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js"(exports) {
     "use strict";
     (function() {
       function is4(x2, y2) {
         return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React38 = require_react(), objectIs = "function" === typeof Object.is ? Object.is : is4, useSyncExternalStore2 = React38.useSyncExternalStore, useRef16 = React38.useRef, useEffect14 = React38.useEffect, useMemo9 = React38.useMemo, useDebugValue2 = React38.useDebugValue;
+      var React39 = require_react(), objectIs = "function" === typeof Object.is ? Object.is : is4, useSyncExternalStore2 = React39.useSyncExternalStore, useRef16 = React39.useRef, useEffect14 = React39.useEffect, useMemo9 = React39.useMemo, useDebugValue2 = React39.useDebugValue;
       exports.useSyncExternalStoreWithSelector = function(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
         var instRef = useRef16(null);
         if (null === instRef.current) {
@@ -26472,9 +26472,9 @@ var require_use_sync_external_store_with_selector_development = __commonJS({
   }
 });
 
-// node_modules/use-sync-external-store/with-selector.js
+// node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/with-selector.js
 var require_with_selector2 = __commonJS({
-  "node_modules/use-sync-external-store/with-selector.js"(exports, module) {
+  "node_modules/.pnpm/use-sync-external-store@1.6.0_react@18.3.1/node_modules/use-sync-external-store/with-selector.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -26484,14 +26484,14 @@ var require_with_selector2 = __commonJS({
   }
 });
 
-// node_modules/react/cjs/react-jsx-runtime.development.js
+// node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react-jsx-runtime.development.js
 var require_react_jsx_runtime_development = __commonJS({
-  "node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
+  "node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
         "use strict";
-        var React38 = require_react();
+        var React39 = require_react();
         var REACT_ELEMENT_TYPE = Symbol.for("react.element");
         var REACT_PORTAL_TYPE = Symbol.for("react.portal");
         var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -26517,7 +26517,7 @@ var require_react_jsx_runtime_development = __commonJS({
           }
           return null;
         }
-        var ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React39.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         function error(format2) {
           {
             {
@@ -27367,19 +27367,19 @@ var require_react_jsx_runtime_development = __commonJS({
             return jsxWithValidation(type, props, key, false);
           }
         }
-        var jsx3 = jsxWithValidationDynamic;
-        var jsxs3 = jsxWithValidationStatic;
+        var jsx4 = jsxWithValidationDynamic;
+        var jsxs4 = jsxWithValidationStatic;
         exports.Fragment = REACT_FRAGMENT_TYPE;
-        exports.jsx = jsx3;
-        exports.jsxs = jsxs3;
+        exports.jsx = jsx4;
+        exports.jsxs = jsxs4;
       })();
     }
   }
 });
 
-// node_modules/react/jsx-runtime.js
+// node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js
 var require_jsx_runtime = __commonJS({
-  "node_modules/react/jsx-runtime.js"(exports, module) {
+  "node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -27390,16 +27390,16 @@ var require_jsx_runtime = __commonJS({
 });
 
 // src/main.tsx
-var import_react52 = __toESM(require_react(), 1);
+var import_react53 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // src/MyBudget.tsx
-var import_react51 = __toESM(require_react(), 1);
+var import_react52 = __toESM(require_react(), 1);
 
-// node_modules/lucide-react/dist/esm/createLucideIcon.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/createLucideIcon.js
 var import_react2 = __toESM(require_react());
 
-// node_modules/lucide-react/dist/esm/shared/src/utils.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/shared/src/utils.js
 var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 var toCamelCase = (string) => string.replace(
   /^([A-Z])|[\s-_]+(\w)/g,
@@ -27420,10 +27420,10 @@ var hasA11yProp = (props) => {
   }
 };
 
-// node_modules/lucide-react/dist/esm/Icon.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/Icon.js
 var import_react = __toESM(require_react());
 
-// node_modules/lucide-react/dist/esm/defaultAttributes.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/defaultAttributes.js
 var defaultAttributes = {
   xmlns: "http://www.w3.org/2000/svg",
   width: 24,
@@ -27436,7 +27436,7 @@ var defaultAttributes = {
   strokeLinejoin: "round"
 };
 
-// node_modules/lucide-react/dist/esm/Icon.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/Icon.js
 var Icon = (0, import_react.forwardRef)(
   ({
     color: color2 = "currentColor",
@@ -27467,7 +27467,7 @@ var Icon = (0, import_react.forwardRef)(
   )
 );
 
-// node_modules/lucide-react/dist/esm/createLucideIcon.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/createLucideIcon.js
 var createLucideIcon = (iconName, iconNode) => {
   const Component = (0, import_react2.forwardRef)(
     ({ className, ...props }, ref) => (0, import_react2.createElement)(Icon, {
@@ -27485,14 +27485,14 @@ var createLucideIcon = (iconName, iconNode) => {
   return Component;
 };
 
-// node_modules/lucide-react/dist/esm/icons/arrow-up-right.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/arrow-up-right.js
 var __iconNode = [
   ["path", { d: "M7 7h10v10", key: "1tivn9" }],
   ["path", { d: "M7 17 17 7", key: "1vkiza" }]
 ];
 var ArrowUpRight = createLucideIcon("arrow-up-right", __iconNode);
 
-// node_modules/lucide-react/dist/esm/icons/building-2.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/building-2.js
 var __iconNode2 = [
   ["path", { d: "M10 12h4", key: "a56b0p" }],
   ["path", { d: "M10 8h4", key: "1sr2af" }],
@@ -27508,34 +27508,42 @@ var __iconNode2 = [
 ];
 var Building2 = createLucideIcon("building-2", __iconNode2);
 
-// node_modules/lucide-react/dist/esm/icons/check.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/check.js
 var __iconNode3 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
 var Check = createLucideIcon("check", __iconNode3);
 
-// node_modules/lucide-react/dist/esm/icons/chevron-down.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/chevron-down.js
 var __iconNode4 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
 var ChevronDown = createLucideIcon("chevron-down", __iconNode4);
 
-// node_modules/lucide-react/dist/esm/icons/chevron-up.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/chevron-up.js
 var __iconNode5 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
 var ChevronUp = createLucideIcon("chevron-up", __iconNode5);
 
-// node_modules/lucide-react/dist/esm/icons/clock.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/circle-alert.js
 var __iconNode6 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+var CircleAlert = createLucideIcon("circle-alert", __iconNode6);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/clock.js
+var __iconNode7 = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-var Clock = createLucideIcon("clock", __iconNode6);
+var Clock = createLucideIcon("clock", __iconNode7);
 
-// node_modules/lucide-react/dist/esm/icons/dollar-sign.js
-var __iconNode7 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/dollar-sign.js
+var __iconNode8 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-var DollarSign = createLucideIcon("dollar-sign", __iconNode7);
+var DollarSign = createLucideIcon("dollar-sign", __iconNode8);
 
-// node_modules/lucide-react/dist/esm/icons/grip-vertical.js
-var __iconNode8 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/grip-vertical.js
+var __iconNode9 = [
   ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
   ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
   ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
@@ -27543,10 +27551,10 @@ var __iconNode8 = [
   ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
   ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
 ];
-var GripVertical = createLucideIcon("grip-vertical", __iconNode8);
+var GripVertical = createLucideIcon("grip-vertical", __iconNode9);
 
-// node_modules/lucide-react/dist/esm/icons/heart.js
-var __iconNode9 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/heart.js
+var __iconNode10 = [
   [
     "path",
     {
@@ -27555,10 +27563,10 @@ var __iconNode9 = [
     }
   ]
 ];
-var Heart = createLucideIcon("heart", __iconNode9);
+var Heart = createLucideIcon("heart", __iconNode10);
 
-// node_modules/lucide-react/dist/esm/icons/house.js
-var __iconNode10 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/house.js
+var __iconNode11 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -27568,10 +27576,23 @@ var __iconNode10 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode10);
+var House = createLucideIcon("house", __iconNode11);
 
-// node_modules/lucide-react/dist/esm/icons/landmark.js
-var __iconNode11 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/key-round.js
+var __iconNode12 = [
+  [
+    "path",
+    {
+      d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z",
+      key: "1s6t7t"
+    }
+  ],
+  ["circle", { cx: "16.5", cy: "7.5", r: ".5", fill: "currentColor", key: "w0ekpg" }]
+];
+var KeyRound = createLucideIcon("key-round", __iconNode12);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/landmark.js
+var __iconNode13 = [
   ["path", { d: "M10 18v-7", key: "wt116b" }],
   [
     "path",
@@ -27585,21 +27606,21 @@ var __iconNode11 = [
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M6 18v-7", key: "1ivflk" }]
 ];
-var Landmark = createLucideIcon("landmark", __iconNode11);
+var Landmark = createLucideIcon("landmark", __iconNode13);
 
-// node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode12 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode12);
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/loader-circle.js
+var __iconNode14 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode14);
 
-// node_modules/lucide-react/dist/esm/icons/mail.js
-var __iconNode13 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/mail.js
+var __iconNode15 = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-var Mail = createLucideIcon("mail", __iconNode13);
+var Mail = createLucideIcon("mail", __iconNode15);
 
-// node_modules/lucide-react/dist/esm/icons/message-square.js
-var __iconNode14 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/message-square.js
+var __iconNode16 = [
   [
     "path",
     {
@@ -27608,10 +27629,10 @@ var __iconNode14 = [
     }
   ]
 ];
-var MessageSquare = createLucideIcon("message-square", __iconNode14);
+var MessageSquare = createLucideIcon("message-square", __iconNode16);
 
-// node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode15 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/pen.js
+var __iconNode17 = [
   [
     "path",
     {
@@ -27620,10 +27641,10 @@ var __iconNode15 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode15);
+var Pen = createLucideIcon("pen", __iconNode17);
 
-// node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode16 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/piggy-bank.js
+var __iconNode18 = [
   [
     "path",
     {
@@ -27634,17 +27655,17 @@ var __iconNode16 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode16);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode18);
 
-// node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode17 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/plus.js
+var __iconNode19 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode17);
+var Plus = createLucideIcon("plus", __iconNode19);
 
-// node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode18 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/printer.js
+var __iconNode20 = [
   [
     "path",
     {
@@ -27655,26 +27676,26 @@ var __iconNode18 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode18);
+var Printer = createLucideIcon("printer", __iconNode20);
 
-// node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode19 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/refresh-cw.js
+var __iconNode21 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode19);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode21);
 
-// node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode20 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
+var __iconNode22 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode20);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode22);
 
-// node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode21 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/save.js
+var __iconNode23 = [
   [
     "path",
     {
@@ -27685,17 +27706,17 @@ var __iconNode21 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode21);
+var Save = createLucideIcon("save", __iconNode23);
 
-// node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode22 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/search.js
+var __iconNode24 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode22);
+var Search = createLucideIcon("search", __iconNode24);
 
-// node_modules/lucide-react/dist/esm/icons/thumbs-down.js
-var __iconNode23 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-down.js
+var __iconNode25 = [
   ["path", { d: "M17 14V2", key: "8ymqnk" }],
   [
     "path",
@@ -27705,10 +27726,10 @@ var __iconNode23 = [
     }
   ]
 ];
-var ThumbsDown = createLucideIcon("thumbs-down", __iconNode23);
+var ThumbsDown = createLucideIcon("thumbs-down", __iconNode25);
 
-// node_modules/lucide-react/dist/esm/icons/thumbs-up.js
-var __iconNode24 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-up.js
+var __iconNode26 = [
   ["path", { d: "M7 10v12", key: "1qc93n" }],
   [
     "path",
@@ -27718,34 +27739,34 @@ var __iconNode24 = [
     }
   ]
 ];
-var ThumbsUp = createLucideIcon("thumbs-up", __iconNode24);
+var ThumbsUp = createLucideIcon("thumbs-up", __iconNode26);
 
-// node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode25 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trash-2.js
+var __iconNode27 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode25);
+var Trash2 = createLucideIcon("trash-2", __iconNode27);
 
-// node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode26 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-down.js
+var __iconNode28 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode26);
+var TrendingDown = createLucideIcon("trending-down", __iconNode28);
 
-// node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode27 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-up.js
+var __iconNode29 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode27);
+var TrendingUp = createLucideIcon("trending-up", __iconNode29);
 
-// node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode28 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/triangle-alert.js
+var __iconNode30 = [
   [
     "path",
     {
@@ -27756,10 +27777,10 @@ var __iconNode28 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode28);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode30);
 
-// node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode29 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/wallet.js
+var __iconNode31 = [
   [
     "path",
     {
@@ -27769,20 +27790,20 @@ var __iconNode29 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode29);
+var Wallet = createLucideIcon("wallet", __iconNode31);
 
-// node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode30 = [
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/x.js
+var __iconNode32 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode30);
+var X = createLucideIcon("x", __iconNode32);
 
-// node_modules/recharts/es6/container/Surface.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/Surface.js
 var React = __toESM(require_react());
 var import_react5 = __toESM(require_react());
 
-// node_modules/clsx/dist/clsx.mjs
+// node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
   var t, f, n = "";
   if ("string" == typeof e || "number" == typeof e) n += e;
@@ -27797,10 +27818,10 @@ function clsx() {
   return n;
 }
 
-// node_modules/recharts/es6/util/svgPropertiesAndEvents.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/svgPropertiesAndEvents.js
 var import_react4 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/excludeEventProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/excludeEventProps.js
 var EventKeys = ["dangerouslySetInnerHTML", "onCopy", "onCopyCapture", "onCut", "onCutCapture", "onPaste", "onPasteCapture", "onCompositionEnd", "onCompositionEndCapture", "onCompositionStart", "onCompositionStartCapture", "onCompositionUpdate", "onCompositionUpdateCapture", "onFocus", "onFocusCapture", "onBlur", "onBlurCapture", "onChange", "onChangeCapture", "onBeforeInput", "onBeforeInputCapture", "onInput", "onInputCapture", "onReset", "onResetCapture", "onSubmit", "onSubmitCapture", "onInvalid", "onInvalidCapture", "onLoad", "onLoadCapture", "onError", "onErrorCapture", "onKeyDown", "onKeyDownCapture", "onKeyPress", "onKeyPressCapture", "onKeyUp", "onKeyUpCapture", "onAbort", "onAbortCapture", "onCanPlay", "onCanPlayCapture", "onCanPlayThrough", "onCanPlayThroughCapture", "onDurationChange", "onDurationChangeCapture", "onEmptied", "onEmptiedCapture", "onEncrypted", "onEncryptedCapture", "onEnded", "onEndedCapture", "onLoadedData", "onLoadedDataCapture", "onLoadedMetadata", "onLoadedMetadataCapture", "onLoadStart", "onLoadStartCapture", "onPause", "onPauseCapture", "onPlay", "onPlayCapture", "onPlaying", "onPlayingCapture", "onProgress", "onProgressCapture", "onRateChange", "onRateChangeCapture", "onSeeked", "onSeekedCapture", "onSeeking", "onSeekingCapture", "onStalled", "onStalledCapture", "onSuspend", "onSuspendCapture", "onTimeUpdate", "onTimeUpdateCapture", "onVolumeChange", "onVolumeChangeCapture", "onWaiting", "onWaitingCapture", "onAuxClick", "onAuxClickCapture", "onClick", "onClickCapture", "onContextMenu", "onContextMenuCapture", "onDoubleClick", "onDoubleClickCapture", "onDrag", "onDragCapture", "onDragEnd", "onDragEndCapture", "onDragEnter", "onDragEnterCapture", "onDragExit", "onDragExitCapture", "onDragLeave", "onDragLeaveCapture", "onDragOver", "onDragOverCapture", "onDragStart", "onDragStartCapture", "onDrop", "onDropCapture", "onMouseDown", "onMouseDownCapture", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseMoveCapture", "onMouseOut", "onMouseOutCapture", "onMouseOver", "onMouseOverCapture", "onMouseUp", "onMouseUpCapture", "onSelect", "onSelectCapture", "onTouchCancel", "onTouchCancelCapture", "onTouchEnd", "onTouchEndCapture", "onTouchMove", "onTouchMoveCapture", "onTouchStart", "onTouchStartCapture", "onPointerDown", "onPointerDownCapture", "onPointerMove", "onPointerMoveCapture", "onPointerUp", "onPointerUpCapture", "onPointerCancel", "onPointerCancelCapture", "onPointerEnter", "onPointerEnterCapture", "onPointerLeave", "onPointerLeaveCapture", "onPointerOver", "onPointerOverCapture", "onPointerOut", "onPointerOutCapture", "onGotPointerCapture", "onGotPointerCaptureCapture", "onLostPointerCapture", "onLostPointerCaptureCapture", "onScroll", "onScrollCapture", "onWheel", "onWheelCapture", "onAnimationStart", "onAnimationStartCapture", "onAnimationEnd", "onAnimationEndCapture", "onAnimationIteration", "onAnimationIterationCapture", "onTransitionEnd", "onTransitionEndCapture"];
 function isEventKey(key) {
   if (typeof key !== "string") {
@@ -27810,7 +27831,7 @@ function isEventKey(key) {
   return allowedEventKeys.includes(key);
 }
 
-// node_modules/recharts/es6/util/svgPropertiesNoEvents.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/svgPropertiesNoEvents.js
 var import_react3 = __toESM(require_react());
 var SVGElementPropKeys = [
   "aria-activedescendant",
@@ -28160,7 +28181,7 @@ function svgPropertiesNoEventsFromUnknown(input) {
   return null;
 }
 
-// node_modules/recharts/es6/util/svgPropertiesAndEvents.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/svgPropertiesAndEvents.js
 function svgPropertiesAndEvents(obj) {
   var result = {};
   for (var key in obj) {
@@ -28185,7 +28206,7 @@ function svgPropertiesAndEventsFromUnknown(input) {
   return null;
 }
 
-// node_modules/recharts/es6/container/Surface.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/Surface.js
 var _excluded = ["children", "width", "height", "viewBox", "className", "style", "title", "desc"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function(n) {
@@ -28242,7 +28263,7 @@ var Surface = /* @__PURE__ */ (0, import_react5.forwardRef)((props, ref) => {
   }), /* @__PURE__ */ React.createElement("title", null, title), /* @__PURE__ */ React.createElement("desc", null, desc), children);
 });
 
-// node_modules/recharts/es6/container/Layer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/Layer.js
 var React2 = __toESM(require_react());
 var _excluded2 = ["children", "className"];
 function _extends2() {
@@ -28285,18 +28306,18 @@ var Layer = /* @__PURE__ */ React2.forwardRef((props, ref) => {
   }), children);
 });
 
-// node_modules/recharts/es6/context/legendPortalContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/legendPortalContext.js
 var import_react6 = __toESM(require_react());
 var LegendPortalContext = /* @__PURE__ */ (0, import_react6.createContext)(null);
 
-// node_modules/d3-shape/src/constant.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/constant.js
 function constant_default(x2) {
   return function constant() {
     return x2;
   };
 }
 
-// node_modules/d3-path/src/path.js
+// node_modules/.pnpm/d3-path@3.1.0/node_modules/d3-path/src/path.js
 var pi = Math.PI;
 var tau = 2 * pi;
 var epsilon = 1e-6;
@@ -28390,7 +28411,7 @@ function path() {
 }
 path.prototype = Path.prototype;
 
-// node_modules/d3-shape/src/path.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/path.js
 function withPath(shape) {
   let digits = 3;
   shape.digits = function(_) {
@@ -28407,13 +28428,13 @@ function withPath(shape) {
   return () => new Path(digits);
 }
 
-// node_modules/d3-shape/src/array.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/array.js
 var slice = Array.prototype.slice;
 function array_default(x2) {
   return typeof x2 === "object" && "length" in x2 ? x2 : Array.from(x2);
 }
 
-// node_modules/d3-shape/src/curve/linear.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/linear.js
 function Linear(context) {
   this._context = context;
 }
@@ -28450,7 +28471,7 @@ function linear_default(context) {
   return new Linear(context);
 }
 
-// node_modules/d3-shape/src/point.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/point.js
 function x(p) {
   return p[0];
 }
@@ -28458,7 +28479,7 @@ function y(p) {
   return p[1];
 }
 
-// node_modules/d3-shape/src/line.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/line.js
 function line_default(x2, y2) {
   var defined2 = constant_default(true), context = null, curve = linear_default, output = null, path2 = withPath(line);
   x2 = typeof x2 === "function" ? x2 : x2 === void 0 ? x : constant_default(x2);
@@ -28493,7 +28514,7 @@ function line_default(x2, y2) {
   return line;
 }
 
-// node_modules/d3-shape/src/area.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/area.js
 function area_default(x0, y0, y1) {
   var x1 = null, defined2 = constant_default(true), context = null, curve = linear_default, output = null, path2 = withPath(area);
   x0 = typeof x0 === "function" ? x0 : x0 === void 0 ? x : constant_default(+x0);
@@ -28567,7 +28588,7 @@ function area_default(x0, y0, y1) {
   return area;
 }
 
-// node_modules/d3-shape/src/curve/bump.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/bump.js
 var Bump = class {
   constructor(context, x2) {
     this._context = context;
@@ -28613,11 +28634,11 @@ function bumpY(context) {
   return new Bump(context, false);
 }
 
-// node_modules/d3-shape/src/noop.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/noop.js
 function noop_default() {
 }
 
-// node_modules/d3-shape/src/curve/basis.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/basis.js
 function point(that, x2, y2) {
   that._context.bezierCurveTo(
     (2 * that._x0 + that._x1) / 3,
@@ -28678,7 +28699,7 @@ function basis_default(context) {
   return new Basis(context);
 }
 
-// node_modules/d3-shape/src/curve/basisClosed.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/basisClosed.js
 function BasisClosed(context) {
   this._context = context;
 }
@@ -28738,7 +28759,7 @@ function basisClosed_default(context) {
   return new BasisClosed(context);
 }
 
-// node_modules/d3-shape/src/curve/basisOpen.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/basisOpen.js
 function BasisOpen(context) {
   this._context = context;
 }
@@ -28785,7 +28806,7 @@ function basisOpen_default(context) {
   return new BasisOpen(context);
 }
 
-// node_modules/d3-shape/src/curve/linearClosed.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/linearClosed.js
 function LinearClosed(context) {
   this._context = context;
 }
@@ -28808,7 +28829,7 @@ function linearClosed_default(context) {
   return new LinearClosed(context);
 }
 
-// node_modules/d3-shape/src/curve/monotone.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/monotone.js
 function sign(x2) {
   return x2 < 0 ? -1 : 1;
 }
@@ -28905,7 +28926,7 @@ function monotoneY(context) {
   return new MonotoneY(context);
 }
 
-// node_modules/d3-shape/src/curve/natural.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/natural.js
 function Natural(context) {
   this._context = context;
 }
@@ -28958,7 +28979,7 @@ function natural_default(context) {
   return new Natural(context);
 }
 
-// node_modules/d3-shape/src/curve/step.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/curve/step.js
 function Step(context, t) {
   this._context = context;
   this._t = t;
@@ -29013,7 +29034,7 @@ function stepAfter(context) {
   return new Step(context, 1);
 }
 
-// node_modules/d3-shape/src/offset/none.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/offset/none.js
 function none_default(series, order) {
   if (!((n = series.length) > 1)) return;
   for (var i = 1, j, s0, s1 = series[order[0]], n, m = s1.length; i < n; ++i) {
@@ -29024,14 +29045,14 @@ function none_default(series, order) {
   }
 }
 
-// node_modules/d3-shape/src/order/none.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/order/none.js
 function none_default2(series) {
   var n = series.length, o = new Array(n);
   while (--n >= 0) o[n] = n;
   return o;
 }
 
-// node_modules/d3-shape/src/stack.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/stack.js
 function stackValue(d, key) {
   return d[key];
 }
@@ -29070,7 +29091,7 @@ function stack_default() {
   return stack;
 }
 
-// node_modules/d3-shape/src/offset/expand.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/offset/expand.js
 function expand_default(series, order) {
   if (!((n = series.length) > 0)) return;
   for (var i, n, j = 0, m = series[0].length, y2; j < m; ++j) {
@@ -29080,7 +29101,7 @@ function expand_default(series, order) {
   none_default(series, order);
 }
 
-// node_modules/d3-shape/src/offset/silhouette.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/offset/silhouette.js
 function silhouette_default(series, order) {
   if (!((n = series.length) > 0)) return;
   for (var j = 0, s0 = series[order[0]], n, m = s0.length; j < m; ++j) {
@@ -29090,7 +29111,7 @@ function silhouette_default(series, order) {
   none_default(series, order);
 }
 
-// node_modules/d3-shape/src/offset/wiggle.js
+// node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape/src/offset/wiggle.js
 function wiggle_default(series, order) {
   if (!((n = series.length) > 0) || !((m = (s0 = series[order[0]]).length) > 0)) return;
   for (var y2 = 0, j = 1, s0, m, n; j < m; ++j) {
@@ -29109,7 +29130,7 @@ function wiggle_default(series, order) {
   none_default(series, order);
 }
 
-// node_modules/recharts/es6/util/DataUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/DataUtils.js
 var import_get = __toESM(require_get2());
 var mathSign = (value) => {
   if (value === 0) {
@@ -29197,7 +29218,7 @@ function isNotNil(value) {
 function noop() {
 }
 
-// node_modules/recharts/es6/util/types.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/types.js
 var import_react7 = __toESM(require_react());
 var isPolarCoordinate = (c) => {
   return "radius" in c && "startAngle" in c && "endAngle" in c;
@@ -29240,7 +29261,7 @@ var adaptEventsOfChild = (props, data, index) => {
   return out;
 };
 
-// node_modules/recharts/es6/util/resolveDefaultProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/resolveDefaultProps.js
 function ownKeys(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -29292,7 +29313,7 @@ function resolveDefaultProps(realProps, defaultProps) {
   return withDefaults;
 }
 
-// node_modules/recharts/es6/util/payload/getUniqPayload.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/payload/getUniqPayload.js
 var import_uniqBy = __toESM(require_uniqBy3());
 function getUniqPayload(payload, option, defaultUniqBy2) {
   if (option === true) {
@@ -29304,15 +29325,15 @@ function getUniqPayload(payload, option, defaultUniqBy2) {
   return payload;
 }
 
-// node_modules/recharts/es6/state/hooks.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/hooks.js
 var import_with_selector = __toESM(require_with_selector());
 var import_react9 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/RechartsReduxContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/RechartsReduxContext.js
 var import_react8 = __toESM(require_react());
 var RechartsReduxContext = /* @__PURE__ */ (0, import_react8.createContext)(null);
 
-// node_modules/recharts/es6/state/hooks.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/hooks.js
 var noopDispatch = (a) => a;
 var useAppDispatch = () => {
   var context = (0, import_react9.useContext)(RechartsReduxContext);
@@ -29330,7 +29351,7 @@ function useAppSelector(selector) {
   return (0, import_with_selector.useSyncExternalStoreWithSelector)(context ? context.subscription.addNestedSub : addNestedSubNoop, context ? context.store.getState : noop2, context ? context.store.getState : noop2, context ? selector : noop2, refEquality);
 }
 
-// node_modules/reselect/dist/reselect.mjs
+// node_modules/.pnpm/reselect@5.1.1/node_modules/reselect/dist/reselect.mjs
 var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelectorResult) => {
   if (inputSelectorsResults.length === 1 && inputSelectorsResults[0] === outputSelectorResult) {
     let isInputSameAsOutput = false;
@@ -29644,7 +29665,7 @@ var createStructuredSelector = Object.assign(
   { withTypes: () => createStructuredSelector }
 );
 
-// node_modules/recharts/es6/state/selectors/legendSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/legendSelectors.js
 var import_sortBy = __toESM(require_sortBy2());
 var selectLegendSettings = (state) => state.legend.settings;
 var selectLegendSize = (state) => state.legend.size;
@@ -29657,7 +29678,7 @@ var selectLegendPayload = createSelector([selectAllLegendPayload2DArray, selectL
   return itemSorter ? (0, import_sortBy.default)(flat, itemSorter) : flat;
 });
 
-// node_modules/recharts/es6/util/useElementOffset.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/useElementOffset.js
 var import_react10 = __toESM(require_react());
 var EPS = 1;
 function useElementOffset() {
@@ -29694,10 +29715,10 @@ function useElementOffset() {
   return [lastBoundingBox, updateBoundingBox];
 }
 
-// node_modules/recharts/es6/context/chartLayoutContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/chartLayoutContext.js
 var import_react13 = __toESM(require_react());
 
-// node_modules/redux/dist/redux.mjs
+// node_modules/.pnpm/redux@5.0.1/node_modules/redux/dist/redux.mjs
 var $$observable = /* @__PURE__ */ (() => typeof Symbol === "function" && Symbol.observable || "@@observable")();
 var symbol_observable_default = $$observable;
 var randomString = () => Math.random().toString(36).substring(7).split("").join(".");
@@ -30034,7 +30055,7 @@ function isAction(action) {
   return isPlainObject(action) && "type" in action && typeof action.type === "string";
 }
 
-// node_modules/@reduxjs/toolkit/node_modules/immer/dist/immer.mjs
+// node_modules/.pnpm/immer@11.0.1/node_modules/immer/dist/immer.mjs
 var NOTHING = Symbol.for("immer-nothing");
 var DRAFTABLE = Symbol.for("immer-draftable");
 var DRAFT_STATE = Symbol.for("immer-state");
@@ -30830,7 +30851,7 @@ function currentImpl(value) {
 var immer = new Immer2();
 var produce = immer.produce;
 
-// node_modules/redux-thunk/dist/redux-thunk.mjs
+// node_modules/.pnpm/redux-thunk@3.1.0_redux@5.0.1/node_modules/redux-thunk/dist/redux-thunk.mjs
 function createThunkMiddleware(extraArgument) {
   const middleware = ({ dispatch, getState }) => (next) => (action) => {
     if (typeof action === "function") {
@@ -30843,7 +30864,7 @@ function createThunkMiddleware(extraArgument) {
 var thunk = createThunkMiddleware();
 var withExtraArgument = createThunkMiddleware;
 
-// node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs
+// node_modules/.pnpm/@reduxjs+toolkit@2.11.0_react-redux@9.2.0_@types+react@18.3.27_react@18.3.1_redux@5.0.1__react@18.3.1/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs
 var composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
   if (arguments.length === 0) return void 0;
   if (typeof arguments[0] === "object") return compose;
@@ -32416,7 +32437,7 @@ var createListenerMiddleware = (middlewareOptions = {}) => {
 };
 var ORIGINAL_STATE = Symbol.for("rtk-state-proxy-original");
 
-// node_modules/recharts/es6/state/layoutSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/layoutSlice.js
 var initialState = {
   layoutType: "horizontal",
   width: 0,
@@ -32460,11 +32481,11 @@ var {
 } = chartLayoutSlice.actions;
 var chartLayoutReducer = chartLayoutSlice.reducer;
 
-// node_modules/recharts/es6/util/ChartUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/ChartUtils.js
 var import_sortBy2 = __toESM(require_sortBy2());
 var import_get2 = __toESM(require_get2());
 
-// node_modules/recharts/es6/util/getSliced.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/getSliced.js
 function getSliced(arr, startIndex, endIndex) {
   if (!Array.isArray(arr)) {
     return arr;
@@ -32475,7 +32496,7 @@ function getSliced(arr, startIndex, endIndex) {
   return arr;
 }
 
-// node_modules/recharts/es6/util/ChartUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/ChartUtils.js
 function ownKeys2(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -32817,13 +32838,13 @@ var calculatePolarTooltipPos = (rangeObj, layout) => {
   return rangeObj.radius;
 };
 
-// node_modules/recharts/es6/state/selectors/containerSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/containerSelectors.js
 var selectChartWidth = (state) => state.layout.width;
 var selectChartHeight = (state) => state.layout.height;
 var selectContainerScale = (state) => state.layout.scale;
 var selectMargin = (state) => state.layout.margin;
 
-// node_modules/recharts/es6/state/selectors/selectAllAxes.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectAllAxes.js
 var selectAllXAxes = createSelector((state) => state.cartesianAxis.xAxis, (xAxisMap) => {
   return Object.values(xAxisMap);
 });
@@ -32831,12 +32852,12 @@ var selectAllYAxes = createSelector((state) => state.cartesianAxis.yAxis, (yAxis
   return Object.values(yAxisMap);
 });
 
-// node_modules/recharts/es6/util/Constants.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/Constants.js
 var DATA_ITEM_INDEX_ATTRIBUTE_NAME = "data-recharts-item-index";
 var DATA_ITEM_DATAKEY_ATTRIBUTE_NAME = "data-recharts-item-data-key";
 var DEFAULT_Y_AXIS_WIDTH = 60;
 
-// node_modules/recharts/es6/state/selectors/selectChartOffsetInternal.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectChartOffsetInternal.js
 function ownKeys3(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -32950,13 +32971,13 @@ var selectAxisViewBox = createSelector(selectChartWidth, selectChartHeight, (wid
   height
 }));
 
-// node_modules/recharts/es6/context/PanoramaContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/PanoramaContext.js
 var React3 = __toESM(require_react());
 var import_react11 = __toESM(require_react());
 var PanoramaContext = /* @__PURE__ */ (0, import_react11.createContext)(null);
 var useIsPanorama = () => (0, import_react11.useContext)(PanoramaContext) != null;
 
-// node_modules/recharts/es6/state/selectors/brushSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/brushSelectors.js
 var selectBrushSettings = (state) => state.brush;
 var selectBrushDimensions = createSelector([selectBrushSettings, selectChartOffsetInternal, selectMargin], (brushSettings, offset, margin) => ({
   height: brushSettings.height,
@@ -32965,12 +32986,12 @@ var selectBrushDimensions = createSelector([selectBrushSettings, selectChartOffs
   width: isNumber(brushSettings.width) ? brushSettings.width : offset.width
 }));
 
-// node_modules/recharts/es6/component/ResponsiveContainer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/ResponsiveContainer.js
 var React4 = __toESM(require_react());
 var import_react12 = __toESM(require_react());
 var import_throttle = __toESM(require_throttle2());
 
-// node_modules/recharts/es6/util/LogUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/LogUtils.js
 var isDev = true;
 var warn = function warn2(condition, format2) {
   for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
@@ -32991,7 +33012,7 @@ var warn = function warn2(condition, format2) {
   }
 };
 
-// node_modules/recharts/es6/component/responsiveContainerUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/responsiveContainerUtils.js
 var calculateChartDimensions = (containerWidth, containerHeight, props) => {
   var {
     width = "100%",
@@ -33070,7 +33091,7 @@ function getDefaultWidthAndHeight(_ref2) {
   };
 }
 
-// node_modules/recharts/es6/util/isWellBehavedNumber.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/isWellBehavedNumber.js
 function isWellBehavedNumber(n) {
   return Number.isFinite(n);
 }
@@ -33078,7 +33099,7 @@ function isPositiveNumber(n) {
   return typeof n === "number" && n > 0 && Number.isFinite(n);
 }
 
-// node_modules/recharts/es6/component/ResponsiveContainer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/ResponsiveContainer.js
 function _extends3() {
   return _extends3 = Object.assign ? Object.assign.bind() : function(n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -33296,7 +33317,7 @@ var ResponsiveContainer = /* @__PURE__ */ (0, import_react12.forwardRef)((props,
   }));
 });
 
-// node_modules/recharts/es6/context/chartLayoutContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/chartLayoutContext.js
 function cartesianViewBoxToTrapezoid(box) {
   if (!box) {
     return void 0;
@@ -33383,7 +33404,7 @@ var ReportChartSize = (props) => {
   return null;
 };
 
-// node_modules/immer/dist/immer.mjs
+// node_modules/.pnpm/immer@10.2.0/node_modules/immer/dist/immer.mjs
 var NOTHING2 = Symbol.for("immer-nothing");
 var DRAFTABLE2 = Symbol.for("immer-draftable");
 var DRAFT_STATE2 = Symbol.for("immer-state");
@@ -34110,7 +34131,7 @@ function castDraft(value) {
   return value;
 }
 
-// node_modules/recharts/es6/state/legendSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/legendSlice.js
 var initialState2 = {
   settings: {
     layout: "horizontal",
@@ -34177,12 +34198,12 @@ var {
 } = legendSlice.actions;
 var legendReducer = legendSlice.reducer;
 
-// node_modules/recharts/es6/component/Tooltip.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Tooltip.js
 var React12 = __toESM(require_react());
 var import_react24 = __toESM(require_react());
 var import_react_dom2 = __toESM(require_react_dom());
 
-// node_modules/recharts/es6/component/DefaultTooltipContent.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/DefaultTooltipContent.js
 var React5 = __toESM(require_react());
 var import_sortBy3 = __toESM(require_sortBy2());
 function _extends4() {
@@ -34334,11 +34355,11 @@ var DefaultTooltipContent = (props) => {
   }, /* @__PURE__ */ React5.isValidElement(finalLabel) ? finalLabel : "".concat(finalLabel)), renderContent2());
 };
 
-// node_modules/recharts/es6/component/TooltipBoundingBox.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/TooltipBoundingBox.js
 var React6 = __toESM(require_react());
 var import_react14 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/tooltip/translate.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/tooltip/translate.js
 var CSS_CLASS_PREFIX = "recharts-tooltip-wrapper";
 var TOOLTIP_HIDDEN = {
   visibility: "hidden"
@@ -34461,7 +34482,7 @@ function getTooltipTranslate(_ref4) {
   };
 }
 
-// node_modules/recharts/es6/component/TooltipBoundingBox.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/TooltipBoundingBox.js
 function ownKeys6(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -34600,17 +34621,17 @@ var TooltipBoundingBox = class extends import_react14.PureComponent {
   }
 };
 
-// node_modules/recharts/es6/context/accessibilityContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/accessibilityContext.js
 var useAccessibilityLayer = () => {
   var _useAppSelector;
   return (_useAppSelector = useAppSelector((state) => state.rootProps.accessibilityLayer)) !== null && _useAppSelector !== void 0 ? _useAppSelector : true;
 };
 
-// node_modules/recharts/es6/component/Cursor.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Cursor.js
 var React11 = __toESM(require_react());
 var import_react21 = __toESM(require_react());
 
-// node_modules/recharts/es6/shape/Curve.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Curve.js
 var React7 = __toESM(require_react());
 function _extends5() {
   return _extends5 = Object.assign ? Object.assign.bind() : function(n) {
@@ -34740,7 +34761,7 @@ var Curve = (props) => {
   }));
 };
 
-// node_modules/recharts/es6/shape/Cross.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Cross.js
 var React8 = __toESM(require_react());
 var _excluded3 = ["x", "y", "top", "left", "width", "height", "className"];
 function _extends6() {
@@ -34838,7 +34859,7 @@ var Cross = (_ref2) => {
   }));
 };
 
-// node_modules/recharts/es6/util/cursor/getCursorRectangle.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/cursor/getCursorRectangle.js
 function getCursorRectangle(layout, activeCoordinate, offset, tooltipAxisBandSize) {
   var halfSize = tooltipAxisBandSize / 2;
   return {
@@ -34851,14 +34872,14 @@ function getCursorRectangle(layout, activeCoordinate, offset, tooltipAxisBandSiz
   };
 }
 
-// node_modules/recharts/es6/shape/Rectangle.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Rectangle.js
 var React9 = __toESM(require_react());
 var import_react18 = __toESM(require_react());
 
-// node_modules/recharts/es6/animation/JavascriptAnimate.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/JavascriptAnimate.js
 var import_react16 = __toESM(require_react());
 
-// node_modules/recharts/es6/animation/util.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/util.js
 function ownKeys9(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -34904,7 +34925,7 @@ var mapObject = (fn, obj) => Object.keys(obj).reduce((res, key) => _objectSpread
   [key]: fn(key, obj[key])
 }), {});
 
-// node_modules/recharts/es6/animation/configUpdate.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/configUpdate.js
 function ownKeys10(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -35048,7 +35069,7 @@ var configUpdate_default = (from2, to2, easing, duration, render, timeoutControl
   return easing.isStepper === true ? createStepperUpdate(from2, to2, easing, interKeys, render, timeoutController) : createTimingUpdate(from2, to2, easing, duration, interKeys, render, timeoutController);
 };
 
-// node_modules/recharts/es6/animation/easing.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/easing.js
 var ACCURACY = 1e-4;
 var cubicBezierFactor = (c1, c2) => [0, 3 * c1, 3 * c2 - 6 * c1, 3 * c1 - 3 * c2 + 1];
 var evaluatePolynomial = (params, t) => params.map((param, i) => param * t ** i).reduce((pre, curr) => pre + curr);
@@ -35168,10 +35189,10 @@ var configEasing = (easing) => {
   return null;
 };
 
-// node_modules/recharts/es6/animation/useAnimationManager.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/useAnimationManager.js
 var import_react15 = __toESM(require_react());
 
-// node_modules/recharts/es6/animation/AnimationManager.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/AnimationManager.js
 function createAnimateManager(timeoutController) {
   var currStyle;
   var handleChange = () => null;
@@ -35229,7 +35250,7 @@ function createAnimateManager(timeoutController) {
   };
 }
 
-// node_modules/recharts/es6/animation/timeoutController.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/timeoutController.js
 var RequestAnimationFrameTimeoutController = class {
   setTimeout(callback) {
     var delay = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
@@ -35251,26 +35272,26 @@ var RequestAnimationFrameTimeoutController = class {
   }
 };
 
-// node_modules/recharts/es6/animation/createDefaultAnimationManager.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/createDefaultAnimationManager.js
 function createDefaultAnimationManager() {
   return createAnimateManager(new RequestAnimationFrameTimeoutController());
 }
 
-// node_modules/recharts/es6/animation/useAnimationManager.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/useAnimationManager.js
 var AnimationManagerContext = /* @__PURE__ */ (0, import_react15.createContext)(createDefaultAnimationManager);
 function useAnimationManager(animationId, animationManagerFromProps) {
   var contextAnimationManager = (0, import_react15.useContext)(AnimationManagerContext);
   return (0, import_react15.useMemo)(() => animationManagerFromProps !== null && animationManagerFromProps !== void 0 ? animationManagerFromProps : contextAnimationManager(animationId), [animationId, animationManagerFromProps, contextAnimationManager]);
 }
 
-// node_modules/recharts/es6/util/Global.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/Global.js
 var parseIsSsrByDefault = () => !(typeof window !== "undefined" && window.document && Boolean(window.document.createElement) && window.setTimeout);
 var Global = {
   devToolsEnabled: false,
   isSsr: parseIsSsrByDefault()
 };
 
-// node_modules/recharts/es6/animation/JavascriptAnimate.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/animation/JavascriptAnimate.js
 var defaultJavascriptAnimateProps = {
   begin: 0,
   duration: 1e3,
@@ -35329,7 +35350,7 @@ function JavascriptAnimate(outsideProps) {
   return children(style.t);
 }
 
-// node_modules/recharts/es6/util/useAnimationId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/useAnimationId.js
 var import_react17 = __toESM(require_react());
 function useAnimationId(input) {
   var prefix = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "animation-";
@@ -35342,7 +35363,7 @@ function useAnimationId(input) {
   return animationId.current;
 }
 
-// node_modules/recharts/es6/shape/Rectangle.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Rectangle.js
 var _excluded4 = ["radius"];
 var _excluded22 = ["radius"];
 function ownKeys11(e, r2) {
@@ -35571,7 +35592,7 @@ var Rectangle = (rectangleProps) => {
   });
 };
 
-// node_modules/recharts/es6/util/PolarUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/PolarUtils.js
 var import_react19 = __toESM(require_react());
 function ownKeys12(e, r2) {
   var t = Object.keys(e);
@@ -35750,7 +35771,7 @@ var inRangeOfSector = (_ref5, viewBox) => {
   return null;
 };
 
-// node_modules/recharts/es6/util/cursor/getRadialCursorPoints.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/cursor/getRadialCursorPoints.js
 function getRadialCursorPoints(activeCoordinate) {
   var {
     cx,
@@ -35771,7 +35792,7 @@ function getRadialCursorPoints(activeCoordinate) {
   };
 }
 
-// node_modules/recharts/es6/shape/Sector.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Sector.js
 var React10 = __toESM(require_react());
 function _extends8() {
   return _extends8 = Object.assign ? Object.assign.bind() : function(n) {
@@ -35988,7 +36009,7 @@ var Sector = (sectorProps) => {
   }));
 };
 
-// node_modules/recharts/es6/util/cursor/getCursorPoints.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/cursor/getCursorPoints.js
 function getCursorPoints(layout, activeCoordinate, offset) {
   if (layout === "horizontal") {
     return [{
@@ -36032,10 +36053,10 @@ function getCursorPoints(layout, activeCoordinate, offset) {
   return void 0;
 }
 
-// node_modules/recharts/es6/state/selectors/axisSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/axisSelectors.js
 var import_range2 = __toESM(require_range2());
 
-// node_modules/victory-vendor/es/d3-scale.js
+// node_modules/.pnpm/victory-vendor@37.3.6/node_modules/victory-vendor/es/d3-scale.js
 var d3_scale_exports = {};
 __export(d3_scale_exports, {
   scaleBand: () => band,
@@ -36068,17 +36089,17 @@ __export(d3_scale_exports, {
   tickFormat: () => tickFormat
 });
 
-// node_modules/d3-array/src/ascending.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/ascending.js
 function ascending(a, b) {
   return a == null || b == null ? NaN : a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
-// node_modules/d3-array/src/descending.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/descending.js
 function descending(a, b) {
   return a == null || b == null ? NaN : b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
 }
 
-// node_modules/d3-array/src/bisector.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/bisector.js
 function bisector(f) {
   let compare1, compare2, delta;
   if (f.length !== 2) {
@@ -36122,7 +36143,7 @@ function zero() {
   return 0;
 }
 
-// node_modules/d3-array/src/number.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/number.js
 function number(x2) {
   return x2 === null ? NaN : +x2;
 }
@@ -36143,14 +36164,14 @@ function* numbers(values, valueof) {
   }
 }
 
-// node_modules/d3-array/src/bisect.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/bisect.js
 var ascendingBisect = bisector(ascending);
 var bisectRight = ascendingBisect.right;
 var bisectLeft = ascendingBisect.left;
 var bisectCenter = bisector(number).center;
 var bisect_default = bisectRight;
 
-// node_modules/internmap/src/index.js
+// node_modules/.pnpm/internmap@2.0.3/node_modules/internmap/src/index.js
 var InternMap = class extends Map {
   constructor(entries, key = keyof) {
     super();
@@ -36192,7 +36213,7 @@ function keyof(value) {
   return value !== null && typeof value === "object" ? value.valueOf() : value;
 }
 
-// node_modules/d3-array/src/sort.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/sort.js
 function compareDefined(compare = ascending) {
   if (compare === ascending) return ascendingDefined;
   if (typeof compare !== "function") throw new TypeError("compare is not a function");
@@ -36206,7 +36227,7 @@ function ascendingDefined(a, b) {
   return (a == null || !(a >= a)) - (b == null || !(b >= b)) || (a < b ? -1 : a > b ? 1 : 0);
 }
 
-// node_modules/d3-array/src/ticks.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/ticks.js
 var e10 = Math.sqrt(50);
 var e5 = Math.sqrt(10);
 var e2 = Math.sqrt(2);
@@ -36256,7 +36277,7 @@ function tickStep(start, stop, count) {
   return (reverse2 ? -1 : 1) * (inc < 0 ? 1 / -inc : inc);
 }
 
-// node_modules/d3-array/src/max.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/max.js
 function max(values, valueof) {
   let max2;
   if (valueof === void 0) {
@@ -36276,7 +36297,7 @@ function max(values, valueof) {
   return max2;
 }
 
-// node_modules/d3-array/src/min.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/min.js
 function min(values, valueof) {
   let min2;
   if (valueof === void 0) {
@@ -36296,7 +36317,7 @@ function min(values, valueof) {
   return min2;
 }
 
-// node_modules/d3-array/src/quickselect.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/quickselect.js
 function quickselect(array, k, left = 0, right = Infinity, compare) {
   k = Math.floor(k);
   left = Math.floor(Math.max(0, left));
@@ -36337,7 +36358,7 @@ function swap(array, i, j) {
   array[j] = t;
 }
 
-// node_modules/d3-array/src/quantile.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/quantile.js
 function quantile(values, p, valueof) {
   values = Float64Array.from(numbers(values, valueof));
   if (!(n = values.length) || isNaN(p = +p)) return;
@@ -36354,7 +36375,7 @@ function quantileSorted(values, p, valueof = number) {
   return value0 + (value1 - value0) * (i - i0);
 }
 
-// node_modules/d3-array/src/range.js
+// node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array/src/range.js
 function range(start, stop, step) {
   start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
   var i = -1, n = Math.max(0, Math.ceil((stop - start) / step)) | 0, range4 = new Array(n);
@@ -36364,7 +36385,7 @@ function range(start, stop, step) {
   return range4;
 }
 
-// node_modules/d3-scale/src/init.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/init.js
 function initRange(domain, range4) {
   switch (arguments.length) {
     case 0:
@@ -36397,7 +36418,7 @@ function initInterpolator(domain, interpolator) {
   return this;
 }
 
-// node_modules/d3-scale/src/ordinal.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/ordinal.js
 var implicit = Symbol("implicit");
 function ordinal() {
   var index = new InternMap(), domain = [], range4 = [], unknown = implicit;
@@ -36431,7 +36452,7 @@ function ordinal() {
   return scale;
 }
 
-// node_modules/d3-scale/src/band.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/band.js
 function band() {
   var scale = ordinal().unknown(void 0), domain = scale.domain, ordinalRange = scale.range, r0 = 0, r1 = 1, step, bandwidth, round = false, paddingInner = 0, paddingOuter = 0, align = 0.5;
   delete scale.unknown;
@@ -36496,7 +36517,7 @@ function point3() {
   return pointish(band.apply(null, arguments).paddingInner(1));
 }
 
-// node_modules/d3-color/src/define.js
+// node_modules/.pnpm/d3-color@3.1.0/node_modules/d3-color/src/define.js
 function define_default(constructor, factory, prototype) {
   constructor.prototype = factory.prototype = prototype;
   prototype.constructor = constructor;
@@ -36507,7 +36528,7 @@ function extend(parent, definition) {
   return prototype;
 }
 
-// node_modules/d3-color/src/color.js
+// node_modules/.pnpm/d3-color@3.1.0/node_modules/d3-color/src/color.js
 function Color() {
 }
 var darker = 0.7;
@@ -36844,7 +36865,7 @@ function hsl2rgb(h, m1, m2) {
   return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
 }
 
-// node_modules/d3-interpolate/src/basis.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/basis.js
 function basis(t12, v0, v1, v2, v3) {
   var t2 = t12 * t12, t3 = t2 * t12;
   return ((1 - 3 * t12 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t12 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
@@ -36857,7 +36878,7 @@ function basis_default2(values) {
   };
 }
 
-// node_modules/d3-interpolate/src/basisClosed.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/basisClosed.js
 function basisClosed_default2(values) {
   var n = values.length;
   return function(t) {
@@ -36866,10 +36887,10 @@ function basisClosed_default2(values) {
   };
 }
 
-// node_modules/d3-interpolate/src/constant.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/constant.js
 var constant_default2 = (x2) => () => x2;
 
-// node_modules/d3-interpolate/src/color.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/color.js
 function linear(a, d) {
   return function(t) {
     return a + t * d;
@@ -36890,7 +36911,7 @@ function nogamma(a, b) {
   return d ? linear(a, d) : constant_default2(isNaN(a) ? b : a);
 }
 
-// node_modules/d3-interpolate/src/rgb.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/rgb.js
 var rgb_default = function rgbGamma(y2) {
   var color2 = gamma(y2);
   function rgb2(start, end) {
@@ -36930,7 +36951,7 @@ function rgbSpline(spline) {
 var rgbBasis = rgbSpline(basis_default2);
 var rgbBasisClosed = rgbSpline(basisClosed_default2);
 
-// node_modules/d3-interpolate/src/numberArray.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/numberArray.js
 function numberArray_default(a, b) {
   if (!b) b = [];
   var n = a ? Math.min(b.length, a.length) : 0, c = b.slice(), i;
@@ -36943,7 +36964,7 @@ function isNumberArray(x2) {
   return ArrayBuffer.isView(x2) && !(x2 instanceof DataView);
 }
 
-// node_modules/d3-interpolate/src/array.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/array.js
 function genericArray(a, b) {
   var nb = b ? b.length : 0, na = a ? Math.min(nb, a.length) : 0, x2 = new Array(na), c = new Array(nb), i;
   for (i = 0; i < na; ++i) x2[i] = value_default(a[i], b[i]);
@@ -36954,7 +36975,7 @@ function genericArray(a, b) {
   };
 }
 
-// node_modules/d3-interpolate/src/date.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/date.js
 function date_default(a, b) {
   var d = /* @__PURE__ */ new Date();
   return a = +a, b = +b, function(t) {
@@ -36962,14 +36983,14 @@ function date_default(a, b) {
   };
 }
 
-// node_modules/d3-interpolate/src/number.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/number.js
 function number_default(a, b) {
   return a = +a, b = +b, function(t) {
     return a * (1 - t) + b * t;
   };
 }
 
-// node_modules/d3-interpolate/src/object.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/object.js
 function object_default(a, b) {
   var i = {}, c = {}, k;
   if (a === null || typeof a !== "object") a = {};
@@ -36987,7 +37008,7 @@ function object_default(a, b) {
   };
 }
 
-// node_modules/d3-interpolate/src/string.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/string.js
 var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g;
 var reB = new RegExp(reA.source, "g");
 function zero2(b) {
@@ -37029,20 +37050,20 @@ function string_default(a, b) {
   });
 }
 
-// node_modules/d3-interpolate/src/value.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/value.js
 function value_default(a, b) {
   var t = typeof b, c;
   return b == null || t === "boolean" ? constant_default2(b) : (t === "number" ? number_default : t === "string" ? (c = color(b)) ? (b = c, rgb_default) : string_default : b instanceof color ? rgb_default : b instanceof Date ? date_default : isNumberArray(b) ? numberArray_default : Array.isArray(b) ? genericArray : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object_default : number_default)(a, b);
 }
 
-// node_modules/d3-interpolate/src/round.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/round.js
 function round_default(a, b) {
   return a = +a, b = +b, function(t) {
     return Math.round(a * (1 - t) + b * t);
   };
 }
 
-// node_modules/d3-interpolate/src/piecewise.js
+// node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate/src/piecewise.js
 function piecewise(interpolate2, values) {
   if (values === void 0) values = interpolate2, interpolate2 = value_default;
   var i = 0, n = values.length - 1, v = values[0], I = new Array(n < 0 ? 0 : n);
@@ -37053,19 +37074,19 @@ function piecewise(interpolate2, values) {
   };
 }
 
-// node_modules/d3-scale/src/constant.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/constant.js
 function constants(x2) {
   return function() {
     return x2;
   };
 }
 
-// node_modules/d3-scale/src/number.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/number.js
 function number2(x2) {
   return +x2;
 }
 
-// node_modules/d3-scale/src/continuous.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/continuous.js
 var unit = [0, 1];
 function identity(x2) {
   return x2;
@@ -37150,7 +37171,7 @@ function continuous() {
   return transformer()(identity, identity);
 }
 
-// node_modules/d3-format/src/formatDecimal.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatDecimal.js
 function formatDecimal_default(x2) {
   return Math.abs(x2 = Math.round(x2)) >= 1e21 ? x2.toLocaleString("en").replace(/,/g, "") : x2.toString(10);
 }
@@ -37163,12 +37184,12 @@ function formatDecimalParts(x2, p) {
   ];
 }
 
-// node_modules/d3-format/src/exponent.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/exponent.js
 function exponent_default(x2) {
   return x2 = formatDecimalParts(Math.abs(x2)), x2 ? x2[1] : NaN;
 }
 
-// node_modules/d3-format/src/formatGroup.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatGroup.js
 function formatGroup_default(grouping, thousands) {
   return function(value, width) {
     var i = value.length, t = [], j = 0, g = grouping[0], length = 0;
@@ -37182,7 +37203,7 @@ function formatGroup_default(grouping, thousands) {
   };
 }
 
-// node_modules/d3-format/src/formatNumerals.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatNumerals.js
 function formatNumerals_default(numerals) {
   return function(value) {
     return value.replace(/[0-9]/g, function(i) {
@@ -37191,7 +37212,7 @@ function formatNumerals_default(numerals) {
   };
 }
 
-// node_modules/d3-format/src/formatSpecifier.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatSpecifier.js
 var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
 function formatSpecifier(specifier) {
   if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
@@ -37226,7 +37247,7 @@ FormatSpecifier.prototype.toString = function() {
   return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === void 0 ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === void 0 ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
 };
 
-// node_modules/d3-format/src/formatTrim.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatTrim.js
 function formatTrim_default(s) {
   out: for (var n = s.length, i = 1, i0 = -1, i1; i < n; ++i) {
     switch (s[i]) {
@@ -37246,7 +37267,7 @@ function formatTrim_default(s) {
   return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
 }
 
-// node_modules/d3-format/src/formatPrefixAuto.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatPrefixAuto.js
 var prefixExponent;
 function formatPrefixAuto_default(x2, p) {
   var d = formatDecimalParts(x2, p);
@@ -37255,7 +37276,7 @@ function formatPrefixAuto_default(x2, p) {
   return i === n ? coefficient : i > n ? coefficient + new Array(i - n + 1).join("0") : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i) : "0." + new Array(1 - i).join("0") + formatDecimalParts(x2, Math.max(0, p + i - 1))[0];
 }
 
-// node_modules/d3-format/src/formatRounded.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatRounded.js
 function formatRounded_default(x2, p) {
   var d = formatDecimalParts(x2, p);
   if (!d) return x2 + "";
@@ -37263,7 +37284,7 @@ function formatRounded_default(x2, p) {
   return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1) : coefficient + new Array(exponent - coefficient.length + 2).join("0");
 }
 
-// node_modules/d3-format/src/formatTypes.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/formatTypes.js
 var formatTypes_default = {
   "%": (x2, p) => (x2 * 100).toFixed(p),
   "b": (x2) => Math.round(x2).toString(2),
@@ -37280,12 +37301,12 @@ var formatTypes_default = {
   "x": (x2) => Math.round(x2).toString(16)
 };
 
-// node_modules/d3-format/src/identity.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/identity.js
 function identity_default(x2) {
   return x2;
 }
 
-// node_modules/d3-format/src/locale.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/locale.js
 var map = Array.prototype.map;
 var prefixes = ["y", "z", "a", "f", "p", "n", "\xB5", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
 function locale_default(locale3) {
@@ -37359,7 +37380,7 @@ function locale_default(locale3) {
   };
 }
 
-// node_modules/d3-format/src/defaultLocale.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/defaultLocale.js
 var locale;
 var format;
 var formatPrefix;
@@ -37375,23 +37396,23 @@ function defaultLocale(definition) {
   return locale;
 }
 
-// node_modules/d3-format/src/precisionFixed.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/precisionFixed.js
 function precisionFixed_default(step) {
   return Math.max(0, -exponent_default(Math.abs(step)));
 }
 
-// node_modules/d3-format/src/precisionPrefix.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/precisionPrefix.js
 function precisionPrefix_default(step, value) {
   return Math.max(0, Math.max(-8, Math.min(8, Math.floor(exponent_default(value) / 3))) * 3 - exponent_default(Math.abs(step)));
 }
 
-// node_modules/d3-format/src/precisionRound.js
+// node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format/src/precisionRound.js
 function precisionRound_default(step, max2) {
   step = Math.abs(step), max2 = Math.abs(max2) - step;
   return Math.max(0, exponent_default(max2) - exponent_default(step)) + 1;
 }
 
-// node_modules/d3-scale/src/tickFormat.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/tickFormat.js
 function tickFormat(start, stop, count, specifier) {
   var step = tickStep(start, stop, count), precision;
   specifier = formatSpecifier(specifier == null ? ",f" : specifier);
@@ -37418,7 +37439,7 @@ function tickFormat(start, stop, count, specifier) {
   return format(specifier);
 }
 
-// node_modules/d3-scale/src/linear.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/linear.js
 function linearish(scale) {
   var domain = scale.domain;
   scale.ticks = function(count) {
@@ -37473,7 +37494,7 @@ function linear2() {
   return linearish(scale);
 }
 
-// node_modules/d3-scale/src/identity.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/identity.js
 function identity2(domain) {
   var unknown;
   function scale(x2) {
@@ -37493,7 +37514,7 @@ function identity2(domain) {
   return linearish(scale);
 }
 
-// node_modules/d3-scale/src/nice.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/nice.js
 function nice(domain, interval) {
   domain = domain.slice();
   var i0 = 0, i1 = domain.length - 1, x0 = domain[i0], x1 = domain[i1], t;
@@ -37506,7 +37527,7 @@ function nice(domain, interval) {
   return domain;
 }
 
-// node_modules/d3-scale/src/log.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/log.js
 function transformLog(x2) {
   return Math.log(x2);
 }
@@ -37619,7 +37640,7 @@ function log() {
   return scale;
 }
 
-// node_modules/d3-scale/src/symlog.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/symlog.js
 function transformSymlog(c) {
   return function(x2) {
     return Math.sign(x2) * Math.log1p(Math.abs(x2 / c));
@@ -37645,7 +37666,7 @@ function symlog() {
   return initRange.apply(scale, arguments);
 }
 
-// node_modules/d3-scale/src/pow.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/pow.js
 function transformPow(exponent) {
   return function(x2) {
     return x2 < 0 ? -Math.pow(-x2, exponent) : Math.pow(x2, exponent);
@@ -37679,7 +37700,7 @@ function sqrt() {
   return pow.apply(null, arguments).exponent(0.5);
 }
 
-// node_modules/d3-scale/src/radial.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/radial.js
 function square(x2) {
   return Math.sign(x2) * x2 * x2;
 }
@@ -37720,7 +37741,7 @@ function radial() {
   return linearish(scale);
 }
 
-// node_modules/d3-scale/src/quantile.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/quantile.js
 function quantile2() {
   var domain = [], range4 = [], thresholds = [], unknown;
   function rescale() {
@@ -37761,7 +37782,7 @@ function quantile2() {
   return initRange.apply(scale, arguments);
 }
 
-// node_modules/d3-scale/src/quantize.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/quantize.js
 function quantize() {
   var x0 = 0, x1 = 1, n = 1, domain = [0.5], range4 = [0, 1], unknown;
   function scale(x2) {
@@ -37795,7 +37816,7 @@ function quantize() {
   return initRange.apply(linearish(scale), arguments);
 }
 
-// node_modules/d3-scale/src/threshold.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/threshold.js
 function threshold() {
   var domain = [0.5], range4 = [0, 1], unknown, n = 1;
   function scale(x2) {
@@ -37820,7 +37841,7 @@ function threshold() {
   return initRange.apply(scale, arguments);
 }
 
-// node_modules/d3-time/src/interval.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/interval.js
 var t0 = /* @__PURE__ */ new Date();
 var t1 = /* @__PURE__ */ new Date();
 function timeInterval(floori, offseti, count, field) {
@@ -37881,7 +37902,7 @@ function timeInterval(floori, offseti, count, field) {
   return interval;
 }
 
-// node_modules/d3-time/src/millisecond.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/millisecond.js
 var millisecond = timeInterval(() => {
 }, (date2, step) => {
   date2.setTime(+date2 + step);
@@ -37902,7 +37923,7 @@ millisecond.every = (k) => {
 };
 var milliseconds = millisecond.range;
 
-// node_modules/d3-time/src/duration.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/duration.js
 var durationSecond = 1e3;
 var durationMinute = durationSecond * 60;
 var durationHour = durationMinute * 60;
@@ -37911,7 +37932,7 @@ var durationWeek = durationDay * 7;
 var durationMonth = durationDay * 30;
 var durationYear = durationDay * 365;
 
-// node_modules/d3-time/src/second.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/second.js
 var second = timeInterval((date2) => {
   date2.setTime(date2 - date2.getMilliseconds());
 }, (date2, step) => {
@@ -37923,7 +37944,7 @@ var second = timeInterval((date2) => {
 });
 var seconds = second.range;
 
-// node_modules/d3-time/src/minute.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/minute.js
 var timeMinute = timeInterval((date2) => {
   date2.setTime(date2 - date2.getMilliseconds() - date2.getSeconds() * durationSecond);
 }, (date2, step) => {
@@ -37945,7 +37966,7 @@ var utcMinute = timeInterval((date2) => {
 });
 var utcMinutes = utcMinute.range;
 
-// node_modules/d3-time/src/hour.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/hour.js
 var timeHour = timeInterval((date2) => {
   date2.setTime(date2 - date2.getMilliseconds() - date2.getSeconds() * durationSecond - date2.getMinutes() * durationMinute);
 }, (date2, step) => {
@@ -37967,7 +37988,7 @@ var utcHour = timeInterval((date2) => {
 });
 var utcHours = utcHour.range;
 
-// node_modules/d3-time/src/day.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/day.js
 var timeDay = timeInterval(
   (date2) => date2.setHours(0, 0, 0, 0),
   (date2, step) => date2.setDate(date2.getDate() + step),
@@ -37996,7 +38017,7 @@ var unixDay = timeInterval((date2) => {
 });
 var unixDays = unixDay.range;
 
-// node_modules/d3-time/src/week.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/week.js
 function timeWeekday(i) {
   return timeInterval((date2) => {
     date2.setDate(date2.getDate() - (date2.getDay() + 7 - i) % 7);
@@ -38046,7 +38067,7 @@ var utcThursdays = utcThursday.range;
 var utcFridays = utcFriday.range;
 var utcSaturdays = utcSaturday.range;
 
-// node_modules/d3-time/src/month.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/month.js
 var timeMonth = timeInterval((date2) => {
   date2.setDate(1);
   date2.setHours(0, 0, 0, 0);
@@ -38070,7 +38091,7 @@ var utcMonth = timeInterval((date2) => {
 });
 var utcMonths = utcMonth.range;
 
-// node_modules/d3-time/src/year.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/year.js
 var timeYear = timeInterval((date2) => {
   date2.setMonth(0, 1);
   date2.setHours(0, 0, 0, 0);
@@ -38112,7 +38133,7 @@ utcYear.every = (k) => {
 };
 var utcYears = utcYear.range;
 
-// node_modules/d3-time/src/ticks.js
+// node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time/src/ticks.js
 function ticker(year, month, week, day, hour, minute) {
   const tickIntervals = [
     [second, 1, durationSecond],
@@ -38154,7 +38175,7 @@ function ticker(year, month, week, day, hour, minute) {
 var [utcTicks, utcTickInterval] = ticker(utcYear, utcMonth, utcSunday, unixDay, utcHour, utcMinute);
 var [timeTicks, timeTickInterval] = ticker(timeYear, timeMonth, timeSunday, timeDay, timeHour, timeMinute);
 
-// node_modules/d3-time-format/src/locale.js
+// node_modules/.pnpm/d3-time-format@4.1.0/node_modules/d3-time-format/src/locale.js
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
     var date2 = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
@@ -38695,7 +38716,7 @@ function formatUnixTimestampSeconds(d) {
   return Math.floor(+d / 1e3);
 }
 
-// node_modules/d3-time-format/src/defaultLocale.js
+// node_modules/.pnpm/d3-time-format@4.1.0/node_modules/d3-time-format/src/defaultLocale.js
 var locale2;
 var timeFormat;
 var timeParse;
@@ -38720,7 +38741,7 @@ function defaultLocale2(definition) {
   return locale2;
 }
 
-// node_modules/d3-scale/src/time.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/time.js
 function date(t) {
   return new Date(t);
 }
@@ -38760,12 +38781,12 @@ function time() {
   return initRange.apply(calendar(timeTicks, timeTickInterval, timeYear, timeMonth, timeSunday, timeDay, timeHour, timeMinute, second, timeFormat).domain([new Date(2e3, 0, 1), new Date(2e3, 0, 2)]), arguments);
 }
 
-// node_modules/d3-scale/src/utcTime.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/utcTime.js
 function utcTime() {
   return initRange.apply(calendar(utcTicks, utcTickInterval, utcYear, utcMonth, utcSunday, utcDay, utcHour, utcMinute, second, utcFormat).domain([Date.UTC(2e3, 0, 1), Date.UTC(2e3, 0, 2)]), arguments);
 }
 
-// node_modules/d3-scale/src/sequential.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/sequential.js
 function transformer2() {
   var x0 = 0, x1 = 1, t02, t12, k10, transform, interpolator = identity, clamp = false, unknown;
   function scale(x2) {
@@ -38831,7 +38852,7 @@ function sequentialSqrt() {
   return sequentialPow.apply(null, arguments).exponent(0.5);
 }
 
-// node_modules/d3-scale/src/sequentialQuantile.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/sequentialQuantile.js
 function sequentialQuantile() {
   var domain = [], interpolator = identity;
   function scale(x2) {
@@ -38859,7 +38880,7 @@ function sequentialQuantile() {
   return initInterpolator.apply(scale, arguments);
 }
 
-// node_modules/d3-scale/src/diverging.js
+// node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale/src/diverging.js
 function transformer3() {
   var x0 = 0, x1 = 0.5, x2 = 1, s = 1, t02, t12, t2, k10, k21, interpolator = identity, transform, clamp = false, unknown;
   function scale(x3) {
@@ -38922,7 +38943,7 @@ function divergingSqrt() {
   return divergingPow.apply(null, arguments).exponent(0.5);
 }
 
-// node_modules/recharts/es6/state/selectors/dataSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/dataSelectors.js
 var selectChartDataWithIndexes = (state) => state.chartData;
 var selectChartDataAndAlwaysIgnoreIndexes = createSelector([selectChartDataWithIndexes], (dataState) => {
   var dataEndIndex = dataState.chartData != null ? dataState.chartData.length - 1 : 0;
@@ -38940,7 +38961,7 @@ var selectChartDataWithIndexesIfNotInPanorama = (state, _unused1, _unused2, isPa
   return selectChartDataWithIndexes(state);
 };
 
-// node_modules/recharts/es6/util/isDomainSpecifiedByUser.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/isDomainSpecifiedByUser.js
 function isWellFormedNumberDomain(v) {
   if (Array.isArray(v) && v.length === 2) {
     var [min2, max2] = v;
@@ -39058,10 +39079,10 @@ function parseNumericalUserDomain(userDomain, dataDomain, allowDataOverflow) {
   return void 0;
 }
 
-// node_modules/recharts/es6/util/scale/getNiceTickValues.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/scale/getNiceTickValues.js
 var import_decimal2 = __toESM(require_decimal());
 
-// node_modules/recharts/es6/util/scale/util/utils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/scale/util/utils.js
 var identity3 = (i) => i;
 var PLACE_HOLDER = {
   "@@functional/placeholder": true
@@ -39129,7 +39150,7 @@ var reverse = (arr) => {
   return arr.split("").reverse().join("");
 };
 
-// node_modules/recharts/es6/util/scale/util/arithmetic.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/scale/util/arithmetic.js
 var import_decimal = __toESM(require_decimal());
 function getDigitCount(value) {
   var result;
@@ -39152,7 +39173,7 @@ function rangeStep(start, end, step) {
   return result;
 }
 
-// node_modules/recharts/es6/util/scale/getNiceTickValues.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/scale/getNiceTickValues.js
 var getValidInterval = (_ref2) => {
   var [min2, max2] = _ref2;
   var [validMin, validMax] = [min2, max2];
@@ -39266,7 +39287,7 @@ var getTickValuesFixedDomain = function getTickValuesFixedDomain2(_ref3, tickCou
   return min2 > max2 ? reverse(values) : values;
 };
 
-// node_modules/recharts/es6/state/selectors/rootPropsSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/rootPropsSelectors.js
 var selectBarCategoryGap = (state) => state.rootProps.barCategoryGap;
 var selectStackOffsetType = (state) => state.rootProps.stackOffset;
 var selectReverseStackOrder = (state) => state.rootProps.reverseStackOrder;
@@ -39276,7 +39297,7 @@ var selectSyncMethod = (state) => state.rootProps.syncMethod;
 var selectEventEmitter = (state) => state.options.eventEmitter;
 var selectChartBaseValue = (state) => state.rootProps.baseValue;
 
-// node_modules/recharts/es6/zIndex/DefaultZIndexes.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/zIndex/DefaultZIndexes.js
 var DefaultZIndexes = {
   /**
    * CartesianGrid and PolarGrid
@@ -39345,7 +39366,7 @@ var DefaultZIndexes = {
   label: 2e3
 };
 
-// node_modules/recharts/es6/polar/defaultPolarAngleAxisProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/polar/defaultPolarAngleAxisProps.js
 var defaultPolarAngleAxisProps = {
   allowDecimals: false,
   allowDuplicatedCategory: true,
@@ -39365,7 +39386,7 @@ var defaultPolarAngleAxisProps = {
   zIndex: DefaultZIndexes.axis
 };
 
-// node_modules/recharts/es6/polar/defaultPolarRadiusAxisProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/polar/defaultPolarRadiusAxisProps.js
 var defaultPolarRadiusAxisProps = {
   allowDataOverflow: false,
   allowDecimals: false,
@@ -39385,7 +39406,7 @@ var defaultPolarRadiusAxisProps = {
   zIndex: DefaultZIndexes.axis
 };
 
-// node_modules/recharts/es6/state/selectors/combiners/combineAxisRangeWithReverse.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineAxisRangeWithReverse.js
 var combineAxisRangeWithReverse = (axisSettings, axisRange) => {
   if (!axisSettings || !axisRange) {
     return void 0;
@@ -39396,7 +39417,7 @@ var combineAxisRangeWithReverse = (axisSettings, axisRange) => {
   return axisRange;
 };
 
-// node_modules/recharts/es6/state/selectors/polarAxisSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/polarAxisSelectors.js
 var implicitAngleAxis = {
   allowDataOverflow: false,
   allowDecimals: false,
@@ -39539,18 +39560,18 @@ var selectPolarViewBox = createSelector([selectChartLayout, selectPolarOptions, 
   };
 });
 
-// node_modules/recharts/es6/state/selectors/pickAxisType.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/pickAxisType.js
 var pickAxisType = (_state, axisType) => axisType;
 
-// node_modules/recharts/es6/state/selectors/pickAxisId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/pickAxisId.js
 var pickAxisId = (_state, _axisType, axisId) => axisId;
 
-// node_modules/recharts/es6/util/stacks/getStackSeriesIdentifier.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/stacks/getStackSeriesIdentifier.js
 function getStackSeriesIdentifier(graphicalItem) {
   return graphicalItem === null || graphicalItem === void 0 ? void 0 : graphicalItem.id;
 }
 
-// node_modules/recharts/es6/state/selectors/combiners/combineDisplayedStackedData.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineDisplayedStackedData.js
 function combineDisplayedStackedData(stackedGraphicalItems, _ref2, tooltipAxisSettings) {
   var {
     chartData = []
@@ -39585,12 +39606,12 @@ function combineDisplayedStackedData(stackedGraphicalItems, _ref2, tooltipAxisSe
   return Array.from(knownItemsByDataKey.values());
 }
 
-// node_modules/recharts/es6/state/types/StackedGraphicalItem.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/types/StackedGraphicalItem.js
 function isStacked(graphicalItem) {
   return graphicalItem.stackId != null && graphicalItem.dataKey != null;
 }
 
-// node_modules/recharts/es6/state/selectors/numberDomainEqualityCheck.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/numberDomainEqualityCheck.js
 var numberDomainEqualityCheck = (a, b) => {
   if (a === b) {
     return true;
@@ -39601,7 +39622,7 @@ var numberDomainEqualityCheck = (a, b) => {
   return a[0] === b[0] && a[1] === b[1];
 };
 
-// node_modules/recharts/es6/state/selectors/arrayEqualityCheck.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/arrayEqualityCheck.js
 function emptyArraysAreEqualCheck(a, b) {
   if (Array.isArray(a) && Array.isArray(b) && a.length === 0 && b.length === 0) {
     return true;
@@ -39620,7 +39641,7 @@ function arrayContentsAreEqualCheck(a, b) {
   return false;
 }
 
-// node_modules/recharts/es6/state/selectors/selectTooltipAxisType.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipAxisType.js
 var selectTooltipAxisType = (state) => {
   var layout = selectChartLayout(state);
   if (layout === "horizontal") {
@@ -39635,10 +39656,10 @@ var selectTooltipAxisType = (state) => {
   return "radiusAxis";
 };
 
-// node_modules/recharts/es6/state/selectors/selectTooltipAxisId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipAxisId.js
 var selectTooltipAxisId = (state) => state.tooltip.settings.axisId;
 
-// node_modules/recharts/es6/state/selectors/axisSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/axisSelectors.js
 function ownKeys13(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -40745,7 +40766,7 @@ var selectChartDirection = createSelector([selectChartLayout, selectAllXAxes, se
   }
 });
 
-// node_modules/recharts/es6/state/selectors/selectTooltipEventType.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipEventType.js
 var selectDefaultTooltipEventType = (state) => state.options.defaultTooltipEventType;
 var selectValidateTooltipEventTypes = (state) => state.options.validateTooltipEventTypes;
 function combineTooltipEventType(shared, defaultTooltipEventType, validateTooltipEventTypes) {
@@ -40767,7 +40788,7 @@ function useTooltipEventType(shared) {
   return useAppSelector((state) => selectTooltipEventType(state, shared));
 }
 
-// node_modules/recharts/es6/state/selectors/combiners/combineActiveLabel.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineActiveLabel.js
 var combineActiveLabel = (tooltipTicks, activeIndex) => {
   var _tooltipTicks$n;
   var n = Number(activeIndex);
@@ -40777,10 +40798,10 @@ var combineActiveLabel = (tooltipTicks, activeIndex) => {
   return n >= 0 ? tooltipTicks === null || tooltipTicks === void 0 || (_tooltipTicks$n = tooltipTicks[n]) === null || _tooltipTicks$n === void 0 ? void 0 : _tooltipTicks$n.value : void 0;
 };
 
-// node_modules/recharts/es6/state/selectors/selectTooltipSettings.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipSettings.js
 var selectTooltipSettings = (state) => state.tooltip.settings;
 
-// node_modules/recharts/es6/state/tooltipSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/tooltipSlice.js
 var noInteraction = {
   active: false,
   index: null,
@@ -40919,7 +40940,7 @@ var {
 } = tooltipSlice.actions;
 var tooltipReducer = tooltipSlice.reducer;
 
-// node_modules/recharts/es6/state/selectors/combiners/combineTooltipInteractionState.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineTooltipInteractionState.js
 function ownKeys14(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -41011,7 +41032,7 @@ var combineTooltipInteractionState = (tooltipState, tooltipEventType, trigger, d
   });
 };
 
-// node_modules/recharts/es6/state/selectors/combiners/combineActiveTooltipIndex.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineActiveTooltipIndex.js
 function toFiniteNumber(value) {
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : void 0;
@@ -41072,7 +41093,7 @@ var combineActiveTooltipIndex = (tooltipInteraction, chartData, axisDataKey, dom
   return String(clampedIndex);
 };
 
-// node_modules/recharts/es6/state/selectors/combiners/combineCoordinateForDefaultIndex.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineCoordinateForDefaultIndex.js
 var combineCoordinateForDefaultIndex = (width, height, layout, offset, tooltipTicks, defaultIndex, tooltipConfigurations, tooltipPayloadSearcher) => {
   if (defaultIndex == null || tooltipPayloadSearcher == null) {
     return void 0;
@@ -41102,7 +41123,7 @@ var combineCoordinateForDefaultIndex = (width, height, layout, offset, tooltipTi
   }
 };
 
-// node_modules/recharts/es6/state/selectors/combiners/combineTooltipPayloadConfigurations.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineTooltipPayloadConfigurations.js
 var combineTooltipPayloadConfigurations = (tooltipState, tooltipEventType, trigger, defaultIndex) => {
   if (tooltipEventType === "axis") {
     return tooltipState.tooltipItemPayloads;
@@ -41125,13 +41146,13 @@ var combineTooltipPayloadConfigurations = (tooltipState, tooltipEventType, trigg
   });
 };
 
-// node_modules/recharts/es6/state/selectors/selectTooltipPayloadSearcher.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipPayloadSearcher.js
 var selectTooltipPayloadSearcher = (state) => state.options.tooltipPayloadSearcher;
 
-// node_modules/recharts/es6/state/selectors/selectTooltipState.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectTooltipState.js
 var selectTooltipState = (state) => state.tooltip;
 
-// node_modules/recharts/es6/state/selectors/combiners/combineTooltipPayload.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/combiners/combineTooltipPayload.js
 function ownKeys15(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -41259,7 +41280,7 @@ var combineTooltipPayload = (tooltipPayloadConfigurations, activeIndex, chartDat
   }, init);
 };
 
-// node_modules/recharts/es6/state/selectors/tooltipSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/tooltipSelectors.js
 var selectTooltipAxisRealScaleType = createSelector([selectTooltipAxis, selectChartLayout, selectHasBar, selectChartName, selectTooltipAxisType], combineRealScaleType);
 var selectAllUnfilteredGraphicalItems = createSelector([(state) => state.graphicalItems.cartesianItems, (state) => state.graphicalItems.polarItems], (cartesianItems, polarItems) => [...cartesianItems, ...polarItems]);
 var selectTooltipAxisPredicate = createSelector([selectTooltipAxisType, selectTooltipAxisId], itemAxisPredicate);
@@ -41376,7 +41397,7 @@ var selectActiveTooltipDataPoints = createSelector([selectActiveTooltipPayload],
   return Array.from(new Set(dataPoints));
 });
 
-// node_modules/recharts/es6/context/useTooltipAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/useTooltipAxis.js
 function ownKeys16(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -41428,10 +41449,10 @@ var useTooltipAxisBandSize = () => {
   }), tooltipTicks);
 };
 
-// node_modules/recharts/es6/state/selectors/selectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectors.js
 var import_sortBy4 = __toESM(require_sortBy2());
 
-// node_modules/recharts/es6/util/getActiveCoordinate.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/getActiveCoordinate.js
 function ownKeys17(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -41591,7 +41612,7 @@ var calculateActiveTickIndex = (coordinate, ticks2, unsortedTicks, axisType, ran
   return index;
 };
 
-// node_modules/recharts/es6/state/selectors/selectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectors.js
 var useChartName = () => {
   return useAppSelector(selectChartName);
 };
@@ -41672,11 +41693,11 @@ var combineActiveProps = (chartEvent, layout, polarViewBox, tooltipAxisType, too
   return combineActivePolarProps(chartEvent, layout, polarViewBox, tooltipAxisType, tooltipAxisRange, tooltipTicks, orderedTooltipTicks);
 };
 
-// node_modules/recharts/es6/zIndex/ZIndexLayer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/zIndex/ZIndexLayer.js
 var import_react20 = __toESM(require_react());
 var import_react_dom = __toESM(require_react_dom());
 
-// node_modules/recharts/es6/zIndex/zIndexSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/zIndex/zIndexSelectors.js
 var selectZIndexPortalId = createSelector((state) => state.zIndex.zIndexMap, (_, zIndex) => zIndex, (_, _zIndex, isPanorama) => isPanorama, (zIndexMap, zIndex, isPanorama) => {
   if (zIndex == null) {
     return void 0;
@@ -41700,7 +41721,7 @@ var selectAllRegisteredZIndexes = createSelector((state) => state.zIndex.zIndexM
   }
 });
 
-// node_modules/recharts/es6/state/zIndexSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/zIndexSlice.js
 function ownKeys18(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -41836,7 +41857,7 @@ var {
 } = zIndexSlice.actions;
 var zIndexReducer = zIndexSlice.reducer;
 
-// node_modules/recharts/es6/zIndex/ZIndexLayer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/zIndex/ZIndexLayer.js
 function ZIndexLayer(_ref2) {
   var {
     zIndex,
@@ -41873,7 +41894,7 @@ function ZIndexLayer(_ref2) {
   return null;
 }
 
-// node_modules/recharts/es6/component/Cursor.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Cursor.js
 function _extends9() {
   return _extends9 = Object.assign ? Object.assign.bind() : function(n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -42018,24 +42039,24 @@ function Cursor(props) {
   }));
 }
 
-// node_modules/recharts/es6/context/tooltipPortalContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/tooltipPortalContext.js
 var import_react22 = __toESM(require_react());
 var TooltipPortalContext = /* @__PURE__ */ (0, import_react22.createContext)(null);
 var useTooltipPortal = () => (0, import_react22.useContext)(TooltipPortalContext);
 
-// node_modules/recharts/es6/synchronisation/useChartSynchronisation.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/synchronisation/useChartSynchronisation.js
 var import_react23 = __toESM(require_react());
 
-// node_modules/eventemitter3/index.mjs
+// node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
 var import_index = __toESM(require_eventemitter3(), 1);
 var eventemitter3_default = import_index.default;
 
-// node_modules/recharts/es6/util/Events.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/Events.js
 var eventCenter = new eventemitter3_default();
 var TOOLTIP_SYNC_EVENT = "recharts.syncEvent.tooltip";
 var BRUSH_SYNC_EVENT = "recharts.syncEvent.brush";
 
-// node_modules/recharts/es6/state/optionsSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/optionsSlice.js
 function arrayTooltipSearcher(data, strIndex) {
   if (!strIndex) return void 0;
   var numIndex = Number.parseInt(strIndex, 10);
@@ -42066,12 +42087,12 @@ var {
   createEventEmitter
 } = optionsSlice.actions;
 
-// node_modules/recharts/es6/synchronisation/syncSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/synchronisation/syncSelectors.js
 function selectSynchronisedTooltipState(state) {
   return state.tooltip.syncInteraction;
 }
 
-// node_modules/recharts/es6/state/chartDataSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/chartDataSlice.js
 var initialChartDataState = {
   chartData: void 0,
   computedData: void 0,
@@ -42117,7 +42138,7 @@ var {
 } = chartDataSlice.actions;
 var chartDataReducer = chartDataSlice.reducer;
 
-// node_modules/recharts/es6/synchronisation/useChartSynchronisation.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/synchronisation/useChartSynchronisation.js
 var _excluded5 = ["x", "y"];
 function ownKeys20(e, r2) {
   var t = Object.keys(e);
@@ -42343,7 +42364,7 @@ function useTooltipChartSynchronisation(tooltipEventType, trigger, activeCoordin
   }, [isReceivingSynchronisation, activeCoordinate, activeDataKey, activeIndex, activeLabel, eventEmitterSymbol, syncId, syncMethod, isTooltipActive, viewBox]);
 }
 
-// node_modules/recharts/es6/component/Tooltip.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Tooltip.js
 function ownKeys21(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -42517,11 +42538,11 @@ function Tooltip(outsideProps) {
   }));
 }
 
-// node_modules/recharts/es6/component/Text.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Text.js
 var React13 = __toESM(require_react());
 var import_react25 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/LRUCache.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/LRUCache.js
 function _defineProperty22(e, r2, t) {
   return (r2 = _toPropertyKey22(r2)) in e ? Object.defineProperty(e, r2, { value: t, enumerable: true, configurable: true, writable: true }) : e[r2] = t, e;
 }
@@ -42571,7 +42592,7 @@ var LRUCache = class {
   }
 };
 
-// node_modules/recharts/es6/util/DOMUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/DOMUtils.js
 function ownKeys22(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -42679,7 +42700,7 @@ var getStringSize = function getStringSize2(text) {
   return result;
 };
 
-// node_modules/recharts/es6/util/ReduceCSSCalc.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/ReduceCSSCalc.js
 var MULTIPLY_OR_DIVIDE_REGEX = /(-?\d+(?:\.\d+)?[a-zA-Z%]*)([*/])(-?\d+(?:\.\d+)?[a-zA-Z%]*)/;
 var ADD_OR_SUBTRACT_REGEX = /(-?\d+(?:\.\d+)?[a-zA-Z%]*)([+-])(-?\d+(?:\.\d+)?[a-zA-Z%]*)/;
 var CSS_LENGTH_UNIT_REGEX = /^px|cm|vh|vw|em|rem|%|mm|in|pt|pc|ex|ch|vmin|vmax|Q$/;
@@ -42812,7 +42833,7 @@ function reduceCSSCalc(expression) {
   return result;
 }
 
-// node_modules/recharts/es6/component/Text.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Text.js
 var _excluded6 = ["x", "y", "lineHeight", "capHeight", "fill", "scaleToFit", "textAnchor", "verticalAnchor"];
 var _excluded23 = ["dx", "dy", "angle", "className", "breakAll"];
 function _extends10() {
@@ -43088,7 +43109,7 @@ var Text = /* @__PURE__ */ (0, import_react25.forwardRef)((outsideProps, ref) =>
 });
 Text.displayName = "Text";
 
-// node_modules/recharts/es6/component/Label.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Label.js
 var React14 = __toESM(require_react());
 var import_react26 = __toESM(require_react());
 var _excluded7 = ["labelRef"];
@@ -43605,7 +43626,7 @@ function CartesianLabelFromLabelProp(_ref3) {
   return parseLabel(label, viewBox, labelRef) || null;
 }
 
-// node_modules/recharts/es6/component/LabelList.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/LabelList.js
 var React15 = __toESM(require_react());
 var import_react27 = __toESM(require_react());
 var import_last = __toESM(require_last3());
@@ -43724,7 +43745,7 @@ function LabelListFromLabelProp(_ref2) {
   return null;
 }
 
-// node_modules/recharts/es6/shape/Dot.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/shape/Dot.js
 var React16 = __toESM(require_react());
 function _extends13() {
   return _extends13 = Object.assign ? Object.assign.bind() : function(n) {
@@ -43754,7 +43775,7 @@ var Dot = (props) => {
   return null;
 };
 
-// node_modules/recharts/es6/state/polarAxisSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/polarAxisSlice.js
 var initialState6 = {
   radiusAxis: {},
   angleAxis: {}
@@ -43785,7 +43806,7 @@ var {
 } = polarAxisSlice.actions;
 var polarAxisReducer = polarAxisSlice.reducer;
 
-// node_modules/recharts/es6/util/ReactUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/ReactUtils.js
 var import_react28 = __toESM(require_react());
 var isClipDot = (dot) => {
   if (dot && typeof dot === "object" && "clipDot" in dot) {
@@ -43794,7 +43815,7 @@ var isClipDot = (dot) => {
   return true;
 };
 
-// node_modules/recharts/es6/state/SetTooltipEntrySettings.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/SetTooltipEntrySettings.js
 var import_react29 = __toESM(require_react());
 function SetTooltipEntrySettings(_ref2) {
   var {
@@ -43828,7 +43849,7 @@ function SetTooltipEntrySettings(_ref2) {
   return null;
 }
 
-// node_modules/recharts/es6/state/SetLegendPayload.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/SetLegendPayload.js
 var import_react30 = __toESM(require_react());
 function SetLegendPayload(_ref2) {
   var {
@@ -43862,11 +43883,11 @@ function SetLegendPayload(_ref2) {
   return null;
 }
 
-// node_modules/recharts/es6/context/RegisterGraphicalItemId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/RegisterGraphicalItemId.js
 var React18 = __toESM(require_react());
 var import_react31 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/useId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/useId.js
 var React17 = __toESM(require_react());
 var _ref;
 var useIdFallback = () => {
@@ -43875,7 +43896,7 @@ var useIdFallback = () => {
 };
 var useId = (_ref = React17["useId".toString()]) !== null && _ref !== void 0 ? _ref : useIdFallback;
 
-// node_modules/recharts/es6/util/useUniqueId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/useUniqueId.js
 function useUniqueId(prefix, customId) {
   var generatedId = useId();
   if (customId) {
@@ -43884,7 +43905,7 @@ function useUniqueId(prefix, customId) {
   return prefix ? "".concat(prefix, "-").concat(generatedId) : generatedId;
 }
 
-// node_modules/recharts/es6/context/RegisterGraphicalItemId.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/RegisterGraphicalItemId.js
 var GraphicalItemIdContext = /* @__PURE__ */ (0, import_react31.createContext)(void 0);
 var RegisterGraphicalItemId = (_ref2) => {
   var {
@@ -43898,10 +43919,10 @@ var RegisterGraphicalItemId = (_ref2) => {
   }, children(resolvedId));
 };
 
-// node_modules/recharts/es6/state/SetGraphicalItem.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/SetGraphicalItem.js
 var import_react32 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/graphicalItemsSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/graphicalItemsSlice.js
 var initialState7 = {
   cartesianItems: [],
   polarItems: []
@@ -43964,7 +43985,7 @@ var {
 } = graphicalItemsSlice.actions;
 var graphicalItemsReducer = graphicalItemsSlice.reducer;
 
-// node_modules/recharts/es6/state/SetGraphicalItem.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/SetGraphicalItem.js
 var SetCartesianGraphicalItemImpl = (props) => {
   var dispatch = useAppDispatch();
   var prevPropsRef = (0, import_react32.useRef)(null);
@@ -43991,7 +44012,7 @@ var SetCartesianGraphicalItemImpl = (props) => {
 };
 var SetCartesianGraphicalItem = /* @__PURE__ */ (0, import_react32.memo)(SetCartesianGraphicalItemImpl);
 
-// node_modules/recharts/es6/component/Dots.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/Dots.js
 var React19 = __toESM(require_react());
 var import_react33 = __toESM(require_react());
 var _excluded9 = ["points"];
@@ -44137,11 +44158,11 @@ function Dots(_ref3) {
   }, layerProps), dots));
 }
 
-// node_modules/recharts/es6/component/ActivePoints.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/ActivePoints.js
 var React20 = __toESM(require_react());
 var import_react34 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/cartesianAxisSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/cartesianAxisSlice.js
 function ownKeys25(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -44304,7 +44325,7 @@ var {
 } = cartesianAxisSlice.actions;
 var cartesianAxisReducer = cartesianAxisSlice.reducer;
 
-// node_modules/recharts/es6/state/selectors/selectChartOffset.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectChartOffset.js
 var selectChartOffset = createSelector([selectChartOffsetInternal], (offsetInternal) => {
   return {
     top: offsetInternal.top,
@@ -44314,7 +44335,7 @@ var selectChartOffset = createSelector([selectChartOffsetInternal], (offsetInter
   };
 });
 
-// node_modules/recharts/es6/state/selectors/selectPlotArea.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectPlotArea.js
 var selectPlotArea = createSelector([selectChartOffset, selectChartWidth, selectChartHeight], (offset, chartWidth, chartHeight) => {
   if (!offset || chartWidth == null || chartHeight == null) {
     return void 0;
@@ -44327,7 +44348,7 @@ var selectPlotArea = createSelector([selectChartOffset, selectChartWidth, select
   };
 });
 
-// node_modules/recharts/es6/hooks.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/hooks.js
 var usePlotArea = () => {
   return useAppSelector(selectPlotArea);
 };
@@ -44335,7 +44356,7 @@ var useActiveTooltipDataPoints = () => {
   return useAppSelector(selectActiveTooltipDataPoints);
 };
 
-// node_modules/recharts/es6/component/ActivePoints.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/component/ActivePoints.js
 function ownKeys26(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -44442,7 +44463,7 @@ function ActivePoints(_ref2) {
   }));
 }
 
-// node_modules/recharts/es6/state/errorBarSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/errorBarSlice.js
 var initialState9 = {};
 var errorBarSlice = createSlice({
   name: "errorBars",
@@ -44486,7 +44507,7 @@ var {
 } = errorBarSlice.actions;
 var errorBarReducer = errorBarSlice.reducer;
 
-// node_modules/recharts/es6/cartesian/GraphicalItemClipPath.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/GraphicalItemClipPath.js
 var React21 = __toESM(require_react());
 function useNeedsClip(xAxisId, yAxisId) {
   var _xAxis$allowDataOverf, _yAxis$allowDataOverf;
@@ -44532,7 +44553,7 @@ function GraphicalItemClipPath(_ref2) {
   }));
 }
 
-// node_modules/react-redux/dist/react-redux.mjs
+// node_modules/.pnpm/react-redux@9.2.0_@types+react@18.3.27_react@18.3.1_redux@5.0.1/node_modules/react-redux/dist/react-redux.mjs
 var React22 = __toESM(require_react(), 1);
 var import_with_selector2 = __toESM(require_with_selector2(), 1);
 var REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref");
@@ -44775,7 +44796,7 @@ function Provider(providerProps) {
 }
 var Provider_default = Provider;
 
-// node_modules/recharts/es6/util/propsAreEqual.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/propsAreEqual.js
 var propsToShallowCompare = /* @__PURE__ */ new Set(["axisLine", "tickLine", "activeBar", "activeDot", "activeLabel", "activeShape", "allowEscapeViewBox", "background", "cursor", "dot", "label", "line", "margin", "padding", "position", "shape", "style", "tick", "wrapperStyle"]);
 function sameValueZero(x2, y2) {
   if (x2 == null && y2 == null) {
@@ -44803,7 +44824,7 @@ function propsAreEqual(prevProps, nextProps) {
   return true;
 }
 
-// node_modules/recharts/es6/context/chartDataContext.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/context/chartDataContext.js
 var import_react35 = __toESM(require_react());
 var ChartDataContextProvider = (props) => {
   var {
@@ -44824,7 +44845,7 @@ var ChartDataContextProvider = (props) => {
   return null;
 };
 
-// node_modules/recharts/es6/state/brushSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/brushSlice.js
 var initialState10 = {
   x: 0,
   y: 0,
@@ -44854,7 +44875,7 @@ var {
 } = brushSlice.actions;
 var brushReducer = brushSlice.reducer;
 
-// node_modules/recharts/es6/util/CartesianUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/CartesianUtils.js
 function _defineProperty28(e, r2, t) {
   return (r2 = _toPropertyKey28(r2)) in e ? Object.defineProperty(e, r2, { value: t, enumerable: true, configurable: true, writable: true }) : e[r2] = t, e;
 }
@@ -44950,7 +44971,7 @@ var getAngledRectangleWidth = function getAngledRectangleWidth2(_ref5) {
   return Math.abs(angledWidth);
 };
 
-// node_modules/recharts/es6/state/referenceElementsSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/referenceElementsSlice.js
 var initialState11 = {
   dots: [],
   areas: [],
@@ -44999,7 +45020,7 @@ var {
 } = referenceElementsSlice.actions;
 var referenceElementsReducer = referenceElementsSlice.reducer;
 
-// node_modules/recharts/es6/container/ClipPathProvider.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/ClipPathProvider.js
 var React23 = __toESM(require_react());
 var import_react36 = __toESM(require_react());
 var ClipPathIdContext = /* @__PURE__ */ (0, import_react36.createContext)(void 0);
@@ -45030,12 +45051,12 @@ var ClipPathProvider = (_ref2) => {
   }))), children);
 };
 
-// node_modules/recharts/es6/cartesian/CartesianAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/CartesianAxis.js
 var React24 = __toESM(require_react());
 var import_react37 = __toESM(require_react());
 var import_get3 = __toESM(require_get2());
 
-// node_modules/recharts/es6/util/getEveryNthWithCondition.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/getEveryNthWithCondition.js
 function getEveryNthWithCondition(array, n) {
   if (n < 1) {
     return [];
@@ -45050,7 +45071,7 @@ function getEveryNthWithCondition(array, n) {
   return result;
 }
 
-// node_modules/recharts/es6/util/TickUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/TickUtils.js
 function getAngledTickWidth(contentSize, unitSize, angle) {
   var size = {
     width: contentSize.width + unitSize.width,
@@ -45088,7 +45109,7 @@ function getNumberIntervalTicks(ticks2, interval) {
   return getEveryNthWithCondition(ticks2, interval + 1);
 }
 
-// node_modules/recharts/es6/cartesian/getEquidistantTicks.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/getEquidistantTicks.js
 function getEquidistantTicks(sign2, boundaries, getTickSize, ticks2, minTickGap) {
   var result = (ticks2 || []).slice();
   var {
@@ -45132,7 +45153,7 @@ function getEquidistantTicks(sign2, boundaries, getTickSize, ticks2, minTickGap)
   return [];
 }
 
-// node_modules/recharts/es6/cartesian/getTicks.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/getTicks.js
 function ownKeys27(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -45324,7 +45345,7 @@ function getTicks(props, fontSize, letterSpacing) {
   return candidates.filter((entry) => entry.isShow);
 }
 
-// node_modules/recharts/es6/util/YAxisUtils.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/YAxisUtils.js
 var getCalculatedYAxisWidth = (_ref2) => {
   var {
     ticks: ticks2,
@@ -45352,7 +45373,7 @@ var getCalculatedYAxisWidth = (_ref2) => {
   return 0;
 };
 
-// node_modules/recharts/es6/cartesian/CartesianAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/CartesianAxis.js
 var _excluded10 = ["axisLine", "width", "height", "className", "hide", "ticks", "axisType"];
 function _objectWithoutProperties10(e, t) {
   if (null == e) return {};
@@ -45777,7 +45798,7 @@ var CartesianAxis = /* @__PURE__ */ React24.forwardRef((outsideProps, ref) => {
 });
 CartesianAxis.displayName = "CartesianAxis";
 
-// node_modules/recharts/es6/cartesian/CartesianGrid.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/CartesianGrid.js
 var React25 = __toESM(require_react());
 var _excluded11 = ["x1", "y1", "x2", "y2", "key"];
 var _excluded25 = ["offset"];
@@ -46200,7 +46221,7 @@ function CartesianGrid(props) {
 }
 CartesianGrid.displayName = "CartesianGrid";
 
-// node_modules/recharts/es6/util/getRadiusAndStrokeWidthFromDot.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/getRadiusAndStrokeWidthFromDot.js
 function getRadiusAndStrokeWidthFromDot(dot) {
   var props = svgPropertiesNoEventsFromUnknown(dot);
   var defaultR = 3;
@@ -46229,11 +46250,11 @@ function getRadiusAndStrokeWidthFromDot(dot) {
   };
 }
 
-// node_modules/recharts/es6/cartesian/Area.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/Area.js
 var React26 = __toESM(require_react());
 var import_react38 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/selectors/areaSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/areaSelectors.js
 var selectXAxisWithScale = (state, xAxisId, _yAxisId, isPanorama) => selectAxisWithScale(state, "xAxis", xAxisId, isPanorama);
 var selectXAxisTicks = (state, xAxisId, _yAxisId, isPanorama) => selectTicksOfGraphicalItem(state, "xAxis", xAxisId, isPanorama);
 var selectYAxisWithScale = (state, _xAxisId, yAxisId, isPanorama) => selectAxisWithScale(state, "yAxis", yAxisId, isPanorama);
@@ -46309,7 +46330,7 @@ var selectArea = createSelector([selectChartLayout, selectXAxisWithScale, select
   });
 });
 
-// node_modules/recharts/es6/cartesian/Area.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/Area.js
 var _excluded12 = ["id"];
 var _excluded26 = ["activeDot", "animationBegin", "animationDuration", "animationEasing", "connectNulls", "dot", "fill", "fillOpacity", "hide", "isAnimationActive", "legendType", "stroke", "xAxisId", "yAxisId"];
 function _extends17() {
@@ -47070,11 +47091,11 @@ function AreaFn(outsideProps) {
 var Area = /* @__PURE__ */ React26.memo(AreaFn, propsAreEqual);
 Area.displayName = "Area";
 
-// node_modules/recharts/es6/cartesian/XAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/XAxis.js
 var React27 = __toESM(require_react());
 var import_react39 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/axisPropsAreEqual.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/axisPropsAreEqual.js
 var _excluded13 = ["domain", "range"];
 var _excluded27 = ["domain", "range"];
 function _objectWithoutProperties13(e, t) {
@@ -47125,7 +47146,7 @@ function axisPropsAreEqual(prevProps, nextProps) {
   return propsAreEqual(prevRest, nextRest);
 }
 
-// node_modules/recharts/es6/cartesian/XAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/XAxis.js
 var _excluded14 = ["dangerouslySetInnerHTML", "ticks"];
 var _excluded28 = ["id"];
 function _extends18() {
@@ -47269,7 +47290,7 @@ var XAxisSettingsDispatcher = (outsideProps) => {
 var XAxis = /* @__PURE__ */ React27.memo(XAxisSettingsDispatcher, axisPropsAreEqual);
 XAxis.displayName = "XAxis";
 
-// node_modules/recharts/es6/cartesian/YAxis.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/cartesian/YAxis.js
 var React28 = __toESM(require_react());
 var import_react40 = __toESM(require_react());
 var _excluded15 = ["dangerouslySetInnerHTML", "ticks"];
@@ -47454,19 +47475,19 @@ var YAxisSettingsDispatcher = (outsideProps) => {
 var YAxis = /* @__PURE__ */ React28.memo(YAxisSettingsDispatcher, axisPropsAreEqual);
 YAxis.displayName = "YAxis";
 
-// node_modules/recharts/es6/chart/CartesianChart.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/CartesianChart.js
 var React34 = __toESM(require_react());
 var import_react49 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/RechartsStoreProvider.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/RechartsStoreProvider.js
 var React29 = __toESM(require_react());
 var import_react41 = __toESM(require_react());
 
-// node_modules/recharts/es6/state/selectors/selectActivePropsFromChartPointer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/selectActivePropsFromChartPointer.js
 var pickChartPointer = (_state, chartPointer) => chartPointer;
 var selectActivePropsFromChartPointer = createSelector([pickChartPointer, selectChartLayout, selectPolarViewBox, selectTooltipAxisType, selectTooltipAxisRangeWithReverse, selectTooltipAxisTicks, selectOrderedTooltipTicks, selectChartOffsetInternal], combineActiveProps);
 
-// node_modules/recharts/es6/util/getChartPointer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/getChartPointer.js
 var getChartPointer = (event) => {
   var rect = event.currentTarget.getBoundingClientRect();
   var scaleX = rect.width / event.currentTarget.offsetWidth;
@@ -47487,7 +47508,7 @@ var getChartPointer = (event) => {
   };
 };
 
-// node_modules/recharts/es6/state/mouseEventsMiddleware.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/mouseEventsMiddleware.js
 var mouseClickAction = createAction("mouseClick");
 var mouseClickMiddleware = createListenerMiddleware();
 mouseClickMiddleware.startListening({
@@ -47535,7 +47556,7 @@ mouseMoveMiddleware.startListening({
   }
 });
 
-// node_modules/recharts/es6/state/reduxDevtoolsJsonStringifyReplacer.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/reduxDevtoolsJsonStringifyReplacer.js
 function reduxDevtoolsJsonStringifyReplacer(key, value) {
   if (value instanceof HTMLElement) {
     return "HTMLElement <".concat(value.tagName, ' class="').concat(value.className, '">');
@@ -47549,7 +47570,7 @@ function reduxDevtoolsJsonStringifyReplacer(key, value) {
   return value;
 }
 
-// node_modules/recharts/es6/state/rootPropsSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/rootPropsSlice.js
 var initialState12 = {
   accessibilityLayer: true,
   barCategoryGap: "10%",
@@ -47588,7 +47609,7 @@ var {
   updateOptions
 } = rootPropsSlice.actions;
 
-// node_modules/recharts/es6/state/polarOptionsSlice.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/polarOptionsSlice.js
 var polarOptionsSlice = createSlice({
   name: "polarOptions",
   initialState: null,
@@ -47603,7 +47624,7 @@ var {
 } = polarOptionsSlice.actions;
 var polarOptionsReducer = polarOptionsSlice.reducer;
 
-// node_modules/recharts/es6/state/keyboardEventsMiddleware.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/keyboardEventsMiddleware.js
 var keyDownAction = createAction("keyDown");
 var focusAction = createAction("focus");
 var keyboardEventsMiddleware = createListenerMiddleware();
@@ -47681,7 +47702,7 @@ keyboardEventsMiddleware.startListening({
   }
 });
 
-// node_modules/recharts/es6/state/externalEventsMiddleware.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/externalEventsMiddleware.js
 var externalEventAction = createAction("externalEvent");
 var externalEventsMiddleware = createListenerMiddleware();
 var rafIdMap = /* @__PURE__ */ new Map();
@@ -47721,7 +47742,7 @@ externalEventsMiddleware.startListening({
   }
 });
 
-// node_modules/recharts/es6/state/selectors/touchSelectors.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/selectors/touchSelectors.js
 var selectAllTooltipPayloadConfiguration = createSelector([selectTooltipState], (tooltipState) => tooltipState.tooltipItemPayloads);
 var selectTooltipCoordinate = createSelector([selectAllTooltipPayloadConfiguration, selectTooltipPayloadSearcher, (_state, tooltipIndex, _dataKey) => tooltipIndex, (_state, _tooltipIndex, dataKey) => dataKey], (allTooltipConfigurations, tooltipPayloadSearcher, tooltipIndex, dataKey) => {
   var mostRelevantTooltipConfiguration = allTooltipConfigurations.find((tooltipConfiguration) => {
@@ -47740,7 +47761,7 @@ var selectTooltipCoordinate = createSelector([selectAllTooltipPayloadConfigurati
   return maybePosition;
 });
 
-// node_modules/recharts/es6/state/touchEventsMiddleware.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/touchEventsMiddleware.js
 var touchEventAction = createAction("touchMove");
 var touchEventMiddleware = createListenerMiddleware();
 touchEventMiddleware.startListening({
@@ -47787,7 +47808,7 @@ touchEventMiddleware.startListening({
   }
 });
 
-// node_modules/recharts/es6/state/store.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/store.js
 var rootReducer = combineReducers({
   brush: brushReducer,
   cartesianAxis: cartesianAxisReducer,
@@ -47844,7 +47865,7 @@ var createRechartsStore = function createRechartsStore2(preloadedState) {
   });
 };
 
-// node_modules/recharts/es6/state/RechartsStoreProvider.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/RechartsStoreProvider.js
 function RechartsStoreProvider(_ref2) {
   var {
     preloadedState,
@@ -47866,7 +47887,7 @@ function RechartsStoreProvider(_ref2) {
   }, children);
 }
 
-// node_modules/recharts/es6/state/ReportMainChartProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/ReportMainChartProps.js
 var import_react42 = __toESM(require_react());
 function ReportMainChartPropsImpl(_ref2) {
   var {
@@ -47885,7 +47906,7 @@ function ReportMainChartPropsImpl(_ref2) {
 }
 var ReportMainChartProps = /* @__PURE__ */ (0, import_react42.memo)(ReportMainChartPropsImpl, propsAreEqual);
 
-// node_modules/recharts/es6/state/ReportChartProps.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/state/ReportChartProps.js
 var import_react43 = __toESM(require_react());
 function ReportChartProps(props) {
   var dispatch = useAppDispatch();
@@ -47895,15 +47916,15 @@ function ReportChartProps(props) {
   return null;
 }
 
-// node_modules/recharts/es6/chart/CategoricalChart.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/CategoricalChart.js
 var React33 = __toESM(require_react());
 var import_react48 = __toESM(require_react());
 
-// node_modules/recharts/es6/container/RootSurface.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/RootSurface.js
 var React31 = __toESM(require_react());
 var import_react45 = __toESM(require_react());
 
-// node_modules/recharts/es6/zIndex/ZIndexPortal.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/zIndex/ZIndexPortal.js
 var React30 = __toESM(require_react());
 var import_react44 = __toESM(require_react());
 function ZIndexSvgPortal(_ref2) {
@@ -47954,7 +47975,7 @@ function AllZIndexPortals(_ref2) {
   })));
 }
 
-// node_modules/recharts/es6/container/RootSurface.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/RootSurface.js
 var _excluded16 = ["children"];
 function _objectWithoutProperties16(e, t) {
   if (null == e) return {};
@@ -48072,11 +48093,11 @@ var RootSurface = /* @__PURE__ */ (0, import_react45.forwardRef)((_ref2, ref) =>
   }, children));
 });
 
-// node_modules/recharts/es6/chart/RechartsWrapper.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/RechartsWrapper.js
 var React32 = __toESM(require_react());
 var import_react47 = __toESM(require_react());
 
-// node_modules/recharts/es6/util/useReportScale.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/util/useReportScale.js
 var import_react46 = __toESM(require_react());
 function useReportScale() {
   var dispatch = useAppDispatch();
@@ -48095,7 +48116,7 @@ function useReportScale() {
   return setRef;
 }
 
-// node_modules/recharts/es6/chart/RechartsWrapper.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/RechartsWrapper.js
 function ownKeys31(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -48437,7 +48458,7 @@ var RechartsWrapper = /* @__PURE__ */ (0, import_react47.forwardRef)((props, ref
   }, /* @__PURE__ */ React32.createElement(EventSynchronizer, null), children)));
 });
 
-// node_modules/recharts/es6/chart/CategoricalChart.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/CategoricalChart.js
 var _excluded17 = ["width", "height", "responsive", "children", "className", "style", "compact", "title", "desc"];
 function _objectWithoutProperties17(e, t) {
   if (null == e) return {};
@@ -48505,7 +48526,7 @@ var CategoricalChart = /* @__PURE__ */ (0, import_react48.forwardRef)((props, re
   }, /* @__PURE__ */ React33.createElement(ClipPathProvider, null, children)));
 });
 
-// node_modules/recharts/es6/chart/CartesianChart.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/CartesianChart.js
 function _extends22() {
   return _extends22 = Object.assign ? Object.assign.bind() : function(n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -48576,7 +48597,7 @@ var CartesianChart = /* @__PURE__ */ (0, import_react49.forwardRef)(function Car
   })));
 });
 
-// node_modules/recharts/es6/chart/AreaChart.js
+// node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/chart/AreaChart.js
 var React35 = __toESM(require_react());
 var import_react50 = __toESM(require_react());
 var allowedTooltipTypes = ["axis"];
@@ -48591,12 +48612,11829 @@ var AreaChart = /* @__PURE__ */ (0, import_react50.forwardRef)((props, ref) => {
   });
 });
 
-// src/MyBudget.tsx
+// node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs
+function __rest(s, e) {
+  var t = {};
+  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+    t[p] = s[p];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        t[p[i]] = s[p[i]];
+    }
+  return t;
+}
+function __awaiter(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+}
+
+// node_modules/.pnpm/@supabase+functions-js@2.97.0/node_modules/@supabase/functions-js/dist/module/helper.js
+var resolveFetch = (customFetch) => {
+  if (customFetch) {
+    return (...args) => customFetch(...args);
+  }
+  return (...args) => fetch(...args);
+};
+
+// node_modules/.pnpm/@supabase+functions-js@2.97.0/node_modules/@supabase/functions-js/dist/module/types.js
+var FunctionsError = class extends Error {
+  constructor(message, name = "FunctionsError", context) {
+    super(message);
+    this.name = name;
+    this.context = context;
+  }
+};
+var FunctionsFetchError = class extends FunctionsError {
+  constructor(context) {
+    super("Failed to send a request to the Edge Function", "FunctionsFetchError", context);
+  }
+};
+var FunctionsRelayError = class extends FunctionsError {
+  constructor(context) {
+    super("Relay Error invoking the Edge Function", "FunctionsRelayError", context);
+  }
+};
+var FunctionsHttpError = class extends FunctionsError {
+  constructor(context) {
+    super("Edge Function returned a non-2xx status code", "FunctionsHttpError", context);
+  }
+};
+var FunctionRegion;
+(function(FunctionRegion2) {
+  FunctionRegion2["Any"] = "any";
+  FunctionRegion2["ApNortheast1"] = "ap-northeast-1";
+  FunctionRegion2["ApNortheast2"] = "ap-northeast-2";
+  FunctionRegion2["ApSouth1"] = "ap-south-1";
+  FunctionRegion2["ApSoutheast1"] = "ap-southeast-1";
+  FunctionRegion2["ApSoutheast2"] = "ap-southeast-2";
+  FunctionRegion2["CaCentral1"] = "ca-central-1";
+  FunctionRegion2["EuCentral1"] = "eu-central-1";
+  FunctionRegion2["EuWest1"] = "eu-west-1";
+  FunctionRegion2["EuWest2"] = "eu-west-2";
+  FunctionRegion2["EuWest3"] = "eu-west-3";
+  FunctionRegion2["SaEast1"] = "sa-east-1";
+  FunctionRegion2["UsEast1"] = "us-east-1";
+  FunctionRegion2["UsWest1"] = "us-west-1";
+  FunctionRegion2["UsWest2"] = "us-west-2";
+})(FunctionRegion || (FunctionRegion = {}));
+
+// node_modules/.pnpm/@supabase+functions-js@2.97.0/node_modules/@supabase/functions-js/dist/module/FunctionsClient.js
+var FunctionsClient = class {
+  /**
+   * Creates a new Functions client bound to an Edge Functions URL.
+   *
+   * @example
+   * ```ts
+   * import { FunctionsClient, FunctionRegion } from '@supabase/functions-js'
+   *
+   * const functions = new FunctionsClient('https://xyzcompany.supabase.co/functions/v1', {
+   *   headers: { apikey: 'public-anon-key' },
+   *   region: FunctionRegion.UsEast1,
+   * })
+   * ```
+   */
+  constructor(url, { headers = {}, customFetch, region = FunctionRegion.Any } = {}) {
+    this.url = url;
+    this.headers = headers;
+    this.region = region;
+    this.fetch = resolveFetch(customFetch);
+  }
+  /**
+   * Updates the authorization header
+   * @param token - the new jwt token sent in the authorisation header
+   * @example
+   * ```ts
+   * functions.setAuth(session.access_token)
+   * ```
+   */
+  setAuth(token) {
+    this.headers.Authorization = `Bearer ${token}`;
+  }
+  /**
+   * Invokes a function
+   * @param functionName - The name of the Function to invoke.
+   * @param options - Options for invoking the Function.
+   * @example
+   * ```ts
+   * const { data, error } = await functions.invoke('hello-world', {
+   *   body: { name: 'Ada' },
+   * })
+   * ```
+   */
+  invoke(functionName_1) {
+    return __awaiter(this, arguments, void 0, function* (functionName, options = {}) {
+      var _a;
+      let timeoutId;
+      let timeoutController;
+      try {
+        const { headers, method, body: functionArgs, signal, timeout } = options;
+        let _headers = {};
+        let { region } = options;
+        if (!region) {
+          region = this.region;
+        }
+        const url = new URL(`${this.url}/${functionName}`);
+        if (region && region !== "any") {
+          _headers["x-region"] = region;
+          url.searchParams.set("forceFunctionRegion", region);
+        }
+        let body;
+        if (functionArgs && (headers && !Object.prototype.hasOwnProperty.call(headers, "Content-Type") || !headers)) {
+          if (typeof Blob !== "undefined" && functionArgs instanceof Blob || functionArgs instanceof ArrayBuffer) {
+            _headers["Content-Type"] = "application/octet-stream";
+            body = functionArgs;
+          } else if (typeof functionArgs === "string") {
+            _headers["Content-Type"] = "text/plain";
+            body = functionArgs;
+          } else if (typeof FormData !== "undefined" && functionArgs instanceof FormData) {
+            body = functionArgs;
+          } else {
+            _headers["Content-Type"] = "application/json";
+            body = JSON.stringify(functionArgs);
+          }
+        } else {
+          if (functionArgs && typeof functionArgs !== "string" && !(typeof Blob !== "undefined" && functionArgs instanceof Blob) && !(functionArgs instanceof ArrayBuffer) && !(typeof FormData !== "undefined" && functionArgs instanceof FormData)) {
+            body = JSON.stringify(functionArgs);
+          } else {
+            body = functionArgs;
+          }
+        }
+        let effectiveSignal = signal;
+        if (timeout) {
+          timeoutController = new AbortController();
+          timeoutId = setTimeout(() => timeoutController.abort(), timeout);
+          if (signal) {
+            effectiveSignal = timeoutController.signal;
+            signal.addEventListener("abort", () => timeoutController.abort());
+          } else {
+            effectiveSignal = timeoutController.signal;
+          }
+        }
+        const response = yield this.fetch(url.toString(), {
+          method: method || "POST",
+          // headers priority is (high to low):
+          // 1. invoke-level headers
+          // 2. client-level headers
+          // 3. default Content-Type header
+          headers: Object.assign(Object.assign(Object.assign({}, _headers), this.headers), headers),
+          body,
+          signal: effectiveSignal
+        }).catch((fetchError) => {
+          throw new FunctionsFetchError(fetchError);
+        });
+        const isRelayError = response.headers.get("x-relay-error");
+        if (isRelayError && isRelayError === "true") {
+          throw new FunctionsRelayError(response);
+        }
+        if (!response.ok) {
+          throw new FunctionsHttpError(response);
+        }
+        let responseType = ((_a = response.headers.get("Content-Type")) !== null && _a !== void 0 ? _a : "text/plain").split(";")[0].trim();
+        let data;
+        if (responseType === "application/json") {
+          data = yield response.json();
+        } else if (responseType === "application/octet-stream" || responseType === "application/pdf") {
+          data = yield response.blob();
+        } else if (responseType === "text/event-stream") {
+          data = response;
+        } else if (responseType === "multipart/form-data") {
+          data = yield response.formData();
+        } else {
+          data = yield response.text();
+        }
+        return { data, error: null, response };
+      } catch (error) {
+        return {
+          data: null,
+          error,
+          response: error instanceof FunctionsHttpError || error instanceof FunctionsRelayError ? error.context : void 0
+        };
+      } finally {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      }
+    });
+  }
+};
+
+// node_modules/.pnpm/@supabase+postgrest-js@2.97.0/node_modules/@supabase/postgrest-js/dist/index.mjs
+var PostgrestError = class extends Error {
+  /**
+  * @example
+  * ```ts
+  * import PostgrestError from '@supabase/postgrest-js'
+  *
+  * throw new PostgrestError({
+  *   message: 'Row level security prevented the request',
+  *   details: 'RLS denied the insert',
+  *   hint: 'Check your policies',
+  *   code: 'PGRST301',
+  * })
+  * ```
+  */
+  constructor(context) {
+    super(context.message);
+    this.name = "PostgrestError";
+    this.details = context.details;
+    this.hint = context.hint;
+    this.code = context.code;
+  }
+};
+var PostgrestBuilder = class {
+  /**
+  * Creates a builder configured for a specific PostgREST request.
+  *
+  * @example
+  * ```ts
+  * import PostgrestQueryBuilder from '@supabase/postgrest-js'
+  *
+  * const builder = new PostgrestQueryBuilder(
+  *   new URL('https://xyzcompany.supabase.co/rest/v1/users'),
+  *   { headers: new Headers({ apikey: 'public-anon-key' }) }
+  * )
+  * ```
+  */
+  constructor(builder) {
+    var _builder$shouldThrowO, _builder$isMaybeSingl, _builder$urlLengthLim;
+    this.shouldThrowOnError = false;
+    this.method = builder.method;
+    this.url = builder.url;
+    this.headers = new Headers(builder.headers);
+    this.schema = builder.schema;
+    this.body = builder.body;
+    this.shouldThrowOnError = (_builder$shouldThrowO = builder.shouldThrowOnError) !== null && _builder$shouldThrowO !== void 0 ? _builder$shouldThrowO : false;
+    this.signal = builder.signal;
+    this.isMaybeSingle = (_builder$isMaybeSingl = builder.isMaybeSingle) !== null && _builder$isMaybeSingl !== void 0 ? _builder$isMaybeSingl : false;
+    this.urlLengthLimit = (_builder$urlLengthLim = builder.urlLengthLimit) !== null && _builder$urlLengthLim !== void 0 ? _builder$urlLengthLim : 8e3;
+    if (builder.fetch) this.fetch = builder.fetch;
+    else this.fetch = fetch;
+  }
+  /**
+  * If there's an error with the query, throwOnError will reject the promise by
+  * throwing the error instead of returning it as part of a successful response.
+  *
+  * {@link https://github.com/supabase/supabase-js/issues/92}
+  */
+  throwOnError() {
+    this.shouldThrowOnError = true;
+    return this;
+  }
+  /**
+  * Set an HTTP header for the request.
+  */
+  setHeader(name, value) {
+    this.headers = new Headers(this.headers);
+    this.headers.set(name, value);
+    return this;
+  }
+  then(onfulfilled, onrejected) {
+    var _this = this;
+    if (this.schema === void 0) {
+    } else if (["GET", "HEAD"].includes(this.method)) this.headers.set("Accept-Profile", this.schema);
+    else this.headers.set("Content-Profile", this.schema);
+    if (this.method !== "GET" && this.method !== "HEAD") this.headers.set("Content-Type", "application/json");
+    const _fetch = this.fetch;
+    let res = _fetch(this.url.toString(), {
+      method: this.method,
+      headers: this.headers,
+      body: JSON.stringify(this.body),
+      signal: this.signal
+    }).then(async (res$1) => {
+      let error = null;
+      let data = null;
+      let count = null;
+      let status = res$1.status;
+      let statusText = res$1.statusText;
+      if (res$1.ok) {
+        var _this$headers$get2, _res$headers$get;
+        if (_this.method !== "HEAD") {
+          var _this$headers$get;
+          const body = await res$1.text();
+          if (body === "") {
+          } else if (_this.headers.get("Accept") === "text/csv") data = body;
+          else if (_this.headers.get("Accept") && ((_this$headers$get = _this.headers.get("Accept")) === null || _this$headers$get === void 0 ? void 0 : _this$headers$get.includes("application/vnd.pgrst.plan+text"))) data = body;
+          else data = JSON.parse(body);
+        }
+        const countHeader = (_this$headers$get2 = _this.headers.get("Prefer")) === null || _this$headers$get2 === void 0 ? void 0 : _this$headers$get2.match(/count=(exact|planned|estimated)/);
+        const contentRange = (_res$headers$get = res$1.headers.get("content-range")) === null || _res$headers$get === void 0 ? void 0 : _res$headers$get.split("/");
+        if (countHeader && contentRange && contentRange.length > 1) count = parseInt(contentRange[1]);
+        if (_this.isMaybeSingle && _this.method === "GET" && Array.isArray(data)) if (data.length > 1) {
+          error = {
+            code: "PGRST116",
+            details: `Results contain ${data.length} rows, application/vnd.pgrst.object+json requires 1 row`,
+            hint: null,
+            message: "JSON object requested, multiple (or no) rows returned"
+          };
+          data = null;
+          count = null;
+          status = 406;
+          statusText = "Not Acceptable";
+        } else if (data.length === 1) data = data[0];
+        else data = null;
+      } else {
+        var _error$details;
+        const body = await res$1.text();
+        try {
+          error = JSON.parse(body);
+          if (Array.isArray(error) && res$1.status === 404) {
+            data = [];
+            error = null;
+            status = 200;
+            statusText = "OK";
+          }
+        } catch (_unused) {
+          if (res$1.status === 404 && body === "") {
+            status = 204;
+            statusText = "No Content";
+          } else error = { message: body };
+        }
+        if (error && _this.isMaybeSingle && (error === null || error === void 0 || (_error$details = error.details) === null || _error$details === void 0 ? void 0 : _error$details.includes("0 rows"))) {
+          error = null;
+          status = 200;
+          statusText = "OK";
+        }
+        if (error && _this.shouldThrowOnError) throw new PostgrestError(error);
+      }
+      return {
+        error,
+        data,
+        count,
+        status,
+        statusText
+      };
+    });
+    if (!this.shouldThrowOnError) res = res.catch((fetchError) => {
+      var _fetchError$name2;
+      let errorDetails = "";
+      let hint = "";
+      let code = "";
+      const cause = fetchError === null || fetchError === void 0 ? void 0 : fetchError.cause;
+      if (cause) {
+        var _cause$message, _cause$code, _fetchError$name, _cause$name;
+        const causeMessage = (_cause$message = cause === null || cause === void 0 ? void 0 : cause.message) !== null && _cause$message !== void 0 ? _cause$message : "";
+        const causeCode = (_cause$code = cause === null || cause === void 0 ? void 0 : cause.code) !== null && _cause$code !== void 0 ? _cause$code : "";
+        errorDetails = `${(_fetchError$name = fetchError === null || fetchError === void 0 ? void 0 : fetchError.name) !== null && _fetchError$name !== void 0 ? _fetchError$name : "FetchError"}: ${fetchError === null || fetchError === void 0 ? void 0 : fetchError.message}`;
+        errorDetails += `
+
+Caused by: ${(_cause$name = cause === null || cause === void 0 ? void 0 : cause.name) !== null && _cause$name !== void 0 ? _cause$name : "Error"}: ${causeMessage}`;
+        if (causeCode) errorDetails += ` (${causeCode})`;
+        if (cause === null || cause === void 0 ? void 0 : cause.stack) errorDetails += `
+${cause.stack}`;
+      } else {
+        var _fetchError$stack;
+        errorDetails = (_fetchError$stack = fetchError === null || fetchError === void 0 ? void 0 : fetchError.stack) !== null && _fetchError$stack !== void 0 ? _fetchError$stack : "";
+      }
+      const urlLength = this.url.toString().length;
+      if ((fetchError === null || fetchError === void 0 ? void 0 : fetchError.name) === "AbortError" || (fetchError === null || fetchError === void 0 ? void 0 : fetchError.code) === "ABORT_ERR") {
+        code = "";
+        hint = "Request was aborted (timeout or manual cancellation)";
+        if (urlLength > this.urlLengthLimit) hint += `. Note: Your request URL is ${urlLength} characters, which may exceed server limits. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [many IDs])), consider using an RPC function to pass values server-side.`;
+      } else if ((cause === null || cause === void 0 ? void 0 : cause.name) === "HeadersOverflowError" || (cause === null || cause === void 0 ? void 0 : cause.code) === "UND_ERR_HEADERS_OVERFLOW") {
+        code = "";
+        hint = "HTTP headers exceeded server limits (typically 16KB)";
+        if (urlLength > this.urlLengthLimit) hint += `. Your request URL is ${urlLength} characters. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [200+ IDs])), consider using an RPC function instead.`;
+      }
+      return {
+        error: {
+          message: `${(_fetchError$name2 = fetchError === null || fetchError === void 0 ? void 0 : fetchError.name) !== null && _fetchError$name2 !== void 0 ? _fetchError$name2 : "FetchError"}: ${fetchError === null || fetchError === void 0 ? void 0 : fetchError.message}`,
+          details: errorDetails,
+          hint,
+          code
+        },
+        data: null,
+        count: null,
+        status: 0,
+        statusText: ""
+      };
+    });
+    return res.then(onfulfilled, onrejected);
+  }
+  /**
+  * Override the type of the returned `data`.
+  *
+  * @typeParam NewResult - The new result type to override with
+  * @deprecated Use overrideTypes<yourType, { merge: false }>() method at the end of your call chain instead
+  */
+  returns() {
+    return this;
+  }
+  /**
+  * Override the type of the returned `data` field in the response.
+  *
+  * @typeParam NewResult - The new type to cast the response data to
+  * @typeParam Options - Optional type configuration (defaults to { merge: true })
+  * @typeParam Options.merge - When true, merges the new type with existing return type. When false, replaces the existing types entirely (defaults to true)
+  * @example
+  * ```typescript
+  * // Merge with existing types (default behavior)
+  * const query = supabase
+  *   .from('users')
+  *   .select()
+  *   .overrideTypes<{ custom_field: string }>()
+  *
+  * // Replace existing types completely
+  * const replaceQuery = supabase
+  *   .from('users')
+  *   .select()
+  *   .overrideTypes<{ id: number; name: string }, { merge: false }>()
+  * ```
+  * @returns A PostgrestBuilder instance with the new type
+  */
+  overrideTypes() {
+    return this;
+  }
+};
+var PostgrestTransformBuilder = class extends PostgrestBuilder {
+  /**
+  * Perform a SELECT on the query result.
+  *
+  * By default, `.insert()`, `.update()`, `.upsert()`, and `.delete()` do not
+  * return modified rows. By calling this method, modified rows are returned in
+  * `data`.
+  *
+  * @param columns - The columns to retrieve, separated by commas
+  */
+  select(columns) {
+    let quoted = false;
+    const cleanedColumns = (columns !== null && columns !== void 0 ? columns : "*").split("").map((c) => {
+      if (/\s/.test(c) && !quoted) return "";
+      if (c === '"') quoted = !quoted;
+      return c;
+    }).join("");
+    this.url.searchParams.set("select", cleanedColumns);
+    this.headers.append("Prefer", "return=representation");
+    return this;
+  }
+  /**
+  * Order the query result by `column`.
+  *
+  * You can call this method multiple times to order by multiple columns.
+  *
+  * You can order referenced tables, but it only affects the ordering of the
+  * parent table if you use `!inner` in the query.
+  *
+  * @param column - The column to order by
+  * @param options - Named parameters
+  * @param options.ascending - If `true`, the result will be in ascending order
+  * @param options.nullsFirst - If `true`, `null`s appear first. If `false`,
+  * `null`s appear last.
+  * @param options.referencedTable - Set this to order a referenced table by
+  * its columns
+  * @param options.foreignTable - Deprecated, use `options.referencedTable`
+  * instead
+  */
+  order(column, { ascending: ascending2 = true, nullsFirst, foreignTable, referencedTable = foreignTable } = {}) {
+    const key = referencedTable ? `${referencedTable}.order` : "order";
+    const existingOrder = this.url.searchParams.get(key);
+    this.url.searchParams.set(key, `${existingOrder ? `${existingOrder},` : ""}${column}.${ascending2 ? "asc" : "desc"}${nullsFirst === void 0 ? "" : nullsFirst ? ".nullsfirst" : ".nullslast"}`);
+    return this;
+  }
+  /**
+  * Limit the query result by `count`.
+  *
+  * @param count - The maximum number of rows to return
+  * @param options - Named parameters
+  * @param options.referencedTable - Set this to limit rows of referenced
+  * tables instead of the parent table
+  * @param options.foreignTable - Deprecated, use `options.referencedTable`
+  * instead
+  */
+  limit(count, { foreignTable, referencedTable = foreignTable } = {}) {
+    const key = typeof referencedTable === "undefined" ? "limit" : `${referencedTable}.limit`;
+    this.url.searchParams.set(key, `${count}`);
+    return this;
+  }
+  /**
+  * Limit the query result by starting at an offset `from` and ending at the offset `to`.
+  * Only records within this range are returned.
+  * This respects the query order and if there is no order clause the range could behave unexpectedly.
+  * The `from` and `to` values are 0-based and inclusive: `range(1, 3)` will include the second, third
+  * and fourth rows of the query.
+  *
+  * @param from - The starting index from which to limit the result
+  * @param to - The last index to which to limit the result
+  * @param options - Named parameters
+  * @param options.referencedTable - Set this to limit rows of referenced
+  * tables instead of the parent table
+  * @param options.foreignTable - Deprecated, use `options.referencedTable`
+  * instead
+  */
+  range(from2, to2, { foreignTable, referencedTable = foreignTable } = {}) {
+    const keyOffset = typeof referencedTable === "undefined" ? "offset" : `${referencedTable}.offset`;
+    const keyLimit = typeof referencedTable === "undefined" ? "limit" : `${referencedTable}.limit`;
+    this.url.searchParams.set(keyOffset, `${from2}`);
+    this.url.searchParams.set(keyLimit, `${to2 - from2 + 1}`);
+    return this;
+  }
+  /**
+  * Set the AbortSignal for the fetch request.
+  *
+  * @param signal - The AbortSignal to use for the fetch request
+  */
+  abortSignal(signal) {
+    this.signal = signal;
+    return this;
+  }
+  /**
+  * Return `data` as a single object instead of an array of objects.
+  *
+  * Query result must be one row (e.g. using `.limit(1)`), otherwise this
+  * returns an error.
+  */
+  single() {
+    this.headers.set("Accept", "application/vnd.pgrst.object+json");
+    return this;
+  }
+  /**
+  * Return `data` as a single object instead of an array of objects.
+  *
+  * Query result must be zero or one row (e.g. using `.limit(1)`), otherwise
+  * this returns an error.
+  */
+  maybeSingle() {
+    if (this.method === "GET") this.headers.set("Accept", "application/json");
+    else this.headers.set("Accept", "application/vnd.pgrst.object+json");
+    this.isMaybeSingle = true;
+    return this;
+  }
+  /**
+  * Return `data` as a string in CSV format.
+  */
+  csv() {
+    this.headers.set("Accept", "text/csv");
+    return this;
+  }
+  /**
+  * Return `data` as an object in [GeoJSON](https://geojson.org) format.
+  */
+  geojson() {
+    this.headers.set("Accept", "application/geo+json");
+    return this;
+  }
+  /**
+  * Return `data` as the EXPLAIN plan for the query.
+  *
+  * You need to enable the
+  * [db_plan_enabled](https://supabase.com/docs/guides/database/debugging-performance#enabling-explain)
+  * setting before using this method.
+  *
+  * @param options - Named parameters
+  *
+  * @param options.analyze - If `true`, the query will be executed and the
+  * actual run time will be returned
+  *
+  * @param options.verbose - If `true`, the query identifier will be returned
+  * and `data` will include the output columns of the query
+  *
+  * @param options.settings - If `true`, include information on configuration
+  * parameters that affect query planning
+  *
+  * @param options.buffers - If `true`, include information on buffer usage
+  *
+  * @param options.wal - If `true`, include information on WAL record generation
+  *
+  * @param options.format - The format of the output, can be `"text"` (default)
+  * or `"json"`
+  */
+  explain({ analyze = false, verbose = false, settings = false, buffers = false, wal = false, format: format2 = "text" } = {}) {
+    var _this$headers$get;
+    const options = [
+      analyze ? "analyze" : null,
+      verbose ? "verbose" : null,
+      settings ? "settings" : null,
+      buffers ? "buffers" : null,
+      wal ? "wal" : null
+    ].filter(Boolean).join("|");
+    const forMediatype = (_this$headers$get = this.headers.get("Accept")) !== null && _this$headers$get !== void 0 ? _this$headers$get : "application/json";
+    this.headers.set("Accept", `application/vnd.pgrst.plan+${format2}; for="${forMediatype}"; options=${options};`);
+    if (format2 === "json") return this;
+    else return this;
+  }
+  /**
+  * Rollback the query.
+  *
+  * `data` will still be returned, but the query is not committed.
+  */
+  rollback() {
+    this.headers.append("Prefer", "tx=rollback");
+    return this;
+  }
+  /**
+  * Override the type of the returned `data`.
+  *
+  * @typeParam NewResult - The new result type to override with
+  * @deprecated Use overrideTypes<yourType, { merge: false }>() method at the end of your call chain instead
+  */
+  returns() {
+    return this;
+  }
+  /**
+  * Set the maximum number of rows that can be affected by the query.
+  * Only available in PostgREST v13+ and only works with PATCH and DELETE methods.
+  *
+  * @param value - The maximum number of rows that can be affected
+  */
+  maxAffected(value) {
+    this.headers.append("Prefer", "handling=strict");
+    this.headers.append("Prefer", `max-affected=${value}`);
+    return this;
+  }
+};
+var PostgrestReservedCharsRegexp = /* @__PURE__ */ new RegExp("[,()]");
+var PostgrestFilterBuilder = class extends PostgrestTransformBuilder {
+  /**
+  * Match only rows where `column` is equal to `value`.
+  *
+  * To check if the value of `column` is NULL, you should use `.is()` instead.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  eq(column, value) {
+    this.url.searchParams.append(column, `eq.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is not equal to `value`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  neq(column, value) {
+    this.url.searchParams.append(column, `neq.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is greater than `value`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  gt(column, value) {
+    this.url.searchParams.append(column, `gt.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is greater than or equal to `value`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  gte(column, value) {
+    this.url.searchParams.append(column, `gte.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is less than `value`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  lt(column, value) {
+    this.url.searchParams.append(column, `lt.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is less than or equal to `value`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  lte(column, value) {
+    this.url.searchParams.append(column, `lte.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches `pattern` case-sensitively.
+  *
+  * @param column - The column to filter on
+  * @param pattern - The pattern to match with
+  */
+  like(column, pattern) {
+    this.url.searchParams.append(column, `like.${pattern}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches all of `patterns` case-sensitively.
+  *
+  * @param column - The column to filter on
+  * @param patterns - The patterns to match with
+  */
+  likeAllOf(column, patterns) {
+    this.url.searchParams.append(column, `like(all).{${patterns.join(",")}}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches any of `patterns` case-sensitively.
+  *
+  * @param column - The column to filter on
+  * @param patterns - The patterns to match with
+  */
+  likeAnyOf(column, patterns) {
+    this.url.searchParams.append(column, `like(any).{${patterns.join(",")}}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches `pattern` case-insensitively.
+  *
+  * @param column - The column to filter on
+  * @param pattern - The pattern to match with
+  */
+  ilike(column, pattern) {
+    this.url.searchParams.append(column, `ilike.${pattern}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches all of `patterns` case-insensitively.
+  *
+  * @param column - The column to filter on
+  * @param patterns - The patterns to match with
+  */
+  ilikeAllOf(column, patterns) {
+    this.url.searchParams.append(column, `ilike(all).{${patterns.join(",")}}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches any of `patterns` case-insensitively.
+  *
+  * @param column - The column to filter on
+  * @param patterns - The patterns to match with
+  */
+  ilikeAnyOf(column, patterns) {
+    this.url.searchParams.append(column, `ilike(any).{${patterns.join(",")}}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches the PostgreSQL regex `pattern`
+  * case-sensitively (using the `~` operator).
+  *
+  * @param column - The column to filter on
+  * @param pattern - The PostgreSQL regular expression pattern to match with
+  */
+  regexMatch(column, pattern) {
+    this.url.searchParams.append(column, `match.${pattern}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` matches the PostgreSQL regex `pattern`
+  * case-insensitively (using the `~*` operator).
+  *
+  * @param column - The column to filter on
+  * @param pattern - The PostgreSQL regular expression pattern to match with
+  */
+  regexIMatch(column, pattern) {
+    this.url.searchParams.append(column, `imatch.${pattern}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` IS `value`.
+  *
+  * For non-boolean columns, this is only relevant for checking if the value of
+  * `column` is NULL by setting `value` to `null`.
+  *
+  * For boolean columns, you can also set `value` to `true` or `false` and it
+  * will behave the same way as `.eq()`.
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  is(column, value) {
+    this.url.searchParams.append(column, `is.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` IS DISTINCT FROM `value`.
+  *
+  * Unlike `.neq()`, this treats `NULL` as a comparable value. Two `NULL` values
+  * are considered equal (not distinct), and comparing `NULL` with any non-NULL
+  * value returns true (distinct).
+  *
+  * @param column - The column to filter on
+  * @param value - The value to filter with
+  */
+  isDistinct(column, value) {
+    this.url.searchParams.append(column, `isdistinct.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is included in the `values` array.
+  *
+  * @param column - The column to filter on
+  * @param values - The values array to filter with
+  */
+  in(column, values) {
+    const cleanedValues = Array.from(new Set(values)).map((s) => {
+      if (typeof s === "string" && PostgrestReservedCharsRegexp.test(s)) return `"${s}"`;
+      else return `${s}`;
+    }).join(",");
+    this.url.searchParams.append(column, `in.(${cleanedValues})`);
+    return this;
+  }
+  /**
+  * Match only rows where `column` is NOT included in the `values` array.
+  *
+  * @param column - The column to filter on
+  * @param values - The values array to filter with
+  */
+  notIn(column, values) {
+    const cleanedValues = Array.from(new Set(values)).map((s) => {
+      if (typeof s === "string" && PostgrestReservedCharsRegexp.test(s)) return `"${s}"`;
+      else return `${s}`;
+    }).join(",");
+    this.url.searchParams.append(column, `not.in.(${cleanedValues})`);
+    return this;
+  }
+  /**
+  * Only relevant for jsonb, array, and range columns. Match only rows where
+  * `column` contains every element appearing in `value`.
+  *
+  * @param column - The jsonb, array, or range column to filter on
+  * @param value - The jsonb, array, or range value to filter with
+  */
+  contains(column, value) {
+    if (typeof value === "string") this.url.searchParams.append(column, `cs.${value}`);
+    else if (Array.isArray(value)) this.url.searchParams.append(column, `cs.{${value.join(",")}}`);
+    else this.url.searchParams.append(column, `cs.${JSON.stringify(value)}`);
+    return this;
+  }
+  /**
+  * Only relevant for jsonb, array, and range columns. Match only rows where
+  * every element appearing in `column` is contained by `value`.
+  *
+  * @param column - The jsonb, array, or range column to filter on
+  * @param value - The jsonb, array, or range value to filter with
+  */
+  containedBy(column, value) {
+    if (typeof value === "string") this.url.searchParams.append(column, `cd.${value}`);
+    else if (Array.isArray(value)) this.url.searchParams.append(column, `cd.{${value.join(",")}}`);
+    else this.url.searchParams.append(column, `cd.${JSON.stringify(value)}`);
+    return this;
+  }
+  /**
+  * Only relevant for range columns. Match only rows where every element in
+  * `column` is greater than any element in `range`.
+  *
+  * @param column - The range column to filter on
+  * @param range - The range to filter with
+  */
+  rangeGt(column, range4) {
+    this.url.searchParams.append(column, `sr.${range4}`);
+    return this;
+  }
+  /**
+  * Only relevant for range columns. Match only rows where every element in
+  * `column` is either contained in `range` or greater than any element in
+  * `range`.
+  *
+  * @param column - The range column to filter on
+  * @param range - The range to filter with
+  */
+  rangeGte(column, range4) {
+    this.url.searchParams.append(column, `nxl.${range4}`);
+    return this;
+  }
+  /**
+  * Only relevant for range columns. Match only rows where every element in
+  * `column` is less than any element in `range`.
+  *
+  * @param column - The range column to filter on
+  * @param range - The range to filter with
+  */
+  rangeLt(column, range4) {
+    this.url.searchParams.append(column, `sl.${range4}`);
+    return this;
+  }
+  /**
+  * Only relevant for range columns. Match only rows where every element in
+  * `column` is either contained in `range` or less than any element in
+  * `range`.
+  *
+  * @param column - The range column to filter on
+  * @param range - The range to filter with
+  */
+  rangeLte(column, range4) {
+    this.url.searchParams.append(column, `nxr.${range4}`);
+    return this;
+  }
+  /**
+  * Only relevant for range columns. Match only rows where `column` is
+  * mutually exclusive to `range` and there can be no element between the two
+  * ranges.
+  *
+  * @param column - The range column to filter on
+  * @param range - The range to filter with
+  */
+  rangeAdjacent(column, range4) {
+    this.url.searchParams.append(column, `adj.${range4}`);
+    return this;
+  }
+  /**
+  * Only relevant for array and range columns. Match only rows where
+  * `column` and `value` have an element in common.
+  *
+  * @param column - The array or range column to filter on
+  * @param value - The array or range value to filter with
+  */
+  overlaps(column, value) {
+    if (typeof value === "string") this.url.searchParams.append(column, `ov.${value}`);
+    else this.url.searchParams.append(column, `ov.{${value.join(",")}}`);
+    return this;
+  }
+  /**
+  * Only relevant for text and tsvector columns. Match only rows where
+  * `column` matches the query string in `query`.
+  *
+  * @param column - The text or tsvector column to filter on
+  * @param query - The query text to match with
+  * @param options - Named parameters
+  * @param options.config - The text search configuration to use
+  * @param options.type - Change how the `query` text is interpreted
+  */
+  textSearch(column, query, { config, type } = {}) {
+    let typePart = "";
+    if (type === "plain") typePart = "pl";
+    else if (type === "phrase") typePart = "ph";
+    else if (type === "websearch") typePart = "w";
+    const configPart = config === void 0 ? "" : `(${config})`;
+    this.url.searchParams.append(column, `${typePart}fts${configPart}.${query}`);
+    return this;
+  }
+  /**
+  * Match only rows where each column in `query` keys is equal to its
+  * associated value. Shorthand for multiple `.eq()`s.
+  *
+  * @param query - The object to filter with, with column names as keys mapped
+  * to their filter values
+  */
+  match(query) {
+    Object.entries(query).forEach(([column, value]) => {
+      this.url.searchParams.append(column, `eq.${value}`);
+    });
+    return this;
+  }
+  /**
+  * Match only rows which doesn't satisfy the filter.
+  *
+  * Unlike most filters, `opearator` and `value` are used as-is and need to
+  * follow [PostgREST
+  * syntax](https://postgrest.org/en/stable/api.html#operators). You also need
+  * to make sure they are properly sanitized.
+  *
+  * @param column - The column to filter on
+  * @param operator - The operator to be negated to filter with, following
+  * PostgREST syntax
+  * @param value - The value to filter with, following PostgREST syntax
+  */
+  not(column, operator, value) {
+    this.url.searchParams.append(column, `not.${operator}.${value}`);
+    return this;
+  }
+  /**
+  * Match only rows which satisfy at least one of the filters.
+  *
+  * Unlike most filters, `filters` is used as-is and needs to follow [PostgREST
+  * syntax](https://postgrest.org/en/stable/api.html#operators). You also need
+  * to make sure it's properly sanitized.
+  *
+  * It's currently not possible to do an `.or()` filter across multiple tables.
+  *
+  * @param filters - The filters to use, following PostgREST syntax
+  * @param options - Named parameters
+  * @param options.referencedTable - Set this to filter on referenced tables
+  * instead of the parent table
+  * @param options.foreignTable - Deprecated, use `referencedTable` instead
+  */
+  or(filters, { foreignTable, referencedTable = foreignTable } = {}) {
+    const key = referencedTable ? `${referencedTable}.or` : "or";
+    this.url.searchParams.append(key, `(${filters})`);
+    return this;
+  }
+  /**
+  * Match only rows which satisfy the filter. This is an escape hatch - you
+  * should use the specific filter methods wherever possible.
+  *
+  * Unlike most filters, `opearator` and `value` are used as-is and need to
+  * follow [PostgREST
+  * syntax](https://postgrest.org/en/stable/api.html#operators). You also need
+  * to make sure they are properly sanitized.
+  *
+  * @param column - The column to filter on
+  * @param operator - The operator to filter with, following PostgREST syntax
+  * @param value - The value to filter with, following PostgREST syntax
+  */
+  filter(column, operator, value) {
+    this.url.searchParams.append(column, `${operator}.${value}`);
+    return this;
+  }
+};
+var PostgrestQueryBuilder = class {
+  /**
+  * Creates a query builder scoped to a Postgres table or view.
+  *
+  * @example
+  * ```ts
+  * import PostgrestQueryBuilder from '@supabase/postgrest-js'
+  *
+  * const query = new PostgrestQueryBuilder(
+  *   new URL('https://xyzcompany.supabase.co/rest/v1/users'),
+  *   { headers: { apikey: 'public-anon-key' } }
+  * )
+  * ```
+  */
+  constructor(url, { headers = {}, schema, fetch: fetch$1, urlLengthLimit = 8e3 }) {
+    this.url = url;
+    this.headers = new Headers(headers);
+    this.schema = schema;
+    this.fetch = fetch$1;
+    this.urlLengthLimit = urlLengthLimit;
+  }
+  /**
+  * Clone URL and headers to prevent shared state between operations.
+  */
+  cloneRequestState() {
+    return {
+      url: new URL(this.url.toString()),
+      headers: new Headers(this.headers)
+    };
+  }
+  /**
+  * Perform a SELECT query on the table or view.
+  *
+  * @param columns - The columns to retrieve, separated by commas. Columns can be renamed when returned with `customName:columnName`
+  *
+  * @param options - Named parameters
+  *
+  * @param options.head - When set to `true`, `data` will not be returned.
+  * Useful if you only need the count.
+  *
+  * @param options.count - Count algorithm to use to count rows in the table or view.
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  *
+  * @remarks
+  * When using `count` with `.range()` or `.limit()`, the returned `count` is the total number of rows
+  * that match your filters, not the number of rows in the current page. Use this to build pagination UI.
+  */
+  select(columns, options) {
+    const { head: head2 = false, count } = options !== null && options !== void 0 ? options : {};
+    const method = head2 ? "HEAD" : "GET";
+    let quoted = false;
+    const cleanedColumns = (columns !== null && columns !== void 0 ? columns : "*").split("").map((c) => {
+      if (/\s/.test(c) && !quoted) return "";
+      if (c === '"') quoted = !quoted;
+      return c;
+    }).join("");
+    const { url, headers } = this.cloneRequestState();
+    url.searchParams.set("select", cleanedColumns);
+    if (count) headers.append("Prefer", `count=${count}`);
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schema,
+      fetch: this.fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Perform an INSERT into the table or view.
+  *
+  * By default, inserted rows are not returned. To return it, chain the call
+  * with `.select()`.
+  *
+  * @param values - The values to insert. Pass an object to insert a single row
+  * or an array to insert multiple rows.
+  *
+  * @param options - Named parameters
+  *
+  * @param options.count - Count algorithm to use to count inserted rows.
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  *
+  * @param options.defaultToNull - Make missing fields default to `null`.
+  * Otherwise, use the default value for the column. Only applies for bulk
+  * inserts.
+  */
+  insert(values, { count, defaultToNull = true } = {}) {
+    var _this$fetch;
+    const method = "POST";
+    const { url, headers } = this.cloneRequestState();
+    if (count) headers.append("Prefer", `count=${count}`);
+    if (!defaultToNull) headers.append("Prefer", `missing=default`);
+    if (Array.isArray(values)) {
+      const columns = values.reduce((acc, x2) => acc.concat(Object.keys(x2)), []);
+      if (columns.length > 0) {
+        const uniqueColumns = [...new Set(columns)].map((column) => `"${column}"`);
+        url.searchParams.set("columns", uniqueColumns.join(","));
+      }
+    }
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schema,
+      body: values,
+      fetch: (_this$fetch = this.fetch) !== null && _this$fetch !== void 0 ? _this$fetch : fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Perform an UPSERT on the table or view. Depending on the column(s) passed
+  * to `onConflict`, `.upsert()` allows you to perform the equivalent of
+  * `.insert()` if a row with the corresponding `onConflict` columns doesn't
+  * exist, or if it does exist, perform an alternative action depending on
+  * `ignoreDuplicates`.
+  *
+  * By default, upserted rows are not returned. To return it, chain the call
+  * with `.select()`.
+  *
+  * @param values - The values to upsert with. Pass an object to upsert a
+  * single row or an array to upsert multiple rows.
+  *
+  * @param options - Named parameters
+  *
+  * @param options.onConflict - Comma-separated UNIQUE column(s) to specify how
+  * duplicate rows are determined. Two rows are duplicates if all the
+  * `onConflict` columns are equal.
+  *
+  * @param options.ignoreDuplicates - If `true`, duplicate rows are ignored. If
+  * `false`, duplicate rows are merged with existing rows.
+  *
+  * @param options.count - Count algorithm to use to count upserted rows.
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  *
+  * @param options.defaultToNull - Make missing fields default to `null`.
+  * Otherwise, use the default value for the column. This only applies when
+  * inserting new rows, not when merging with existing rows under
+  * `ignoreDuplicates: false`. This also only applies when doing bulk upserts.
+  *
+  * @example Upsert a single row using a unique key
+  * ```ts
+  * // Upserting a single row, overwriting based on the 'username' unique column
+  * const { data, error } = await supabase
+  *   .from('users')
+  *   .upsert({ username: 'supabot' }, { onConflict: 'username' })
+  *
+  * // Example response:
+  * // {
+  * //   data: [
+  * //     { id: 4, message: 'bar', username: 'supabot' }
+  * //   ],
+  * //   error: null
+  * // }
+  * ```
+  *
+  * @example Upsert with conflict resolution and exact row counting
+  * ```ts
+  * // Upserting and returning exact count
+  * const { data, error, count } = await supabase
+  *   .from('users')
+  *   .upsert(
+  *     {
+  *       id: 3,
+  *       message: 'foo',
+  *       username: 'supabot'
+  *     },
+  *     {
+  *       onConflict: 'username',
+  *       count: 'exact'
+  *     }
+  *   )
+  *
+  * // Example response:
+  * // {
+  * //   data: [
+  * //     {
+  * //       id: 42,
+  * //       handle: "saoirse",
+  * //       display_name: "Saoirse"
+  * //     }
+  * //   ],
+  * //   count: 1,
+  * //   error: null
+  * // }
+  * ```
+  */
+  upsert(values, { onConflict, ignoreDuplicates = false, count, defaultToNull = true } = {}) {
+    var _this$fetch2;
+    const method = "POST";
+    const { url, headers } = this.cloneRequestState();
+    headers.append("Prefer", `resolution=${ignoreDuplicates ? "ignore" : "merge"}-duplicates`);
+    if (onConflict !== void 0) url.searchParams.set("on_conflict", onConflict);
+    if (count) headers.append("Prefer", `count=${count}`);
+    if (!defaultToNull) headers.append("Prefer", "missing=default");
+    if (Array.isArray(values)) {
+      const columns = values.reduce((acc, x2) => acc.concat(Object.keys(x2)), []);
+      if (columns.length > 0) {
+        const uniqueColumns = [...new Set(columns)].map((column) => `"${column}"`);
+        url.searchParams.set("columns", uniqueColumns.join(","));
+      }
+    }
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schema,
+      body: values,
+      fetch: (_this$fetch2 = this.fetch) !== null && _this$fetch2 !== void 0 ? _this$fetch2 : fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Perform an UPDATE on the table or view.
+  *
+  * By default, updated rows are not returned. To return it, chain the call
+  * with `.select()` after filters.
+  *
+  * @param values - The values to update with
+  *
+  * @param options - Named parameters
+  *
+  * @param options.count - Count algorithm to use to count updated rows.
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  */
+  update(values, { count } = {}) {
+    var _this$fetch3;
+    const method = "PATCH";
+    const { url, headers } = this.cloneRequestState();
+    if (count) headers.append("Prefer", `count=${count}`);
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schema,
+      body: values,
+      fetch: (_this$fetch3 = this.fetch) !== null && _this$fetch3 !== void 0 ? _this$fetch3 : fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Perform a DELETE on the table or view.
+  *
+  * By default, deleted rows are not returned. To return it, chain the call
+  * with `.select()` after filters.
+  *
+  * @param options - Named parameters
+  *
+  * @param options.count - Count algorithm to use to count deleted rows.
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  */
+  delete({ count } = {}) {
+    var _this$fetch4;
+    const method = "DELETE";
+    const { url, headers } = this.cloneRequestState();
+    if (count) headers.append("Prefer", `count=${count}`);
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schema,
+      fetch: (_this$fetch4 = this.fetch) !== null && _this$fetch4 !== void 0 ? _this$fetch4 : fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+};
+function _typeof(o) {
+  "@babel/helpers - typeof";
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o$1) {
+    return typeof o$1;
+  } : function(o$1) {
+    return o$1 && "function" == typeof Symbol && o$1.constructor === Symbol && o$1 !== Symbol.prototype ? "symbol" : typeof o$1;
+  }, _typeof(o);
+}
+function toPrimitive(t, r2) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r2 || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t);
+}
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+function _defineProperty34(e, r2, t) {
+  return (r2 = toPropertyKey(r2)) in e ? Object.defineProperty(e, r2, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r2] = t, e;
+}
+function ownKeys32(e, r2) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r2 && (o = o.filter(function(r$1) {
+      return Object.getOwnPropertyDescriptor(e, r$1).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread210(e) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys32(Object(t), true).forEach(function(r$1) {
+      _defineProperty34(e, r$1, t[r$1]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys32(Object(t)).forEach(function(r$1) {
+      Object.defineProperty(e, r$1, Object.getOwnPropertyDescriptor(t, r$1));
+    });
+  }
+  return e;
+}
+var PostgrestClient = class PostgrestClient2 {
+  /**
+  * Creates a PostgREST client.
+  *
+  * @param url - URL of the PostgREST endpoint
+  * @param options - Named parameters
+  * @param options.headers - Custom headers
+  * @param options.schema - Postgres schema to switch to
+  * @param options.fetch - Custom fetch
+  * @param options.timeout - Optional timeout in milliseconds for all requests. When set, requests will automatically abort after this duration to prevent indefinite hangs.
+  * @param options.urlLengthLimit - Maximum URL length in characters before warnings/errors are triggered. Defaults to 8000.
+  * @example
+  * ```ts
+  * import PostgrestClient from '@supabase/postgrest-js'
+  *
+  * const postgrest = new PostgrestClient('https://xyzcompany.supabase.co/rest/v1', {
+  *   headers: { apikey: 'public-anon-key' },
+  *   schema: 'public',
+  *   timeout: 30000, // 30 second timeout
+  * })
+  * ```
+  */
+  constructor(url, { headers = {}, schema, fetch: fetch$1, timeout, urlLengthLimit = 8e3 } = {}) {
+    this.url = url;
+    this.headers = new Headers(headers);
+    this.schemaName = schema;
+    this.urlLengthLimit = urlLengthLimit;
+    const originalFetch = fetch$1 !== null && fetch$1 !== void 0 ? fetch$1 : globalThis.fetch;
+    if (timeout !== void 0 && timeout > 0) this.fetch = (input, init) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      const existingSignal = init === null || init === void 0 ? void 0 : init.signal;
+      if (existingSignal) {
+        if (existingSignal.aborted) {
+          clearTimeout(timeoutId);
+          return originalFetch(input, init);
+        }
+        const abortHandler = () => {
+          clearTimeout(timeoutId);
+          controller.abort();
+        };
+        existingSignal.addEventListener("abort", abortHandler, { once: true });
+        return originalFetch(input, _objectSpread210(_objectSpread210({}, init), {}, { signal: controller.signal })).finally(() => {
+          clearTimeout(timeoutId);
+          existingSignal.removeEventListener("abort", abortHandler);
+        });
+      }
+      return originalFetch(input, _objectSpread210(_objectSpread210({}, init), {}, { signal: controller.signal })).finally(() => clearTimeout(timeoutId));
+    };
+    else this.fetch = originalFetch;
+  }
+  /**
+  * Perform a query on a table or a view.
+  *
+  * @param relation - The table or view name to query
+  */
+  from(relation) {
+    if (!relation || typeof relation !== "string" || relation.trim() === "") throw new Error("Invalid relation name: relation must be a non-empty string.");
+    return new PostgrestQueryBuilder(new URL(`${this.url}/${relation}`), {
+      headers: new Headers(this.headers),
+      schema: this.schemaName,
+      fetch: this.fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Select a schema to query or perform an function (rpc) call.
+  *
+  * The schema needs to be on the list of exposed schemas inside Supabase.
+  *
+  * @param schema - The schema to query
+  */
+  schema(schema) {
+    return new PostgrestClient2(this.url, {
+      headers: this.headers,
+      schema,
+      fetch: this.fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+  /**
+  * Perform a function call.
+  *
+  * @param fn - The function name to call
+  * @param args - The arguments to pass to the function call
+  * @param options - Named parameters
+  * @param options.head - When set to `true`, `data` will not be returned.
+  * Useful if you only need the count.
+  * @param options.get - When set to `true`, the function will be called with
+  * read-only access mode.
+  * @param options.count - Count algorithm to use to count rows returned by the
+  * function. Only applicable for [set-returning
+  * functions](https://www.postgresql.org/docs/current/functions-srf.html).
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  *
+  * @example
+  * ```ts
+  * // For cross-schema functions where type inference fails, use overrideTypes:
+  * const { data } = await supabase
+  *   .schema('schema_b')
+  *   .rpc('function_a', {})
+  *   .overrideTypes<{ id: string; user_id: string }[]>()
+  * ```
+  */
+  rpc(fn, args = {}, { head: head2 = false, get: get6 = false, count } = {}) {
+    var _this$fetch;
+    let method;
+    const url = new URL(`${this.url}/rpc/${fn}`);
+    let body;
+    const _isObject = (v) => v !== null && typeof v === "object" && (!Array.isArray(v) || v.some(_isObject));
+    const _hasObjectArg = head2 && Object.values(args).some(_isObject);
+    if (_hasObjectArg) {
+      method = "POST";
+      body = args;
+    } else if (head2 || get6) {
+      method = head2 ? "HEAD" : "GET";
+      Object.entries(args).filter(([_, value]) => value !== void 0).map(([name, value]) => [name, Array.isArray(value) ? `{${value.join(",")}}` : `${value}`]).forEach(([name, value]) => {
+        url.searchParams.append(name, value);
+      });
+    } else {
+      method = "POST";
+      body = args;
+    }
+    const headers = new Headers(this.headers);
+    if (_hasObjectArg) headers.set("Prefer", count ? `count=${count},return=minimal` : "return=minimal");
+    else if (count) headers.set("Prefer", `count=${count}`);
+    return new PostgrestFilterBuilder({
+      method,
+      url,
+      headers,
+      schema: this.schemaName,
+      body,
+      fetch: (_this$fetch = this.fetch) !== null && _this$fetch !== void 0 ? _this$fetch : fetch,
+      urlLengthLimit: this.urlLengthLimit
+    });
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+var WebSocketFactory = class {
+  /**
+   * Static-only utility – prevent instantiation.
+   */
+  constructor() {
+  }
+  static detectEnvironment() {
+    var _a;
+    if (typeof WebSocket !== "undefined") {
+      return { type: "native", constructor: WebSocket };
+    }
+    if (typeof globalThis !== "undefined" && typeof globalThis.WebSocket !== "undefined") {
+      return { type: "native", constructor: globalThis.WebSocket };
+    }
+    if (typeof global !== "undefined" && typeof global.WebSocket !== "undefined") {
+      return { type: "native", constructor: global.WebSocket };
+    }
+    if (typeof globalThis !== "undefined" && typeof globalThis.WebSocketPair !== "undefined" && typeof globalThis.WebSocket === "undefined") {
+      return {
+        type: "cloudflare",
+        error: "Cloudflare Workers detected. WebSocket clients are not supported in Cloudflare Workers.",
+        workaround: "Use Cloudflare Workers WebSocket API for server-side WebSocket handling, or deploy to a different runtime."
+      };
+    }
+    if (typeof globalThis !== "undefined" && globalThis.EdgeRuntime || typeof navigator !== "undefined" && ((_a = navigator.userAgent) === null || _a === void 0 ? void 0 : _a.includes("Vercel-Edge"))) {
+      return {
+        type: "unsupported",
+        error: "Edge runtime detected (Vercel Edge/Netlify Edge). WebSockets are not supported in edge functions.",
+        workaround: "Use serverless functions or a different deployment target for WebSocket functionality."
+      };
+    }
+    const _process = globalThis["process"];
+    if (_process) {
+      const processVersions = _process["versions"];
+      if (processVersions && processVersions["node"]) {
+        const versionString = processVersions["node"];
+        const nodeVersion = parseInt(versionString.replace(/^v/, "").split(".")[0]);
+        if (nodeVersion >= 22) {
+          if (typeof globalThis.WebSocket !== "undefined") {
+            return { type: "native", constructor: globalThis.WebSocket };
+          }
+          return {
+            type: "unsupported",
+            error: `Node.js ${nodeVersion} detected but native WebSocket not found.`,
+            workaround: "Provide a WebSocket implementation via the transport option."
+          };
+        }
+        return {
+          type: "unsupported",
+          error: `Node.js ${nodeVersion} detected without native WebSocket support.`,
+          workaround: 'For Node.js < 22, install "ws" package and provide it via the transport option:\nimport ws from "ws"\nnew RealtimeClient(url, { transport: ws })'
+        };
+      }
+    }
+    return {
+      type: "unsupported",
+      error: "Unknown JavaScript runtime without WebSocket support.",
+      workaround: "Ensure you're running in a supported environment (browser, Node.js, Deno) or provide a custom WebSocket implementation."
+    };
+  }
+  /**
+   * Returns the best available WebSocket constructor for the current runtime.
+   *
+   * @example
+   * ```ts
+   * const WS = WebSocketFactory.getWebSocketConstructor()
+   * const socket = new WS('wss://realtime.supabase.co/socket')
+   * ```
+   */
+  static getWebSocketConstructor() {
+    const env = this.detectEnvironment();
+    if (env.constructor) {
+      return env.constructor;
+    }
+    let errorMessage = env.error || "WebSocket not supported in this environment.";
+    if (env.workaround) {
+      errorMessage += `
+
+Suggested solution: ${env.workaround}`;
+    }
+    throw new Error(errorMessage);
+  }
+  /**
+   * Creates a WebSocket using the detected constructor.
+   *
+   * @example
+   * ```ts
+   * const socket = WebSocketFactory.createWebSocket('wss://realtime.supabase.co/socket')
+   * ```
+   */
+  static createWebSocket(url, protocols) {
+    const WS = this.getWebSocketConstructor();
+    return new WS(url, protocols);
+  }
+  /**
+   * Detects whether the runtime can establish WebSocket connections.
+   *
+   * @example
+   * ```ts
+   * if (!WebSocketFactory.isWebSocketSupported()) {
+   *   console.warn('Falling back to long polling')
+   * }
+   * ```
+   */
+  static isWebSocketSupported() {
+    try {
+      const env = this.detectEnvironment();
+      return env.type === "native" || env.type === "ws";
+    } catch (_a) {
+      return false;
+    }
+  }
+};
+var websocket_factory_default = WebSocketFactory;
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/version.js
+var version2 = "2.97.0";
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/constants.js
+var DEFAULT_VERSION = `realtime-js/${version2}`;
+var VSN_1_0_0 = "1.0.0";
+var VSN_2_0_0 = "2.0.0";
+var DEFAULT_VSN = VSN_2_0_0;
+var DEFAULT_TIMEOUT = 1e4;
+var WS_CLOSE_NORMAL = 1e3;
+var MAX_PUSH_BUFFER_SIZE = 100;
+var SOCKET_STATES;
+(function(SOCKET_STATES2) {
+  SOCKET_STATES2[SOCKET_STATES2["connecting"] = 0] = "connecting";
+  SOCKET_STATES2[SOCKET_STATES2["open"] = 1] = "open";
+  SOCKET_STATES2[SOCKET_STATES2["closing"] = 2] = "closing";
+  SOCKET_STATES2[SOCKET_STATES2["closed"] = 3] = "closed";
+})(SOCKET_STATES || (SOCKET_STATES = {}));
+var CHANNEL_STATES;
+(function(CHANNEL_STATES2) {
+  CHANNEL_STATES2["closed"] = "closed";
+  CHANNEL_STATES2["errored"] = "errored";
+  CHANNEL_STATES2["joined"] = "joined";
+  CHANNEL_STATES2["joining"] = "joining";
+  CHANNEL_STATES2["leaving"] = "leaving";
+})(CHANNEL_STATES || (CHANNEL_STATES = {}));
+var CHANNEL_EVENTS;
+(function(CHANNEL_EVENTS2) {
+  CHANNEL_EVENTS2["close"] = "phx_close";
+  CHANNEL_EVENTS2["error"] = "phx_error";
+  CHANNEL_EVENTS2["join"] = "phx_join";
+  CHANNEL_EVENTS2["reply"] = "phx_reply";
+  CHANNEL_EVENTS2["leave"] = "phx_leave";
+  CHANNEL_EVENTS2["access_token"] = "access_token";
+})(CHANNEL_EVENTS || (CHANNEL_EVENTS = {}));
+var TRANSPORTS;
+(function(TRANSPORTS2) {
+  TRANSPORTS2["websocket"] = "websocket";
+})(TRANSPORTS || (TRANSPORTS = {}));
+var CONNECTION_STATE;
+(function(CONNECTION_STATE2) {
+  CONNECTION_STATE2["Connecting"] = "connecting";
+  CONNECTION_STATE2["Open"] = "open";
+  CONNECTION_STATE2["Closing"] = "closing";
+  CONNECTION_STATE2["Closed"] = "closed";
+})(CONNECTION_STATE || (CONNECTION_STATE = {}));
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/serializer.js
+var Serializer = class {
+  constructor(allowedMetadataKeys) {
+    this.HEADER_LENGTH = 1;
+    this.USER_BROADCAST_PUSH_META_LENGTH = 6;
+    this.KINDS = { userBroadcastPush: 3, userBroadcast: 4 };
+    this.BINARY_ENCODING = 0;
+    this.JSON_ENCODING = 1;
+    this.BROADCAST_EVENT = "broadcast";
+    this.allowedMetadataKeys = [];
+    this.allowedMetadataKeys = allowedMetadataKeys !== null && allowedMetadataKeys !== void 0 ? allowedMetadataKeys : [];
+  }
+  encode(msg, callback) {
+    if (msg.event === this.BROADCAST_EVENT && !(msg.payload instanceof ArrayBuffer) && typeof msg.payload.event === "string") {
+      return callback(this._binaryEncodeUserBroadcastPush(msg));
+    }
+    let payload = [msg.join_ref, msg.ref, msg.topic, msg.event, msg.payload];
+    return callback(JSON.stringify(payload));
+  }
+  _binaryEncodeUserBroadcastPush(message) {
+    var _a;
+    if (this._isArrayBuffer((_a = message.payload) === null || _a === void 0 ? void 0 : _a.payload)) {
+      return this._encodeBinaryUserBroadcastPush(message);
+    } else {
+      return this._encodeJsonUserBroadcastPush(message);
+    }
+  }
+  _encodeBinaryUserBroadcastPush(message) {
+    var _a, _b;
+    const userPayload = (_b = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.payload) !== null && _b !== void 0 ? _b : new ArrayBuffer(0);
+    return this._encodeUserBroadcastPush(message, this.BINARY_ENCODING, userPayload);
+  }
+  _encodeJsonUserBroadcastPush(message) {
+    var _a, _b;
+    const userPayload = (_b = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.payload) !== null && _b !== void 0 ? _b : {};
+    const encoder = new TextEncoder();
+    const encodedUserPayload = encoder.encode(JSON.stringify(userPayload)).buffer;
+    return this._encodeUserBroadcastPush(message, this.JSON_ENCODING, encodedUserPayload);
+  }
+  _encodeUserBroadcastPush(message, encodingType, encodedPayload) {
+    var _a, _b;
+    const topic = message.topic;
+    const ref = (_a = message.ref) !== null && _a !== void 0 ? _a : "";
+    const joinRef = (_b = message.join_ref) !== null && _b !== void 0 ? _b : "";
+    const userEvent = message.payload.event;
+    const rest = this.allowedMetadataKeys ? this._pick(message.payload, this.allowedMetadataKeys) : {};
+    const metadata = Object.keys(rest).length === 0 ? "" : JSON.stringify(rest);
+    if (joinRef.length > 255) {
+      throw new Error(`joinRef length ${joinRef.length} exceeds maximum of 255`);
+    }
+    if (ref.length > 255) {
+      throw new Error(`ref length ${ref.length} exceeds maximum of 255`);
+    }
+    if (topic.length > 255) {
+      throw new Error(`topic length ${topic.length} exceeds maximum of 255`);
+    }
+    if (userEvent.length > 255) {
+      throw new Error(`userEvent length ${userEvent.length} exceeds maximum of 255`);
+    }
+    if (metadata.length > 255) {
+      throw new Error(`metadata length ${metadata.length} exceeds maximum of 255`);
+    }
+    const metaLength = this.USER_BROADCAST_PUSH_META_LENGTH + joinRef.length + ref.length + topic.length + userEvent.length + metadata.length;
+    const header = new ArrayBuffer(this.HEADER_LENGTH + metaLength);
+    let view = new DataView(header);
+    let offset = 0;
+    view.setUint8(offset++, this.KINDS.userBroadcastPush);
+    view.setUint8(offset++, joinRef.length);
+    view.setUint8(offset++, ref.length);
+    view.setUint8(offset++, topic.length);
+    view.setUint8(offset++, userEvent.length);
+    view.setUint8(offset++, metadata.length);
+    view.setUint8(offset++, encodingType);
+    Array.from(joinRef, (char) => view.setUint8(offset++, char.charCodeAt(0)));
+    Array.from(ref, (char) => view.setUint8(offset++, char.charCodeAt(0)));
+    Array.from(topic, (char) => view.setUint8(offset++, char.charCodeAt(0)));
+    Array.from(userEvent, (char) => view.setUint8(offset++, char.charCodeAt(0)));
+    Array.from(metadata, (char) => view.setUint8(offset++, char.charCodeAt(0)));
+    var combined = new Uint8Array(header.byteLength + encodedPayload.byteLength);
+    combined.set(new Uint8Array(header), 0);
+    combined.set(new Uint8Array(encodedPayload), header.byteLength);
+    return combined.buffer;
+  }
+  decode(rawPayload, callback) {
+    if (this._isArrayBuffer(rawPayload)) {
+      let result = this._binaryDecode(rawPayload);
+      return callback(result);
+    }
+    if (typeof rawPayload === "string") {
+      const jsonPayload = JSON.parse(rawPayload);
+      const [join_ref, ref, topic, event, payload] = jsonPayload;
+      return callback({ join_ref, ref, topic, event, payload });
+    }
+    return callback({});
+  }
+  _binaryDecode(buffer) {
+    const view = new DataView(buffer);
+    const kind = view.getUint8(0);
+    const decoder = new TextDecoder();
+    switch (kind) {
+      case this.KINDS.userBroadcast:
+        return this._decodeUserBroadcast(buffer, view, decoder);
+    }
+  }
+  _decodeUserBroadcast(buffer, view, decoder) {
+    const topicSize = view.getUint8(1);
+    const userEventSize = view.getUint8(2);
+    const metadataSize = view.getUint8(3);
+    const payloadEncoding = view.getUint8(4);
+    let offset = this.HEADER_LENGTH + 4;
+    const topic = decoder.decode(buffer.slice(offset, offset + topicSize));
+    offset = offset + topicSize;
+    const userEvent = decoder.decode(buffer.slice(offset, offset + userEventSize));
+    offset = offset + userEventSize;
+    const metadata = decoder.decode(buffer.slice(offset, offset + metadataSize));
+    offset = offset + metadataSize;
+    const payload = buffer.slice(offset, buffer.byteLength);
+    const parsedPayload = payloadEncoding === this.JSON_ENCODING ? JSON.parse(decoder.decode(payload)) : payload;
+    const data = {
+      type: this.BROADCAST_EVENT,
+      event: userEvent,
+      payload: parsedPayload
+    };
+    if (metadataSize > 0) {
+      data["meta"] = JSON.parse(metadata);
+    }
+    return { join_ref: null, ref: null, topic, event: this.BROADCAST_EVENT, payload: data };
+  }
+  _isArrayBuffer(buffer) {
+    var _a;
+    return buffer instanceof ArrayBuffer || ((_a = buffer === null || buffer === void 0 ? void 0 : buffer.constructor) === null || _a === void 0 ? void 0 : _a.name) === "ArrayBuffer";
+  }
+  _pick(obj, keys) {
+    if (!obj || typeof obj !== "object") {
+      return {};
+    }
+    return Object.fromEntries(Object.entries(obj).filter(([key]) => keys.includes(key)));
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/timer.js
+var Timer = class {
+  constructor(callback, timerCalc) {
+    this.callback = callback;
+    this.timerCalc = timerCalc;
+    this.timer = void 0;
+    this.tries = 0;
+    this.callback = callback;
+    this.timerCalc = timerCalc;
+  }
+  reset() {
+    this.tries = 0;
+    clearTimeout(this.timer);
+    this.timer = void 0;
+  }
+  // Cancels any previous scheduleTimeout and schedules callback
+  scheduleTimeout() {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.tries = this.tries + 1;
+      this.callback();
+    }, this.timerCalc(this.tries + 1));
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/transformers.js
+var PostgresTypes;
+(function(PostgresTypes2) {
+  PostgresTypes2["abstime"] = "abstime";
+  PostgresTypes2["bool"] = "bool";
+  PostgresTypes2["date"] = "date";
+  PostgresTypes2["daterange"] = "daterange";
+  PostgresTypes2["float4"] = "float4";
+  PostgresTypes2["float8"] = "float8";
+  PostgresTypes2["int2"] = "int2";
+  PostgresTypes2["int4"] = "int4";
+  PostgresTypes2["int4range"] = "int4range";
+  PostgresTypes2["int8"] = "int8";
+  PostgresTypes2["int8range"] = "int8range";
+  PostgresTypes2["json"] = "json";
+  PostgresTypes2["jsonb"] = "jsonb";
+  PostgresTypes2["money"] = "money";
+  PostgresTypes2["numeric"] = "numeric";
+  PostgresTypes2["oid"] = "oid";
+  PostgresTypes2["reltime"] = "reltime";
+  PostgresTypes2["text"] = "text";
+  PostgresTypes2["time"] = "time";
+  PostgresTypes2["timestamp"] = "timestamp";
+  PostgresTypes2["timestamptz"] = "timestamptz";
+  PostgresTypes2["timetz"] = "timetz";
+  PostgresTypes2["tsrange"] = "tsrange";
+  PostgresTypes2["tstzrange"] = "tstzrange";
+})(PostgresTypes || (PostgresTypes = {}));
+var convertChangeData = (columns, record, options = {}) => {
+  var _a;
+  const skipTypes = (_a = options.skipTypes) !== null && _a !== void 0 ? _a : [];
+  if (!record) {
+    return {};
+  }
+  return Object.keys(record).reduce((acc, rec_key) => {
+    acc[rec_key] = convertColumn(rec_key, columns, record, skipTypes);
+    return acc;
+  }, {});
+};
+var convertColumn = (columnName, columns, record, skipTypes) => {
+  const column = columns.find((x2) => x2.name === columnName);
+  const colType = column === null || column === void 0 ? void 0 : column.type;
+  const value = record[columnName];
+  if (colType && !skipTypes.includes(colType)) {
+    return convertCell(colType, value);
+  }
+  return noop4(value);
+};
+var convertCell = (type, value) => {
+  if (type.charAt(0) === "_") {
+    const dataType = type.slice(1, type.length);
+    return toArray(value, dataType);
+  }
+  switch (type) {
+    case PostgresTypes.bool:
+      return toBoolean(value);
+    case PostgresTypes.float4:
+    case PostgresTypes.float8:
+    case PostgresTypes.int2:
+    case PostgresTypes.int4:
+    case PostgresTypes.int8:
+    case PostgresTypes.numeric:
+    case PostgresTypes.oid:
+      return toNumber(value);
+    case PostgresTypes.json:
+    case PostgresTypes.jsonb:
+      return toJson(value);
+    case PostgresTypes.timestamp:
+      return toTimestampString(value);
+    case PostgresTypes.abstime:
+    case PostgresTypes.date:
+    case PostgresTypes.daterange:
+    case PostgresTypes.int4range:
+    case PostgresTypes.int8range:
+    case PostgresTypes.money:
+    case PostgresTypes.reltime:
+    case PostgresTypes.text:
+    case PostgresTypes.time:
+    case PostgresTypes.timestamptz:
+    case PostgresTypes.timetz:
+    case PostgresTypes.tsrange:
+    case PostgresTypes.tstzrange:
+      return noop4(value);
+    default:
+      return noop4(value);
+  }
+};
+var noop4 = (value) => {
+  return value;
+};
+var toBoolean = (value) => {
+  switch (value) {
+    case "t":
+      return true;
+    case "f":
+      return false;
+    default:
+      return value;
+  }
+};
+var toNumber = (value) => {
+  if (typeof value === "string") {
+    const parsedValue = parseFloat(value);
+    if (!Number.isNaN(parsedValue)) {
+      return parsedValue;
+    }
+  }
+  return value;
+};
+var toJson = (value) => {
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value);
+    } catch (_a) {
+      return value;
+    }
+  }
+  return value;
+};
+var toArray = (value, type) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+  const lastIdx = value.length - 1;
+  const closeBrace = value[lastIdx];
+  const openBrace = value[0];
+  if (openBrace === "{" && closeBrace === "}") {
+    let arr;
+    const valTrim = value.slice(1, lastIdx);
+    try {
+      arr = JSON.parse("[" + valTrim + "]");
+    } catch (_) {
+      arr = valTrim ? valTrim.split(",") : [];
+    }
+    return arr.map((val) => convertCell(type, val));
+  }
+  return value;
+};
+var toTimestampString = (value) => {
+  if (typeof value === "string") {
+    return value.replace(" ", "T");
+  }
+  return value;
+};
+var httpEndpointURL = (socketUrl) => {
+  const wsUrl = new URL(socketUrl);
+  wsUrl.protocol = wsUrl.protocol.replace(/^ws/i, "http");
+  wsUrl.pathname = wsUrl.pathname.replace(/\/+$/, "").replace(/\/socket\/websocket$/i, "").replace(/\/socket$/i, "").replace(/\/websocket$/i, "");
+  if (wsUrl.pathname === "" || wsUrl.pathname === "/") {
+    wsUrl.pathname = "/api/broadcast";
+  } else {
+    wsUrl.pathname = wsUrl.pathname + "/api/broadcast";
+  }
+  return wsUrl.href;
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/lib/push.js
+var Push = class {
+  /**
+   * Initializes the Push
+   *
+   * @param channel The Channel
+   * @param event The event, for example `"phx_join"`
+   * @param payload The payload, for example `{user_id: 123}`
+   * @param timeout The push timeout in milliseconds
+   */
+  constructor(channel, event, payload = {}, timeout = DEFAULT_TIMEOUT) {
+    this.channel = channel;
+    this.event = event;
+    this.payload = payload;
+    this.timeout = timeout;
+    this.sent = false;
+    this.timeoutTimer = void 0;
+    this.ref = "";
+    this.receivedResp = null;
+    this.recHooks = [];
+    this.refEvent = null;
+  }
+  resend(timeout) {
+    this.timeout = timeout;
+    this._cancelRefEvent();
+    this.ref = "";
+    this.refEvent = null;
+    this.receivedResp = null;
+    this.sent = false;
+    this.send();
+  }
+  send() {
+    if (this._hasReceived("timeout")) {
+      return;
+    }
+    this.startTimeout();
+    this.sent = true;
+    this.channel.socket.push({
+      topic: this.channel.topic,
+      event: this.event,
+      payload: this.payload,
+      ref: this.ref,
+      join_ref: this.channel._joinRef()
+    });
+  }
+  updatePayload(payload) {
+    this.payload = Object.assign(Object.assign({}, this.payload), payload);
+  }
+  receive(status, callback) {
+    var _a;
+    if (this._hasReceived(status)) {
+      callback((_a = this.receivedResp) === null || _a === void 0 ? void 0 : _a.response);
+    }
+    this.recHooks.push({ status, callback });
+    return this;
+  }
+  startTimeout() {
+    if (this.timeoutTimer) {
+      return;
+    }
+    this.ref = this.channel.socket._makeRef();
+    this.refEvent = this.channel._replyEventName(this.ref);
+    const callback = (payload) => {
+      this._cancelRefEvent();
+      this._cancelTimeout();
+      this.receivedResp = payload;
+      this._matchReceive(payload);
+    };
+    this.channel._on(this.refEvent, {}, callback);
+    this.timeoutTimer = setTimeout(() => {
+      this.trigger("timeout", {});
+    }, this.timeout);
+  }
+  trigger(status, response) {
+    if (this.refEvent)
+      this.channel._trigger(this.refEvent, { status, response });
+  }
+  destroy() {
+    this._cancelRefEvent();
+    this._cancelTimeout();
+  }
+  _cancelRefEvent() {
+    if (!this.refEvent) {
+      return;
+    }
+    this.channel._off(this.refEvent, {});
+  }
+  _cancelTimeout() {
+    clearTimeout(this.timeoutTimer);
+    this.timeoutTimer = void 0;
+  }
+  _matchReceive({ status, response }) {
+    this.recHooks.filter((h) => h.status === status).forEach((h) => h.callback(response));
+  }
+  _hasReceived(status) {
+    return this.receivedResp && this.receivedResp.status === status;
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/RealtimePresence.js
+var REALTIME_PRESENCE_LISTEN_EVENTS;
+(function(REALTIME_PRESENCE_LISTEN_EVENTS2) {
+  REALTIME_PRESENCE_LISTEN_EVENTS2["SYNC"] = "sync";
+  REALTIME_PRESENCE_LISTEN_EVENTS2["JOIN"] = "join";
+  REALTIME_PRESENCE_LISTEN_EVENTS2["LEAVE"] = "leave";
+})(REALTIME_PRESENCE_LISTEN_EVENTS || (REALTIME_PRESENCE_LISTEN_EVENTS = {}));
+var RealtimePresence = class _RealtimePresence {
+  /**
+   * Creates a Presence helper that keeps the local presence state in sync with the server.
+   *
+   * @param channel - The realtime channel to bind to.
+   * @param opts - Optional custom event names, e.g. `{ events: { state: 'state', diff: 'diff' } }`.
+   *
+   * @example
+   * ```ts
+   * const presence = new RealtimePresence(channel)
+   *
+   * channel.on('presence', ({ event, key }) => {
+   *   console.log(`Presence ${event} on ${key}`)
+   * })
+   * ```
+   */
+  constructor(channel, opts) {
+    this.channel = channel;
+    this.state = {};
+    this.pendingDiffs = [];
+    this.joinRef = null;
+    this.enabled = false;
+    this.caller = {
+      onJoin: () => {
+      },
+      onLeave: () => {
+      },
+      onSync: () => {
+      }
+    };
+    const events = (opts === null || opts === void 0 ? void 0 : opts.events) || {
+      state: "presence_state",
+      diff: "presence_diff"
+    };
+    this.channel._on(events.state, {}, (newState) => {
+      const { onJoin, onLeave, onSync } = this.caller;
+      this.joinRef = this.channel._joinRef();
+      this.state = _RealtimePresence.syncState(this.state, newState, onJoin, onLeave);
+      this.pendingDiffs.forEach((diff) => {
+        this.state = _RealtimePresence.syncDiff(this.state, diff, onJoin, onLeave);
+      });
+      this.pendingDiffs = [];
+      onSync();
+    });
+    this.channel._on(events.diff, {}, (diff) => {
+      const { onJoin, onLeave, onSync } = this.caller;
+      if (this.inPendingSyncState()) {
+        this.pendingDiffs.push(diff);
+      } else {
+        this.state = _RealtimePresence.syncDiff(this.state, diff, onJoin, onLeave);
+        onSync();
+      }
+    });
+    this.onJoin((key, currentPresences, newPresences) => {
+      this.channel._trigger("presence", {
+        event: "join",
+        key,
+        currentPresences,
+        newPresences
+      });
+    });
+    this.onLeave((key, currentPresences, leftPresences) => {
+      this.channel._trigger("presence", {
+        event: "leave",
+        key,
+        currentPresences,
+        leftPresences
+      });
+    });
+    this.onSync(() => {
+      this.channel._trigger("presence", { event: "sync" });
+    });
+  }
+  /**
+   * Used to sync the list of presences on the server with the
+   * client's state.
+   *
+   * An optional `onJoin` and `onLeave` callback can be provided to
+   * react to changes in the client's local presences across
+   * disconnects and reconnects with the server.
+   *
+   * @internal
+   */
+  static syncState(currentState, newState, onJoin, onLeave) {
+    const state = this.cloneDeep(currentState);
+    const transformedState = this.transformState(newState);
+    const joins = {};
+    const leaves = {};
+    this.map(state, (key, presences) => {
+      if (!transformedState[key]) {
+        leaves[key] = presences;
+      }
+    });
+    this.map(transformedState, (key, newPresences) => {
+      const currentPresences = state[key];
+      if (currentPresences) {
+        const newPresenceRefs = newPresences.map((m) => m.presence_ref);
+        const curPresenceRefs = currentPresences.map((m) => m.presence_ref);
+        const joinedPresences = newPresences.filter((m) => curPresenceRefs.indexOf(m.presence_ref) < 0);
+        const leftPresences = currentPresences.filter((m) => newPresenceRefs.indexOf(m.presence_ref) < 0);
+        if (joinedPresences.length > 0) {
+          joins[key] = joinedPresences;
+        }
+        if (leftPresences.length > 0) {
+          leaves[key] = leftPresences;
+        }
+      } else {
+        joins[key] = newPresences;
+      }
+    });
+    return this.syncDiff(state, { joins, leaves }, onJoin, onLeave);
+  }
+  /**
+   * Used to sync a diff of presence join and leave events from the
+   * server, as they happen.
+   *
+   * Like `syncState`, `syncDiff` accepts optional `onJoin` and
+   * `onLeave` callbacks to react to a user joining or leaving from a
+   * device.
+   *
+   * @internal
+   */
+  static syncDiff(state, diff, onJoin, onLeave) {
+    const { joins, leaves } = {
+      joins: this.transformState(diff.joins),
+      leaves: this.transformState(diff.leaves)
+    };
+    if (!onJoin) {
+      onJoin = () => {
+      };
+    }
+    if (!onLeave) {
+      onLeave = () => {
+      };
+    }
+    this.map(joins, (key, newPresences) => {
+      var _a;
+      const currentPresences = (_a = state[key]) !== null && _a !== void 0 ? _a : [];
+      state[key] = this.cloneDeep(newPresences);
+      if (currentPresences.length > 0) {
+        const joinedPresenceRefs = state[key].map((m) => m.presence_ref);
+        const curPresences = currentPresences.filter((m) => joinedPresenceRefs.indexOf(m.presence_ref) < 0);
+        state[key].unshift(...curPresences);
+      }
+      onJoin(key, currentPresences, newPresences);
+    });
+    this.map(leaves, (key, leftPresences) => {
+      let currentPresences = state[key];
+      if (!currentPresences)
+        return;
+      const presenceRefsToRemove = leftPresences.map((m) => m.presence_ref);
+      currentPresences = currentPresences.filter((m) => presenceRefsToRemove.indexOf(m.presence_ref) < 0);
+      state[key] = currentPresences;
+      onLeave(key, currentPresences, leftPresences);
+      if (currentPresences.length === 0)
+        delete state[key];
+    });
+    return state;
+  }
+  /** @internal */
+  static map(obj, func) {
+    return Object.getOwnPropertyNames(obj).map((key) => func(key, obj[key]));
+  }
+  /**
+   * Remove 'metas' key
+   * Change 'phx_ref' to 'presence_ref'
+   * Remove 'phx_ref' and 'phx_ref_prev'
+   *
+   * @example
+   * // returns {
+   *  abc123: [
+   *    { presence_ref: '2', user_id: 1 },
+   *    { presence_ref: '3', user_id: 2 }
+   *  ]
+   * }
+   * RealtimePresence.transformState({
+   *  abc123: {
+   *    metas: [
+   *      { phx_ref: '2', phx_ref_prev: '1' user_id: 1 },
+   *      { phx_ref: '3', user_id: 2 }
+   *    ]
+   *  }
+   * })
+   *
+   * @internal
+   */
+  static transformState(state) {
+    state = this.cloneDeep(state);
+    return Object.getOwnPropertyNames(state).reduce((newState, key) => {
+      const presences = state[key];
+      if ("metas" in presences) {
+        newState[key] = presences.metas.map((presence) => {
+          presence["presence_ref"] = presence["phx_ref"];
+          delete presence["phx_ref"];
+          delete presence["phx_ref_prev"];
+          return presence;
+        });
+      } else {
+        newState[key] = presences;
+      }
+      return newState;
+    }, {});
+  }
+  /** @internal */
+  static cloneDeep(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+  /** @internal */
+  onJoin(callback) {
+    this.caller.onJoin = callback;
+  }
+  /** @internal */
+  onLeave(callback) {
+    this.caller.onLeave = callback;
+  }
+  /** @internal */
+  onSync(callback) {
+    this.caller.onSync = callback;
+  }
+  /** @internal */
+  inPendingSyncState() {
+    return !this.joinRef || this.joinRef !== this.channel._joinRef();
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/RealtimeChannel.js
+var REALTIME_POSTGRES_CHANGES_LISTEN_EVENT;
+(function(REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2) {
+  REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2["ALL"] = "*";
+  REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2["INSERT"] = "INSERT";
+  REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2["UPDATE"] = "UPDATE";
+  REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2["DELETE"] = "DELETE";
+})(REALTIME_POSTGRES_CHANGES_LISTEN_EVENT || (REALTIME_POSTGRES_CHANGES_LISTEN_EVENT = {}));
+var REALTIME_LISTEN_TYPES;
+(function(REALTIME_LISTEN_TYPES2) {
+  REALTIME_LISTEN_TYPES2["BROADCAST"] = "broadcast";
+  REALTIME_LISTEN_TYPES2["PRESENCE"] = "presence";
+  REALTIME_LISTEN_TYPES2["POSTGRES_CHANGES"] = "postgres_changes";
+  REALTIME_LISTEN_TYPES2["SYSTEM"] = "system";
+})(REALTIME_LISTEN_TYPES || (REALTIME_LISTEN_TYPES = {}));
+var REALTIME_SUBSCRIBE_STATES;
+(function(REALTIME_SUBSCRIBE_STATES2) {
+  REALTIME_SUBSCRIBE_STATES2["SUBSCRIBED"] = "SUBSCRIBED";
+  REALTIME_SUBSCRIBE_STATES2["TIMED_OUT"] = "TIMED_OUT";
+  REALTIME_SUBSCRIBE_STATES2["CLOSED"] = "CLOSED";
+  REALTIME_SUBSCRIBE_STATES2["CHANNEL_ERROR"] = "CHANNEL_ERROR";
+})(REALTIME_SUBSCRIBE_STATES || (REALTIME_SUBSCRIBE_STATES = {}));
+var RealtimeChannel = class _RealtimeChannel {
+  /**
+   * Creates a channel that can broadcast messages, sync presence, and listen to Postgres changes.
+   *
+   * The topic determines which realtime stream you are subscribing to. Config options let you
+   * enable acknowledgement for broadcasts, presence tracking, or private channels.
+   *
+   * @example
+   * ```ts
+   * import RealtimeClient from '@supabase/realtime-js'
+   *
+   * const client = new RealtimeClient('https://xyzcompany.supabase.co/realtime/v1', {
+   *   params: { apikey: 'public-anon-key' },
+   * })
+   * const channel = new RealtimeChannel('realtime:public:messages', { config: {} }, client)
+   * ```
+   */
+  constructor(topic, params = { config: {} }, socket) {
+    var _a, _b;
+    this.topic = topic;
+    this.params = params;
+    this.socket = socket;
+    this.bindings = {};
+    this.state = CHANNEL_STATES.closed;
+    this.joinedOnce = false;
+    this.pushBuffer = [];
+    this.subTopic = topic.replace(/^realtime:/i, "");
+    this.params.config = Object.assign({
+      broadcast: { ack: false, self: false },
+      presence: { key: "", enabled: false },
+      private: false
+    }, params.config);
+    this.timeout = this.socket.timeout;
+    this.joinPush = new Push(this, CHANNEL_EVENTS.join, this.params, this.timeout);
+    this.rejoinTimer = new Timer(() => this._rejoinUntilConnected(), this.socket.reconnectAfterMs);
+    this.joinPush.receive("ok", () => {
+      this.state = CHANNEL_STATES.joined;
+      this.rejoinTimer.reset();
+      this.pushBuffer.forEach((pushEvent) => pushEvent.send());
+      this.pushBuffer = [];
+    });
+    this._onClose(() => {
+      this.rejoinTimer.reset();
+      this.socket.log("channel", `close ${this.topic} ${this._joinRef()}`);
+      this.state = CHANNEL_STATES.closed;
+      this.socket._remove(this);
+    });
+    this._onError((reason) => {
+      if (this._isLeaving() || this._isClosed()) {
+        return;
+      }
+      this.socket.log("channel", `error ${this.topic}`, reason);
+      this.state = CHANNEL_STATES.errored;
+      this.rejoinTimer.scheduleTimeout();
+    });
+    this.joinPush.receive("timeout", () => {
+      if (!this._isJoining()) {
+        return;
+      }
+      this.socket.log("channel", `timeout ${this.topic}`, this.joinPush.timeout);
+      this.state = CHANNEL_STATES.errored;
+      this.rejoinTimer.scheduleTimeout();
+    });
+    this.joinPush.receive("error", (reason) => {
+      if (this._isLeaving() || this._isClosed()) {
+        return;
+      }
+      this.socket.log("channel", `error ${this.topic}`, reason);
+      this.state = CHANNEL_STATES.errored;
+      this.rejoinTimer.scheduleTimeout();
+    });
+    this._on(CHANNEL_EVENTS.reply, {}, (payload, ref) => {
+      this._trigger(this._replyEventName(ref), payload);
+    });
+    this.presence = new RealtimePresence(this);
+    this.broadcastEndpointURL = httpEndpointURL(this.socket.endPoint);
+    this.private = this.params.config.private || false;
+    if (!this.private && ((_b = (_a = this.params.config) === null || _a === void 0 ? void 0 : _a.broadcast) === null || _b === void 0 ? void 0 : _b.replay)) {
+      throw `tried to use replay on public channel '${this.topic}'. It must be a private channel.`;
+    }
+  }
+  /** Subscribe registers your client with the server */
+  subscribe(callback, timeout = this.timeout) {
+    var _a, _b, _c;
+    if (!this.socket.isConnected()) {
+      this.socket.connect();
+    }
+    if (this.state == CHANNEL_STATES.closed) {
+      const { config: { broadcast, presence, private: isPrivate } } = this.params;
+      const postgres_changes = (_b = (_a = this.bindings.postgres_changes) === null || _a === void 0 ? void 0 : _a.map((r2) => r2.filter)) !== null && _b !== void 0 ? _b : [];
+      const presence_enabled = !!this.bindings[REALTIME_LISTEN_TYPES.PRESENCE] && this.bindings[REALTIME_LISTEN_TYPES.PRESENCE].length > 0 || ((_c = this.params.config.presence) === null || _c === void 0 ? void 0 : _c.enabled) === true;
+      const accessTokenPayload = {};
+      const config = {
+        broadcast,
+        presence: Object.assign(Object.assign({}, presence), { enabled: presence_enabled }),
+        postgres_changes,
+        private: isPrivate
+      };
+      if (this.socket.accessTokenValue) {
+        accessTokenPayload.access_token = this.socket.accessTokenValue;
+      }
+      this._onError((e) => callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.CHANNEL_ERROR, e));
+      this._onClose(() => callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.CLOSED));
+      this.updateJoinPayload(Object.assign({ config }, accessTokenPayload));
+      this.joinedOnce = true;
+      this._rejoin(timeout);
+      this.joinPush.receive("ok", async ({ postgres_changes: postgres_changes2 }) => {
+        var _a2;
+        if (!this.socket._isManualToken()) {
+          this.socket.setAuth();
+        }
+        if (postgres_changes2 === void 0) {
+          callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.SUBSCRIBED);
+          return;
+        } else {
+          const clientPostgresBindings = this.bindings.postgres_changes;
+          const bindingsLen = (_a2 = clientPostgresBindings === null || clientPostgresBindings === void 0 ? void 0 : clientPostgresBindings.length) !== null && _a2 !== void 0 ? _a2 : 0;
+          const newPostgresBindings = [];
+          for (let i = 0; i < bindingsLen; i++) {
+            const clientPostgresBinding = clientPostgresBindings[i];
+            const { filter: { event, schema, table, filter } } = clientPostgresBinding;
+            const serverPostgresFilter = postgres_changes2 && postgres_changes2[i];
+            if (serverPostgresFilter && serverPostgresFilter.event === event && _RealtimeChannel.isFilterValueEqual(serverPostgresFilter.schema, schema) && _RealtimeChannel.isFilterValueEqual(serverPostgresFilter.table, table) && _RealtimeChannel.isFilterValueEqual(serverPostgresFilter.filter, filter)) {
+              newPostgresBindings.push(Object.assign(Object.assign({}, clientPostgresBinding), { id: serverPostgresFilter.id }));
+            } else {
+              this.unsubscribe();
+              this.state = CHANNEL_STATES.errored;
+              callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.CHANNEL_ERROR, new Error("mismatch between server and client bindings for postgres changes"));
+              return;
+            }
+          }
+          this.bindings.postgres_changes = newPostgresBindings;
+          callback && callback(REALTIME_SUBSCRIBE_STATES.SUBSCRIBED);
+          return;
+        }
+      }).receive("error", (error) => {
+        this.state = CHANNEL_STATES.errored;
+        callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.CHANNEL_ERROR, new Error(JSON.stringify(Object.values(error).join(", ") || "error")));
+        return;
+      }).receive("timeout", () => {
+        callback === null || callback === void 0 ? void 0 : callback(REALTIME_SUBSCRIBE_STATES.TIMED_OUT);
+        return;
+      });
+    }
+    return this;
+  }
+  /**
+   * Returns the current presence state for this channel.
+   *
+   * The shape is a map keyed by presence key (for example a user id) where each entry contains the
+   * tracked metadata for that user.
+   */
+  presenceState() {
+    return this.presence.state;
+  }
+  /**
+   * Sends the supplied payload to the presence tracker so other subscribers can see that this
+   * client is online. Use `untrack` to stop broadcasting presence for the same key.
+   */
+  async track(payload, opts = {}) {
+    return await this.send({
+      type: "presence",
+      event: "track",
+      payload
+    }, opts.timeout || this.timeout);
+  }
+  /**
+   * Removes the current presence state for this client.
+   */
+  async untrack(opts = {}) {
+    return await this.send({
+      type: "presence",
+      event: "untrack"
+    }, opts);
+  }
+  on(type, filter, callback) {
+    if (this.state === CHANNEL_STATES.joined && type === REALTIME_LISTEN_TYPES.PRESENCE) {
+      this.socket.log("channel", `resubscribe to ${this.topic} due to change in presence callbacks on joined channel`);
+      this.unsubscribe().then(async () => await this.subscribe());
+    }
+    return this._on(type, filter, callback);
+  }
+  /**
+   * Sends a broadcast message explicitly via REST API.
+   *
+   * This method always uses the REST API endpoint regardless of WebSocket connection state.
+   * Useful when you want to guarantee REST delivery or when gradually migrating from implicit REST fallback.
+   *
+   * @param event The name of the broadcast event
+   * @param payload Payload to be sent (required)
+   * @param opts Options including timeout
+   * @returns Promise resolving to object with success status, and error details if failed
+   */
+  async httpSend(event, payload, opts = {}) {
+    var _a;
+    if (payload === void 0 || payload === null) {
+      return Promise.reject("Payload is required for httpSend()");
+    }
+    const headers = {
+      apikey: this.socket.apiKey ? this.socket.apiKey : "",
+      "Content-Type": "application/json"
+    };
+    if (this.socket.accessTokenValue) {
+      headers["Authorization"] = `Bearer ${this.socket.accessTokenValue}`;
+    }
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        messages: [
+          {
+            topic: this.subTopic,
+            event,
+            payload,
+            private: this.private
+          }
+        ]
+      })
+    };
+    const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
+    if (response.status === 202) {
+      return { success: true };
+    }
+    let errorMessage = response.statusText;
+    try {
+      const errorBody = await response.json();
+      errorMessage = errorBody.error || errorBody.message || errorMessage;
+    } catch (_b) {
+    }
+    return Promise.reject(new Error(errorMessage));
+  }
+  /**
+   * Sends a message into the channel.
+   *
+   * @param args Arguments to send to channel
+   * @param args.type The type of event to send
+   * @param args.event The name of the event being sent
+   * @param args.payload Payload to be sent
+   * @param opts Options to be used during the send process
+   */
+  async send(args, opts = {}) {
+    var _a, _b;
+    if (!this._canPush() && args.type === "broadcast") {
+      console.warn("Realtime send() is automatically falling back to REST API. This behavior will be deprecated in the future. Please use httpSend() explicitly for REST delivery.");
+      const { event, payload: endpoint_payload } = args;
+      const headers = {
+        apikey: this.socket.apiKey ? this.socket.apiKey : "",
+        "Content-Type": "application/json"
+      };
+      if (this.socket.accessTokenValue) {
+        headers["Authorization"] = `Bearer ${this.socket.accessTokenValue}`;
+      }
+      const options = {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          messages: [
+            {
+              topic: this.subTopic,
+              event,
+              payload: endpoint_payload,
+              private: this.private
+            }
+          ]
+        })
+      };
+      try {
+        const response = await this._fetchWithTimeout(this.broadcastEndpointURL, options, (_a = opts.timeout) !== null && _a !== void 0 ? _a : this.timeout);
+        await ((_b = response.body) === null || _b === void 0 ? void 0 : _b.cancel());
+        return response.ok ? "ok" : "error";
+      } catch (error) {
+        if (error.name === "AbortError") {
+          return "timed out";
+        } else {
+          return "error";
+        }
+      }
+    } else {
+      return new Promise((resolve) => {
+        var _a2, _b2, _c;
+        const push = this._push(args.type, args, opts.timeout || this.timeout);
+        if (args.type === "broadcast" && !((_c = (_b2 = (_a2 = this.params) === null || _a2 === void 0 ? void 0 : _a2.config) === null || _b2 === void 0 ? void 0 : _b2.broadcast) === null || _c === void 0 ? void 0 : _c.ack)) {
+          resolve("ok");
+        }
+        push.receive("ok", () => resolve("ok"));
+        push.receive("error", () => resolve("error"));
+        push.receive("timeout", () => resolve("timed out"));
+      });
+    }
+  }
+  /**
+   * Updates the payload that will be sent the next time the channel joins (reconnects).
+   * Useful for rotating access tokens or updating config without re-creating the channel.
+   */
+  updateJoinPayload(payload) {
+    this.joinPush.updatePayload(payload);
+  }
+  /**
+   * Leaves the channel.
+   *
+   * Unsubscribes from server events, and instructs channel to terminate on server.
+   * Triggers onClose() hooks.
+   *
+   * To receive leave acknowledgements, use the a `receive` hook to bind to the server ack, ie:
+   * channel.unsubscribe().receive("ok", () => alert("left!") )
+   */
+  unsubscribe(timeout = this.timeout) {
+    this.state = CHANNEL_STATES.leaving;
+    const onClose = () => {
+      this.socket.log("channel", `leave ${this.topic}`);
+      this._trigger(CHANNEL_EVENTS.close, "leave", this._joinRef());
+    };
+    this.joinPush.destroy();
+    let leavePush = null;
+    return new Promise((resolve) => {
+      leavePush = new Push(this, CHANNEL_EVENTS.leave, {}, timeout);
+      leavePush.receive("ok", () => {
+        onClose();
+        resolve("ok");
+      }).receive("timeout", () => {
+        onClose();
+        resolve("timed out");
+      }).receive("error", () => {
+        resolve("error");
+      });
+      leavePush.send();
+      if (!this._canPush()) {
+        leavePush.trigger("ok", {});
+      }
+    }).finally(() => {
+      leavePush === null || leavePush === void 0 ? void 0 : leavePush.destroy();
+    });
+  }
+  /**
+   * Teardown the channel.
+   *
+   * Destroys and stops related timers.
+   */
+  teardown() {
+    this.pushBuffer.forEach((push) => push.destroy());
+    this.pushBuffer = [];
+    this.rejoinTimer.reset();
+    this.joinPush.destroy();
+    this.state = CHANNEL_STATES.closed;
+    this.bindings = {};
+  }
+  /** @internal */
+  async _fetchWithTimeout(url, options, timeout) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    const response = await this.socket.fetch(url, Object.assign(Object.assign({}, options), { signal: controller.signal }));
+    clearTimeout(id);
+    return response;
+  }
+  /** @internal */
+  _push(event, payload, timeout = this.timeout) {
+    if (!this.joinedOnce) {
+      throw `tried to push '${event}' to '${this.topic}' before joining. Use channel.subscribe() before pushing events`;
+    }
+    let pushEvent = new Push(this, event, payload, timeout);
+    if (this._canPush()) {
+      pushEvent.send();
+    } else {
+      this._addToPushBuffer(pushEvent);
+    }
+    return pushEvent;
+  }
+  /** @internal */
+  _addToPushBuffer(pushEvent) {
+    pushEvent.startTimeout();
+    this.pushBuffer.push(pushEvent);
+    if (this.pushBuffer.length > MAX_PUSH_BUFFER_SIZE) {
+      const removedPush = this.pushBuffer.shift();
+      if (removedPush) {
+        removedPush.destroy();
+        this.socket.log("channel", `discarded push due to buffer overflow: ${removedPush.event}`, removedPush.payload);
+      }
+    }
+  }
+  /**
+   * Overridable message hook
+   *
+   * Receives all events for specialized message handling before dispatching to the channel callbacks.
+   * Must return the payload, modified or unmodified.
+   *
+   * @internal
+   */
+  _onMessage(_event, payload, _ref2) {
+    return payload;
+  }
+  /** @internal */
+  _isMember(topic) {
+    return this.topic === topic;
+  }
+  /** @internal */
+  _joinRef() {
+    return this.joinPush.ref;
+  }
+  /** @internal */
+  _trigger(type, payload, ref) {
+    var _a, _b;
+    const typeLower = type.toLocaleLowerCase();
+    const { close, error, leave, join } = CHANNEL_EVENTS;
+    const events = [close, error, leave, join];
+    if (ref && events.indexOf(typeLower) >= 0 && ref !== this._joinRef()) {
+      return;
+    }
+    let handledPayload = this._onMessage(typeLower, payload, ref);
+    if (payload && !handledPayload) {
+      throw "channel onMessage callbacks must return the payload, modified or unmodified";
+    }
+    if (["insert", "update", "delete"].includes(typeLower)) {
+      (_a = this.bindings.postgres_changes) === null || _a === void 0 ? void 0 : _a.filter((bind) => {
+        var _a2, _b2, _c;
+        return ((_a2 = bind.filter) === null || _a2 === void 0 ? void 0 : _a2.event) === "*" || ((_c = (_b2 = bind.filter) === null || _b2 === void 0 ? void 0 : _b2.event) === null || _c === void 0 ? void 0 : _c.toLocaleLowerCase()) === typeLower;
+      }).map((bind) => bind.callback(handledPayload, ref));
+    } else {
+      (_b = this.bindings[typeLower]) === null || _b === void 0 ? void 0 : _b.filter((bind) => {
+        var _a2, _b2, _c, _d, _e, _f;
+        if (["broadcast", "presence", "postgres_changes"].includes(typeLower)) {
+          if ("id" in bind) {
+            const bindId = bind.id;
+            const bindEvent = (_a2 = bind.filter) === null || _a2 === void 0 ? void 0 : _a2.event;
+            return bindId && ((_b2 = payload.ids) === null || _b2 === void 0 ? void 0 : _b2.includes(bindId)) && (bindEvent === "*" || (bindEvent === null || bindEvent === void 0 ? void 0 : bindEvent.toLocaleLowerCase()) === ((_c = payload.data) === null || _c === void 0 ? void 0 : _c.type.toLocaleLowerCase()));
+          } else {
+            const bindEvent = (_e = (_d = bind === null || bind === void 0 ? void 0 : bind.filter) === null || _d === void 0 ? void 0 : _d.event) === null || _e === void 0 ? void 0 : _e.toLocaleLowerCase();
+            return bindEvent === "*" || bindEvent === ((_f = payload === null || payload === void 0 ? void 0 : payload.event) === null || _f === void 0 ? void 0 : _f.toLocaleLowerCase());
+          }
+        } else {
+          return bind.type.toLocaleLowerCase() === typeLower;
+        }
+      }).map((bind) => {
+        if (typeof handledPayload === "object" && "ids" in handledPayload) {
+          const postgresChanges = handledPayload.data;
+          const { schema, table, commit_timestamp, type: type2, errors: errors3 } = postgresChanges;
+          const enrichedPayload = {
+            schema,
+            table,
+            commit_timestamp,
+            eventType: type2,
+            new: {},
+            old: {},
+            errors: errors3
+          };
+          handledPayload = Object.assign(Object.assign({}, enrichedPayload), this._getPayloadRecords(postgresChanges));
+        }
+        bind.callback(handledPayload, ref);
+      });
+    }
+  }
+  /** @internal */
+  _isClosed() {
+    return this.state === CHANNEL_STATES.closed;
+  }
+  /** @internal */
+  _isJoined() {
+    return this.state === CHANNEL_STATES.joined;
+  }
+  /** @internal */
+  _isJoining() {
+    return this.state === CHANNEL_STATES.joining;
+  }
+  /** @internal */
+  _isLeaving() {
+    return this.state === CHANNEL_STATES.leaving;
+  }
+  /** @internal */
+  _replyEventName(ref) {
+    return `chan_reply_${ref}`;
+  }
+  /** @internal */
+  _on(type, filter, callback) {
+    const typeLower = type.toLocaleLowerCase();
+    const binding = {
+      type: typeLower,
+      filter,
+      callback
+    };
+    if (this.bindings[typeLower]) {
+      this.bindings[typeLower].push(binding);
+    } else {
+      this.bindings[typeLower] = [binding];
+    }
+    return this;
+  }
+  /** @internal */
+  _off(type, filter) {
+    const typeLower = type.toLocaleLowerCase();
+    if (this.bindings[typeLower]) {
+      this.bindings[typeLower] = this.bindings[typeLower].filter((bind) => {
+        var _a;
+        return !(((_a = bind.type) === null || _a === void 0 ? void 0 : _a.toLocaleLowerCase()) === typeLower && _RealtimeChannel.isEqual(bind.filter, filter));
+      });
+    }
+    return this;
+  }
+  /** @internal */
+  static isEqual(obj1, obj2) {
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+      return false;
+    }
+    for (const k in obj1) {
+      if (obj1[k] !== obj2[k]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  /**
+   * Compares two optional filter values for equality.
+   * Treats undefined, null, and empty string as equivalent empty values.
+   * @internal
+   */
+  static isFilterValueEqual(serverValue, clientValue) {
+    const normalizedServer = serverValue !== null && serverValue !== void 0 ? serverValue : void 0;
+    const normalizedClient = clientValue !== null && clientValue !== void 0 ? clientValue : void 0;
+    return normalizedServer === normalizedClient;
+  }
+  /** @internal */
+  _rejoinUntilConnected() {
+    this.rejoinTimer.scheduleTimeout();
+    if (this.socket.isConnected()) {
+      this._rejoin();
+    }
+  }
+  /**
+   * Registers a callback that will be executed when the channel closes.
+   *
+   * @internal
+   */
+  _onClose(callback) {
+    this._on(CHANNEL_EVENTS.close, {}, callback);
+  }
+  /**
+   * Registers a callback that will be executed when the channel encounteres an error.
+   *
+   * @internal
+   */
+  _onError(callback) {
+    this._on(CHANNEL_EVENTS.error, {}, (reason) => callback(reason));
+  }
+  /**
+   * Returns `true` if the socket is connected and the channel has been joined.
+   *
+   * @internal
+   */
+  _canPush() {
+    return this.socket.isConnected() && this._isJoined();
+  }
+  /** @internal */
+  _rejoin(timeout = this.timeout) {
+    if (this._isLeaving()) {
+      return;
+    }
+    this.socket._leaveOpenTopic(this.topic);
+    this.state = CHANNEL_STATES.joining;
+    this.joinPush.resend(timeout);
+  }
+  /** @internal */
+  _getPayloadRecords(payload) {
+    const records = {
+      new: {},
+      old: {}
+    };
+    if (payload.type === "INSERT" || payload.type === "UPDATE") {
+      records.new = convertChangeData(payload.columns, payload.record);
+    }
+    if (payload.type === "UPDATE" || payload.type === "DELETE") {
+      records.old = convertChangeData(payload.columns, payload.old_record);
+    }
+    return records;
+  }
+};
+
+// node_modules/.pnpm/@supabase+realtime-js@2.97.0/node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js
+var noop5 = () => {
+};
+var CONNECTION_TIMEOUTS = {
+  HEARTBEAT_INTERVAL: 25e3,
+  RECONNECT_DELAY: 10,
+  HEARTBEAT_TIMEOUT_FALLBACK: 100
+};
+var RECONNECT_INTERVALS = [1e3, 2e3, 5e3, 1e4];
+var DEFAULT_RECONNECT_FALLBACK = 1e4;
+var WORKER_SCRIPT = `
+  addEventListener("message", (e) => {
+    if (e.data.event === "start") {
+      setInterval(() => postMessage({ event: "keepAlive" }), e.data.interval);
+    }
+  });`;
+var RealtimeClient = class {
+  /**
+   * Initializes the Socket.
+   *
+   * @param endPoint The string WebSocket endpoint, ie, "ws://example.com/socket", "wss://example.com", "/socket" (inherited host & protocol)
+   * @param httpEndpoint The string HTTP endpoint, ie, "https://example.com", "/" (inherited host & protocol)
+   * @param options.transport The Websocket Transport, for example WebSocket. This can be a custom implementation
+   * @param options.timeout The default timeout in milliseconds to trigger push timeouts.
+   * @param options.params The optional params to pass when connecting.
+   * @param options.headers Deprecated: headers cannot be set on websocket connections and this option will be removed in the future.
+   * @param options.heartbeatIntervalMs The millisec interval to send a heartbeat message.
+   * @param options.heartbeatCallback The optional function to handle heartbeat status and latency.
+   * @param options.logger The optional function for specialized logging, ie: logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data) }
+   * @param options.logLevel Sets the log level for Realtime
+   * @param options.encode The function to encode outgoing messages. Defaults to JSON: (payload, callback) => callback(JSON.stringify(payload))
+   * @param options.decode The function to decode incoming messages. Defaults to Serializer's decode.
+   * @param options.reconnectAfterMs he optional function that returns the millsec reconnect interval. Defaults to stepped backoff off.
+   * @param options.worker Use Web Worker to set a side flow. Defaults to false.
+   * @param options.workerUrl The URL of the worker script. Defaults to https://realtime.supabase.com/worker.js that includes a heartbeat event call to keep the connection alive.
+   * @param options.vsn The protocol version to use when connecting. Supported versions are "1.0.0" and "2.0.0". Defaults to "2.0.0".
+   * @example
+   * ```ts
+   * import RealtimeClient from '@supabase/realtime-js'
+   *
+   * const client = new RealtimeClient('https://xyzcompany.supabase.co/realtime/v1', {
+   *   params: { apikey: 'public-anon-key' },
+   * })
+   * client.connect()
+   * ```
+   */
+  constructor(endPoint, options) {
+    var _a;
+    this.accessTokenValue = null;
+    this.apiKey = null;
+    this._manuallySetToken = false;
+    this.channels = new Array();
+    this.endPoint = "";
+    this.httpEndpoint = "";
+    this.headers = {};
+    this.params = {};
+    this.timeout = DEFAULT_TIMEOUT;
+    this.transport = null;
+    this.heartbeatIntervalMs = CONNECTION_TIMEOUTS.HEARTBEAT_INTERVAL;
+    this.heartbeatTimer = void 0;
+    this.pendingHeartbeatRef = null;
+    this.heartbeatCallback = noop5;
+    this.ref = 0;
+    this.reconnectTimer = null;
+    this.vsn = DEFAULT_VSN;
+    this.logger = noop5;
+    this.conn = null;
+    this.sendBuffer = [];
+    this.serializer = new Serializer();
+    this.stateChangeCallbacks = {
+      open: [],
+      close: [],
+      error: [],
+      message: []
+    };
+    this.accessToken = null;
+    this._connectionState = "disconnected";
+    this._wasManualDisconnect = false;
+    this._authPromise = null;
+    this._heartbeatSentAt = null;
+    this._resolveFetch = (customFetch) => {
+      if (customFetch) {
+        return (...args) => customFetch(...args);
+      }
+      return (...args) => fetch(...args);
+    };
+    if (!((_a = options === null || options === void 0 ? void 0 : options.params) === null || _a === void 0 ? void 0 : _a.apikey)) {
+      throw new Error("API key is required to connect to Realtime");
+    }
+    this.apiKey = options.params.apikey;
+    this.endPoint = `${endPoint}/${TRANSPORTS.websocket}`;
+    this.httpEndpoint = httpEndpointURL(endPoint);
+    this._initializeOptions(options);
+    this._setupReconnectionTimer();
+    this.fetch = this._resolveFetch(options === null || options === void 0 ? void 0 : options.fetch);
+  }
+  /**
+   * Connects the socket, unless already connected.
+   */
+  connect() {
+    if (this.isConnecting() || this.isDisconnecting() || this.conn !== null && this.isConnected()) {
+      return;
+    }
+    this._setConnectionState("connecting");
+    if (this.accessToken && !this._authPromise) {
+      this._setAuthSafely("connect");
+    }
+    if (this.transport) {
+      this.conn = new this.transport(this.endpointURL());
+    } else {
+      try {
+        this.conn = websocket_factory_default.createWebSocket(this.endpointURL());
+      } catch (error) {
+        this._setConnectionState("disconnected");
+        const errorMessage = error.message;
+        if (errorMessage.includes("Node.js")) {
+          throw new Error(`${errorMessage}
+
+To use Realtime in Node.js, you need to provide a WebSocket implementation:
+
+Option 1: Use Node.js 22+ which has native WebSocket support
+Option 2: Install and provide the "ws" package:
+
+  npm install ws
+
+  import ws from "ws"
+  const client = new RealtimeClient(url, {
+    ...options,
+    transport: ws
+  })`);
+        }
+        throw new Error(`WebSocket not available: ${errorMessage}`);
+      }
+    }
+    this._setupConnectionHandlers();
+  }
+  /**
+   * Returns the URL of the websocket.
+   * @returns string The URL of the websocket.
+   */
+  endpointURL() {
+    return this._appendParams(this.endPoint, Object.assign({}, this.params, { vsn: this.vsn }));
+  }
+  /**
+   * Disconnects the socket.
+   *
+   * @param code A numeric status code to send on disconnect.
+   * @param reason A custom reason for the disconnect.
+   */
+  disconnect(code, reason) {
+    if (this.isDisconnecting()) {
+      return;
+    }
+    this._setConnectionState("disconnecting", true);
+    if (this.conn) {
+      const fallbackTimer = setTimeout(() => {
+        this._setConnectionState("disconnected");
+      }, 100);
+      this.conn.onclose = () => {
+        clearTimeout(fallbackTimer);
+        this._setConnectionState("disconnected");
+      };
+      if (typeof this.conn.close === "function") {
+        if (code) {
+          this.conn.close(code, reason !== null && reason !== void 0 ? reason : "");
+        } else {
+          this.conn.close();
+        }
+      }
+      this._teardownConnection();
+    } else {
+      this._setConnectionState("disconnected");
+    }
+  }
+  /**
+   * Returns all created channels
+   */
+  getChannels() {
+    return this.channels;
+  }
+  /**
+   * Unsubscribes and removes a single channel
+   * @param channel A RealtimeChannel instance
+   */
+  async removeChannel(channel) {
+    const status = await channel.unsubscribe();
+    if (this.channels.length === 0) {
+      this.disconnect();
+    }
+    return status;
+  }
+  /**
+   * Unsubscribes and removes all channels
+   */
+  async removeAllChannels() {
+    const values_1 = await Promise.all(this.channels.map((channel) => channel.unsubscribe()));
+    this.channels = [];
+    this.disconnect();
+    return values_1;
+  }
+  /**
+   * Logs the message.
+   *
+   * For customized logging, `this.logger` can be overridden.
+   */
+  log(kind, msg, data) {
+    this.logger(kind, msg, data);
+  }
+  /**
+   * Returns the current state of the socket.
+   */
+  connectionState() {
+    switch (this.conn && this.conn.readyState) {
+      case SOCKET_STATES.connecting:
+        return CONNECTION_STATE.Connecting;
+      case SOCKET_STATES.open:
+        return CONNECTION_STATE.Open;
+      case SOCKET_STATES.closing:
+        return CONNECTION_STATE.Closing;
+      default:
+        return CONNECTION_STATE.Closed;
+    }
+  }
+  /**
+   * Returns `true` is the connection is open.
+   */
+  isConnected() {
+    return this.connectionState() === CONNECTION_STATE.Open;
+  }
+  /**
+   * Returns `true` if the connection is currently connecting.
+   */
+  isConnecting() {
+    return this._connectionState === "connecting";
+  }
+  /**
+   * Returns `true` if the connection is currently disconnecting.
+   */
+  isDisconnecting() {
+    return this._connectionState === "disconnecting";
+  }
+  /**
+   * Creates (or reuses) a {@link RealtimeChannel} for the provided topic.
+   *
+   * Topics are automatically prefixed with `realtime:` to match the Realtime service.
+   * If a channel with the same topic already exists it will be returned instead of creating
+   * a duplicate connection.
+   */
+  channel(topic, params = { config: {} }) {
+    const realtimeTopic = `realtime:${topic}`;
+    const exists = this.getChannels().find((c) => c.topic === realtimeTopic);
+    if (!exists) {
+      const chan = new RealtimeChannel(`realtime:${topic}`, params, this);
+      this.channels.push(chan);
+      return chan;
+    } else {
+      return exists;
+    }
+  }
+  /**
+   * Push out a message if the socket is connected.
+   *
+   * If the socket is not connected, the message gets enqueued within a local buffer, and sent out when a connection is next established.
+   */
+  push(data) {
+    const { topic, event, payload, ref } = data;
+    const callback = () => {
+      this.encode(data, (result) => {
+        var _a;
+        (_a = this.conn) === null || _a === void 0 ? void 0 : _a.send(result);
+      });
+    };
+    this.log("push", `${topic} ${event} (${ref})`, payload);
+    if (this.isConnected()) {
+      callback();
+    } else {
+      this.sendBuffer.push(callback);
+    }
+  }
+  /**
+   * Sets the JWT access token used for channel subscription authorization and Realtime RLS.
+   *
+   * If param is null it will use the `accessToken` callback function or the token set on the client.
+   *
+   * On callback used, it will set the value of the token internal to the client.
+   *
+   * When a token is explicitly provided, it will be preserved across channel operations
+   * (including removeChannel and resubscribe). The `accessToken` callback will not be
+   * invoked until `setAuth()` is called without arguments.
+   *
+   * @param token A JWT string to override the token set on the client.
+   *
+   * @example
+   * // Use a manual token (preserved across resubscribes, ignores accessToken callback)
+   * client.realtime.setAuth('my-custom-jwt')
+   *
+   * // Switch back to using the accessToken callback
+   * client.realtime.setAuth()
+   */
+  async setAuth(token = null) {
+    this._authPromise = this._performAuth(token);
+    try {
+      await this._authPromise;
+    } finally {
+      this._authPromise = null;
+    }
+  }
+  /**
+   * Returns true if the current access token was explicitly set via setAuth(token),
+   * false if it was obtained via the accessToken callback.
+   * @internal
+   */
+  _isManualToken() {
+    return this._manuallySetToken;
+  }
+  /**
+   * Sends a heartbeat message if the socket is connected.
+   */
+  async sendHeartbeat() {
+    var _a;
+    if (!this.isConnected()) {
+      try {
+        this.heartbeatCallback("disconnected");
+      } catch (e) {
+        this.log("error", "error in heartbeat callback", e);
+      }
+      return;
+    }
+    if (this.pendingHeartbeatRef) {
+      this.pendingHeartbeatRef = null;
+      this._heartbeatSentAt = null;
+      this.log("transport", "heartbeat timeout. Attempting to re-establish connection");
+      try {
+        this.heartbeatCallback("timeout");
+      } catch (e) {
+        this.log("error", "error in heartbeat callback", e);
+      }
+      this._wasManualDisconnect = false;
+      (_a = this.conn) === null || _a === void 0 ? void 0 : _a.close(WS_CLOSE_NORMAL, "heartbeat timeout");
+      setTimeout(() => {
+        var _a2;
+        if (!this.isConnected()) {
+          (_a2 = this.reconnectTimer) === null || _a2 === void 0 ? void 0 : _a2.scheduleTimeout();
+        }
+      }, CONNECTION_TIMEOUTS.HEARTBEAT_TIMEOUT_FALLBACK);
+      return;
+    }
+    this._heartbeatSentAt = Date.now();
+    this.pendingHeartbeatRef = this._makeRef();
+    this.push({
+      topic: "phoenix",
+      event: "heartbeat",
+      payload: {},
+      ref: this.pendingHeartbeatRef
+    });
+    try {
+      this.heartbeatCallback("sent");
+    } catch (e) {
+      this.log("error", "error in heartbeat callback", e);
+    }
+    this._setAuthSafely("heartbeat");
+  }
+  /**
+   * Sets a callback that receives lifecycle events for internal heartbeat messages.
+   * Useful for instrumenting connection health (e.g. sent/ok/timeout/disconnected).
+   */
+  onHeartbeat(callback) {
+    this.heartbeatCallback = callback;
+  }
+  /**
+   * Flushes send buffer
+   */
+  flushSendBuffer() {
+    if (this.isConnected() && this.sendBuffer.length > 0) {
+      this.sendBuffer.forEach((callback) => callback());
+      this.sendBuffer = [];
+    }
+  }
+  /**
+   * Return the next message ref, accounting for overflows
+   *
+   * @internal
+   */
+  _makeRef() {
+    let newRef = this.ref + 1;
+    if (newRef === this.ref) {
+      this.ref = 0;
+    } else {
+      this.ref = newRef;
+    }
+    return this.ref.toString();
+  }
+  /**
+   * Unsubscribe from channels with the specified topic.
+   *
+   * @internal
+   */
+  _leaveOpenTopic(topic) {
+    let dupChannel = this.channels.find((c) => c.topic === topic && (c._isJoined() || c._isJoining()));
+    if (dupChannel) {
+      this.log("transport", `leaving duplicate topic "${topic}"`);
+      dupChannel.unsubscribe();
+    }
+  }
+  /**
+   * Removes a subscription from the socket.
+   *
+   * @param channel An open subscription.
+   *
+   * @internal
+   */
+  _remove(channel) {
+    this.channels = this.channels.filter((c) => c.topic !== channel.topic);
+  }
+  /** @internal */
+  _onConnMessage(rawMessage) {
+    this.decode(rawMessage.data, (msg) => {
+      if (msg.topic === "phoenix" && msg.event === "phx_reply" && msg.ref && msg.ref === this.pendingHeartbeatRef) {
+        const latency = this._heartbeatSentAt ? Date.now() - this._heartbeatSentAt : void 0;
+        try {
+          this.heartbeatCallback(msg.payload.status === "ok" ? "ok" : "error", latency);
+        } catch (e) {
+          this.log("error", "error in heartbeat callback", e);
+        }
+        this._heartbeatSentAt = null;
+        this.pendingHeartbeatRef = null;
+      }
+      const { topic, event, payload, ref } = msg;
+      const refString = ref ? `(${ref})` : "";
+      const status = payload.status || "";
+      this.log("receive", `${status} ${topic} ${event} ${refString}`.trim(), payload);
+      this.channels.filter((channel) => channel._isMember(topic)).forEach((channel) => channel._trigger(event, payload, ref));
+      this._triggerStateCallbacks("message", msg);
+    });
+  }
+  /**
+   * Clear specific timer
+   * @internal
+   */
+  _clearTimer(timer) {
+    var _a;
+    if (timer === "heartbeat" && this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = void 0;
+    } else if (timer === "reconnect") {
+      (_a = this.reconnectTimer) === null || _a === void 0 ? void 0 : _a.reset();
+    }
+  }
+  /**
+   * Clear all timers
+   * @internal
+   */
+  _clearAllTimers() {
+    this._clearTimer("heartbeat");
+    this._clearTimer("reconnect");
+  }
+  /**
+   * Setup connection handlers for WebSocket events
+   * @internal
+   */
+  _setupConnectionHandlers() {
+    if (!this.conn)
+      return;
+    if ("binaryType" in this.conn) {
+      ;
+      this.conn.binaryType = "arraybuffer";
+    }
+    this.conn.onopen = () => this._onConnOpen();
+    this.conn.onerror = (error) => this._onConnError(error);
+    this.conn.onmessage = (event) => this._onConnMessage(event);
+    this.conn.onclose = (event) => this._onConnClose(event);
+    if (this.conn.readyState === SOCKET_STATES.open) {
+      this._onConnOpen();
+    }
+  }
+  /**
+   * Teardown connection and cleanup resources
+   * @internal
+   */
+  _teardownConnection() {
+    if (this.conn) {
+      if (this.conn.readyState === SOCKET_STATES.open || this.conn.readyState === SOCKET_STATES.connecting) {
+        try {
+          this.conn.close();
+        } catch (e) {
+          this.log("error", "Error closing connection", e);
+        }
+      }
+      this.conn.onopen = null;
+      this.conn.onerror = null;
+      this.conn.onmessage = null;
+      this.conn.onclose = null;
+      this.conn = null;
+    }
+    this._clearAllTimers();
+    this._terminateWorker();
+    this.channels.forEach((channel) => channel.teardown());
+  }
+  /** @internal */
+  _onConnOpen() {
+    this._setConnectionState("connected");
+    this.log("transport", `connected to ${this.endpointURL()}`);
+    const authPromise = this._authPromise || (this.accessToken && !this.accessTokenValue ? this.setAuth() : Promise.resolve());
+    authPromise.then(() => {
+      this.flushSendBuffer();
+    }).catch((e) => {
+      this.log("error", "error waiting for auth on connect", e);
+      this.flushSendBuffer();
+    });
+    this._clearTimer("reconnect");
+    if (!this.worker) {
+      this._startHeartbeat();
+    } else {
+      if (!this.workerRef) {
+        this._startWorkerHeartbeat();
+      }
+    }
+    this._triggerStateCallbacks("open");
+  }
+  /** @internal */
+  _startHeartbeat() {
+    this.heartbeatTimer && clearInterval(this.heartbeatTimer);
+    this.heartbeatTimer = setInterval(() => this.sendHeartbeat(), this.heartbeatIntervalMs);
+  }
+  /** @internal */
+  _startWorkerHeartbeat() {
+    if (this.workerUrl) {
+      this.log("worker", `starting worker for from ${this.workerUrl}`);
+    } else {
+      this.log("worker", `starting default worker`);
+    }
+    const objectUrl = this._workerObjectUrl(this.workerUrl);
+    this.workerRef = new Worker(objectUrl);
+    this.workerRef.onerror = (error) => {
+      this.log("worker", "worker error", error.message);
+      this._terminateWorker();
+    };
+    this.workerRef.onmessage = (event) => {
+      if (event.data.event === "keepAlive") {
+        this.sendHeartbeat();
+      }
+    };
+    this.workerRef.postMessage({
+      event: "start",
+      interval: this.heartbeatIntervalMs
+    });
+  }
+  /**
+   * Terminate the Web Worker and clear the reference
+   * @internal
+   */
+  _terminateWorker() {
+    if (this.workerRef) {
+      this.log("worker", "terminating worker");
+      this.workerRef.terminate();
+      this.workerRef = void 0;
+    }
+  }
+  /** @internal */
+  _onConnClose(event) {
+    var _a;
+    this._setConnectionState("disconnected");
+    this.log("transport", "close", event);
+    this._triggerChanError();
+    this._clearTimer("heartbeat");
+    if (!this._wasManualDisconnect) {
+      (_a = this.reconnectTimer) === null || _a === void 0 ? void 0 : _a.scheduleTimeout();
+    }
+    this._triggerStateCallbacks("close", event);
+  }
+  /** @internal */
+  _onConnError(error) {
+    this._setConnectionState("disconnected");
+    this.log("transport", `${error}`);
+    this._triggerChanError();
+    this._triggerStateCallbacks("error", error);
+    try {
+      this.heartbeatCallback("error");
+    } catch (e) {
+      this.log("error", "error in heartbeat callback", e);
+    }
+  }
+  /** @internal */
+  _triggerChanError() {
+    this.channels.forEach((channel) => channel._trigger(CHANNEL_EVENTS.error));
+  }
+  /** @internal */
+  _appendParams(url, params) {
+    if (Object.keys(params).length === 0) {
+      return url;
+    }
+    const prefix = url.match(/\?/) ? "&" : "?";
+    const query = new URLSearchParams(params);
+    return `${url}${prefix}${query}`;
+  }
+  _workerObjectUrl(url) {
+    let result_url;
+    if (url) {
+      result_url = url;
+    } else {
+      const blob = new Blob([WORKER_SCRIPT], { type: "application/javascript" });
+      result_url = URL.createObjectURL(blob);
+    }
+    return result_url;
+  }
+  /**
+   * Set connection state with proper state management
+   * @internal
+   */
+  _setConnectionState(state, manual = false) {
+    this._connectionState = state;
+    if (state === "connecting") {
+      this._wasManualDisconnect = false;
+    } else if (state === "disconnecting") {
+      this._wasManualDisconnect = manual;
+    }
+  }
+  /**
+   * Perform the actual auth operation
+   * @internal
+   */
+  async _performAuth(token = null) {
+    let tokenToSend;
+    let isManualToken = false;
+    if (token) {
+      tokenToSend = token;
+      isManualToken = true;
+    } else if (this.accessToken) {
+      try {
+        tokenToSend = await this.accessToken();
+      } catch (e) {
+        this.log("error", "Error fetching access token from callback", e);
+        tokenToSend = this.accessTokenValue;
+      }
+    } else {
+      tokenToSend = this.accessTokenValue;
+    }
+    if (isManualToken) {
+      this._manuallySetToken = true;
+    } else if (this.accessToken) {
+      this._manuallySetToken = false;
+    }
+    if (this.accessTokenValue != tokenToSend) {
+      this.accessTokenValue = tokenToSend;
+      this.channels.forEach((channel) => {
+        const payload = {
+          access_token: tokenToSend,
+          version: DEFAULT_VERSION
+        };
+        tokenToSend && channel.updateJoinPayload(payload);
+        if (channel.joinedOnce && channel._isJoined()) {
+          channel._push(CHANNEL_EVENTS.access_token, {
+            access_token: tokenToSend
+          });
+        }
+      });
+    }
+  }
+  /**
+   * Wait for any in-flight auth operations to complete
+   * @internal
+   */
+  async _waitForAuthIfNeeded() {
+    if (this._authPromise) {
+      await this._authPromise;
+    }
+  }
+  /**
+   * Safely call setAuth with standardized error handling
+   * @internal
+   */
+  _setAuthSafely(context = "general") {
+    if (!this._isManualToken()) {
+      this.setAuth().catch((e) => {
+        this.log("error", `Error setting auth in ${context}`, e);
+      });
+    }
+  }
+  /**
+   * Trigger state change callbacks with proper error handling
+   * @internal
+   */
+  _triggerStateCallbacks(event, data) {
+    try {
+      this.stateChangeCallbacks[event].forEach((callback) => {
+        try {
+          callback(data);
+        } catch (e) {
+          this.log("error", `error in ${event} callback`, e);
+        }
+      });
+    } catch (e) {
+      this.log("error", `error triggering ${event} callbacks`, e);
+    }
+  }
+  /**
+   * Setup reconnection timer with proper configuration
+   * @internal
+   */
+  _setupReconnectionTimer() {
+    this.reconnectTimer = new Timer(async () => {
+      setTimeout(async () => {
+        await this._waitForAuthIfNeeded();
+        if (!this.isConnected()) {
+          this.connect();
+        }
+      }, CONNECTION_TIMEOUTS.RECONNECT_DELAY);
+    }, this.reconnectAfterMs);
+  }
+  /**
+   * Initialize client options with defaults
+   * @internal
+   */
+  _initializeOptions(options) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+    this.transport = (_a = options === null || options === void 0 ? void 0 : options.transport) !== null && _a !== void 0 ? _a : null;
+    this.timeout = (_b = options === null || options === void 0 ? void 0 : options.timeout) !== null && _b !== void 0 ? _b : DEFAULT_TIMEOUT;
+    this.heartbeatIntervalMs = (_c = options === null || options === void 0 ? void 0 : options.heartbeatIntervalMs) !== null && _c !== void 0 ? _c : CONNECTION_TIMEOUTS.HEARTBEAT_INTERVAL;
+    this.worker = (_d = options === null || options === void 0 ? void 0 : options.worker) !== null && _d !== void 0 ? _d : false;
+    this.accessToken = (_e = options === null || options === void 0 ? void 0 : options.accessToken) !== null && _e !== void 0 ? _e : null;
+    this.heartbeatCallback = (_f = options === null || options === void 0 ? void 0 : options.heartbeatCallback) !== null && _f !== void 0 ? _f : noop5;
+    this.vsn = (_g = options === null || options === void 0 ? void 0 : options.vsn) !== null && _g !== void 0 ? _g : DEFAULT_VSN;
+    if (options === null || options === void 0 ? void 0 : options.params)
+      this.params = options.params;
+    if (options === null || options === void 0 ? void 0 : options.logger)
+      this.logger = options.logger;
+    if ((options === null || options === void 0 ? void 0 : options.logLevel) || (options === null || options === void 0 ? void 0 : options.log_level)) {
+      this.logLevel = options.logLevel || options.log_level;
+      this.params = Object.assign(Object.assign({}, this.params), { log_level: this.logLevel });
+    }
+    this.reconnectAfterMs = (_h = options === null || options === void 0 ? void 0 : options.reconnectAfterMs) !== null && _h !== void 0 ? _h : (tries) => {
+      return RECONNECT_INTERVALS[tries - 1] || DEFAULT_RECONNECT_FALLBACK;
+    };
+    switch (this.vsn) {
+      case VSN_1_0_0:
+        this.encode = (_j = options === null || options === void 0 ? void 0 : options.encode) !== null && _j !== void 0 ? _j : (payload, callback) => {
+          return callback(JSON.stringify(payload));
+        };
+        this.decode = (_k = options === null || options === void 0 ? void 0 : options.decode) !== null && _k !== void 0 ? _k : (payload, callback) => {
+          return callback(JSON.parse(payload));
+        };
+        break;
+      case VSN_2_0_0:
+        this.encode = (_l = options === null || options === void 0 ? void 0 : options.encode) !== null && _l !== void 0 ? _l : this.serializer.encode.bind(this.serializer);
+        this.decode = (_m = options === null || options === void 0 ? void 0 : options.decode) !== null && _m !== void 0 ? _m : this.serializer.decode.bind(this.serializer);
+        break;
+      default:
+        throw new Error(`Unsupported serializer version: ${this.vsn}`);
+    }
+    if (this.worker) {
+      if (typeof window !== "undefined" && !window.Worker) {
+        throw new Error("Web Worker is not supported");
+      }
+      this.workerUrl = options === null || options === void 0 ? void 0 : options.workerUrl;
+    }
+  }
+};
+
+// node_modules/.pnpm/iceberg-js@0.8.1/node_modules/iceberg-js/dist/index.mjs
+var IcebergError = class extends Error {
+  constructor(message, opts) {
+    super(message);
+    this.name = "IcebergError";
+    this.status = opts.status;
+    this.icebergType = opts.icebergType;
+    this.icebergCode = opts.icebergCode;
+    this.details = opts.details;
+    this.isCommitStateUnknown = opts.icebergType === "CommitStateUnknownException" || [500, 502, 504].includes(opts.status) && opts.icebergType?.includes("CommitState") === true;
+  }
+  /**
+   * Returns true if the error is a 404 Not Found error.
+   */
+  isNotFound() {
+    return this.status === 404;
+  }
+  /**
+   * Returns true if the error is a 409 Conflict error.
+   */
+  isConflict() {
+    return this.status === 409;
+  }
+  /**
+   * Returns true if the error is a 419 Authentication Timeout error.
+   */
+  isAuthenticationTimeout() {
+    return this.status === 419;
+  }
+};
+function buildUrl(baseUrl, path2, query) {
+  const url = new URL(path2, baseUrl);
+  if (query) {
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== void 0) {
+        url.searchParams.set(key, value);
+      }
+    }
+  }
+  return url.toString();
+}
+async function buildAuthHeaders(auth) {
+  if (!auth || auth.type === "none") {
+    return {};
+  }
+  if (auth.type === "bearer") {
+    return { Authorization: `Bearer ${auth.token}` };
+  }
+  if (auth.type === "header") {
+    return { [auth.name]: auth.value };
+  }
+  if (auth.type === "custom") {
+    return await auth.getHeaders();
+  }
+  return {};
+}
+function createFetchClient(options) {
+  const fetchFn = options.fetchImpl ?? globalThis.fetch;
+  return {
+    async request({
+      method,
+      path: path2,
+      query,
+      body,
+      headers
+    }) {
+      const url = buildUrl(options.baseUrl, path2, query);
+      const authHeaders = await buildAuthHeaders(options.auth);
+      const res = await fetchFn(url, {
+        method,
+        headers: {
+          ...body ? { "Content-Type": "application/json" } : {},
+          ...authHeaders,
+          ...headers
+        },
+        body: body ? JSON.stringify(body) : void 0
+      });
+      const text = await res.text();
+      const isJson = (res.headers.get("content-type") || "").includes("application/json");
+      const data = isJson && text ? JSON.parse(text) : text;
+      if (!res.ok) {
+        const errBody = isJson ? data : void 0;
+        const errorDetail = errBody?.error;
+        throw new IcebergError(
+          errorDetail?.message ?? `Request failed with status ${res.status}`,
+          {
+            status: res.status,
+            icebergType: errorDetail?.type,
+            icebergCode: errorDetail?.code,
+            details: errBody
+          }
+        );
+      }
+      return { status: res.status, headers: res.headers, data };
+    }
+  };
+}
+function namespaceToPath(namespace) {
+  return namespace.join("");
+}
+var NamespaceOperations = class {
+  constructor(client, prefix = "") {
+    this.client = client;
+    this.prefix = prefix;
+  }
+  async listNamespaces(parent) {
+    const query = parent ? { parent: namespaceToPath(parent.namespace) } : void 0;
+    const response = await this.client.request({
+      method: "GET",
+      path: `${this.prefix}/namespaces`,
+      query
+    });
+    return response.data.namespaces.map((ns) => ({ namespace: ns }));
+  }
+  async createNamespace(id, metadata) {
+    const request = {
+      namespace: id.namespace,
+      properties: metadata?.properties
+    };
+    const response = await this.client.request({
+      method: "POST",
+      path: `${this.prefix}/namespaces`,
+      body: request
+    });
+    return response.data;
+  }
+  async dropNamespace(id) {
+    await this.client.request({
+      method: "DELETE",
+      path: `${this.prefix}/namespaces/${namespaceToPath(id.namespace)}`
+    });
+  }
+  async loadNamespaceMetadata(id) {
+    const response = await this.client.request({
+      method: "GET",
+      path: `${this.prefix}/namespaces/${namespaceToPath(id.namespace)}`
+    });
+    return {
+      properties: response.data.properties
+    };
+  }
+  async namespaceExists(id) {
+    try {
+      await this.client.request({
+        method: "HEAD",
+        path: `${this.prefix}/namespaces/${namespaceToPath(id.namespace)}`
+      });
+      return true;
+    } catch (error) {
+      if (error instanceof IcebergError && error.status === 404) {
+        return false;
+      }
+      throw error;
+    }
+  }
+  async createNamespaceIfNotExists(id, metadata) {
+    try {
+      return await this.createNamespace(id, metadata);
+    } catch (error) {
+      if (error instanceof IcebergError && error.status === 409) {
+        return;
+      }
+      throw error;
+    }
+  }
+};
+function namespaceToPath2(namespace) {
+  return namespace.join("");
+}
+var TableOperations = class {
+  constructor(client, prefix = "", accessDelegation) {
+    this.client = client;
+    this.prefix = prefix;
+    this.accessDelegation = accessDelegation;
+  }
+  async listTables(namespace) {
+    const response = await this.client.request({
+      method: "GET",
+      path: `${this.prefix}/namespaces/${namespaceToPath2(namespace.namespace)}/tables`
+    });
+    return response.data.identifiers;
+  }
+  async createTable(namespace, request) {
+    const headers = {};
+    if (this.accessDelegation) {
+      headers["X-Iceberg-Access-Delegation"] = this.accessDelegation;
+    }
+    const response = await this.client.request({
+      method: "POST",
+      path: `${this.prefix}/namespaces/${namespaceToPath2(namespace.namespace)}/tables`,
+      body: request,
+      headers
+    });
+    return response.data.metadata;
+  }
+  async updateTable(id, request) {
+    const response = await this.client.request({
+      method: "POST",
+      path: `${this.prefix}/namespaces/${namespaceToPath2(id.namespace)}/tables/${id.name}`,
+      body: request
+    });
+    return {
+      "metadata-location": response.data["metadata-location"],
+      metadata: response.data.metadata
+    };
+  }
+  async dropTable(id, options) {
+    await this.client.request({
+      method: "DELETE",
+      path: `${this.prefix}/namespaces/${namespaceToPath2(id.namespace)}/tables/${id.name}`,
+      query: { purgeRequested: String(options?.purge ?? false) }
+    });
+  }
+  async loadTable(id) {
+    const headers = {};
+    if (this.accessDelegation) {
+      headers["X-Iceberg-Access-Delegation"] = this.accessDelegation;
+    }
+    const response = await this.client.request({
+      method: "GET",
+      path: `${this.prefix}/namespaces/${namespaceToPath2(id.namespace)}/tables/${id.name}`,
+      headers
+    });
+    return response.data.metadata;
+  }
+  async tableExists(id) {
+    const headers = {};
+    if (this.accessDelegation) {
+      headers["X-Iceberg-Access-Delegation"] = this.accessDelegation;
+    }
+    try {
+      await this.client.request({
+        method: "HEAD",
+        path: `${this.prefix}/namespaces/${namespaceToPath2(id.namespace)}/tables/${id.name}`,
+        headers
+      });
+      return true;
+    } catch (error) {
+      if (error instanceof IcebergError && error.status === 404) {
+        return false;
+      }
+      throw error;
+    }
+  }
+  async createTableIfNotExists(namespace, request) {
+    try {
+      return await this.createTable(namespace, request);
+    } catch (error) {
+      if (error instanceof IcebergError && error.status === 409) {
+        return await this.loadTable({ namespace: namespace.namespace, name: request.name });
+      }
+      throw error;
+    }
+  }
+};
+var IcebergRestCatalog = class {
+  /**
+   * Creates a new Iceberg REST Catalog client.
+   *
+   * @param options - Configuration options for the catalog client
+   */
+  constructor(options) {
+    let prefix = "v1";
+    if (options.catalogName) {
+      prefix += `/${options.catalogName}`;
+    }
+    const baseUrl = options.baseUrl.endsWith("/") ? options.baseUrl : `${options.baseUrl}/`;
+    this.client = createFetchClient({
+      baseUrl,
+      auth: options.auth,
+      fetchImpl: options.fetch
+    });
+    this.accessDelegation = options.accessDelegation?.join(",");
+    this.namespaceOps = new NamespaceOperations(this.client, prefix);
+    this.tableOps = new TableOperations(this.client, prefix, this.accessDelegation);
+  }
+  /**
+   * Lists all namespaces in the catalog.
+   *
+   * @param parent - Optional parent namespace to list children under
+   * @returns Array of namespace identifiers
+   *
+   * @example
+   * ```typescript
+   * // List all top-level namespaces
+   * const namespaces = await catalog.listNamespaces();
+   *
+   * // List namespaces under a parent
+   * const children = await catalog.listNamespaces({ namespace: ['analytics'] });
+   * ```
+   */
+  async listNamespaces(parent) {
+    return this.namespaceOps.listNamespaces(parent);
+  }
+  /**
+   * Creates a new namespace in the catalog.
+   *
+   * @param id - Namespace identifier to create
+   * @param metadata - Optional metadata properties for the namespace
+   * @returns Response containing the created namespace and its properties
+   *
+   * @example
+   * ```typescript
+   * const response = await catalog.createNamespace(
+   *   { namespace: ['analytics'] },
+   *   { properties: { owner: 'data-team' } }
+   * );
+   * console.log(response.namespace); // ['analytics']
+   * console.log(response.properties); // { owner: 'data-team', ... }
+   * ```
+   */
+  async createNamespace(id, metadata) {
+    return this.namespaceOps.createNamespace(id, metadata);
+  }
+  /**
+   * Drops a namespace from the catalog.
+   *
+   * The namespace must be empty (contain no tables) before it can be dropped.
+   *
+   * @param id - Namespace identifier to drop
+   *
+   * @example
+   * ```typescript
+   * await catalog.dropNamespace({ namespace: ['analytics'] });
+   * ```
+   */
+  async dropNamespace(id) {
+    await this.namespaceOps.dropNamespace(id);
+  }
+  /**
+   * Loads metadata for a namespace.
+   *
+   * @param id - Namespace identifier to load
+   * @returns Namespace metadata including properties
+   *
+   * @example
+   * ```typescript
+   * const metadata = await catalog.loadNamespaceMetadata({ namespace: ['analytics'] });
+   * console.log(metadata.properties);
+   * ```
+   */
+  async loadNamespaceMetadata(id) {
+    return this.namespaceOps.loadNamespaceMetadata(id);
+  }
+  /**
+   * Lists all tables in a namespace.
+   *
+   * @param namespace - Namespace identifier to list tables from
+   * @returns Array of table identifiers
+   *
+   * @example
+   * ```typescript
+   * const tables = await catalog.listTables({ namespace: ['analytics'] });
+   * console.log(tables); // [{ namespace: ['analytics'], name: 'events' }, ...]
+   * ```
+   */
+  async listTables(namespace) {
+    return this.tableOps.listTables(namespace);
+  }
+  /**
+   * Creates a new table in the catalog.
+   *
+   * @param namespace - Namespace to create the table in
+   * @param request - Table creation request including name, schema, partition spec, etc.
+   * @returns Table metadata for the created table
+   *
+   * @example
+   * ```typescript
+   * const metadata = await catalog.createTable(
+   *   { namespace: ['analytics'] },
+   *   {
+   *     name: 'events',
+   *     schema: {
+   *       type: 'struct',
+   *       fields: [
+   *         { id: 1, name: 'id', type: 'long', required: true },
+   *         { id: 2, name: 'timestamp', type: 'timestamp', required: true }
+   *       ],
+   *       'schema-id': 0
+   *     },
+   *     'partition-spec': {
+   *       'spec-id': 0,
+   *       fields: [
+   *         { source_id: 2, field_id: 1000, name: 'ts_day', transform: 'day' }
+   *       ]
+   *     }
+   *   }
+   * );
+   * ```
+   */
+  async createTable(namespace, request) {
+    return this.tableOps.createTable(namespace, request);
+  }
+  /**
+   * Updates an existing table's metadata.
+   *
+   * Can update the schema, partition spec, or properties of a table.
+   *
+   * @param id - Table identifier to update
+   * @param request - Update request with fields to modify
+   * @returns Response containing the metadata location and updated table metadata
+   *
+   * @example
+   * ```typescript
+   * const response = await catalog.updateTable(
+   *   { namespace: ['analytics'], name: 'events' },
+   *   {
+   *     properties: { 'read.split.target-size': '134217728' }
+   *   }
+   * );
+   * console.log(response['metadata-location']); // s3://...
+   * console.log(response.metadata); // TableMetadata object
+   * ```
+   */
+  async updateTable(id, request) {
+    return this.tableOps.updateTable(id, request);
+  }
+  /**
+   * Drops a table from the catalog.
+   *
+   * @param id - Table identifier to drop
+   *
+   * @example
+   * ```typescript
+   * await catalog.dropTable({ namespace: ['analytics'], name: 'events' });
+   * ```
+   */
+  async dropTable(id, options) {
+    await this.tableOps.dropTable(id, options);
+  }
+  /**
+   * Loads metadata for a table.
+   *
+   * @param id - Table identifier to load
+   * @returns Table metadata including schema, partition spec, location, etc.
+   *
+   * @example
+   * ```typescript
+   * const metadata = await catalog.loadTable({ namespace: ['analytics'], name: 'events' });
+   * console.log(metadata.schema);
+   * console.log(metadata.location);
+   * ```
+   */
+  async loadTable(id) {
+    return this.tableOps.loadTable(id);
+  }
+  /**
+   * Checks if a namespace exists in the catalog.
+   *
+   * @param id - Namespace identifier to check
+   * @returns True if the namespace exists, false otherwise
+   *
+   * @example
+   * ```typescript
+   * const exists = await catalog.namespaceExists({ namespace: ['analytics'] });
+   * console.log(exists); // true or false
+   * ```
+   */
+  async namespaceExists(id) {
+    return this.namespaceOps.namespaceExists(id);
+  }
+  /**
+   * Checks if a table exists in the catalog.
+   *
+   * @param id - Table identifier to check
+   * @returns True if the table exists, false otherwise
+   *
+   * @example
+   * ```typescript
+   * const exists = await catalog.tableExists({ namespace: ['analytics'], name: 'events' });
+   * console.log(exists); // true or false
+   * ```
+   */
+  async tableExists(id) {
+    return this.tableOps.tableExists(id);
+  }
+  /**
+   * Creates a namespace if it does not exist.
+   *
+   * If the namespace already exists, returns void. If created, returns the response.
+   *
+   * @param id - Namespace identifier to create
+   * @param metadata - Optional metadata properties for the namespace
+   * @returns Response containing the created namespace and its properties, or void if it already exists
+   *
+   * @example
+   * ```typescript
+   * const response = await catalog.createNamespaceIfNotExists(
+   *   { namespace: ['analytics'] },
+   *   { properties: { owner: 'data-team' } }
+   * );
+   * if (response) {
+   *   console.log('Created:', response.namespace);
+   * } else {
+   *   console.log('Already exists');
+   * }
+   * ```
+   */
+  async createNamespaceIfNotExists(id, metadata) {
+    return this.namespaceOps.createNamespaceIfNotExists(id, metadata);
+  }
+  /**
+   * Creates a table if it does not exist.
+   *
+   * If the table already exists, returns its metadata instead.
+   *
+   * @param namespace - Namespace to create the table in
+   * @param request - Table creation request including name, schema, partition spec, etc.
+   * @returns Table metadata for the created or existing table
+   *
+   * @example
+   * ```typescript
+   * const metadata = await catalog.createTableIfNotExists(
+   *   { namespace: ['analytics'] },
+   *   {
+   *     name: 'events',
+   *     schema: {
+   *       type: 'struct',
+   *       fields: [
+   *         { id: 1, name: 'id', type: 'long', required: true },
+   *         { id: 2, name: 'timestamp', type: 'timestamp', required: true }
+   *       ],
+   *       'schema-id': 0
+   *     }
+   *   }
+   * );
+   * ```
+   */
+  async createTableIfNotExists(namespace, request) {
+    return this.tableOps.createTableIfNotExists(namespace, request);
+  }
+};
+
+// node_modules/.pnpm/@supabase+storage-js@2.97.0/node_modules/@supabase/storage-js/dist/index.mjs
+var StorageError = class extends Error {
+  constructor(message, namespace = "storage", status, statusCode) {
+    super(message);
+    this.__isStorageError = true;
+    this.namespace = namespace;
+    this.name = namespace === "vectors" ? "StorageVectorsError" : "StorageError";
+    this.status = status;
+    this.statusCode = statusCode;
+  }
+};
+function isStorageError(error) {
+  return typeof error === "object" && error !== null && "__isStorageError" in error;
+}
+var StorageApiError = class extends StorageError {
+  constructor(message, status, statusCode, namespace = "storage") {
+    super(message, namespace, status, statusCode);
+    this.name = namespace === "vectors" ? "StorageVectorsApiError" : "StorageApiError";
+    this.status = status;
+    this.statusCode = statusCode;
+  }
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status: this.status,
+      statusCode: this.statusCode
+    };
+  }
+};
+var StorageUnknownError = class extends StorageError {
+  constructor(message, originalError, namespace = "storage") {
+    super(message, namespace);
+    this.name = namespace === "vectors" ? "StorageVectorsUnknownError" : "StorageUnknownError";
+    this.originalError = originalError;
+  }
+};
+var resolveFetch2 = (customFetch) => {
+  if (customFetch) return (...args) => customFetch(...args);
+  return (...args) => fetch(...args);
+};
+var isPlainObject4 = (value) => {
+  if (typeof value !== "object" || value === null) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
+};
+var recursiveToCamel = (item) => {
+  if (Array.isArray(item)) return item.map((el) => recursiveToCamel(el));
+  else if (typeof item === "function" || item !== Object(item)) return item;
+  const result = {};
+  Object.entries(item).forEach(([key, value]) => {
+    const newKey = key.replace(/([-_][a-z])/gi, (c) => c.toUpperCase().replace(/[-_]/g, ""));
+    result[newKey] = recursiveToCamel(value);
+  });
+  return result;
+};
+var isValidBucketName = (bucketName) => {
+  if (!bucketName || typeof bucketName !== "string") return false;
+  if (bucketName.length === 0 || bucketName.length > 100) return false;
+  if (bucketName.trim() !== bucketName) return false;
+  if (bucketName.includes("/") || bucketName.includes("\\")) return false;
+  return /^[\w!.\*'() &$@=;:+,?-]+$/.test(bucketName);
+};
+function _typeof2(o) {
+  "@babel/helpers - typeof";
+  return _typeof2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o$1) {
+    return typeof o$1;
+  } : function(o$1) {
+    return o$1 && "function" == typeof Symbol && o$1.constructor === Symbol && o$1 !== Symbol.prototype ? "symbol" : typeof o$1;
+  }, _typeof2(o);
+}
+function toPrimitive2(t, r2) {
+  if ("object" != _typeof2(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r2 || "default");
+    if ("object" != _typeof2(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t);
+}
+function toPropertyKey2(t) {
+  var i = toPrimitive2(t, "string");
+  return "symbol" == _typeof2(i) ? i : i + "";
+}
+function _defineProperty35(e, r2, t) {
+  return (r2 = toPropertyKey2(r2)) in e ? Object.defineProperty(e, r2, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r2] = t, e;
+}
+function ownKeys33(e, r2) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r2 && (o = o.filter(function(r$1) {
+      return Object.getOwnPropertyDescriptor(e, r$1).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread211(e) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys33(Object(t), true).forEach(function(r$1) {
+      _defineProperty35(e, r$1, t[r$1]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys33(Object(t)).forEach(function(r$1) {
+      Object.defineProperty(e, r$1, Object.getOwnPropertyDescriptor(t, r$1));
+    });
+  }
+  return e;
+}
+var _getErrorMessage = (err) => {
+  var _err$error;
+  return err.msg || err.message || err.error_description || (typeof err.error === "string" ? err.error : (_err$error = err.error) === null || _err$error === void 0 ? void 0 : _err$error.message) || JSON.stringify(err);
+};
+var handleError = async (error, reject, options, namespace) => {
+  if (error && typeof error === "object" && "status" in error && "ok" in error && typeof error.status === "number" && !(options === null || options === void 0 ? void 0 : options.noResolveJson)) {
+    const responseError = error;
+    const status = responseError.status || 500;
+    if (typeof responseError.json === "function") responseError.json().then((err) => {
+      const statusCode = (err === null || err === void 0 ? void 0 : err.statusCode) || (err === null || err === void 0 ? void 0 : err.code) || status + "";
+      reject(new StorageApiError(_getErrorMessage(err), status, statusCode, namespace));
+    }).catch(() => {
+      if (namespace === "vectors") {
+        const statusCode = status + "";
+        reject(new StorageApiError(responseError.statusText || `HTTP ${status} error`, status, statusCode, namespace));
+      } else {
+        const statusCode = status + "";
+        reject(new StorageApiError(responseError.statusText || `HTTP ${status} error`, status, statusCode, namespace));
+      }
+    });
+    else {
+      const statusCode = status + "";
+      reject(new StorageApiError(responseError.statusText || `HTTP ${status} error`, status, statusCode, namespace));
+    }
+  } else reject(new StorageUnknownError(_getErrorMessage(error), error, namespace));
+};
+var _getRequestParams = (method, options, parameters, body) => {
+  const params = {
+    method,
+    headers: (options === null || options === void 0 ? void 0 : options.headers) || {}
+  };
+  if (method === "GET" || method === "HEAD" || !body) return _objectSpread211(_objectSpread211({}, params), parameters);
+  if (isPlainObject4(body)) {
+    params.headers = _objectSpread211({ "Content-Type": "application/json" }, options === null || options === void 0 ? void 0 : options.headers);
+    params.body = JSON.stringify(body);
+  } else params.body = body;
+  if (options === null || options === void 0 ? void 0 : options.duplex) params.duplex = options.duplex;
+  return _objectSpread211(_objectSpread211({}, params), parameters);
+};
+async function _handleRequest(fetcher, method, url, options, parameters, body, namespace) {
+  return new Promise((resolve, reject) => {
+    fetcher(url, _getRequestParams(method, options, parameters, body)).then((result) => {
+      if (!result.ok) throw result;
+      if (options === null || options === void 0 ? void 0 : options.noResolveJson) return result;
+      if (namespace === "vectors") {
+        const contentType = result.headers.get("content-type");
+        if (result.headers.get("content-length") === "0" || result.status === 204) return {};
+        if (!contentType || !contentType.includes("application/json")) return {};
+      }
+      return result.json();
+    }).then((data) => resolve(data)).catch((error) => handleError(error, reject, options, namespace));
+  });
+}
+function createFetchApi(namespace = "storage") {
+  return {
+    get: async (fetcher, url, options, parameters) => {
+      return _handleRequest(fetcher, "GET", url, options, parameters, void 0, namespace);
+    },
+    post: async (fetcher, url, body, options, parameters) => {
+      return _handleRequest(fetcher, "POST", url, options, parameters, body, namespace);
+    },
+    put: async (fetcher, url, body, options, parameters) => {
+      return _handleRequest(fetcher, "PUT", url, options, parameters, body, namespace);
+    },
+    head: async (fetcher, url, options, parameters) => {
+      return _handleRequest(fetcher, "HEAD", url, _objectSpread211(_objectSpread211({}, options), {}, { noResolveJson: true }), parameters, void 0, namespace);
+    },
+    remove: async (fetcher, url, body, options, parameters) => {
+      return _handleRequest(fetcher, "DELETE", url, options, parameters, body, namespace);
+    }
+  };
+}
+var defaultApi = createFetchApi("storage");
+var { get: get5, post, put, head, remove } = defaultApi;
+var vectorsApi = createFetchApi("vectors");
+var BaseApiClient = class {
+  /**
+  * Creates a new BaseApiClient instance
+  * @param url - Base URL for API requests
+  * @param headers - Default headers for API requests
+  * @param fetch - Optional custom fetch implementation
+  * @param namespace - Error namespace ('storage' or 'vectors')
+  */
+  constructor(url, headers = {}, fetch$1, namespace = "storage") {
+    this.shouldThrowOnError = false;
+    this.url = url;
+    this.headers = headers;
+    this.fetch = resolveFetch2(fetch$1);
+    this.namespace = namespace;
+  }
+  /**
+  * Enable throwing errors instead of returning them.
+  * When enabled, errors are thrown instead of returned in { data, error } format.
+  *
+  * @returns this - For method chaining
+  */
+  throwOnError() {
+    this.shouldThrowOnError = true;
+    return this;
+  }
+  /**
+  * Set an HTTP header for the request.
+  * Creates a shallow copy of headers to avoid mutating shared state.
+  *
+  * @param name - Header name
+  * @param value - Header value
+  * @returns this - For method chaining
+  */
+  setHeader(name, value) {
+    this.headers = _objectSpread211(_objectSpread211({}, this.headers), {}, { [name]: value });
+    return this;
+  }
+  /**
+  * Handles API operation with standardized error handling
+  * Eliminates repetitive try-catch blocks across all API methods
+  *
+  * This wrapper:
+  * 1. Executes the operation
+  * 2. Returns { data, error: null } on success
+  * 3. Returns { data: null, error } on failure (if shouldThrowOnError is false)
+  * 4. Throws error on failure (if shouldThrowOnError is true)
+  *
+  * @typeParam T - The expected data type from the operation
+  * @param operation - Async function that performs the API call
+  * @returns Promise with { data, error } tuple
+  *
+  * @example
+  * ```typescript
+  * async listBuckets() {
+  *   return this.handleOperation(async () => {
+  *     return await get(this.fetch, `${this.url}/bucket`, {
+  *       headers: this.headers,
+  *     })
+  *   })
+  * }
+  * ```
+  */
+  async handleOperation(operation) {
+    var _this = this;
+    try {
+      return {
+        data: await operation(),
+        error: null
+      };
+    } catch (error) {
+      if (_this.shouldThrowOnError) throw error;
+      if (isStorageError(error)) return {
+        data: null,
+        error
+      };
+      throw error;
+    }
+  }
+};
+var StreamDownloadBuilder = class {
+  constructor(downloadFn, shouldThrowOnError) {
+    this.downloadFn = downloadFn;
+    this.shouldThrowOnError = shouldThrowOnError;
+  }
+  then(onfulfilled, onrejected) {
+    return this.execute().then(onfulfilled, onrejected);
+  }
+  async execute() {
+    var _this = this;
+    try {
+      return {
+        data: (await _this.downloadFn()).body,
+        error: null
+      };
+    } catch (error) {
+      if (_this.shouldThrowOnError) throw error;
+      if (isStorageError(error)) return {
+        data: null,
+        error
+      };
+      throw error;
+    }
+  }
+};
+var _Symbol$toStringTag;
+_Symbol$toStringTag = Symbol.toStringTag;
+var BlobDownloadBuilder = class {
+  constructor(downloadFn, shouldThrowOnError) {
+    this.downloadFn = downloadFn;
+    this.shouldThrowOnError = shouldThrowOnError;
+    this[_Symbol$toStringTag] = "BlobDownloadBuilder";
+    this.promise = null;
+  }
+  asStream() {
+    return new StreamDownloadBuilder(this.downloadFn, this.shouldThrowOnError);
+  }
+  then(onfulfilled, onrejected) {
+    return this.getPromise().then(onfulfilled, onrejected);
+  }
+  catch(onrejected) {
+    return this.getPromise().catch(onrejected);
+  }
+  finally(onfinally) {
+    return this.getPromise().finally(onfinally);
+  }
+  getPromise() {
+    if (!this.promise) this.promise = this.execute();
+    return this.promise;
+  }
+  async execute() {
+    var _this = this;
+    try {
+      return {
+        data: await (await _this.downloadFn()).blob(),
+        error: null
+      };
+    } catch (error) {
+      if (_this.shouldThrowOnError) throw error;
+      if (isStorageError(error)) return {
+        data: null,
+        error
+      };
+      throw error;
+    }
+  }
+};
+var DEFAULT_SEARCH_OPTIONS = {
+  limit: 100,
+  offset: 0,
+  sortBy: {
+    column: "name",
+    order: "asc"
+  }
+};
+var DEFAULT_FILE_OPTIONS = {
+  cacheControl: "3600",
+  contentType: "text/plain;charset=UTF-8",
+  upsert: false
+};
+var StorageFileApi = class extends BaseApiClient {
+  constructor(url, headers = {}, bucketId, fetch$1) {
+    super(url, headers, fetch$1, "storage");
+    this.bucketId = bucketId;
+  }
+  /**
+  * Uploads a file to an existing bucket or replaces an existing file at the specified path with a new one.
+  *
+  * @param method HTTP method.
+  * @param path The relative file path. Should be of the format `folder/subfolder/filename.png`. The bucket must already exist before attempting to upload.
+  * @param fileBody The body of the file to be stored in the bucket.
+  */
+  async uploadOrUpdate(method, path2, fileBody, fileOptions) {
+    var _this = this;
+    return _this.handleOperation(async () => {
+      let body;
+      const options = _objectSpread211(_objectSpread211({}, DEFAULT_FILE_OPTIONS), fileOptions);
+      let headers = _objectSpread211(_objectSpread211({}, _this.headers), method === "POST" && { "x-upsert": String(options.upsert) });
+      const metadata = options.metadata;
+      if (typeof Blob !== "undefined" && fileBody instanceof Blob) {
+        body = new FormData();
+        body.append("cacheControl", options.cacheControl);
+        if (metadata) body.append("metadata", _this.encodeMetadata(metadata));
+        body.append("", fileBody);
+      } else if (typeof FormData !== "undefined" && fileBody instanceof FormData) {
+        body = fileBody;
+        if (!body.has("cacheControl")) body.append("cacheControl", options.cacheControl);
+        if (metadata && !body.has("metadata")) body.append("metadata", _this.encodeMetadata(metadata));
+      } else {
+        body = fileBody;
+        headers["cache-control"] = `max-age=${options.cacheControl}`;
+        headers["content-type"] = options.contentType;
+        if (metadata) headers["x-metadata"] = _this.toBase64(_this.encodeMetadata(metadata));
+        if ((typeof ReadableStream !== "undefined" && body instanceof ReadableStream || body && typeof body === "object" && "pipe" in body && typeof body.pipe === "function") && !options.duplex) options.duplex = "half";
+      }
+      if (fileOptions === null || fileOptions === void 0 ? void 0 : fileOptions.headers) headers = _objectSpread211(_objectSpread211({}, headers), fileOptions.headers);
+      const cleanPath = _this._removeEmptyFolders(path2);
+      const _path = _this._getFinalPath(cleanPath);
+      const data = await (method == "PUT" ? put : post)(_this.fetch, `${_this.url}/object/${_path}`, body, _objectSpread211({ headers }, (options === null || options === void 0 ? void 0 : options.duplex) ? { duplex: options.duplex } : {}));
+      return {
+        path: cleanPath,
+        id: data.Id,
+        fullPath: data.Key
+      };
+    });
+  }
+  /**
+  * Uploads a file to an existing bucket.
+  *
+  * @category File Buckets
+  * @param path The file path, including the file name. Should be of the format `folder/subfolder/filename.png`. The bucket must already exist before attempting to upload.
+  * @param fileBody The body of the file to be stored in the bucket.
+  * @param fileOptions Optional file upload options including cacheControl, contentType, upsert, and metadata.
+  * @returns Promise with response containing file path, id, and fullPath or error
+  *
+  * @example Upload file
+  * ```js
+  * const avatarFile = event.target.files[0]
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .upload('public/avatar1.png', avatarFile, {
+  *     cacheControl: '3600',
+  *     upsert: false
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "path": "public/avatar1.png",
+  *     "fullPath": "avatars/public/avatar1.png"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  *
+  * @example Upload file using `ArrayBuffer` from base64 file data
+  * ```js
+  * import { decode } from 'base64-arraybuffer'
+  *
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .upload('public/avatar1.png', decode('base64FileData'), {
+  *     contentType: 'image/png'
+  *   })
+  * ```
+  */
+  async upload(path2, fileBody, fileOptions) {
+    return this.uploadOrUpdate("POST", path2, fileBody, fileOptions);
+  }
+  /**
+  * Upload a file with a token generated from `createSignedUploadUrl`.
+  *
+  * @category File Buckets
+  * @param path The file path, including the file name. Should be of the format `folder/subfolder/filename.png`. The bucket must already exist before attempting to upload.
+  * @param token The token generated from `createSignedUploadUrl`
+  * @param fileBody The body of the file to be stored in the bucket.
+  * @param fileOptions HTTP headers (cacheControl, contentType, etc.).
+  * **Note:** The `upsert` option has no effect here. To enable upsert behavior,
+  * pass `{ upsert: true }` when calling `createSignedUploadUrl()` instead.
+  * @returns Promise with response containing file path and fullPath or error
+  *
+  * @example Upload to a signed URL
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .uploadToSignedUrl('folder/cat.jpg', 'token-from-createSignedUploadUrl', file)
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "path": "folder/cat.jpg",
+  *     "fullPath": "avatars/folder/cat.jpg"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async uploadToSignedUrl(path2, token, fileBody, fileOptions) {
+    var _this3 = this;
+    const cleanPath = _this3._removeEmptyFolders(path2);
+    const _path = _this3._getFinalPath(cleanPath);
+    const url = new URL(_this3.url + `/object/upload/sign/${_path}`);
+    url.searchParams.set("token", token);
+    return _this3.handleOperation(async () => {
+      let body;
+      const options = _objectSpread211({ upsert: DEFAULT_FILE_OPTIONS.upsert }, fileOptions);
+      const headers = _objectSpread211(_objectSpread211({}, _this3.headers), { "x-upsert": String(options.upsert) });
+      if (typeof Blob !== "undefined" && fileBody instanceof Blob) {
+        body = new FormData();
+        body.append("cacheControl", options.cacheControl);
+        body.append("", fileBody);
+      } else if (typeof FormData !== "undefined" && fileBody instanceof FormData) {
+        body = fileBody;
+        body.append("cacheControl", options.cacheControl);
+      } else {
+        body = fileBody;
+        headers["cache-control"] = `max-age=${options.cacheControl}`;
+        headers["content-type"] = options.contentType;
+      }
+      return {
+        path: cleanPath,
+        fullPath: (await put(_this3.fetch, url.toString(), body, { headers })).Key
+      };
+    });
+  }
+  /**
+  * Creates a signed upload URL.
+  * Signed upload URLs can be used to upload files to the bucket without further authentication.
+  * They are valid for 2 hours.
+  *
+  * @category File Buckets
+  * @param path The file path, including the current file name. For example `folder/image.png`.
+  * @param options.upsert If set to true, allows the file to be overwritten if it already exists.
+  * @returns Promise with response containing signed upload URL, token, and path or error
+  *
+  * @example Create Signed Upload URL
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .createSignedUploadUrl('folder/cat.jpg')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "signedUrl": "https://example.supabase.co/storage/v1/object/upload/sign/avatars/folder/cat.jpg?token=<TOKEN>",
+  *     "path": "folder/cat.jpg",
+  *     "token": "<TOKEN>"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async createSignedUploadUrl(path2, options) {
+    var _this4 = this;
+    return _this4.handleOperation(async () => {
+      let _path = _this4._getFinalPath(path2);
+      const headers = _objectSpread211({}, _this4.headers);
+      if (options === null || options === void 0 ? void 0 : options.upsert) headers["x-upsert"] = "true";
+      const data = await post(_this4.fetch, `${_this4.url}/object/upload/sign/${_path}`, {}, { headers });
+      const url = new URL(_this4.url + data.url);
+      const token = url.searchParams.get("token");
+      if (!token) throw new StorageError("No token returned by API");
+      return {
+        signedUrl: url.toString(),
+        path: path2,
+        token
+      };
+    });
+  }
+  /**
+  * Replaces an existing file at the specified path with a new one.
+  *
+  * @category File Buckets
+  * @param path The relative file path. Should be of the format `folder/subfolder/filename.png`. The bucket must already exist before attempting to update.
+  * @param fileBody The body of the file to be stored in the bucket.
+  * @param fileOptions Optional file upload options including cacheControl, contentType, upsert, and metadata.
+  * @returns Promise with response containing file path, id, and fullPath or error
+  *
+  * @example Update file
+  * ```js
+  * const avatarFile = event.target.files[0]
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .update('public/avatar1.png', avatarFile, {
+  *     cacheControl: '3600',
+  *     upsert: true
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "path": "public/avatar1.png",
+  *     "fullPath": "avatars/public/avatar1.png"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  *
+  * @example Update file using `ArrayBuffer` from base64 file data
+  * ```js
+  * import {decode} from 'base64-arraybuffer'
+  *
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .update('public/avatar1.png', decode('base64FileData'), {
+  *     contentType: 'image/png'
+  *   })
+  * ```
+  */
+  async update(path2, fileBody, fileOptions) {
+    return this.uploadOrUpdate("PUT", path2, fileBody, fileOptions);
+  }
+  /**
+  * Moves an existing file to a new path in the same bucket.
+  *
+  * @category File Buckets
+  * @param fromPath The original file path, including the current file name. For example `folder/image.png`.
+  * @param toPath The new file path, including the new file name. For example `folder/image-new.png`.
+  * @param options The destination options.
+  * @returns Promise with response containing success message or error
+  *
+  * @example Move file
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .move('public/avatar1.png', 'private/avatar2.png')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "message": "Successfully moved"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async move(fromPath, toPath, options) {
+    var _this6 = this;
+    return _this6.handleOperation(async () => {
+      return await post(_this6.fetch, `${_this6.url}/object/move`, {
+        bucketId: _this6.bucketId,
+        sourceKey: fromPath,
+        destinationKey: toPath,
+        destinationBucket: options === null || options === void 0 ? void 0 : options.destinationBucket
+      }, { headers: _this6.headers });
+    });
+  }
+  /**
+  * Copies an existing file to a new path in the same bucket.
+  *
+  * @category File Buckets
+  * @param fromPath The original file path, including the current file name. For example `folder/image.png`.
+  * @param toPath The new file path, including the new file name. For example `folder/image-copy.png`.
+  * @param options The destination options.
+  * @returns Promise with response containing copied file path or error
+  *
+  * @example Copy file
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .copy('public/avatar1.png', 'private/avatar2.png')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "path": "avatars/private/avatar2.png"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async copy(fromPath, toPath, options) {
+    var _this7 = this;
+    return _this7.handleOperation(async () => {
+      return { path: (await post(_this7.fetch, `${_this7.url}/object/copy`, {
+        bucketId: _this7.bucketId,
+        sourceKey: fromPath,
+        destinationKey: toPath,
+        destinationBucket: options === null || options === void 0 ? void 0 : options.destinationBucket
+      }, { headers: _this7.headers })).Key };
+    });
+  }
+  /**
+  * Creates a signed URL. Use a signed URL to share a file for a fixed amount of time.
+  *
+  * @category File Buckets
+  * @param path The file path, including the current file name. For example `folder/image.png`.
+  * @param expiresIn The number of seconds until the signed URL expires. For example, `60` for a URL which is valid for one minute.
+  * @param options.download triggers the file as a download if set to true. Set this parameter as the name of the file if you want to trigger the download with a different filename.
+  * @param options.transform Transform the asset before serving it to the client.
+  * @returns Promise with response containing signed URL or error
+  *
+  * @example Create Signed URL
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .createSignedUrl('folder/avatar1.png', 60)
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "signedUrl": "https://example.supabase.co/storage/v1/object/sign/avatars/folder/avatar1.png?token=<TOKEN>"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  *
+  * @example Create a signed URL for an asset with transformations
+  * ```js
+  * const { data } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .createSignedUrl('folder/avatar1.png', 60, {
+  *     transform: {
+  *       width: 100,
+  *       height: 100,
+  *     }
+  *   })
+  * ```
+  *
+  * @example Create a signed URL which triggers the download of the asset
+  * ```js
+  * const { data } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .createSignedUrl('folder/avatar1.png', 60, {
+  *     download: true,
+  *   })
+  * ```
+  */
+  async createSignedUrl(path2, expiresIn, options) {
+    var _this8 = this;
+    return _this8.handleOperation(async () => {
+      let _path = _this8._getFinalPath(path2);
+      let data = await post(_this8.fetch, `${_this8.url}/object/sign/${_path}`, _objectSpread211({ expiresIn }, (options === null || options === void 0 ? void 0 : options.transform) ? { transform: options.transform } : {}), { headers: _this8.headers });
+      const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `&download=${options.download === true ? "" : options.download}` : "";
+      return { signedUrl: encodeURI(`${_this8.url}${data.signedURL}${downloadQueryParam}`) };
+    });
+  }
+  /**
+  * Creates multiple signed URLs. Use a signed URL to share a file for a fixed amount of time.
+  *
+  * @category File Buckets
+  * @param paths The file paths to be downloaded, including the current file names. For example `['folder/image.png', 'folder2/image2.png']`.
+  * @param expiresIn The number of seconds until the signed URLs expire. For example, `60` for URLs which are valid for one minute.
+  * @param options.download triggers the file as a download if set to true. Set this parameter as the name of the file if you want to trigger the download with a different filename.
+  * @returns Promise with response containing array of objects with signedUrl, path, and error or error
+  *
+  * @example Create Signed URLs
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .createSignedUrls(['folder/avatar1.png', 'folder/avatar2.png'], 60)
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": [
+  *     {
+  *       "error": null,
+  *       "path": "folder/avatar1.png",
+  *       "signedURL": "/object/sign/avatars/folder/avatar1.png?token=<TOKEN>",
+  *       "signedUrl": "https://example.supabase.co/storage/v1/object/sign/avatars/folder/avatar1.png?token=<TOKEN>"
+  *     },
+  *     {
+  *       "error": null,
+  *       "path": "folder/avatar2.png",
+  *       "signedURL": "/object/sign/avatars/folder/avatar2.png?token=<TOKEN>",
+  *       "signedUrl": "https://example.supabase.co/storage/v1/object/sign/avatars/folder/avatar2.png?token=<TOKEN>"
+  *     }
+  *   ],
+  *   "error": null
+  * }
+  * ```
+  */
+  async createSignedUrls(paths, expiresIn, options) {
+    var _this9 = this;
+    return _this9.handleOperation(async () => {
+      const data = await post(_this9.fetch, `${_this9.url}/object/sign/${_this9.bucketId}`, {
+        expiresIn,
+        paths
+      }, { headers: _this9.headers });
+      const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `&download=${options.download === true ? "" : options.download}` : "";
+      return data.map((datum) => _objectSpread211(_objectSpread211({}, datum), {}, { signedUrl: datum.signedURL ? encodeURI(`${_this9.url}${datum.signedURL}${downloadQueryParam}`) : null }));
+    });
+  }
+  /**
+  * Downloads a file from a private bucket. For public buckets, make a request to the URL returned from `getPublicUrl` instead.
+  *
+  * @category File Buckets
+  * @param path The full path and file name of the file to be downloaded. For example `folder/image.png`.
+  * @param options.transform Transform the asset before serving it to the client.
+  * @param parameters Additional fetch parameters like signal for cancellation. Supports standard fetch options including cache control.
+  * @returns BlobDownloadBuilder instance for downloading the file
+  *
+  * @example Download file
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .download('folder/avatar1.png')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": <BLOB>,
+  *   "error": null
+  * }
+  * ```
+  *
+  * @example Download file with transformations
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .download('folder/avatar1.png', {
+  *     transform: {
+  *       width: 100,
+  *       height: 100,
+  *       quality: 80
+  *     }
+  *   })
+  * ```
+  *
+  * @example Download with cache control (useful in Edge Functions)
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .download('folder/avatar1.png', {}, { cache: 'no-store' })
+  * ```
+  *
+  * @example Download with abort signal
+  * ```js
+  * const controller = new AbortController()
+  * setTimeout(() => controller.abort(), 5000)
+  *
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .download('folder/avatar1.png', {}, { signal: controller.signal })
+  * ```
+  */
+  download(path2, options, parameters) {
+    const renderPath = typeof (options === null || options === void 0 ? void 0 : options.transform) !== "undefined" ? "render/image/authenticated" : "object";
+    const transformationQuery = this.transformOptsToQueryString((options === null || options === void 0 ? void 0 : options.transform) || {});
+    const queryString = transformationQuery ? `?${transformationQuery}` : "";
+    const _path = this._getFinalPath(path2);
+    const downloadFn = () => get5(this.fetch, `${this.url}/${renderPath}/${_path}${queryString}`, {
+      headers: this.headers,
+      noResolveJson: true
+    }, parameters);
+    return new BlobDownloadBuilder(downloadFn, this.shouldThrowOnError);
+  }
+  /**
+  * Retrieves the details of an existing file.
+  *
+  * @category File Buckets
+  * @param path The file path, including the file name. For example `folder/image.png`.
+  * @returns Promise with response containing file metadata or error
+  *
+  * @example Get file info
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .info('folder/avatar1.png')
+  * ```
+  */
+  async info(path2) {
+    var _this10 = this;
+    const _path = _this10._getFinalPath(path2);
+    return _this10.handleOperation(async () => {
+      return recursiveToCamel(await get5(_this10.fetch, `${_this10.url}/object/info/${_path}`, { headers: _this10.headers }));
+    });
+  }
+  /**
+  * Checks the existence of a file.
+  *
+  * @category File Buckets
+  * @param path The file path, including the file name. For example `folder/image.png`.
+  * @returns Promise with response containing boolean indicating file existence or error
+  *
+  * @example Check file existence
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .exists('folder/avatar1.png')
+  * ```
+  */
+  async exists(path2) {
+    var _this11 = this;
+    const _path = _this11._getFinalPath(path2);
+    try {
+      await head(_this11.fetch, `${_this11.url}/object/${_path}`, { headers: _this11.headers });
+      return {
+        data: true,
+        error: null
+      };
+    } catch (error) {
+      if (_this11.shouldThrowOnError) throw error;
+      if (isStorageError(error) && error instanceof StorageUnknownError) {
+        const originalError = error.originalError;
+        if ([400, 404].includes(originalError === null || originalError === void 0 ? void 0 : originalError.status)) return {
+          data: false,
+          error
+        };
+      }
+      throw error;
+    }
+  }
+  /**
+  * A simple convenience function to get the URL for an asset in a public bucket. If you do not want to use this function, you can construct the public URL by concatenating the bucket URL with the path to the asset.
+  * This function does not verify if the bucket is public. If a public URL is created for a bucket which is not public, you will not be able to download the asset.
+  *
+  * @category File Buckets
+  * @param path The path and name of the file to generate the public URL for. For example `folder/image.png`.
+  * @param options.download Triggers the file as a download if set to true. Set this parameter as the name of the file if you want to trigger the download with a different filename.
+  * @param options.transform Transform the asset before serving it to the client.
+  * @returns Object with public URL
+  *
+  * @example Returns the URL for an asset in a public bucket
+  * ```js
+  * const { data } = supabase
+  *   .storage
+  *   .from('public-bucket')
+  *   .getPublicUrl('folder/avatar1.png')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "publicUrl": "https://example.supabase.co/storage/v1/object/public/public-bucket/folder/avatar1.png"
+  *   }
+  * }
+  * ```
+  *
+  * @example Returns the URL for an asset in a public bucket with transformations
+  * ```js
+  * const { data } = supabase
+  *   .storage
+  *   .from('public-bucket')
+  *   .getPublicUrl('folder/avatar1.png', {
+  *     transform: {
+  *       width: 100,
+  *       height: 100,
+  *     }
+  *   })
+  * ```
+  *
+  * @example Returns the URL which triggers the download of an asset in a public bucket
+  * ```js
+  * const { data } = supabase
+  *   .storage
+  *   .from('public-bucket')
+  *   .getPublicUrl('folder/avatar1.png', {
+  *     download: true,
+  *   })
+  * ```
+  */
+  getPublicUrl(path2, options) {
+    const _path = this._getFinalPath(path2);
+    const _queryString = [];
+    const downloadQueryParam = (options === null || options === void 0 ? void 0 : options.download) ? `download=${options.download === true ? "" : options.download}` : "";
+    if (downloadQueryParam !== "") _queryString.push(downloadQueryParam);
+    const renderPath = typeof (options === null || options === void 0 ? void 0 : options.transform) !== "undefined" ? "render/image" : "object";
+    const transformationQuery = this.transformOptsToQueryString((options === null || options === void 0 ? void 0 : options.transform) || {});
+    if (transformationQuery !== "") _queryString.push(transformationQuery);
+    let queryString = _queryString.join("&");
+    if (queryString !== "") queryString = `?${queryString}`;
+    return { data: { publicUrl: encodeURI(`${this.url}/${renderPath}/public/${_path}${queryString}`) } };
+  }
+  /**
+  * Deletes files within the same bucket
+  *
+  * @category File Buckets
+  * @param paths An array of files to delete, including the path and file name. For example [`'folder/image.png'`].
+  * @returns Promise with response containing array of deleted file objects or error
+  *
+  * @example Delete file
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .remove(['folder/avatar1.png'])
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": [],
+  *   "error": null
+  * }
+  * ```
+  */
+  async remove(paths) {
+    var _this12 = this;
+    return _this12.handleOperation(async () => {
+      return await remove(_this12.fetch, `${_this12.url}/object/${_this12.bucketId}`, { prefixes: paths }, { headers: _this12.headers });
+    });
+  }
+  /**
+  * Get file metadata
+  * @param id the file id to retrieve metadata
+  */
+  /**
+  * Update file metadata
+  * @param id the file id to update metadata
+  * @param meta the new file metadata
+  */
+  /**
+  * Lists all the files and folders within a path of the bucket.
+  *
+  * @category File Buckets
+  * @param path The folder path.
+  * @param options Search options including limit (defaults to 100), offset, sortBy, and search
+  * @param parameters Optional fetch parameters including signal for cancellation
+  * @returns Promise with response containing array of files or error
+  *
+  * @example List files in a bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .list('folder', {
+  *     limit: 100,
+  *     offset: 0,
+  *     sortBy: { column: 'name', order: 'asc' },
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": [
+  *     {
+  *       "name": "avatar1.png",
+  *       "id": "e668cf7f-821b-4a2f-9dce-7dfa5dd1cfd2",
+  *       "updated_at": "2024-05-22T23:06:05.580Z",
+  *       "created_at": "2024-05-22T23:04:34.443Z",
+  *       "last_accessed_at": "2024-05-22T23:04:34.443Z",
+  *       "metadata": {
+  *         "eTag": "\"c5e8c553235d9af30ef4f6e280790b92\"",
+  *         "size": 32175,
+  *         "mimetype": "image/png",
+  *         "cacheControl": "max-age=3600",
+  *         "lastModified": "2024-05-22T23:06:05.574Z",
+  *         "contentLength": 32175,
+  *         "httpStatusCode": 200
+  *       }
+  *     }
+  *   ],
+  *   "error": null
+  * }
+  * ```
+  *
+  * @example Search files in a bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .from('avatars')
+  *   .list('folder', {
+  *     limit: 100,
+  *     offset: 0,
+  *     sortBy: { column: 'name', order: 'asc' },
+  *     search: 'jon'
+  *   })
+  * ```
+  */
+  async list(path2, options, parameters) {
+    var _this13 = this;
+    return _this13.handleOperation(async () => {
+      const body = _objectSpread211(_objectSpread211(_objectSpread211({}, DEFAULT_SEARCH_OPTIONS), options), {}, { prefix: path2 || "" });
+      return await post(_this13.fetch, `${_this13.url}/object/list/${_this13.bucketId}`, body, { headers: _this13.headers }, parameters);
+    });
+  }
+  /**
+  * @experimental this method signature might change in the future
+  *
+  * @category File Buckets
+  * @param options search options
+  * @param parameters
+  */
+  async listV2(options, parameters) {
+    var _this14 = this;
+    return _this14.handleOperation(async () => {
+      const body = _objectSpread211({}, options);
+      return await post(_this14.fetch, `${_this14.url}/object/list-v2/${_this14.bucketId}`, body, { headers: _this14.headers }, parameters);
+    });
+  }
+  encodeMetadata(metadata) {
+    return JSON.stringify(metadata);
+  }
+  toBase64(data) {
+    if (typeof Buffer !== "undefined") return Buffer.from(data).toString("base64");
+    return btoa(data);
+  }
+  _getFinalPath(path2) {
+    return `${this.bucketId}/${path2.replace(/^\/+/, "")}`;
+  }
+  _removeEmptyFolders(path2) {
+    return path2.replace(/^\/|\/$/g, "").replace(/\/+/g, "/");
+  }
+  transformOptsToQueryString(transform) {
+    const params = [];
+    if (transform.width) params.push(`width=${transform.width}`);
+    if (transform.height) params.push(`height=${transform.height}`);
+    if (transform.resize) params.push(`resize=${transform.resize}`);
+    if (transform.format) params.push(`format=${transform.format}`);
+    if (transform.quality) params.push(`quality=${transform.quality}`);
+    return params.join("&");
+  }
+};
+var version3 = "2.97.0";
+var DEFAULT_HEADERS = { "X-Client-Info": `storage-js/${version3}` };
+var StorageBucketApi = class extends BaseApiClient {
+  constructor(url, headers = {}, fetch$1, opts) {
+    const baseUrl = new URL(url);
+    if (opts === null || opts === void 0 ? void 0 : opts.useNewHostname) {
+      if (/supabase\.(co|in|red)$/.test(baseUrl.hostname) && !baseUrl.hostname.includes("storage.supabase.")) baseUrl.hostname = baseUrl.hostname.replace("supabase.", "storage.supabase.");
+    }
+    const finalUrl = baseUrl.href.replace(/\/$/, "");
+    const finalHeaders = _objectSpread211(_objectSpread211({}, DEFAULT_HEADERS), headers);
+    super(finalUrl, finalHeaders, fetch$1, "storage");
+  }
+  /**
+  * Retrieves the details of all Storage buckets within an existing project.
+  *
+  * @category File Buckets
+  * @param options Query parameters for listing buckets
+  * @param options.limit Maximum number of buckets to return
+  * @param options.offset Number of buckets to skip
+  * @param options.sortColumn Column to sort by ('id', 'name', 'created_at', 'updated_at')
+  * @param options.sortOrder Sort order ('asc' or 'desc')
+  * @param options.search Search term to filter bucket names
+  * @returns Promise with response containing array of buckets or error
+  *
+  * @example List buckets
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .listBuckets()
+  * ```
+  *
+  * @example List buckets with options
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .listBuckets({
+  *     limit: 10,
+  *     offset: 0,
+  *     sortColumn: 'created_at',
+  *     sortOrder: 'desc',
+  *     search: 'prod'
+  *   })
+  * ```
+  */
+  async listBuckets(options) {
+    var _this = this;
+    return _this.handleOperation(async () => {
+      const queryString = _this.listBucketOptionsToQueryString(options);
+      return await get5(_this.fetch, `${_this.url}/bucket${queryString}`, { headers: _this.headers });
+    });
+  }
+  /**
+  * Retrieves the details of an existing Storage bucket.
+  *
+  * @category File Buckets
+  * @param id The unique identifier of the bucket you would like to retrieve.
+  * @returns Promise with response containing bucket details or error
+  *
+  * @example Get bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .getBucket('avatars')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "id": "avatars",
+  *     "name": "avatars",
+  *     "owner": "",
+  *     "public": false,
+  *     "file_size_limit": 1024,
+  *     "allowed_mime_types": [
+  *       "image/png"
+  *     ],
+  *     "created_at": "2024-05-22T22:26:05.100Z",
+  *     "updated_at": "2024-05-22T22:26:05.100Z"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async getBucket(id) {
+    var _this2 = this;
+    return _this2.handleOperation(async () => {
+      return await get5(_this2.fetch, `${_this2.url}/bucket/${id}`, { headers: _this2.headers });
+    });
+  }
+  /**
+  * Creates a new Storage bucket
+  *
+  * @category File Buckets
+  * @param id A unique identifier for the bucket you are creating.
+  * @param options.public The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations. By default, buckets are private.
+  * @param options.fileSizeLimit specifies the max file size in bytes that can be uploaded to this bucket.
+  * The global file size limit takes precedence over this value.
+  * The default value is null, which doesn't set a per bucket file size limit.
+  * @param options.allowedMimeTypes specifies the allowed mime types that this bucket can accept during upload.
+  * The default value is null, which allows files with all mime types to be uploaded.
+  * Each mime type specified can be a wildcard, e.g. image/*, or a specific mime type, e.g. image/png.
+  * @param options.type (private-beta) specifies the bucket type. see `BucketType` for more details.
+  *   - default bucket type is `STANDARD`
+  * @returns Promise with response containing newly created bucket name or error
+  *
+  * @example Create bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .createBucket('avatars', {
+  *     public: false,
+  *     allowedMimeTypes: ['image/png'],
+  *     fileSizeLimit: 1024
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "name": "avatars"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async createBucket(id, options = { public: false }) {
+    var _this3 = this;
+    return _this3.handleOperation(async () => {
+      return await post(_this3.fetch, `${_this3.url}/bucket`, {
+        id,
+        name: id,
+        type: options.type,
+        public: options.public,
+        file_size_limit: options.fileSizeLimit,
+        allowed_mime_types: options.allowedMimeTypes
+      }, { headers: _this3.headers });
+    });
+  }
+  /**
+  * Updates a Storage bucket
+  *
+  * @category File Buckets
+  * @param id A unique identifier for the bucket you are updating.
+  * @param options.public The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations.
+  * @param options.fileSizeLimit specifies the max file size in bytes that can be uploaded to this bucket.
+  * The global file size limit takes precedence over this value.
+  * The default value is null, which doesn't set a per bucket file size limit.
+  * @param options.allowedMimeTypes specifies the allowed mime types that this bucket can accept during upload.
+  * The default value is null, which allows files with all mime types to be uploaded.
+  * Each mime type specified can be a wildcard, e.g. image/*, or a specific mime type, e.g. image/png.
+  * @returns Promise with response containing success message or error
+  *
+  * @example Update bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .updateBucket('avatars', {
+  *     public: false,
+  *     allowedMimeTypes: ['image/png'],
+  *     fileSizeLimit: 1024
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "message": "Successfully updated"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async updateBucket(id, options) {
+    var _this4 = this;
+    return _this4.handleOperation(async () => {
+      return await put(_this4.fetch, `${_this4.url}/bucket/${id}`, {
+        id,
+        name: id,
+        public: options.public,
+        file_size_limit: options.fileSizeLimit,
+        allowed_mime_types: options.allowedMimeTypes
+      }, { headers: _this4.headers });
+    });
+  }
+  /**
+  * Removes all objects inside a single bucket.
+  *
+  * @category File Buckets
+  * @param id The unique identifier of the bucket you would like to empty.
+  * @returns Promise with success message or error
+  *
+  * @example Empty bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .emptyBucket('avatars')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "message": "Successfully emptied"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async emptyBucket(id) {
+    var _this5 = this;
+    return _this5.handleOperation(async () => {
+      return await post(_this5.fetch, `${_this5.url}/bucket/${id}/empty`, {}, { headers: _this5.headers });
+    });
+  }
+  /**
+  * Deletes an existing bucket. A bucket can't be deleted with existing objects inside it.
+  * You must first `empty()` the bucket.
+  *
+  * @category File Buckets
+  * @param id The unique identifier of the bucket you would like to delete.
+  * @returns Promise with success message or error
+  *
+  * @example Delete bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .deleteBucket('avatars')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "message": "Successfully deleted"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async deleteBucket(id) {
+    var _this6 = this;
+    return _this6.handleOperation(async () => {
+      return await remove(_this6.fetch, `${_this6.url}/bucket/${id}`, {}, { headers: _this6.headers });
+    });
+  }
+  listBucketOptionsToQueryString(options) {
+    const params = {};
+    if (options) {
+      if ("limit" in options) params.limit = String(options.limit);
+      if ("offset" in options) params.offset = String(options.offset);
+      if (options.search) params.search = options.search;
+      if (options.sortColumn) params.sortColumn = options.sortColumn;
+      if (options.sortOrder) params.sortOrder = options.sortOrder;
+    }
+    return Object.keys(params).length > 0 ? "?" + new URLSearchParams(params).toString() : "";
+  }
+};
+var StorageAnalyticsClient = class extends BaseApiClient {
+  /**
+  * @alpha
+  *
+  * Creates a new StorageAnalyticsClient instance
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @param url - The base URL for the storage API
+  * @param headers - HTTP headers to include in requests
+  * @param fetch - Optional custom fetch implementation
+  *
+  * @example
+  * ```typescript
+  * const client = new StorageAnalyticsClient(url, headers)
+  * ```
+  */
+  constructor(url, headers = {}, fetch$1) {
+    const finalUrl = url.replace(/\/$/, "");
+    const finalHeaders = _objectSpread211(_objectSpread211({}, DEFAULT_HEADERS), headers);
+    super(finalUrl, finalHeaders, fetch$1, "storage");
+  }
+  /**
+  * @alpha
+  *
+  * Creates a new analytics bucket using Iceberg tables
+  * Analytics buckets are optimized for analytical queries and data processing
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @param name A unique name for the bucket you are creating
+  * @returns Promise with response containing newly created analytics bucket or error
+  *
+  * @example Create analytics bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .analytics
+  *   .createBucket('analytics-data')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "name": "analytics-data",
+  *     "type": "ANALYTICS",
+  *     "format": "iceberg",
+  *     "created_at": "2024-05-22T22:26:05.100Z",
+  *     "updated_at": "2024-05-22T22:26:05.100Z"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async createBucket(name) {
+    var _this = this;
+    return _this.handleOperation(async () => {
+      return await post(_this.fetch, `${_this.url}/bucket`, { name }, { headers: _this.headers });
+    });
+  }
+  /**
+  * @alpha
+  *
+  * Retrieves the details of all Analytics Storage buckets within an existing project
+  * Only returns buckets of type 'ANALYTICS'
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @param options Query parameters for listing buckets
+  * @param options.limit Maximum number of buckets to return
+  * @param options.offset Number of buckets to skip
+  * @param options.sortColumn Column to sort by ('name', 'created_at', 'updated_at')
+  * @param options.sortOrder Sort order ('asc' or 'desc')
+  * @param options.search Search term to filter bucket names
+  * @returns Promise with response containing array of analytics buckets or error
+  *
+  * @example List analytics buckets
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .analytics
+  *   .listBuckets({
+  *     limit: 10,
+  *     offset: 0,
+  *     sortColumn: 'created_at',
+  *     sortOrder: 'desc'
+  *   })
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": [
+  *     {
+  *       "name": "analytics-data",
+  *       "type": "ANALYTICS",
+  *       "format": "iceberg",
+  *       "created_at": "2024-05-22T22:26:05.100Z",
+  *       "updated_at": "2024-05-22T22:26:05.100Z"
+  *     }
+  *   ],
+  *   "error": null
+  * }
+  * ```
+  */
+  async listBuckets(options) {
+    var _this2 = this;
+    return _this2.handleOperation(async () => {
+      const queryParams = new URLSearchParams();
+      if ((options === null || options === void 0 ? void 0 : options.limit) !== void 0) queryParams.set("limit", options.limit.toString());
+      if ((options === null || options === void 0 ? void 0 : options.offset) !== void 0) queryParams.set("offset", options.offset.toString());
+      if (options === null || options === void 0 ? void 0 : options.sortColumn) queryParams.set("sortColumn", options.sortColumn);
+      if (options === null || options === void 0 ? void 0 : options.sortOrder) queryParams.set("sortOrder", options.sortOrder);
+      if (options === null || options === void 0 ? void 0 : options.search) queryParams.set("search", options.search);
+      const queryString = queryParams.toString();
+      const url = queryString ? `${_this2.url}/bucket?${queryString}` : `${_this2.url}/bucket`;
+      return await get5(_this2.fetch, url, { headers: _this2.headers });
+    });
+  }
+  /**
+  * @alpha
+  *
+  * Deletes an existing analytics bucket
+  * A bucket can't be deleted with existing objects inside it
+  * You must first empty the bucket before deletion
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @param bucketName The unique identifier of the bucket you would like to delete
+  * @returns Promise with response containing success message or error
+  *
+  * @example Delete analytics bucket
+  * ```js
+  * const { data, error } = await supabase
+  *   .storage
+  *   .analytics
+  *   .deleteBucket('analytics-data')
+  * ```
+  *
+  * Response:
+  * ```json
+  * {
+  *   "data": {
+  *     "message": "Successfully deleted"
+  *   },
+  *   "error": null
+  * }
+  * ```
+  */
+  async deleteBucket(bucketName) {
+    var _this3 = this;
+    return _this3.handleOperation(async () => {
+      return await remove(_this3.fetch, `${_this3.url}/bucket/${bucketName}`, {}, { headers: _this3.headers });
+    });
+  }
+  /**
+  * @alpha
+  *
+  * Get an Iceberg REST Catalog client configured for a specific analytics bucket
+  * Use this to perform advanced table and namespace operations within the bucket
+  * The returned client provides full access to the Apache Iceberg REST Catalog API
+  * with the Supabase `{ data, error }` pattern for consistent error handling on all operations.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @param bucketName - The name of the analytics bucket (warehouse) to connect to
+  * @returns The wrapped Iceberg catalog client
+  * @throws {StorageError} If the bucket name is invalid
+  *
+  * @example Get catalog and create table
+  * ```js
+  * // First, create an analytics bucket
+  * const { data: bucket, error: bucketError } = await supabase
+  *   .storage
+  *   .analytics
+  *   .createBucket('analytics-data')
+  *
+  * // Get the Iceberg catalog for that bucket
+  * const catalog = supabase.storage.analytics.from('analytics-data')
+  *
+  * // Create a namespace
+  * const { error: nsError } = await catalog.createNamespace({ namespace: ['default'] })
+  *
+  * // Create a table with schema
+  * const { data: tableMetadata, error: tableError } = await catalog.createTable(
+  *   { namespace: ['default'] },
+  *   {
+  *     name: 'events',
+  *     schema: {
+  *       type: 'struct',
+  *       fields: [
+  *         { id: 1, name: 'id', type: 'long', required: true },
+  *         { id: 2, name: 'timestamp', type: 'timestamp', required: true },
+  *         { id: 3, name: 'user_id', type: 'string', required: false }
+  *       ],
+  *       'schema-id': 0,
+  *       'identifier-field-ids': [1]
+  *     },
+  *     'partition-spec': {
+  *       'spec-id': 0,
+  *       fields: []
+  *     },
+  *     'write-order': {
+  *       'order-id': 0,
+  *       fields: []
+  *     },
+  *     properties: {
+  *       'write.format.default': 'parquet'
+  *     }
+  *   }
+  * )
+  * ```
+  *
+  * @example List tables in namespace
+  * ```js
+  * const catalog = supabase.storage.analytics.from('analytics-data')
+  *
+  * // List all tables in the default namespace
+  * const { data: tables, error: listError } = await catalog.listTables({ namespace: ['default'] })
+  * if (listError) {
+  *   if (listError.isNotFound()) {
+  *     console.log('Namespace not found')
+  *   }
+  *   return
+  * }
+  * console.log(tables) // [{ namespace: ['default'], name: 'events' }]
+  * ```
+  *
+  * @example Working with namespaces
+  * ```js
+  * const catalog = supabase.storage.analytics.from('analytics-data')
+  *
+  * // List all namespaces
+  * const { data: namespaces } = await catalog.listNamespaces()
+  *
+  * // Create namespace with properties
+  * await catalog.createNamespace(
+  *   { namespace: ['production'] },
+  *   { properties: { owner: 'data-team', env: 'prod' } }
+  * )
+  * ```
+  *
+  * @example Cleanup operations
+  * ```js
+  * const catalog = supabase.storage.analytics.from('analytics-data')
+  *
+  * // Drop table with purge option (removes all data)
+  * const { error: dropError } = await catalog.dropTable(
+  *   { namespace: ['default'], name: 'events' },
+  *   { purge: true }
+  * )
+  *
+  * if (dropError?.isNotFound()) {
+  *   console.log('Table does not exist')
+  * }
+  *
+  * // Drop namespace (must be empty)
+  * await catalog.dropNamespace({ namespace: ['default'] })
+  * ```
+  *
+  * @remarks
+  * This method provides a bridge between Supabase's bucket management and the standard
+  * Apache Iceberg REST Catalog API. The bucket name maps to the Iceberg warehouse parameter.
+  * All authentication and configuration is handled automatically using your Supabase credentials.
+  *
+  * **Error Handling**: Invalid bucket names throw immediately. All catalog
+  * operations return `{ data, error }` where errors are `IcebergError` instances from iceberg-js.
+  * Use helper methods like `error.isNotFound()` or check `error.status` for specific error handling.
+  * Use `.throwOnError()` on the analytics client if you prefer exceptions for catalog operations.
+  *
+  * **Cleanup Operations**: When using `dropTable`, the `purge: true` option permanently
+  * deletes all table data. Without it, the table is marked as deleted but data remains.
+  *
+  * **Library Dependency**: The returned catalog wraps `IcebergRestCatalog` from iceberg-js.
+  * For complete API documentation and advanced usage, refer to the
+  * [iceberg-js documentation](https://supabase.github.io/iceberg-js/).
+  */
+  from(bucketName) {
+    var _this4 = this;
+    if (!isValidBucketName(bucketName)) throw new StorageError("Invalid bucket name: File, folder, and bucket names must follow AWS object key naming guidelines and should avoid the use of any other characters.");
+    const catalog = new IcebergRestCatalog({
+      baseUrl: this.url,
+      catalogName: bucketName,
+      auth: {
+        type: "custom",
+        getHeaders: async () => _this4.headers
+      },
+      fetch: this.fetch
+    });
+    const shouldThrowOnError = this.shouldThrowOnError;
+    return new Proxy(catalog, { get(target, prop) {
+      const value = target[prop];
+      if (typeof value !== "function") return value;
+      return async (...args) => {
+        try {
+          return {
+            data: await value.apply(target, args),
+            error: null
+          };
+        } catch (error) {
+          if (shouldThrowOnError) throw error;
+          return {
+            data: null,
+            error
+          };
+        }
+      };
+    } });
+  }
+};
+var VectorIndexApi = class extends BaseApiClient {
+  /** Creates a new VectorIndexApi instance */
+  constructor(url, headers = {}, fetch$1) {
+    const finalUrl = url.replace(/\/$/, "");
+    const finalHeaders = _objectSpread211(_objectSpread211({}, DEFAULT_HEADERS), {}, { "Content-Type": "application/json" }, headers);
+    super(finalUrl, finalHeaders, fetch$1, "vectors");
+  }
+  /** Creates a new vector index within a bucket */
+  async createIndex(options) {
+    var _this = this;
+    return _this.handleOperation(async () => {
+      return await vectorsApi.post(_this.fetch, `${_this.url}/CreateIndex`, options, { headers: _this.headers }) || {};
+    });
+  }
+  /** Retrieves metadata for a specific vector index */
+  async getIndex(vectorBucketName, indexName) {
+    var _this2 = this;
+    return _this2.handleOperation(async () => {
+      return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetIndex`, {
+        vectorBucketName,
+        indexName
+      }, { headers: _this2.headers });
+    });
+  }
+  /** Lists vector indexes within a bucket with optional filtering and pagination */
+  async listIndexes(options) {
+    var _this3 = this;
+    return _this3.handleOperation(async () => {
+      return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListIndexes`, options, { headers: _this3.headers });
+    });
+  }
+  /** Deletes a vector index and all its data */
+  async deleteIndex(vectorBucketName, indexName) {
+    var _this4 = this;
+    return _this4.handleOperation(async () => {
+      return await vectorsApi.post(_this4.fetch, `${_this4.url}/DeleteIndex`, {
+        vectorBucketName,
+        indexName
+      }, { headers: _this4.headers }) || {};
+    });
+  }
+};
+var VectorDataApi = class extends BaseApiClient {
+  /** Creates a new VectorDataApi instance */
+  constructor(url, headers = {}, fetch$1) {
+    const finalUrl = url.replace(/\/$/, "");
+    const finalHeaders = _objectSpread211(_objectSpread211({}, DEFAULT_HEADERS), {}, { "Content-Type": "application/json" }, headers);
+    super(finalUrl, finalHeaders, fetch$1, "vectors");
+  }
+  /** Inserts or updates vectors in batch (1-500 per request) */
+  async putVectors(options) {
+    var _this = this;
+    if (options.vectors.length < 1 || options.vectors.length > 500) throw new Error("Vector batch size must be between 1 and 500 items");
+    return _this.handleOperation(async () => {
+      return await vectorsApi.post(_this.fetch, `${_this.url}/PutVectors`, options, { headers: _this.headers }) || {};
+    });
+  }
+  /** Retrieves vectors by their keys in batch */
+  async getVectors(options) {
+    var _this2 = this;
+    return _this2.handleOperation(async () => {
+      return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetVectors`, options, { headers: _this2.headers });
+    });
+  }
+  /** Lists vectors in an index with pagination */
+  async listVectors(options) {
+    var _this3 = this;
+    if (options.segmentCount !== void 0) {
+      if (options.segmentCount < 1 || options.segmentCount > 16) throw new Error("segmentCount must be between 1 and 16");
+      if (options.segmentIndex !== void 0) {
+        if (options.segmentIndex < 0 || options.segmentIndex >= options.segmentCount) throw new Error(`segmentIndex must be between 0 and ${options.segmentCount - 1}`);
+      }
+    }
+    return _this3.handleOperation(async () => {
+      return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectors`, options, { headers: _this3.headers });
+    });
+  }
+  /** Queries for similar vectors using approximate nearest neighbor search */
+  async queryVectors(options) {
+    var _this4 = this;
+    return _this4.handleOperation(async () => {
+      return await vectorsApi.post(_this4.fetch, `${_this4.url}/QueryVectors`, options, { headers: _this4.headers });
+    });
+  }
+  /** Deletes vectors by their keys in batch (1-500 per request) */
+  async deleteVectors(options) {
+    var _this5 = this;
+    if (options.keys.length < 1 || options.keys.length > 500) throw new Error("Keys batch size must be between 1 and 500 items");
+    return _this5.handleOperation(async () => {
+      return await vectorsApi.post(_this5.fetch, `${_this5.url}/DeleteVectors`, options, { headers: _this5.headers }) || {};
+    });
+  }
+};
+var VectorBucketApi = class extends BaseApiClient {
+  /** Creates a new VectorBucketApi instance */
+  constructor(url, headers = {}, fetch$1) {
+    const finalUrl = url.replace(/\/$/, "");
+    const finalHeaders = _objectSpread211(_objectSpread211({}, DEFAULT_HEADERS), {}, { "Content-Type": "application/json" }, headers);
+    super(finalUrl, finalHeaders, fetch$1, "vectors");
+  }
+  /** Creates a new vector bucket */
+  async createBucket(vectorBucketName) {
+    var _this = this;
+    return _this.handleOperation(async () => {
+      return await vectorsApi.post(_this.fetch, `${_this.url}/CreateVectorBucket`, { vectorBucketName }, { headers: _this.headers }) || {};
+    });
+  }
+  /** Retrieves metadata for a specific vector bucket */
+  async getBucket(vectorBucketName) {
+    var _this2 = this;
+    return _this2.handleOperation(async () => {
+      return await vectorsApi.post(_this2.fetch, `${_this2.url}/GetVectorBucket`, { vectorBucketName }, { headers: _this2.headers });
+    });
+  }
+  /** Lists vector buckets with optional filtering and pagination */
+  async listBuckets(options = {}) {
+    var _this3 = this;
+    return _this3.handleOperation(async () => {
+      return await vectorsApi.post(_this3.fetch, `${_this3.url}/ListVectorBuckets`, options, { headers: _this3.headers });
+    });
+  }
+  /** Deletes a vector bucket (must be empty first) */
+  async deleteBucket(vectorBucketName) {
+    var _this4 = this;
+    return _this4.handleOperation(async () => {
+      return await vectorsApi.post(_this4.fetch, `${_this4.url}/DeleteVectorBucket`, { vectorBucketName }, { headers: _this4.headers }) || {};
+    });
+  }
+};
+var StorageVectorsClient = class extends VectorBucketApi {
+  /**
+  * @alpha
+  *
+  * Creates a StorageVectorsClient that can manage buckets, indexes, and vectors.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param url - Base URL of the Storage Vectors REST API.
+  * @param options.headers - Optional headers (for example `Authorization`) applied to every request.
+  * @param options.fetch - Optional custom `fetch` implementation for non-browser runtimes.
+  *
+  * @example
+  * ```typescript
+  * const client = new StorageVectorsClient(url, options)
+  * ```
+  */
+  constructor(url, options = {}) {
+    super(url, options.headers || {}, options.fetch);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Access operations for a specific vector bucket
+  * Returns a scoped client for index and vector operations within the bucket
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param vectorBucketName - Name of the vector bucket
+  * @returns Bucket-scoped client with index and vector operations
+  *
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * ```
+  */
+  from(vectorBucketName) {
+    return new VectorBucketScope(this.url, this.headers, vectorBucketName, this.fetch);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Creates a new vector bucket
+  * Vector buckets are containers for vector indexes and their data
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param vectorBucketName - Unique name for the vector bucket
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const { data, error } = await supabase
+  *   .storage
+  *   .vectors
+  *   .createBucket('embeddings-prod')
+  * ```
+  */
+  async createBucket(vectorBucketName) {
+    var _superprop_getCreateBucket = () => super.createBucket, _this = this;
+    return _superprop_getCreateBucket().call(_this, vectorBucketName);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Retrieves metadata for a specific vector bucket
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param vectorBucketName - Name of the vector bucket
+  * @returns Promise with bucket metadata or error
+  *
+  * @example
+  * ```typescript
+  * const { data, error } = await supabase
+  *   .storage
+  *   .vectors
+  *   .getBucket('embeddings-prod')
+  *
+  * console.log('Bucket created:', data?.vectorBucket.creationTime)
+  * ```
+  */
+  async getBucket(vectorBucketName) {
+    var _superprop_getGetBucket = () => super.getBucket, _this2 = this;
+    return _superprop_getGetBucket().call(_this2, vectorBucketName);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Lists all vector buckets with optional filtering and pagination
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Optional filters (prefix, maxResults, nextToken)
+  * @returns Promise with list of buckets or error
+  *
+  * @example
+  * ```typescript
+  * const { data, error } = await supabase
+  *   .storage
+  *   .vectors
+  *   .listBuckets({ prefix: 'embeddings-' })
+  *
+  * data?.vectorBuckets.forEach(bucket => {
+  *   console.log(bucket.vectorBucketName)
+  * })
+  * ```
+  */
+  async listBuckets(options = {}) {
+    var _superprop_getListBuckets = () => super.listBuckets, _this3 = this;
+    return _superprop_getListBuckets().call(_this3, options);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Deletes a vector bucket (bucket must be empty)
+  * All indexes must be deleted before deleting the bucket
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param vectorBucketName - Name of the vector bucket to delete
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const { data, error } = await supabase
+  *   .storage
+  *   .vectors
+  *   .deleteBucket('embeddings-old')
+  * ```
+  */
+  async deleteBucket(vectorBucketName) {
+    var _superprop_getDeleteBucket = () => super.deleteBucket, _this4 = this;
+    return _superprop_getDeleteBucket().call(_this4, vectorBucketName);
+  }
+};
+var VectorBucketScope = class extends VectorIndexApi {
+  /**
+  * @alpha
+  *
+  * Creates a helper that automatically scopes all index operations to the provided bucket.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * ```
+  */
+  constructor(url, headers, vectorBucketName, fetch$1) {
+    super(url, headers, fetch$1);
+    this.vectorBucketName = vectorBucketName;
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Creates a new vector index in this bucket
+  * Convenience method that automatically includes the bucket name
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Index configuration (vectorBucketName is automatically set)
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * await bucket.createIndex({
+  *   indexName: 'documents-openai',
+  *   dataType: 'float32',
+  *   dimension: 1536,
+  *   distanceMetric: 'cosine',
+  *   metadataConfiguration: {
+  *     nonFilterableMetadataKeys: ['raw_text']
+  *   }
+  * })
+  * ```
+  */
+  async createIndex(options) {
+    var _superprop_getCreateIndex = () => super.createIndex, _this5 = this;
+    return _superprop_getCreateIndex().call(_this5, _objectSpread211(_objectSpread211({}, options), {}, { vectorBucketName: _this5.vectorBucketName }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Lists indexes in this bucket
+  * Convenience method that automatically includes the bucket name
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Listing options (vectorBucketName is automatically set)
+  * @returns Promise with response containing indexes array and pagination token or error
+  *
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * const { data } = await bucket.listIndexes({ prefix: 'documents-' })
+  * ```
+  */
+  async listIndexes(options = {}) {
+    var _superprop_getListIndexes = () => super.listIndexes, _this6 = this;
+    return _superprop_getListIndexes().call(_this6, _objectSpread211(_objectSpread211({}, options), {}, { vectorBucketName: _this6.vectorBucketName }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Retrieves metadata for a specific index in this bucket
+  * Convenience method that automatically includes the bucket name
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param indexName - Name of the index to retrieve
+  * @returns Promise with index metadata or error
+  *
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * const { data } = await bucket.getIndex('documents-openai')
+  * console.log('Dimension:', data?.index.dimension)
+  * ```
+  */
+  async getIndex(indexName) {
+    var _superprop_getGetIndex = () => super.getIndex, _this7 = this;
+    return _superprop_getGetIndex().call(_this7, _this7.vectorBucketName, indexName);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Deletes an index from this bucket
+  * Convenience method that automatically includes the bucket name
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param indexName - Name of the index to delete
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const bucket = supabase.storage.vectors.from('embeddings-prod')
+  * await bucket.deleteIndex('old-index')
+  * ```
+  */
+  async deleteIndex(indexName) {
+    var _superprop_getDeleteIndex = () => super.deleteIndex, _this8 = this;
+    return _superprop_getDeleteIndex().call(_this8, _this8.vectorBucketName, indexName);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Access operations for a specific index within this bucket
+  * Returns a scoped client for vector data operations
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param indexName - Name of the index
+  * @returns Index-scoped client with vector data operations
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  *
+  * // Insert vectors
+  * await index.putVectors({
+  *   vectors: [
+  *     { key: 'doc-1', data: { float32: [...] }, metadata: { title: 'Intro' } }
+  *   ]
+  * })
+  *
+  * // Query similar vectors
+  * const { data } = await index.queryVectors({
+  *   queryVector: { float32: [...] },
+  *   topK: 5
+  * })
+  * ```
+  */
+  index(indexName) {
+    return new VectorIndexScope(this.url, this.headers, this.vectorBucketName, indexName, this.fetch);
+  }
+};
+var VectorIndexScope = class extends VectorDataApi {
+  /**
+  *
+  * @alpha
+  *
+  * Creates a helper that automatically scopes all vector operations to the provided bucket/index names.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * ```
+  */
+  constructor(url, headers, vectorBucketName, indexName, fetch$1) {
+    super(url, headers, fetch$1);
+    this.vectorBucketName = vectorBucketName;
+    this.indexName = indexName;
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Inserts or updates vectors in this index
+  * Convenience method that automatically includes bucket and index names
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Vector insertion options (bucket and index names automatically set)
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * await index.putVectors({
+  *   vectors: [
+  *     {
+  *       key: 'doc-1',
+  *       data: { float32: [0.1, 0.2, ...] },
+  *       metadata: { title: 'Introduction', page: 1 }
+  *     }
+  *   ]
+  * })
+  * ```
+  */
+  async putVectors(options) {
+    var _superprop_getPutVectors = () => super.putVectors, _this9 = this;
+    return _superprop_getPutVectors().call(_this9, _objectSpread211(_objectSpread211({}, options), {}, {
+      vectorBucketName: _this9.vectorBucketName,
+      indexName: _this9.indexName
+    }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Retrieves vectors by keys from this index
+  * Convenience method that automatically includes bucket and index names
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Vector retrieval options (bucket and index names automatically set)
+  * @returns Promise with response containing vectors array or error
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * const { data } = await index.getVectors({
+  *   keys: ['doc-1', 'doc-2'],
+  *   returnMetadata: true
+  * })
+  * ```
+  */
+  async getVectors(options) {
+    var _superprop_getGetVectors = () => super.getVectors, _this10 = this;
+    return _superprop_getGetVectors().call(_this10, _objectSpread211(_objectSpread211({}, options), {}, {
+      vectorBucketName: _this10.vectorBucketName,
+      indexName: _this10.indexName
+    }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Lists vectors in this index with pagination
+  * Convenience method that automatically includes bucket and index names
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Listing options (bucket and index names automatically set)
+  * @returns Promise with response containing vectors array and pagination token or error
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * const { data } = await index.listVectors({
+  *   maxResults: 500,
+  *   returnMetadata: true
+  * })
+  * ```
+  */
+  async listVectors(options = {}) {
+    var _superprop_getListVectors = () => super.listVectors, _this11 = this;
+    return _superprop_getListVectors().call(_this11, _objectSpread211(_objectSpread211({}, options), {}, {
+      vectorBucketName: _this11.vectorBucketName,
+      indexName: _this11.indexName
+    }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Queries for similar vectors in this index
+  * Convenience method that automatically includes bucket and index names
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Query options (bucket and index names automatically set)
+  * @returns Promise with response containing matches array of similar vectors ordered by distance or error
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * const { data } = await index.queryVectors({
+  *   queryVector: { float32: [0.1, 0.2, ...] },
+  *   topK: 5,
+  *   filter: { category: 'technical' },
+  *   returnDistance: true,
+  *   returnMetadata: true
+  * })
+  * ```
+  */
+  async queryVectors(options) {
+    var _superprop_getQueryVectors = () => super.queryVectors, _this12 = this;
+    return _superprop_getQueryVectors().call(_this12, _objectSpread211(_objectSpread211({}, options), {}, {
+      vectorBucketName: _this12.vectorBucketName,
+      indexName: _this12.indexName
+    }));
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Deletes vectors by keys from this index
+  * Convenience method that automatically includes bucket and index names
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @param options - Deletion options (bucket and index names automatically set)
+  * @returns Promise with empty response on success or error
+  *
+  * @example
+  * ```typescript
+  * const index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')
+  * await index.deleteVectors({
+  *   keys: ['doc-1', 'doc-2', 'doc-3']
+  * })
+  * ```
+  */
+  async deleteVectors(options) {
+    var _superprop_getDeleteVectors = () => super.deleteVectors, _this13 = this;
+    return _superprop_getDeleteVectors().call(_this13, _objectSpread211(_objectSpread211({}, options), {}, {
+      vectorBucketName: _this13.vectorBucketName,
+      indexName: _this13.indexName
+    }));
+  }
+};
+var StorageClient = class extends StorageBucketApi {
+  /**
+  * Creates a client for Storage buckets, files, analytics, and vectors.
+  *
+  * @category File Buckets
+  * @example
+  * ```ts
+  * import { StorageClient } from '@supabase/storage-js'
+  *
+  * const storage = new StorageClient('https://xyzcompany.supabase.co/storage/v1', {
+  *   apikey: 'public-anon-key',
+  * })
+  * const avatars = storage.from('avatars')
+  * ```
+  */
+  constructor(url, headers = {}, fetch$1, opts) {
+    super(url, headers, fetch$1, opts);
+  }
+  /**
+  * Perform file operation in a bucket.
+  *
+  * @category File Buckets
+  * @param id The bucket id to operate on.
+  *
+  * @example
+  * ```typescript
+  * const avatars = supabase.storage.from('avatars')
+  * ```
+  */
+  from(id) {
+    return new StorageFileApi(this.url, this.headers, id, this.fetch);
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Access vector storage operations.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Vector Buckets
+  * @returns A StorageVectorsClient instance configured with the current storage settings.
+  */
+  get vectors() {
+    return new StorageVectorsClient(this.url + "/vector", {
+      headers: this.headers,
+      fetch: this.fetch
+    });
+  }
+  /**
+  *
+  * @alpha
+  *
+  * Access analytics storage operations using Iceberg tables.
+  *
+  * **Public alpha:** This API is part of a public alpha release and may not be available to your account type.
+  *
+  * @category Analytics Buckets
+  * @returns A StorageAnalyticsClient instance configured with the current storage settings.
+  */
+  get analytics() {
+    return new StorageAnalyticsClient(this.url + "/iceberg", this.headers, this.fetch);
+  }
+};
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/version.js
+var version4 = "2.97.0";
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/constants.js
+var AUTO_REFRESH_TICK_DURATION_MS = 30 * 1e3;
+var AUTO_REFRESH_TICK_THRESHOLD = 3;
+var EXPIRY_MARGIN_MS = AUTO_REFRESH_TICK_THRESHOLD * AUTO_REFRESH_TICK_DURATION_MS;
+var GOTRUE_URL = "http://localhost:9999";
+var STORAGE_KEY = "supabase.auth.token";
+var DEFAULT_HEADERS2 = { "X-Client-Info": `gotrue-js/${version4}` };
+var API_VERSION_HEADER_NAME = "X-Supabase-Api-Version";
+var API_VERSIONS = {
+  "2024-01-01": {
+    timestamp: Date.parse("2024-01-01T00:00:00.0Z"),
+    name: "2024-01-01"
+  }
+};
+var BASE64URL_REGEX = /^([a-z0-9_-]{4})*($|[a-z0-9_-]{3}$|[a-z0-9_-]{2}$)$/i;
+var JWKS_TTL = 10 * 60 * 1e3;
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/errors.js
+var AuthError = class extends Error {
+  constructor(message, status, code) {
+    super(message);
+    this.__isAuthError = true;
+    this.name = "AuthError";
+    this.status = status;
+    this.code = code;
+  }
+};
+function isAuthError(error) {
+  return typeof error === "object" && error !== null && "__isAuthError" in error;
+}
+var AuthApiError = class extends AuthError {
+  constructor(message, status, code) {
+    super(message, status, code);
+    this.name = "AuthApiError";
+    this.status = status;
+    this.code = code;
+  }
+};
+function isAuthApiError(error) {
+  return isAuthError(error) && error.name === "AuthApiError";
+}
+var AuthUnknownError = class extends AuthError {
+  constructor(message, originalError) {
+    super(message);
+    this.name = "AuthUnknownError";
+    this.originalError = originalError;
+  }
+};
+var CustomAuthError = class extends AuthError {
+  constructor(message, name, status, code) {
+    super(message, status, code);
+    this.name = name;
+    this.status = status;
+  }
+};
+var AuthSessionMissingError = class extends CustomAuthError {
+  constructor() {
+    super("Auth session missing!", "AuthSessionMissingError", 400, void 0);
+  }
+};
+function isAuthSessionMissingError(error) {
+  return isAuthError(error) && error.name === "AuthSessionMissingError";
+}
+var AuthInvalidTokenResponseError = class extends CustomAuthError {
+  constructor() {
+    super("Auth session or user missing", "AuthInvalidTokenResponseError", 500, void 0);
+  }
+};
+var AuthInvalidCredentialsError = class extends CustomAuthError {
+  constructor(message) {
+    super(message, "AuthInvalidCredentialsError", 400, void 0);
+  }
+};
+var AuthImplicitGrantRedirectError = class extends CustomAuthError {
+  constructor(message, details = null) {
+    super(message, "AuthImplicitGrantRedirectError", 500, void 0);
+    this.details = null;
+    this.details = details;
+  }
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status: this.status,
+      details: this.details
+    };
+  }
+};
+function isAuthImplicitGrantRedirectError(error) {
+  return isAuthError(error) && error.name === "AuthImplicitGrantRedirectError";
+}
+var AuthPKCEGrantCodeExchangeError = class extends CustomAuthError {
+  constructor(message, details = null) {
+    super(message, "AuthPKCEGrantCodeExchangeError", 500, void 0);
+    this.details = null;
+    this.details = details;
+  }
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status: this.status,
+      details: this.details
+    };
+  }
+};
+var AuthPKCECodeVerifierMissingError = class extends CustomAuthError {
+  constructor() {
+    super("PKCE code verifier not found in storage. This can happen if the auth flow was initiated in a different browser or device, or if the storage was cleared. For SSR frameworks (Next.js, SvelteKit, etc.), use @supabase/ssr on both the server and client to store the code verifier in cookies.", "AuthPKCECodeVerifierMissingError", 400, "pkce_code_verifier_not_found");
+  }
+};
+var AuthRetryableFetchError = class extends CustomAuthError {
+  constructor(message, status) {
+    super(message, "AuthRetryableFetchError", status, void 0);
+  }
+};
+function isAuthRetryableFetchError(error) {
+  return isAuthError(error) && error.name === "AuthRetryableFetchError";
+}
+var AuthWeakPasswordError = class extends CustomAuthError {
+  constructor(message, status, reasons) {
+    super(message, "AuthWeakPasswordError", status, "weak_password");
+    this.reasons = reasons;
+  }
+};
+var AuthInvalidJwtError = class extends CustomAuthError {
+  constructor(message) {
+    super(message, "AuthInvalidJwtError", 400, "invalid_jwt");
+  }
+};
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/base64url.js
+var TO_BASE64URL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split("");
+var IGNORE_BASE64URL = " 	\n\r=".split("");
+var FROM_BASE64URL = (() => {
+  const charMap = new Array(128);
+  for (let i = 0; i < charMap.length; i += 1) {
+    charMap[i] = -1;
+  }
+  for (let i = 0; i < IGNORE_BASE64URL.length; i += 1) {
+    charMap[IGNORE_BASE64URL[i].charCodeAt(0)] = -2;
+  }
+  for (let i = 0; i < TO_BASE64URL.length; i += 1) {
+    charMap[TO_BASE64URL[i].charCodeAt(0)] = i;
+  }
+  return charMap;
+})();
+function byteToBase64URL(byte, state, emit) {
+  if (byte !== null) {
+    state.queue = state.queue << 8 | byte;
+    state.queuedBits += 8;
+    while (state.queuedBits >= 6) {
+      const pos = state.queue >> state.queuedBits - 6 & 63;
+      emit(TO_BASE64URL[pos]);
+      state.queuedBits -= 6;
+    }
+  } else if (state.queuedBits > 0) {
+    state.queue = state.queue << 6 - state.queuedBits;
+    state.queuedBits = 6;
+    while (state.queuedBits >= 6) {
+      const pos = state.queue >> state.queuedBits - 6 & 63;
+      emit(TO_BASE64URL[pos]);
+      state.queuedBits -= 6;
+    }
+  }
+}
+function byteFromBase64URL(charCode, state, emit) {
+  const bits = FROM_BASE64URL[charCode];
+  if (bits > -1) {
+    state.queue = state.queue << 6 | bits;
+    state.queuedBits += 6;
+    while (state.queuedBits >= 8) {
+      emit(state.queue >> state.queuedBits - 8 & 255);
+      state.queuedBits -= 8;
+    }
+  } else if (bits === -2) {
+    return;
+  } else {
+    throw new Error(`Invalid Base64-URL character "${String.fromCharCode(charCode)}"`);
+  }
+}
+function stringFromBase64URL(str) {
+  const conv = [];
+  const utf8Emit = (codepoint) => {
+    conv.push(String.fromCodePoint(codepoint));
+  };
+  const utf8State = {
+    utf8seq: 0,
+    codepoint: 0
+  };
+  const b64State = { queue: 0, queuedBits: 0 };
+  const byteEmit = (byte) => {
+    stringFromUTF8(byte, utf8State, utf8Emit);
+  };
+  for (let i = 0; i < str.length; i += 1) {
+    byteFromBase64URL(str.charCodeAt(i), b64State, byteEmit);
+  }
+  return conv.join("");
+}
+function codepointToUTF8(codepoint, emit) {
+  if (codepoint <= 127) {
+    emit(codepoint);
+    return;
+  } else if (codepoint <= 2047) {
+    emit(192 | codepoint >> 6);
+    emit(128 | codepoint & 63);
+    return;
+  } else if (codepoint <= 65535) {
+    emit(224 | codepoint >> 12);
+    emit(128 | codepoint >> 6 & 63);
+    emit(128 | codepoint & 63);
+    return;
+  } else if (codepoint <= 1114111) {
+    emit(240 | codepoint >> 18);
+    emit(128 | codepoint >> 12 & 63);
+    emit(128 | codepoint >> 6 & 63);
+    emit(128 | codepoint & 63);
+    return;
+  }
+  throw new Error(`Unrecognized Unicode codepoint: ${codepoint.toString(16)}`);
+}
+function stringToUTF8(str, emit) {
+  for (let i = 0; i < str.length; i += 1) {
+    let codepoint = str.charCodeAt(i);
+    if (codepoint > 55295 && codepoint <= 56319) {
+      const highSurrogate = (codepoint - 55296) * 1024 & 65535;
+      const lowSurrogate = str.charCodeAt(i + 1) - 56320 & 65535;
+      codepoint = (lowSurrogate | highSurrogate) + 65536;
+      i += 1;
+    }
+    codepointToUTF8(codepoint, emit);
+  }
+}
+function stringFromUTF8(byte, state, emit) {
+  if (state.utf8seq === 0) {
+    if (byte <= 127) {
+      emit(byte);
+      return;
+    }
+    for (let leadingBit = 1; leadingBit < 6; leadingBit += 1) {
+      if ((byte >> 7 - leadingBit & 1) === 0) {
+        state.utf8seq = leadingBit;
+        break;
+      }
+    }
+    if (state.utf8seq === 2) {
+      state.codepoint = byte & 31;
+    } else if (state.utf8seq === 3) {
+      state.codepoint = byte & 15;
+    } else if (state.utf8seq === 4) {
+      state.codepoint = byte & 7;
+    } else {
+      throw new Error("Invalid UTF-8 sequence");
+    }
+    state.utf8seq -= 1;
+  } else if (state.utf8seq > 0) {
+    if (byte <= 127) {
+      throw new Error("Invalid UTF-8 sequence");
+    }
+    state.codepoint = state.codepoint << 6 | byte & 63;
+    state.utf8seq -= 1;
+    if (state.utf8seq === 0) {
+      emit(state.codepoint);
+    }
+  }
+}
+function base64UrlToUint8Array(str) {
+  const result = [];
+  const state = { queue: 0, queuedBits: 0 };
+  const onByte = (byte) => {
+    result.push(byte);
+  };
+  for (let i = 0; i < str.length; i += 1) {
+    byteFromBase64URL(str.charCodeAt(i), state, onByte);
+  }
+  return new Uint8Array(result);
+}
+function stringToUint8Array(str) {
+  const result = [];
+  stringToUTF8(str, (byte) => result.push(byte));
+  return new Uint8Array(result);
+}
+function bytesToBase64URL(bytes) {
+  const result = [];
+  const state = { queue: 0, queuedBits: 0 };
+  const onChar = (char) => {
+    result.push(char);
+  };
+  bytes.forEach((byte) => byteToBase64URL(byte, state, onChar));
+  byteToBase64URL(null, state, onChar);
+  return result.join("");
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/helpers.js
+function expiresAt(expiresIn) {
+  const timeNow = Math.round(Date.now() / 1e3);
+  return timeNow + expiresIn;
+}
+function generateCallbackId() {
+  return Symbol("auth-callback");
+}
+var isBrowser = () => typeof window !== "undefined" && typeof document !== "undefined";
+var localStorageWriteTests = {
+  tested: false,
+  writable: false
+};
+var supportsLocalStorage = () => {
+  if (!isBrowser()) {
+    return false;
+  }
+  try {
+    if (typeof globalThis.localStorage !== "object") {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  if (localStorageWriteTests.tested) {
+    return localStorageWriteTests.writable;
+  }
+  const randomKey = `lswt-${Math.random()}${Math.random()}`;
+  try {
+    globalThis.localStorage.setItem(randomKey, randomKey);
+    globalThis.localStorage.removeItem(randomKey);
+    localStorageWriteTests.tested = true;
+    localStorageWriteTests.writable = true;
+  } catch (e) {
+    localStorageWriteTests.tested = true;
+    localStorageWriteTests.writable = false;
+  }
+  return localStorageWriteTests.writable;
+};
+function parseParametersFromURL(href) {
+  const result = {};
+  const url = new URL(href);
+  if (url.hash && url.hash[0] === "#") {
+    try {
+      const hashSearchParams = new URLSearchParams(url.hash.substring(1));
+      hashSearchParams.forEach((value, key) => {
+        result[key] = value;
+      });
+    } catch (e) {
+    }
+  }
+  url.searchParams.forEach((value, key) => {
+    result[key] = value;
+  });
+  return result;
+}
+var resolveFetch3 = (customFetch) => {
+  if (customFetch) {
+    return (...args) => customFetch(...args);
+  }
+  return (...args) => fetch(...args);
+};
+var looksLikeFetchResponse = (maybeResponse) => {
+  return typeof maybeResponse === "object" && maybeResponse !== null && "status" in maybeResponse && "ok" in maybeResponse && "json" in maybeResponse && typeof maybeResponse.json === "function";
+};
+var setItemAsync = async (storage, key, data) => {
+  await storage.setItem(key, JSON.stringify(data));
+};
+var getItemAsync = async (storage, key) => {
+  const value = await storage.getItem(key);
+  if (!value) {
+    return null;
+  }
+  try {
+    return JSON.parse(value);
+  } catch (_a) {
+    return value;
+  }
+};
+var removeItemAsync = async (storage, key) => {
+  await storage.removeItem(key);
+};
+var Deferred = class _Deferred {
+  constructor() {
+    ;
+    this.promise = new _Deferred.promiseConstructor((res, rej) => {
+      ;
+      this.resolve = res;
+      this.reject = rej;
+    });
+  }
+};
+Deferred.promiseConstructor = Promise;
+function decodeJWT(token) {
+  const parts = token.split(".");
+  if (parts.length !== 3) {
+    throw new AuthInvalidJwtError("Invalid JWT structure");
+  }
+  for (let i = 0; i < parts.length; i++) {
+    if (!BASE64URL_REGEX.test(parts[i])) {
+      throw new AuthInvalidJwtError("JWT not in base64url format");
+    }
+  }
+  const data = {
+    // using base64url lib
+    header: JSON.parse(stringFromBase64URL(parts[0])),
+    payload: JSON.parse(stringFromBase64URL(parts[1])),
+    signature: base64UrlToUint8Array(parts[2]),
+    raw: {
+      header: parts[0],
+      payload: parts[1]
+    }
+  };
+  return data;
+}
+async function sleep(time2) {
+  return await new Promise((accept) => {
+    setTimeout(() => accept(null), time2);
+  });
+}
+function retryable(fn, isRetryable) {
+  const promise = new Promise((accept, reject) => {
+    ;
+    (async () => {
+      for (let attempt = 0; attempt < Infinity; attempt++) {
+        try {
+          const result = await fn(attempt);
+          if (!isRetryable(attempt, null, result)) {
+            accept(result);
+            return;
+          }
+        } catch (e) {
+          if (!isRetryable(attempt, e)) {
+            reject(e);
+            return;
+          }
+        }
+      }
+    })();
+  });
+  return promise;
+}
+function dec2hex(dec) {
+  return ("0" + dec.toString(16)).substr(-2);
+}
+function generatePKCEVerifier() {
+  const verifierLength = 56;
+  const array = new Uint32Array(verifierLength);
+  if (typeof crypto === "undefined") {
+    const charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+    const charSetLen = charSet.length;
+    let verifier = "";
+    for (let i = 0; i < verifierLength; i++) {
+      verifier += charSet.charAt(Math.floor(Math.random() * charSetLen));
+    }
+    return verifier;
+  }
+  crypto.getRandomValues(array);
+  return Array.from(array, dec2hex).join("");
+}
+async function sha256(randomString2) {
+  const encoder = new TextEncoder();
+  const encodedData = encoder.encode(randomString2);
+  const hash = await crypto.subtle.digest("SHA-256", encodedData);
+  const bytes = new Uint8Array(hash);
+  return Array.from(bytes).map((c) => String.fromCharCode(c)).join("");
+}
+async function generatePKCEChallenge(verifier) {
+  const hasCryptoSupport = typeof crypto !== "undefined" && typeof crypto.subtle !== "undefined" && typeof TextEncoder !== "undefined";
+  if (!hasCryptoSupport) {
+    console.warn("WebCrypto API is not supported. Code challenge method will default to use plain instead of sha256.");
+    return verifier;
+  }
+  const hashed = await sha256(verifier);
+  return btoa(hashed).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+async function getCodeChallengeAndMethod(storage, storageKey, isPasswordRecovery = false) {
+  const codeVerifier = generatePKCEVerifier();
+  let storedCodeVerifier = codeVerifier;
+  if (isPasswordRecovery) {
+    storedCodeVerifier += "/PASSWORD_RECOVERY";
+  }
+  await setItemAsync(storage, `${storageKey}-code-verifier`, storedCodeVerifier);
+  const codeChallenge = await generatePKCEChallenge(codeVerifier);
+  const codeChallengeMethod = codeVerifier === codeChallenge ? "plain" : "s256";
+  return [codeChallenge, codeChallengeMethod];
+}
+var API_VERSION_REGEX = /^2[0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/i;
+function parseResponseAPIVersion(response) {
+  const apiVersion = response.headers.get(API_VERSION_HEADER_NAME);
+  if (!apiVersion) {
+    return null;
+  }
+  if (!apiVersion.match(API_VERSION_REGEX)) {
+    return null;
+  }
+  try {
+    const date2 = /* @__PURE__ */ new Date(`${apiVersion}T00:00:00.0Z`);
+    return date2;
+  } catch (e) {
+    return null;
+  }
+}
+function validateExp(exp) {
+  if (!exp) {
+    throw new Error("Missing exp claim");
+  }
+  const timeNow = Math.floor(Date.now() / 1e3);
+  if (exp <= timeNow) {
+    throw new Error("JWT has expired");
+  }
+}
+function getAlgorithm(alg) {
+  switch (alg) {
+    case "RS256":
+      return {
+        name: "RSASSA-PKCS1-v1_5",
+        hash: { name: "SHA-256" }
+      };
+    case "ES256":
+      return {
+        name: "ECDSA",
+        namedCurve: "P-256",
+        hash: { name: "SHA-256" }
+      };
+    default:
+      throw new Error("Invalid alg claim");
+  }
+}
+var UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+function validateUUID(str) {
+  if (!UUID_REGEX.test(str)) {
+    throw new Error("@supabase/auth-js: Expected parameter to be UUID but is not");
+  }
+}
+function userNotAvailableProxy() {
+  const proxyTarget = {};
+  return new Proxy(proxyTarget, {
+    get: (target, prop) => {
+      if (prop === "__isUserNotAvailableProxy") {
+        return true;
+      }
+      if (typeof prop === "symbol") {
+        const sProp = prop.toString();
+        if (sProp === "Symbol(Symbol.toPrimitive)" || sProp === "Symbol(Symbol.toStringTag)" || sProp === "Symbol(util.inspect.custom)") {
+          return void 0;
+        }
+      }
+      throw new Error(`@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Accessing the "${prop}" property of the session object is not supported. Please use getUser() instead.`);
+    },
+    set: (_target, prop) => {
+      throw new Error(`@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Setting the "${prop}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`);
+    },
+    deleteProperty: (_target, prop) => {
+      throw new Error(`@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Deleting the "${prop}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`);
+    }
+  });
+}
+function insecureUserWarningProxy(user, suppressWarningRef) {
+  return new Proxy(user, {
+    get: (target, prop, receiver) => {
+      if (prop === "__isInsecureUserWarningProxy") {
+        return true;
+      }
+      if (typeof prop === "symbol") {
+        const sProp = prop.toString();
+        if (sProp === "Symbol(Symbol.toPrimitive)" || sProp === "Symbol(Symbol.toStringTag)" || sProp === "Symbol(util.inspect.custom)" || sProp === "Symbol(nodejs.util.inspect.custom)") {
+          return Reflect.get(target, prop, receiver);
+        }
+      }
+      if (!suppressWarningRef.value && typeof prop === "string") {
+        console.warn("Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.");
+        suppressWarningRef.value = true;
+      }
+      return Reflect.get(target, prop, receiver);
+    }
+  });
+}
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/fetch.js
+var _getErrorMessage2 = (err) => err.msg || err.message || err.error_description || err.error || JSON.stringify(err);
+var NETWORK_ERROR_CODES = [502, 503, 504];
+async function handleError2(error) {
+  var _a;
+  if (!looksLikeFetchResponse(error)) {
+    throw new AuthRetryableFetchError(_getErrorMessage2(error), 0);
+  }
+  if (NETWORK_ERROR_CODES.includes(error.status)) {
+    throw new AuthRetryableFetchError(_getErrorMessage2(error), error.status);
+  }
+  let data;
+  try {
+    data = await error.json();
+  } catch (e) {
+    throw new AuthUnknownError(_getErrorMessage2(e), e);
+  }
+  let errorCode = void 0;
+  const responseAPIVersion = parseResponseAPIVersion(error);
+  if (responseAPIVersion && responseAPIVersion.getTime() >= API_VERSIONS["2024-01-01"].timestamp && typeof data === "object" && data && typeof data.code === "string") {
+    errorCode = data.code;
+  } else if (typeof data === "object" && data && typeof data.error_code === "string") {
+    errorCode = data.error_code;
+  }
+  if (!errorCode) {
+    if (typeof data === "object" && data && typeof data.weak_password === "object" && data.weak_password && Array.isArray(data.weak_password.reasons) && data.weak_password.reasons.length && data.weak_password.reasons.reduce((a, i) => a && typeof i === "string", true)) {
+      throw new AuthWeakPasswordError(_getErrorMessage2(data), error.status, data.weak_password.reasons);
+    }
+  } else if (errorCode === "weak_password") {
+    throw new AuthWeakPasswordError(_getErrorMessage2(data), error.status, ((_a = data.weak_password) === null || _a === void 0 ? void 0 : _a.reasons) || []);
+  } else if (errorCode === "session_not_found") {
+    throw new AuthSessionMissingError();
+  }
+  throw new AuthApiError(_getErrorMessage2(data), error.status || 500, errorCode);
+}
+var _getRequestParams2 = (method, options, parameters, body) => {
+  const params = { method, headers: (options === null || options === void 0 ? void 0 : options.headers) || {} };
+  if (method === "GET") {
+    return params;
+  }
+  params.headers = Object.assign({ "Content-Type": "application/json;charset=UTF-8" }, options === null || options === void 0 ? void 0 : options.headers);
+  params.body = JSON.stringify(body);
+  return Object.assign(Object.assign({}, params), parameters);
+};
+async function _request(fetcher, method, url, options) {
+  var _a;
+  const headers = Object.assign({}, options === null || options === void 0 ? void 0 : options.headers);
+  if (!headers[API_VERSION_HEADER_NAME]) {
+    headers[API_VERSION_HEADER_NAME] = API_VERSIONS["2024-01-01"].name;
+  }
+  if (options === null || options === void 0 ? void 0 : options.jwt) {
+    headers["Authorization"] = `Bearer ${options.jwt}`;
+  }
+  const qs = (_a = options === null || options === void 0 ? void 0 : options.query) !== null && _a !== void 0 ? _a : {};
+  if (options === null || options === void 0 ? void 0 : options.redirectTo) {
+    qs["redirect_to"] = options.redirectTo;
+  }
+  const queryString = Object.keys(qs).length ? "?" + new URLSearchParams(qs).toString() : "";
+  const data = await _handleRequest2(fetcher, method, url + queryString, {
+    headers,
+    noResolveJson: options === null || options === void 0 ? void 0 : options.noResolveJson
+  }, {}, options === null || options === void 0 ? void 0 : options.body);
+  return (options === null || options === void 0 ? void 0 : options.xform) ? options === null || options === void 0 ? void 0 : options.xform(data) : { data: Object.assign({}, data), error: null };
+}
+async function _handleRequest2(fetcher, method, url, options, parameters, body) {
+  const requestParams = _getRequestParams2(method, options, parameters, body);
+  let result;
+  try {
+    result = await fetcher(url, Object.assign({}, requestParams));
+  } catch (e) {
+    console.error(e);
+    throw new AuthRetryableFetchError(_getErrorMessage2(e), 0);
+  }
+  if (!result.ok) {
+    await handleError2(result);
+  }
+  if (options === null || options === void 0 ? void 0 : options.noResolveJson) {
+    return result;
+  }
+  try {
+    return await result.json();
+  } catch (e) {
+    await handleError2(e);
+  }
+}
+function _sessionResponse(data) {
+  var _a;
+  let session = null;
+  if (hasSession(data)) {
+    session = Object.assign({}, data);
+    if (!data.expires_at) {
+      session.expires_at = expiresAt(data.expires_in);
+    }
+  }
+  const user = (_a = data.user) !== null && _a !== void 0 ? _a : data;
+  return { data: { session, user }, error: null };
+}
+function _sessionResponsePassword(data) {
+  const response = _sessionResponse(data);
+  if (!response.error && data.weak_password && typeof data.weak_password === "object" && Array.isArray(data.weak_password.reasons) && data.weak_password.reasons.length && data.weak_password.message && typeof data.weak_password.message === "string" && data.weak_password.reasons.reduce((a, i) => a && typeof i === "string", true)) {
+    response.data.weak_password = data.weak_password;
+  }
+  return response;
+}
+function _userResponse(data) {
+  var _a;
+  const user = (_a = data.user) !== null && _a !== void 0 ? _a : data;
+  return { data: { user }, error: null };
+}
+function _ssoResponse(data) {
+  return { data, error: null };
+}
+function _generateLinkResponse(data) {
+  const { action_link, email_otp, hashed_token, redirect_to, verification_type } = data, rest = __rest(data, ["action_link", "email_otp", "hashed_token", "redirect_to", "verification_type"]);
+  const properties = {
+    action_link,
+    email_otp,
+    hashed_token,
+    redirect_to,
+    verification_type
+  };
+  const user = Object.assign({}, rest);
+  return {
+    data: {
+      properties,
+      user
+    },
+    error: null
+  };
+}
+function _noResolveJsonResponse(data) {
+  return data;
+}
+function hasSession(data) {
+  return data.access_token && data.refresh_token && data.expires_in;
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/types.js
+var SIGN_OUT_SCOPES = ["global", "local", "others"];
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/GoTrueAdminApi.js
+var GoTrueAdminApi = class {
+  /**
+   * Creates an admin API client that can be used to manage users and OAuth clients.
+   *
+   * @example
+   * ```ts
+   * import { GoTrueAdminApi } from '@supabase/auth-js'
+   *
+   * const admin = new GoTrueAdminApi({
+   *   url: 'https://xyzcompany.supabase.co/auth/v1',
+   *   headers: { Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}` },
+   * })
+   * ```
+   */
+  constructor({ url = "", headers = {}, fetch: fetch2 }) {
+    this.url = url;
+    this.headers = headers;
+    this.fetch = resolveFetch3(fetch2);
+    this.mfa = {
+      listFactors: this._listFactors.bind(this),
+      deleteFactor: this._deleteFactor.bind(this)
+    };
+    this.oauth = {
+      listClients: this._listOAuthClients.bind(this),
+      createClient: this._createOAuthClient.bind(this),
+      getClient: this._getOAuthClient.bind(this),
+      updateClient: this._updateOAuthClient.bind(this),
+      deleteClient: this._deleteOAuthClient.bind(this),
+      regenerateClientSecret: this._regenerateOAuthClientSecret.bind(this)
+    };
+  }
+  /**
+   * Removes a logged-in session.
+   * @param jwt A valid, logged-in JWT.
+   * @param scope The logout sope.
+   */
+  async signOut(jwt, scope = SIGN_OUT_SCOPES[0]) {
+    if (SIGN_OUT_SCOPES.indexOf(scope) < 0) {
+      throw new Error(`@supabase/auth-js: Parameter scope must be one of ${SIGN_OUT_SCOPES.join(", ")}`);
+    }
+    try {
+      await _request(this.fetch, "POST", `${this.url}/logout?scope=${scope}`, {
+        headers: this.headers,
+        jwt,
+        noResolveJson: true
+      });
+      return { data: null, error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Sends an invite link to an email address.
+   * @param email The email address of the user.
+   * @param options Additional options to be included when inviting.
+   */
+  async inviteUserByEmail(email, options = {}) {
+    try {
+      return await _request(this.fetch, "POST", `${this.url}/invite`, {
+        body: { email, data: options.data },
+        headers: this.headers,
+        redirectTo: options.redirectTo,
+        xform: _userResponse
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { user: null }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Generates email links and OTPs to be sent via a custom email provider.
+   * @param email The user's email.
+   * @param options.password User password. For signup only.
+   * @param options.data Optional user metadata. For signup only.
+   * @param options.redirectTo The redirect url which should be appended to the generated link
+   */
+  async generateLink(params) {
+    try {
+      const { options } = params, rest = __rest(params, ["options"]);
+      const body = Object.assign(Object.assign({}, rest), options);
+      if ("newEmail" in rest) {
+        body.new_email = rest === null || rest === void 0 ? void 0 : rest.newEmail;
+        delete body["newEmail"];
+      }
+      return await _request(this.fetch, "POST", `${this.url}/admin/generate_link`, {
+        body,
+        headers: this.headers,
+        xform: _generateLinkResponse,
+        redirectTo: options === null || options === void 0 ? void 0 : options.redirectTo
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return {
+          data: {
+            properties: null,
+            user: null
+          },
+          error
+        };
+      }
+      throw error;
+    }
+  }
+  // User Admin API
+  /**
+   * Creates a new user.
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async createUser(attributes) {
+    try {
+      return await _request(this.fetch, "POST", `${this.url}/admin/users`, {
+        body: attributes,
+        headers: this.headers,
+        xform: _userResponse
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { user: null }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Get a list of users.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   * @param params An object which supports `page` and `perPage` as numbers, to alter the paginated results.
+   */
+  async listUsers(params) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    try {
+      const pagination = { nextPage: null, lastPage: 0, total: 0 };
+      const response = await _request(this.fetch, "GET", `${this.url}/admin/users`, {
+        headers: this.headers,
+        noResolveJson: true,
+        query: {
+          page: (_b = (_a = params === null || params === void 0 ? void 0 : params.page) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : "",
+          per_page: (_d = (_c = params === null || params === void 0 ? void 0 : params.perPage) === null || _c === void 0 ? void 0 : _c.toString()) !== null && _d !== void 0 ? _d : ""
+        },
+        xform: _noResolveJsonResponse
+      });
+      if (response.error)
+        throw response.error;
+      const users = await response.json();
+      const total = (_e = response.headers.get("x-total-count")) !== null && _e !== void 0 ? _e : 0;
+      const links = (_g = (_f = response.headers.get("link")) === null || _f === void 0 ? void 0 : _f.split(",")) !== null && _g !== void 0 ? _g : [];
+      if (links.length > 0) {
+        links.forEach((link) => {
+          const page = parseInt(link.split(";")[0].split("=")[1].substring(0, 1));
+          const rel = JSON.parse(link.split(";")[1].split("=")[1]);
+          pagination[`${rel}Page`] = page;
+        });
+        pagination.total = parseInt(total);
+      }
+      return { data: Object.assign(Object.assign({}, users), pagination), error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { users: [] }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Get user by id.
+   *
+   * @param uid The user's unique identifier
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async getUserById(uid) {
+    validateUUID(uid);
+    try {
+      return await _request(this.fetch, "GET", `${this.url}/admin/users/${uid}`, {
+        headers: this.headers,
+        xform: _userResponse
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { user: null }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Updates the user data. Changes are applied directly without confirmation flows.
+   *
+   * @param uid The user's unique identifier
+   * @param attributes The data you want to update.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   *
+   * @remarks
+   * **Important:** This is a server-side operation and does **not** trigger client-side
+   * `onAuthStateChange` listeners. The admin API has no connection to client state.
+   *
+   * To sync changes to the client after calling this method:
+   * 1. On the client, call `supabase.auth.refreshSession()` to fetch the updated user data
+   * 2. This will trigger the `TOKEN_REFRESHED` event and notify all listeners
+   *
+   * @example
+   * ```typescript
+   * // Server-side (Edge Function)
+   * const { data, error } = await supabase.auth.admin.updateUserById(
+   *   userId,
+   *   { user_metadata: { preferences: { theme: 'dark' } } }
+   * )
+   *
+   * // Client-side (to sync the changes)
+   * const { data, error } = await supabase.auth.refreshSession()
+   * // onAuthStateChange listeners will now be notified with updated user
+   * ```
+   *
+   * @see {@link GoTrueClient.refreshSession} for syncing admin changes to the client
+   * @see {@link GoTrueClient.updateUser} for client-side user updates (triggers listeners automatically)
+   */
+  async updateUserById(uid, attributes) {
+    validateUUID(uid);
+    try {
+      return await _request(this.fetch, "PUT", `${this.url}/admin/users/${uid}`, {
+        body: attributes,
+        headers: this.headers,
+        xform: _userResponse
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { user: null }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Delete a user. Requires a `service_role` key.
+   *
+   * @param id The user id you want to remove.
+   * @param shouldSoftDelete If true, then the user will be soft-deleted from the auth schema. Soft deletion allows user identification from the hashed user ID but is not reversible.
+   * Defaults to false for backward compatibility.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async deleteUser(id, shouldSoftDelete = false) {
+    validateUUID(id);
+    try {
+      return await _request(this.fetch, "DELETE", `${this.url}/admin/users/${id}`, {
+        headers: this.headers,
+        body: {
+          should_soft_delete: shouldSoftDelete
+        },
+        xform: _userResponse
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { user: null }, error };
+      }
+      throw error;
+    }
+  }
+  async _listFactors(params) {
+    validateUUID(params.userId);
+    try {
+      const { data, error } = await _request(this.fetch, "GET", `${this.url}/admin/users/${params.userId}/factors`, {
+        headers: this.headers,
+        xform: (factors) => {
+          return { data: { factors }, error: null };
+        }
+      });
+      return { data, error };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  async _deleteFactor(params) {
+    validateUUID(params.userId);
+    validateUUID(params.id);
+    try {
+      const data = await _request(this.fetch, "DELETE", `${this.url}/admin/users/${params.userId}/factors/${params.id}`, {
+        headers: this.headers
+      });
+      return { data, error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Lists all OAuth clients with optional pagination.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _listOAuthClients(params) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    try {
+      const pagination = { nextPage: null, lastPage: 0, total: 0 };
+      const response = await _request(this.fetch, "GET", `${this.url}/admin/oauth/clients`, {
+        headers: this.headers,
+        noResolveJson: true,
+        query: {
+          page: (_b = (_a = params === null || params === void 0 ? void 0 : params.page) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : "",
+          per_page: (_d = (_c = params === null || params === void 0 ? void 0 : params.perPage) === null || _c === void 0 ? void 0 : _c.toString()) !== null && _d !== void 0 ? _d : ""
+        },
+        xform: _noResolveJsonResponse
+      });
+      if (response.error)
+        throw response.error;
+      const clients = await response.json();
+      const total = (_e = response.headers.get("x-total-count")) !== null && _e !== void 0 ? _e : 0;
+      const links = (_g = (_f = response.headers.get("link")) === null || _f === void 0 ? void 0 : _f.split(",")) !== null && _g !== void 0 ? _g : [];
+      if (links.length > 0) {
+        links.forEach((link) => {
+          const page = parseInt(link.split(";")[0].split("=")[1].substring(0, 1));
+          const rel = JSON.parse(link.split(";")[1].split("=")[1]);
+          pagination[`${rel}Page`] = page;
+        });
+        pagination.total = parseInt(total);
+      }
+      return { data: Object.assign(Object.assign({}, clients), pagination), error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: { clients: [] }, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Creates a new OAuth client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _createOAuthClient(params) {
+    try {
+      return await _request(this.fetch, "POST", `${this.url}/admin/oauth/clients`, {
+        body: params,
+        headers: this.headers,
+        xform: (client) => {
+          return { data: client, error: null };
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Gets details of a specific OAuth client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _getOAuthClient(clientId) {
+    try {
+      return await _request(this.fetch, "GET", `${this.url}/admin/oauth/clients/${clientId}`, {
+        headers: this.headers,
+        xform: (client) => {
+          return { data: client, error: null };
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Updates an existing OAuth client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _updateOAuthClient(clientId, params) {
+    try {
+      return await _request(this.fetch, "PUT", `${this.url}/admin/oauth/clients/${clientId}`, {
+        body: params,
+        headers: this.headers,
+        xform: (client) => {
+          return { data: client, error: null };
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Deletes an OAuth client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _deleteOAuthClient(clientId) {
+    try {
+      await _request(this.fetch, "DELETE", `${this.url}/admin/oauth/clients/${clientId}`, {
+        headers: this.headers,
+        noResolveJson: true
+      });
+      return { data: null, error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+  /**
+   * Regenerates the secret for an OAuth client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * This function should only be called on a server. Never expose your `service_role` key in the browser.
+   */
+  async _regenerateOAuthClientSecret(clientId) {
+    try {
+      return await _request(this.fetch, "POST", `${this.url}/admin/oauth/clients/${clientId}/regenerate_secret`, {
+        headers: this.headers,
+        xform: (client) => {
+          return { data: client, error: null };
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      throw error;
+    }
+  }
+};
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/local-storage.js
+function memoryLocalStorageAdapter(store = {}) {
+  return {
+    getItem: (key) => {
+      return store[key] || null;
+    },
+    setItem: (key, value) => {
+      store[key] = value;
+    },
+    removeItem: (key) => {
+      delete store[key];
+    }
+  };
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/locks.js
+var internals = {
+  /**
+   * @experimental
+   */
+  debug: !!(globalThis && supportsLocalStorage() && globalThis.localStorage && globalThis.localStorage.getItem("supabase.gotrue-js.locks.debug") === "true")
+};
+var LockAcquireTimeoutError = class extends Error {
+  constructor(message) {
+    super(message);
+    this.isAcquireTimeout = true;
+  }
+};
+var NavigatorLockAcquireTimeoutError = class extends LockAcquireTimeoutError {
+};
+async function navigatorLock(name, acquireTimeout, fn) {
+  if (internals.debug) {
+    console.log("@supabase/gotrue-js: navigatorLock: acquire lock", name, acquireTimeout);
+  }
+  const abortController = new globalThis.AbortController();
+  if (acquireTimeout > 0) {
+    setTimeout(() => {
+      abortController.abort();
+      if (internals.debug) {
+        console.log("@supabase/gotrue-js: navigatorLock acquire timed out", name);
+      }
+    }, acquireTimeout);
+  }
+  await Promise.resolve();
+  try {
+    return await globalThis.navigator.locks.request(name, acquireTimeout === 0 ? {
+      mode: "exclusive",
+      ifAvailable: true
+    } : {
+      mode: "exclusive",
+      signal: abortController.signal
+    }, async (lock) => {
+      if (lock) {
+        if (internals.debug) {
+          console.log("@supabase/gotrue-js: navigatorLock: acquired", name, lock.name);
+        }
+        try {
+          return await fn();
+        } finally {
+          if (internals.debug) {
+            console.log("@supabase/gotrue-js: navigatorLock: released", name, lock.name);
+          }
+        }
+      } else {
+        if (acquireTimeout === 0) {
+          if (internals.debug) {
+            console.log("@supabase/gotrue-js: navigatorLock: not immediately available", name);
+          }
+          throw new NavigatorLockAcquireTimeoutError(`Acquiring an exclusive Navigator LockManager lock "${name}" immediately failed`);
+        } else {
+          if (internals.debug) {
+            try {
+              const result = await globalThis.navigator.locks.query();
+              console.log("@supabase/gotrue-js: Navigator LockManager state", JSON.stringify(result, null, "  "));
+            } catch (e) {
+              console.warn("@supabase/gotrue-js: Error when querying Navigator LockManager state", e);
+            }
+          }
+          console.warn("@supabase/gotrue-js: Navigator LockManager returned a null lock when using #request without ifAvailable set to true, it appears this browser is not following the LockManager spec https://developer.mozilla.org/en-US/docs/Web/API/LockManager/request");
+          return await fn();
+        }
+      }
+    });
+  } catch (e) {
+    if ((e === null || e === void 0 ? void 0 : e.name) === "AbortError") {
+      throw new NavigatorLockAcquireTimeoutError(`Acquiring an exclusive Navigator LockManager lock "${name}" timed out waiting ${acquireTimeout}ms`);
+    }
+    throw e;
+  }
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/polyfills.js
+function polyfillGlobalThis() {
+  if (typeof globalThis === "object")
+    return;
+  try {
+    Object.defineProperty(Object.prototype, "__magic__", {
+      get: function() {
+        return this;
+      },
+      configurable: true
+    });
+    __magic__.globalThis = __magic__;
+    delete Object.prototype.__magic__;
+  } catch (e) {
+    if (typeof self !== "undefined") {
+      self.globalThis = self;
+    }
+  }
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/web3/ethereum.js
+function getAddress(address) {
+  if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+    throw new Error(`@supabase/auth-js: Address "${address}" is invalid.`);
+  }
+  return address.toLowerCase();
+}
+function fromHex(hex2) {
+  return parseInt(hex2, 16);
+}
+function toHex(value) {
+  const bytes = new TextEncoder().encode(value);
+  const hex2 = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return "0x" + hex2;
+}
+function createSiweMessage(parameters) {
+  var _a;
+  const { chainId, domain, expirationTime, issuedAt = /* @__PURE__ */ new Date(), nonce, notBefore, requestId, resources, scheme, uri, version: version6 } = parameters;
+  {
+    if (!Number.isInteger(chainId))
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "chainId". Chain ID must be a EIP-155 chain ID. Provided value: ${chainId}`);
+    if (!domain)
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "domain". Domain must be provided.`);
+    if (nonce && nonce.length < 8)
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "nonce". Nonce must be at least 8 characters. Provided value: ${nonce}`);
+    if (!uri)
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "uri". URI must be provided.`);
+    if (version6 !== "1")
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "version". Version must be '1'. Provided value: ${version6}`);
+    if ((_a = parameters.statement) === null || _a === void 0 ? void 0 : _a.includes("\n"))
+      throw new Error(`@supabase/auth-js: Invalid SIWE message field "statement". Statement must not include '\\n'. Provided value: ${parameters.statement}`);
+  }
+  const address = getAddress(parameters.address);
+  const origin = scheme ? `${scheme}://${domain}` : domain;
+  const statement = parameters.statement ? `${parameters.statement}
+` : "";
+  const prefix = `${origin} wants you to sign in with your Ethereum account:
+${address}
+
+${statement}`;
+  let suffix2 = `URI: ${uri}
+Version: ${version6}
+Chain ID: ${chainId}${nonce ? `
+Nonce: ${nonce}` : ""}
+Issued At: ${issuedAt.toISOString()}`;
+  if (expirationTime)
+    suffix2 += `
+Expiration Time: ${expirationTime.toISOString()}`;
+  if (notBefore)
+    suffix2 += `
+Not Before: ${notBefore.toISOString()}`;
+  if (requestId)
+    suffix2 += `
+Request ID: ${requestId}`;
+  if (resources) {
+    let content = "\nResources:";
+    for (const resource of resources) {
+      if (!resource || typeof resource !== "string")
+        throw new Error(`@supabase/auth-js: Invalid SIWE message field "resources". Every resource must be a valid string. Provided value: ${resource}`);
+      content += `
+- ${resource}`;
+    }
+    suffix2 += content;
+  }
+  return `${prefix}
+${suffix2}`;
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/webauthn.errors.js
+var WebAuthnError = class extends Error {
+  constructor({ message, code, cause, name }) {
+    var _a;
+    super(message, { cause });
+    this.__isWebAuthnError = true;
+    this.name = (_a = name !== null && name !== void 0 ? name : cause instanceof Error ? cause.name : void 0) !== null && _a !== void 0 ? _a : "Unknown Error";
+    this.code = code;
+  }
+};
+var WebAuthnUnknownError = class extends WebAuthnError {
+  constructor(message, originalError) {
+    super({
+      code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
+      cause: originalError,
+      message
+    });
+    this.name = "WebAuthnUnknownError";
+    this.originalError = originalError;
+  }
+};
+function identifyRegistrationError({ error, options }) {
+  var _a, _b, _c;
+  const { publicKey } = options;
+  if (!publicKey) {
+    throw Error("options was missing required publicKey property");
+  }
+  if (error.name === "AbortError") {
+    if (options.signal instanceof AbortSignal) {
+      return new WebAuthnError({
+        message: "Registration ceremony was sent an abort signal",
+        code: "ERROR_CEREMONY_ABORTED",
+        cause: error
+      });
+    }
+  } else if (error.name === "ConstraintError") {
+    if (((_a = publicKey.authenticatorSelection) === null || _a === void 0 ? void 0 : _a.requireResidentKey) === true) {
+      return new WebAuthnError({
+        message: "Discoverable credentials were required but no available authenticator supported it",
+        code: "ERROR_AUTHENTICATOR_MISSING_DISCOVERABLE_CREDENTIAL_SUPPORT",
+        cause: error
+      });
+    } else if (
+      // @ts-ignore: `mediation` doesn't yet exist on CredentialCreationOptions but it's possible as of Sept 2024
+      options.mediation === "conditional" && ((_b = publicKey.authenticatorSelection) === null || _b === void 0 ? void 0 : _b.userVerification) === "required"
+    ) {
+      return new WebAuthnError({
+        message: "User verification was required during automatic registration but it could not be performed",
+        code: "ERROR_AUTO_REGISTER_USER_VERIFICATION_FAILURE",
+        cause: error
+      });
+    } else if (((_c = publicKey.authenticatorSelection) === null || _c === void 0 ? void 0 : _c.userVerification) === "required") {
+      return new WebAuthnError({
+        message: "User verification was required but no available authenticator supported it",
+        code: "ERROR_AUTHENTICATOR_MISSING_USER_VERIFICATION_SUPPORT",
+        cause: error
+      });
+    }
+  } else if (error.name === "InvalidStateError") {
+    return new WebAuthnError({
+      message: "The authenticator was previously registered",
+      code: "ERROR_AUTHENTICATOR_PREVIOUSLY_REGISTERED",
+      cause: error
+    });
+  } else if (error.name === "NotAllowedError") {
+    return new WebAuthnError({
+      message: error.message,
+      code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
+      cause: error
+    });
+  } else if (error.name === "NotSupportedError") {
+    const validPubKeyCredParams = publicKey.pubKeyCredParams.filter((param) => param.type === "public-key");
+    if (validPubKeyCredParams.length === 0) {
+      return new WebAuthnError({
+        message: 'No entry in pubKeyCredParams was of type "public-key"',
+        code: "ERROR_MALFORMED_PUBKEYCREDPARAMS",
+        cause: error
+      });
+    }
+    return new WebAuthnError({
+      message: "No available authenticator supported any of the specified pubKeyCredParams algorithms",
+      code: "ERROR_AUTHENTICATOR_NO_SUPPORTED_PUBKEYCREDPARAMS_ALG",
+      cause: error
+    });
+  } else if (error.name === "SecurityError") {
+    const effectiveDomain = window.location.hostname;
+    if (!isValidDomain(effectiveDomain)) {
+      return new WebAuthnError({
+        message: `${window.location.hostname} is an invalid domain`,
+        code: "ERROR_INVALID_DOMAIN",
+        cause: error
+      });
+    } else if (publicKey.rp.id !== effectiveDomain) {
+      return new WebAuthnError({
+        message: `The RP ID "${publicKey.rp.id}" is invalid for this domain`,
+        code: "ERROR_INVALID_RP_ID",
+        cause: error
+      });
+    }
+  } else if (error.name === "TypeError") {
+    if (publicKey.user.id.byteLength < 1 || publicKey.user.id.byteLength > 64) {
+      return new WebAuthnError({
+        message: "User ID was not between 1 and 64 characters",
+        code: "ERROR_INVALID_USER_ID_LENGTH",
+        cause: error
+      });
+    }
+  } else if (error.name === "UnknownError") {
+    return new WebAuthnError({
+      message: "The authenticator was unable to process the specified options, or could not create a new credential",
+      code: "ERROR_AUTHENTICATOR_GENERAL_ERROR",
+      cause: error
+    });
+  }
+  return new WebAuthnError({
+    message: "a Non-Webauthn related error has occurred",
+    code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
+    cause: error
+  });
+}
+function identifyAuthenticationError({ error, options }) {
+  const { publicKey } = options;
+  if (!publicKey) {
+    throw Error("options was missing required publicKey property");
+  }
+  if (error.name === "AbortError") {
+    if (options.signal instanceof AbortSignal) {
+      return new WebAuthnError({
+        message: "Authentication ceremony was sent an abort signal",
+        code: "ERROR_CEREMONY_ABORTED",
+        cause: error
+      });
+    }
+  } else if (error.name === "NotAllowedError") {
+    return new WebAuthnError({
+      message: error.message,
+      code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
+      cause: error
+    });
+  } else if (error.name === "SecurityError") {
+    const effectiveDomain = window.location.hostname;
+    if (!isValidDomain(effectiveDomain)) {
+      return new WebAuthnError({
+        message: `${window.location.hostname} is an invalid domain`,
+        code: "ERROR_INVALID_DOMAIN",
+        cause: error
+      });
+    } else if (publicKey.rpId !== effectiveDomain) {
+      return new WebAuthnError({
+        message: `The RP ID "${publicKey.rpId}" is invalid for this domain`,
+        code: "ERROR_INVALID_RP_ID",
+        cause: error
+      });
+    }
+  } else if (error.name === "UnknownError") {
+    return new WebAuthnError({
+      message: "The authenticator was unable to process the specified options, or could not create a new assertion signature",
+      code: "ERROR_AUTHENTICATOR_GENERAL_ERROR",
+      cause: error
+    });
+  }
+  return new WebAuthnError({
+    message: "a Non-Webauthn related error has occurred",
+    code: "ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY",
+    cause: error
+  });
+}
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/lib/webauthn.js
+var WebAuthnAbortService = class {
+  /**
+   * Create an abort signal for a new WebAuthn operation.
+   * Automatically cancels any existing operation.
+   *
+   * @returns {AbortSignal} Signal to pass to navigator.credentials.create() or .get()
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal MDN - AbortSignal}
+   */
+  createNewAbortSignal() {
+    if (this.controller) {
+      const abortError = new Error("Cancelling existing WebAuthn API call for new one");
+      abortError.name = "AbortError";
+      this.controller.abort(abortError);
+    }
+    const newController = new AbortController();
+    this.controller = newController;
+    return newController.signal;
+  }
+  /**
+   * Manually cancel the current WebAuthn operation.
+   * Useful for cleaning up when user cancels or navigates away.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort MDN - AbortController.abort}
+   */
+  cancelCeremony() {
+    if (this.controller) {
+      const abortError = new Error("Manually cancelling existing WebAuthn API call");
+      abortError.name = "AbortError";
+      this.controller.abort(abortError);
+      this.controller = void 0;
+    }
+  }
+};
+var webAuthnAbortService = new WebAuthnAbortService();
+function deserializeCredentialCreationOptions(options) {
+  if (!options) {
+    throw new Error("Credential creation options are required");
+  }
+  if (typeof PublicKeyCredential !== "undefined" && "parseCreationOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseCreationOptionsFromJSON === "function") {
+    return PublicKeyCredential.parseCreationOptionsFromJSON(
+      /** we assert the options here as typescript still doesn't know about future webauthn types */
+      options
+    );
+  }
+  const { challenge: challengeStr, user: userOpts, excludeCredentials } = options, restOptions = __rest(
+    options,
+    ["challenge", "user", "excludeCredentials"]
+  );
+  const challenge = base64UrlToUint8Array(challengeStr).buffer;
+  const user = Object.assign(Object.assign({}, userOpts), { id: base64UrlToUint8Array(userOpts.id).buffer });
+  const result = Object.assign(Object.assign({}, restOptions), {
+    challenge,
+    user
+  });
+  if (excludeCredentials && excludeCredentials.length > 0) {
+    result.excludeCredentials = new Array(excludeCredentials.length);
+    for (let i = 0; i < excludeCredentials.length; i++) {
+      const cred = excludeCredentials[i];
+      result.excludeCredentials[i] = Object.assign(Object.assign({}, cred), {
+        id: base64UrlToUint8Array(cred.id).buffer,
+        type: cred.type || "public-key",
+        // Cast transports to handle future transport types like "cable"
+        transports: cred.transports
+      });
+    }
+  }
+  return result;
+}
+function deserializeCredentialRequestOptions(options) {
+  if (!options) {
+    throw new Error("Credential request options are required");
+  }
+  if (typeof PublicKeyCredential !== "undefined" && "parseRequestOptionsFromJSON" in PublicKeyCredential && typeof PublicKeyCredential.parseRequestOptionsFromJSON === "function") {
+    return PublicKeyCredential.parseRequestOptionsFromJSON(options);
+  }
+  const { challenge: challengeStr, allowCredentials } = options, restOptions = __rest(
+    options,
+    ["challenge", "allowCredentials"]
+  );
+  const challenge = base64UrlToUint8Array(challengeStr).buffer;
+  const result = Object.assign(Object.assign({}, restOptions), { challenge });
+  if (allowCredentials && allowCredentials.length > 0) {
+    result.allowCredentials = new Array(allowCredentials.length);
+    for (let i = 0; i < allowCredentials.length; i++) {
+      const cred = allowCredentials[i];
+      result.allowCredentials[i] = Object.assign(Object.assign({}, cred), {
+        id: base64UrlToUint8Array(cred.id).buffer,
+        type: cred.type || "public-key",
+        // Cast transports to handle future transport types like "cable"
+        transports: cred.transports
+      });
+    }
+  }
+  return result;
+}
+function serializeCredentialCreationResponse(credential) {
+  var _a;
+  if ("toJSON" in credential && typeof credential.toJSON === "function") {
+    return credential.toJSON();
+  }
+  const credentialWithAttachment = credential;
+  return {
+    id: credential.id,
+    rawId: credential.id,
+    response: {
+      attestationObject: bytesToBase64URL(new Uint8Array(credential.response.attestationObject)),
+      clientDataJSON: bytesToBase64URL(new Uint8Array(credential.response.clientDataJSON))
+    },
+    type: "public-key",
+    clientExtensionResults: credential.getClientExtensionResults(),
+    // Convert null to undefined and cast to AuthenticatorAttachment type
+    authenticatorAttachment: (_a = credentialWithAttachment.authenticatorAttachment) !== null && _a !== void 0 ? _a : void 0
+  };
+}
+function serializeCredentialRequestResponse(credential) {
+  var _a;
+  if ("toJSON" in credential && typeof credential.toJSON === "function") {
+    return credential.toJSON();
+  }
+  const credentialWithAttachment = credential;
+  const clientExtensionResults = credential.getClientExtensionResults();
+  const assertionResponse = credential.response;
+  return {
+    id: credential.id,
+    rawId: credential.id,
+    // W3C spec expects rawId to match id for JSON format
+    response: {
+      authenticatorData: bytesToBase64URL(new Uint8Array(assertionResponse.authenticatorData)),
+      clientDataJSON: bytesToBase64URL(new Uint8Array(assertionResponse.clientDataJSON)),
+      signature: bytesToBase64URL(new Uint8Array(assertionResponse.signature)),
+      userHandle: assertionResponse.userHandle ? bytesToBase64URL(new Uint8Array(assertionResponse.userHandle)) : void 0
+    },
+    type: "public-key",
+    clientExtensionResults,
+    // Convert null to undefined and cast to AuthenticatorAttachment type
+    authenticatorAttachment: (_a = credentialWithAttachment.authenticatorAttachment) !== null && _a !== void 0 ? _a : void 0
+  };
+}
+function isValidDomain(hostname) {
+  return (
+    // Consider localhost valid as well since it's okay wrt Secure Contexts
+    hostname === "localhost" || /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i.test(hostname)
+  );
+}
+function browserSupportsWebAuthn() {
+  var _a, _b;
+  return !!(isBrowser() && "PublicKeyCredential" in window && window.PublicKeyCredential && "credentials" in navigator && typeof ((_a = navigator === null || navigator === void 0 ? void 0 : navigator.credentials) === null || _a === void 0 ? void 0 : _a.create) === "function" && typeof ((_b = navigator === null || navigator === void 0 ? void 0 : navigator.credentials) === null || _b === void 0 ? void 0 : _b.get) === "function");
+}
+async function createCredential(options) {
+  try {
+    const response = await navigator.credentials.create(
+      /** we assert the type here until typescript types are updated */
+      options
+    );
+    if (!response) {
+      return {
+        data: null,
+        error: new WebAuthnUnknownError("Empty credential response", response)
+      };
+    }
+    if (!(response instanceof PublicKeyCredential)) {
+      return {
+        data: null,
+        error: new WebAuthnUnknownError("Browser returned unexpected credential type", response)
+      };
+    }
+    return { data: response, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: identifyRegistrationError({
+        error: err,
+        options
+      })
+    };
+  }
+}
+async function getCredential(options) {
+  try {
+    const response = await navigator.credentials.get(
+      /** we assert the type here until typescript types are updated */
+      options
+    );
+    if (!response) {
+      return {
+        data: null,
+        error: new WebAuthnUnknownError("Empty credential response", response)
+      };
+    }
+    if (!(response instanceof PublicKeyCredential)) {
+      return {
+        data: null,
+        error: new WebAuthnUnknownError("Browser returned unexpected credential type", response)
+      };
+    }
+    return { data: response, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: identifyAuthenticationError({
+        error: err,
+        options
+      })
+    };
+  }
+}
+var DEFAULT_CREATION_OPTIONS = {
+  hints: ["security-key"],
+  authenticatorSelection: {
+    authenticatorAttachment: "cross-platform",
+    requireResidentKey: false,
+    /** set to preferred because older yubikeys don't have PIN/Biometric */
+    userVerification: "preferred",
+    residentKey: "discouraged"
+  },
+  attestation: "direct"
+};
+var DEFAULT_REQUEST_OPTIONS = {
+  /** set to preferred because older yubikeys don't have PIN/Biometric */
+  userVerification: "preferred",
+  hints: ["security-key"],
+  attestation: "direct"
+};
+function deepMerge(...sources) {
+  const isObject = (val) => val !== null && typeof val === "object" && !Array.isArray(val);
+  const isArrayBufferLike = (val) => val instanceof ArrayBuffer || ArrayBuffer.isView(val);
+  const result = {};
+  for (const source of sources) {
+    if (!source)
+      continue;
+    for (const key in source) {
+      const value = source[key];
+      if (value === void 0)
+        continue;
+      if (Array.isArray(value)) {
+        result[key] = value;
+      } else if (isArrayBufferLike(value)) {
+        result[key] = value;
+      } else if (isObject(value)) {
+        const existing = result[key];
+        if (isObject(existing)) {
+          result[key] = deepMerge(existing, value);
+        } else {
+          result[key] = deepMerge(value);
+        }
+      } else {
+        result[key] = value;
+      }
+    }
+  }
+  return result;
+}
+function mergeCredentialCreationOptions(baseOptions, overrides) {
+  return deepMerge(DEFAULT_CREATION_OPTIONS, baseOptions, overrides || {});
+}
+function mergeCredentialRequestOptions(baseOptions, overrides) {
+  return deepMerge(DEFAULT_REQUEST_OPTIONS, baseOptions, overrides || {});
+}
+var WebAuthnApi = class {
+  constructor(client) {
+    this.client = client;
+    this.enroll = this._enroll.bind(this);
+    this.challenge = this._challenge.bind(this);
+    this.verify = this._verify.bind(this);
+    this.authenticate = this._authenticate.bind(this);
+    this.register = this._register.bind(this);
+  }
+  /**
+   * Enroll a new WebAuthn factor.
+   * Creates an unverified WebAuthn factor that must be verified with a credential.
+   *
+   * @experimental This method is experimental and may change in future releases
+   * @param {Omit<MFAEnrollWebauthnParams, 'factorType'>} params - Enrollment parameters (friendlyName required)
+   * @returns {Promise<AuthMFAEnrollWebauthnResponse>} Enrolled factor details or error
+   * @see {@link https://w3c.github.io/webauthn/#sctn-registering-a-new-credential W3C WebAuthn Spec - Registering a New Credential}
+   */
+  async _enroll(params) {
+    return this.client.mfa.enroll(Object.assign(Object.assign({}, params), { factorType: "webauthn" }));
+  }
+  /**
+   * Challenge for WebAuthn credential creation or authentication.
+   * Combines server challenge with browser credential operations.
+   * Handles both registration (create) and authentication (request) flows.
+   *
+   * @experimental This method is experimental and may change in future releases
+   * @param {MFAChallengeWebauthnParams & { friendlyName?: string; signal?: AbortSignal }} params - Challenge parameters including factorId
+   * @param {Object} overrides - Allows you to override the parameters passed to navigator.credentials
+   * @param {PublicKeyCredentialCreationOptionsFuture} overrides.create - Override options for credential creation
+   * @param {PublicKeyCredentialRequestOptionsFuture} overrides.request - Override options for credential request
+   * @returns {Promise<RequestResult>} Challenge response with credential or error
+   * @see {@link https://w3c.github.io/webauthn/#sctn-credential-creation W3C WebAuthn Spec - Credential Creation}
+   * @see {@link https://w3c.github.io/webauthn/#sctn-verifying-assertion W3C WebAuthn Spec - Verifying Assertion}
+   */
+  async _challenge({ factorId, webauthn, friendlyName, signal }, overrides) {
+    var _a;
+    try {
+      const { data: challengeResponse, error: challengeError } = await this.client.mfa.challenge({
+        factorId,
+        webauthn
+      });
+      if (!challengeResponse) {
+        return { data: null, error: challengeError };
+      }
+      const abortSignal = signal !== null && signal !== void 0 ? signal : webAuthnAbortService.createNewAbortSignal();
+      if (challengeResponse.webauthn.type === "create") {
+        const { user } = challengeResponse.webauthn.credential_options.publicKey;
+        if (!user.name) {
+          const nameToUse = friendlyName;
+          if (!nameToUse) {
+            const currentUser = await this.client.getUser();
+            const userData = currentUser.data.user;
+            const fallbackName = ((_a = userData === null || userData === void 0 ? void 0 : userData.user_metadata) === null || _a === void 0 ? void 0 : _a.name) || (userData === null || userData === void 0 ? void 0 : userData.email) || (userData === null || userData === void 0 ? void 0 : userData.id) || "User";
+            user.name = `${user.id}:${fallbackName}`;
+          } else {
+            user.name = `${user.id}:${nameToUse}`;
+          }
+        }
+        if (!user.displayName) {
+          user.displayName = user.name;
+        }
+      }
+      switch (challengeResponse.webauthn.type) {
+        case "create": {
+          const options = mergeCredentialCreationOptions(challengeResponse.webauthn.credential_options.publicKey, overrides === null || overrides === void 0 ? void 0 : overrides.create);
+          const { data, error } = await createCredential({
+            publicKey: options,
+            signal: abortSignal
+          });
+          if (data) {
+            return {
+              data: {
+                factorId,
+                challengeId: challengeResponse.id,
+                webauthn: {
+                  type: challengeResponse.webauthn.type,
+                  credential_response: data
+                }
+              },
+              error: null
+            };
+          }
+          return { data: null, error };
+        }
+        case "request": {
+          const options = mergeCredentialRequestOptions(challengeResponse.webauthn.credential_options.publicKey, overrides === null || overrides === void 0 ? void 0 : overrides.request);
+          const { data, error } = await getCredential(Object.assign(Object.assign({}, challengeResponse.webauthn.credential_options), { publicKey: options, signal: abortSignal }));
+          if (data) {
+            return {
+              data: {
+                factorId,
+                challengeId: challengeResponse.id,
+                webauthn: {
+                  type: challengeResponse.webauthn.type,
+                  credential_response: data
+                }
+              },
+              error: null
+            };
+          }
+          return { data: null, error };
+        }
+      }
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      return {
+        data: null,
+        error: new AuthUnknownError("Unexpected error in challenge", error)
+      };
+    }
+  }
+  /**
+   * Verify a WebAuthn credential with the server.
+   * Completes the WebAuthn ceremony by sending the credential to the server for verification.
+   *
+   * @experimental This method is experimental and may change in future releases
+   * @param {Object} params - Verification parameters
+   * @param {string} params.challengeId - ID of the challenge being verified
+   * @param {string} params.factorId - ID of the WebAuthn factor
+   * @param {MFAVerifyWebauthnParams<T>['webauthn']} params.webauthn - WebAuthn credential response
+   * @returns {Promise<AuthMFAVerifyResponse>} Verification result with session or error
+   * @see {@link https://w3c.github.io/webauthn/#sctn-verifying-assertion W3C WebAuthn Spec - Verifying an Authentication Assertion}
+   * */
+  async _verify({ challengeId, factorId, webauthn }) {
+    return this.client.mfa.verify({
+      factorId,
+      challengeId,
+      webauthn
+    });
+  }
+  /**
+   * Complete WebAuthn authentication flow.
+   * Performs challenge and verification in a single operation for existing credentials.
+   *
+   * @experimental This method is experimental and may change in future releases
+   * @param {Object} params - Authentication parameters
+   * @param {string} params.factorId - ID of the WebAuthn factor to authenticate with
+   * @param {Object} params.webauthn - WebAuthn configuration
+   * @param {string} params.webauthn.rpId - Relying Party ID (defaults to current hostname)
+   * @param {string[]} params.webauthn.rpOrigins - Allowed origins (defaults to current origin)
+   * @param {AbortSignal} params.webauthn.signal - Optional abort signal
+   * @param {PublicKeyCredentialRequestOptionsFuture} overrides - Override options for navigator.credentials.get
+   * @returns {Promise<RequestResult<AuthMFAVerifyResponseData, WebAuthnError | AuthError>>} Authentication result
+   * @see {@link https://w3c.github.io/webauthn/#sctn-authentication W3C WebAuthn Spec - Authentication Ceremony}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialRequestOptions MDN - PublicKeyCredentialRequestOptions}
+   */
+  async _authenticate({ factorId, webauthn: { rpId = typeof window !== "undefined" ? window.location.hostname : void 0, rpOrigins = typeof window !== "undefined" ? [window.location.origin] : void 0, signal } = {} }, overrides) {
+    if (!rpId) {
+      return {
+        data: null,
+        error: new AuthError("rpId is required for WebAuthn authentication")
+      };
+    }
+    try {
+      if (!browserSupportsWebAuthn()) {
+        return {
+          data: null,
+          error: new AuthUnknownError("Browser does not support WebAuthn", null)
+        };
+      }
+      const { data: challengeResponse, error: challengeError } = await this.challenge({
+        factorId,
+        webauthn: { rpId, rpOrigins },
+        signal
+      }, { request: overrides });
+      if (!challengeResponse) {
+        return { data: null, error: challengeError };
+      }
+      const { webauthn } = challengeResponse;
+      return this._verify({
+        factorId,
+        challengeId: challengeResponse.challengeId,
+        webauthn: {
+          type: webauthn.type,
+          rpId,
+          rpOrigins,
+          credential_response: webauthn.credential_response
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      return {
+        data: null,
+        error: new AuthUnknownError("Unexpected error in authenticate", error)
+      };
+    }
+  }
+  /**
+   * Complete WebAuthn registration flow.
+   * Performs enrollment, challenge, and verification in a single operation for new credentials.
+   *
+   * @experimental This method is experimental and may change in future releases
+   * @param {Object} params - Registration parameters
+   * @param {string} params.friendlyName - User-friendly name for the credential
+   * @param {string} params.rpId - Relying Party ID (defaults to current hostname)
+   * @param {string[]} params.rpOrigins - Allowed origins (defaults to current origin)
+   * @param {AbortSignal} params.signal - Optional abort signal
+   * @param {PublicKeyCredentialCreationOptionsFuture} overrides - Override options for navigator.credentials.create
+   * @returns {Promise<RequestResult<AuthMFAVerifyResponseData, WebAuthnError | AuthError>>} Registration result
+   * @see {@link https://w3c.github.io/webauthn/#sctn-registering-a-new-credential W3C WebAuthn Spec - Registration Ceremony}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialCreationOptions MDN - PublicKeyCredentialCreationOptions}
+   */
+  async _register({ friendlyName, webauthn: { rpId = typeof window !== "undefined" ? window.location.hostname : void 0, rpOrigins = typeof window !== "undefined" ? [window.location.origin] : void 0, signal } = {} }, overrides) {
+    if (!rpId) {
+      return {
+        data: null,
+        error: new AuthError("rpId is required for WebAuthn registration")
+      };
+    }
+    try {
+      if (!browserSupportsWebAuthn()) {
+        return {
+          data: null,
+          error: new AuthUnknownError("Browser does not support WebAuthn", null)
+        };
+      }
+      const { data: factor, error: enrollError } = await this._enroll({
+        friendlyName
+      });
+      if (!factor) {
+        await this.client.mfa.listFactors().then((factors) => {
+          var _a;
+          return (_a = factors.data) === null || _a === void 0 ? void 0 : _a.all.find((v) => v.factor_type === "webauthn" && v.friendly_name === friendlyName && v.status !== "unverified");
+        }).then((factor2) => factor2 ? this.client.mfa.unenroll({ factorId: factor2 === null || factor2 === void 0 ? void 0 : factor2.id }) : void 0);
+        return { data: null, error: enrollError };
+      }
+      const { data: challengeResponse, error: challengeError } = await this._challenge({
+        factorId: factor.id,
+        friendlyName: factor.friendly_name,
+        webauthn: { rpId, rpOrigins },
+        signal
+      }, {
+        create: overrides
+      });
+      if (!challengeResponse) {
+        return { data: null, error: challengeError };
+      }
+      return this._verify({
+        factorId: factor.id,
+        challengeId: challengeResponse.challengeId,
+        webauthn: {
+          rpId,
+          rpOrigins,
+          type: challengeResponse.webauthn.type,
+          credential_response: challengeResponse.webauthn.credential_response
+        }
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return { data: null, error };
+      }
+      return {
+        data: null,
+        error: new AuthUnknownError("Unexpected error in register", error)
+      };
+    }
+  }
+};
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/GoTrueClient.js
+polyfillGlobalThis();
+var DEFAULT_OPTIONS = {
+  url: GOTRUE_URL,
+  storageKey: STORAGE_KEY,
+  autoRefreshToken: true,
+  persistSession: true,
+  detectSessionInUrl: true,
+  headers: DEFAULT_HEADERS2,
+  flowType: "implicit",
+  debug: false,
+  hasCustomAuthorizationHeader: false,
+  throwOnError: false,
+  lockAcquireTimeout: 1e4,
+  // 10 seconds
+  skipAutoInitialize: false
+};
+async function lockNoOp(name, acquireTimeout, fn) {
+  return await fn();
+}
+var GLOBAL_JWKS = {};
+var GoTrueClient = class _GoTrueClient {
+  /**
+   * The JWKS used for verifying asymmetric JWTs
+   */
+  get jwks() {
+    var _a, _b;
+    return (_b = (_a = GLOBAL_JWKS[this.storageKey]) === null || _a === void 0 ? void 0 : _a.jwks) !== null && _b !== void 0 ? _b : { keys: [] };
+  }
+  set jwks(value) {
+    GLOBAL_JWKS[this.storageKey] = Object.assign(Object.assign({}, GLOBAL_JWKS[this.storageKey]), { jwks: value });
+  }
+  get jwks_cached_at() {
+    var _a, _b;
+    return (_b = (_a = GLOBAL_JWKS[this.storageKey]) === null || _a === void 0 ? void 0 : _a.cachedAt) !== null && _b !== void 0 ? _b : Number.MIN_SAFE_INTEGER;
+  }
+  set jwks_cached_at(value) {
+    GLOBAL_JWKS[this.storageKey] = Object.assign(Object.assign({}, GLOBAL_JWKS[this.storageKey]), { cachedAt: value });
+  }
+  /**
+   * Create a new client for use in the browser.
+   *
+   * @example
+   * ```ts
+   * import { GoTrueClient } from '@supabase/auth-js'
+   *
+   * const auth = new GoTrueClient({
+   *   url: 'https://xyzcompany.supabase.co/auth/v1',
+   *   headers: { apikey: 'public-anon-key' },
+   *   storageKey: 'supabase-auth',
+   * })
+   * ```
+   */
+  constructor(options) {
+    var _a, _b, _c;
+    this.userStorage = null;
+    this.memoryStorage = null;
+    this.stateChangeEmitters = /* @__PURE__ */ new Map();
+    this.autoRefreshTicker = null;
+    this.autoRefreshTickTimeout = null;
+    this.visibilityChangedCallback = null;
+    this.refreshingDeferred = null;
+    this.initializePromise = null;
+    this.detectSessionInUrl = true;
+    this.hasCustomAuthorizationHeader = false;
+    this.suppressGetSessionWarning = false;
+    this.lockAcquired = false;
+    this.pendingInLock = [];
+    this.broadcastChannel = null;
+    this.logger = console.log;
+    const settings = Object.assign(Object.assign({}, DEFAULT_OPTIONS), options);
+    this.storageKey = settings.storageKey;
+    this.instanceID = (_a = _GoTrueClient.nextInstanceID[this.storageKey]) !== null && _a !== void 0 ? _a : 0;
+    _GoTrueClient.nextInstanceID[this.storageKey] = this.instanceID + 1;
+    this.logDebugMessages = !!settings.debug;
+    if (typeof settings.debug === "function") {
+      this.logger = settings.debug;
+    }
+    if (this.instanceID > 0 && isBrowser()) {
+      const message = `${this._logPrefix()} Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.`;
+      console.warn(message);
+      if (this.logDebugMessages) {
+        console.trace(message);
+      }
+    }
+    this.persistSession = settings.persistSession;
+    this.autoRefreshToken = settings.autoRefreshToken;
+    this.admin = new GoTrueAdminApi({
+      url: settings.url,
+      headers: settings.headers,
+      fetch: settings.fetch
+    });
+    this.url = settings.url;
+    this.headers = settings.headers;
+    this.fetch = resolveFetch3(settings.fetch);
+    this.lock = settings.lock || lockNoOp;
+    this.detectSessionInUrl = settings.detectSessionInUrl;
+    this.flowType = settings.flowType;
+    this.hasCustomAuthorizationHeader = settings.hasCustomAuthorizationHeader;
+    this.throwOnError = settings.throwOnError;
+    this.lockAcquireTimeout = settings.lockAcquireTimeout;
+    if (settings.lock) {
+      this.lock = settings.lock;
+    } else if (this.persistSession && isBrowser() && ((_b = globalThis === null || globalThis === void 0 ? void 0 : globalThis.navigator) === null || _b === void 0 ? void 0 : _b.locks)) {
+      this.lock = navigatorLock;
+    } else {
+      this.lock = lockNoOp;
+    }
+    if (!this.jwks) {
+      this.jwks = { keys: [] };
+      this.jwks_cached_at = Number.MIN_SAFE_INTEGER;
+    }
+    this.mfa = {
+      verify: this._verify.bind(this),
+      enroll: this._enroll.bind(this),
+      unenroll: this._unenroll.bind(this),
+      challenge: this._challenge.bind(this),
+      listFactors: this._listFactors.bind(this),
+      challengeAndVerify: this._challengeAndVerify.bind(this),
+      getAuthenticatorAssuranceLevel: this._getAuthenticatorAssuranceLevel.bind(this),
+      webauthn: new WebAuthnApi(this)
+    };
+    this.oauth = {
+      getAuthorizationDetails: this._getAuthorizationDetails.bind(this),
+      approveAuthorization: this._approveAuthorization.bind(this),
+      denyAuthorization: this._denyAuthorization.bind(this),
+      listGrants: this._listOAuthGrants.bind(this),
+      revokeGrant: this._revokeOAuthGrant.bind(this)
+    };
+    if (this.persistSession) {
+      if (settings.storage) {
+        this.storage = settings.storage;
+      } else {
+        if (supportsLocalStorage()) {
+          this.storage = globalThis.localStorage;
+        } else {
+          this.memoryStorage = {};
+          this.storage = memoryLocalStorageAdapter(this.memoryStorage);
+        }
+      }
+      if (settings.userStorage) {
+        this.userStorage = settings.userStorage;
+      }
+    } else {
+      this.memoryStorage = {};
+      this.storage = memoryLocalStorageAdapter(this.memoryStorage);
+    }
+    if (isBrowser() && globalThis.BroadcastChannel && this.persistSession && this.storageKey) {
+      try {
+        this.broadcastChannel = new globalThis.BroadcastChannel(this.storageKey);
+      } catch (e) {
+        console.error("Failed to create a new BroadcastChannel, multi-tab state changes will not be available", e);
+      }
+      (_c = this.broadcastChannel) === null || _c === void 0 ? void 0 : _c.addEventListener("message", async (event) => {
+        this._debug("received broadcast notification from other tab or client", event);
+        try {
+          await this._notifyAllSubscribers(event.data.event, event.data.session, false);
+        } catch (error) {
+          this._debug("#broadcastChannel", "error", error);
+        }
+      });
+    }
+    if (!settings.skipAutoInitialize) {
+      this.initialize().catch((error) => {
+        this._debug("#initialize()", "error", error);
+      });
+    }
+  }
+  /**
+   * Returns whether error throwing mode is enabled for this client.
+   */
+  isThrowOnErrorEnabled() {
+    return this.throwOnError;
+  }
+  /**
+   * Centralizes return handling with optional error throwing. When `throwOnError` is enabled
+   * and the provided result contains a non-nullish error, the error is thrown instead of
+   * being returned. This ensures consistent behavior across all public API methods.
+   */
+  _returnResult(result) {
+    if (this.throwOnError && result && result.error) {
+      throw result.error;
+    }
+    return result;
+  }
+  _logPrefix() {
+    return `GoTrueClient@${this.storageKey}:${this.instanceID} (${version4}) ${(/* @__PURE__ */ new Date()).toISOString()}`;
+  }
+  _debug(...args) {
+    if (this.logDebugMessages) {
+      this.logger(this._logPrefix(), ...args);
+    }
+    return this;
+  }
+  /**
+   * Initializes the client session either from the url or from storage.
+   * This method is automatically called when instantiating the client, but should also be called
+   * manually when checking for an error from an auth redirect (oauth, magiclink, password recovery, etc).
+   */
+  async initialize() {
+    if (this.initializePromise) {
+      return await this.initializePromise;
+    }
+    this.initializePromise = (async () => {
+      return await this._acquireLock(this.lockAcquireTimeout, async () => {
+        return await this._initialize();
+      });
+    })();
+    return await this.initializePromise;
+  }
+  /**
+   * IMPORTANT:
+   * 1. Never throw in this method, as it is called from the constructor
+   * 2. Never return a session from this method as it would be cached over
+   *    the whole lifetime of the client
+   */
+  async _initialize() {
+    var _a;
+    try {
+      let params = {};
+      let callbackUrlType = "none";
+      if (isBrowser()) {
+        params = parseParametersFromURL(window.location.href);
+        if (this._isImplicitGrantCallback(params)) {
+          callbackUrlType = "implicit";
+        } else if (await this._isPKCECallback(params)) {
+          callbackUrlType = "pkce";
+        }
+      }
+      if (isBrowser() && this.detectSessionInUrl && callbackUrlType !== "none") {
+        const { data, error } = await this._getSessionFromURL(params, callbackUrlType);
+        if (error) {
+          this._debug("#_initialize()", "error detecting session from URL", error);
+          if (isAuthImplicitGrantRedirectError(error)) {
+            const errorCode = (_a = error.details) === null || _a === void 0 ? void 0 : _a.code;
+            if (errorCode === "identity_already_exists" || errorCode === "identity_not_found" || errorCode === "single_identity_not_deletable") {
+              return { error };
+            }
+          }
+          return { error };
+        }
+        const { session, redirectType } = data;
+        this._debug("#_initialize()", "detected session in URL", session, "redirect type", redirectType);
+        await this._saveSession(session);
+        setTimeout(async () => {
+          if (redirectType === "recovery") {
+            await this._notifyAllSubscribers("PASSWORD_RECOVERY", session);
+          } else {
+            await this._notifyAllSubscribers("SIGNED_IN", session);
+          }
+        }, 0);
+        return { error: null };
+      }
+      await this._recoverAndRefresh();
+      return { error: null };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ error });
+      }
+      return this._returnResult({
+        error: new AuthUnknownError("Unexpected error during initialization", error)
+      });
+    } finally {
+      await this._handleVisibilityChange();
+      this._debug("#_initialize()", "end");
+    }
+  }
+  /**
+   * Creates a new anonymous user.
+   *
+   * @returns A session where the is_anonymous claim in the access token JWT set to true
+   */
+  async signInAnonymously(credentials) {
+    var _a, _b, _c;
+    try {
+      const res = await _request(this.fetch, "POST", `${this.url}/signup`, {
+        headers: this.headers,
+        body: {
+          data: (_b = (_a = credentials === null || credentials === void 0 ? void 0 : credentials.options) === null || _a === void 0 ? void 0 : _a.data) !== null && _b !== void 0 ? _b : {},
+          gotrue_meta_security: { captcha_token: (_c = credentials === null || credentials === void 0 ? void 0 : credentials.options) === null || _c === void 0 ? void 0 : _c.captchaToken }
+        },
+        xform: _sessionResponse
+      });
+      const { data, error } = res;
+      if (error || !data) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      const session = data.session;
+      const user = data.user;
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", session);
+      }
+      return this._returnResult({ data: { user, session }, error: null });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Creates a new user.
+   *
+   * Be aware that if a user account exists in the system you may get back an
+   * error message that attempts to hide this information from the user.
+   * This method has support for PKCE via email signups. The PKCE flow cannot be used when autoconfirm is enabled.
+   *
+   * @returns A logged-in session if the server has "autoconfirm" ON
+   * @returns A user if the server has "autoconfirm" OFF
+   */
+  async signUp(credentials) {
+    var _a, _b, _c;
+    try {
+      let res;
+      if ("email" in credentials) {
+        const { email, password, options } = credentials;
+        let codeChallenge = null;
+        let codeChallengeMethod = null;
+        if (this.flowType === "pkce") {
+          ;
+          [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
+        }
+        res = await _request(this.fetch, "POST", `${this.url}/signup`, {
+          headers: this.headers,
+          redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo,
+          body: {
+            email,
+            password,
+            data: (_a = options === null || options === void 0 ? void 0 : options.data) !== null && _a !== void 0 ? _a : {},
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
+            code_challenge: codeChallenge,
+            code_challenge_method: codeChallengeMethod
+          },
+          xform: _sessionResponse
+        });
+      } else if ("phone" in credentials) {
+        const { phone, password, options } = credentials;
+        res = await _request(this.fetch, "POST", `${this.url}/signup`, {
+          headers: this.headers,
+          body: {
+            phone,
+            password,
+            data: (_b = options === null || options === void 0 ? void 0 : options.data) !== null && _b !== void 0 ? _b : {},
+            channel: (_c = options === null || options === void 0 ? void 0 : options.channel) !== null && _c !== void 0 ? _c : "sms",
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          },
+          xform: _sessionResponse
+        });
+      } else {
+        throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a password");
+      }
+      const { data, error } = res;
+      if (error || !data) {
+        await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      const session = data.session;
+      const user = data.user;
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", session);
+      }
+      return this._returnResult({ data: { user, session }, error: null });
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Log in an existing user with an email and password or phone and password.
+   *
+   * Be aware that you may get back an error message that will not distinguish
+   * between the cases where the account does not exist or that the
+   * email/phone and password combination is wrong or that the account can only
+   * be accessed via social login.
+   */
+  async signInWithPassword(credentials) {
+    try {
+      let res;
+      if ("email" in credentials) {
+        const { email, password, options } = credentials;
+        res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=password`, {
+          headers: this.headers,
+          body: {
+            email,
+            password,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          },
+          xform: _sessionResponsePassword
+        });
+      } else if ("phone" in credentials) {
+        const { phone, password, options } = credentials;
+        res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=password`, {
+          headers: this.headers,
+          body: {
+            phone,
+            password,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          },
+          xform: _sessionResponsePassword
+        });
+      } else {
+        throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a password");
+      }
+      const { data, error } = res;
+      if (error) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      } else if (!data || !data.session || !data.user) {
+        const invalidTokenError = new AuthInvalidTokenResponseError();
+        return this._returnResult({ data: { user: null, session: null }, error: invalidTokenError });
+      }
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", data.session);
+      }
+      return this._returnResult({
+        data: Object.assign({ user: data.user, session: data.session }, data.weak_password ? { weakPassword: data.weak_password } : null),
+        error
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Log in an existing user via a third-party provider.
+   * This method supports the PKCE flow.
+   */
+  async signInWithOAuth(credentials) {
+    var _a, _b, _c, _d;
+    return await this._handleProviderSignIn(credentials.provider, {
+      redirectTo: (_a = credentials.options) === null || _a === void 0 ? void 0 : _a.redirectTo,
+      scopes: (_b = credentials.options) === null || _b === void 0 ? void 0 : _b.scopes,
+      queryParams: (_c = credentials.options) === null || _c === void 0 ? void 0 : _c.queryParams,
+      skipBrowserRedirect: (_d = credentials.options) === null || _d === void 0 ? void 0 : _d.skipBrowserRedirect
+    });
+  }
+  /**
+   * Log in an existing user by exchanging an Auth Code issued during the PKCE flow.
+   */
+  async exchangeCodeForSession(authCode) {
+    await this.initializePromise;
+    return this._acquireLock(this.lockAcquireTimeout, async () => {
+      return this._exchangeCodeForSession(authCode);
+    });
+  }
+  /**
+   * Signs in a user by verifying a message signed by the user's private key.
+   * Supports Ethereum (via Sign-In-With-Ethereum) & Solana (Sign-In-With-Solana) standards,
+   * both of which derive from the EIP-4361 standard
+   * With slight variation on Solana's side.
+   * @reference https://eips.ethereum.org/EIPS/eip-4361
+   */
+  async signInWithWeb3(credentials) {
+    const { chain } = credentials;
+    switch (chain) {
+      case "ethereum":
+        return await this.signInWithEthereum(credentials);
+      case "solana":
+        return await this.signInWithSolana(credentials);
+      default:
+        throw new Error(`@supabase/auth-js: Unsupported chain "${chain}"`);
+    }
+  }
+  async signInWithEthereum(credentials) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+    let message;
+    let signature;
+    if ("message" in credentials) {
+      message = credentials.message;
+      signature = credentials.signature;
+    } else {
+      const { chain, wallet, statement, options } = credentials;
+      let resolvedWallet;
+      if (!isBrowser()) {
+        if (typeof wallet !== "object" || !(options === null || options === void 0 ? void 0 : options.url)) {
+          throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
+        }
+        resolvedWallet = wallet;
+      } else if (typeof wallet === "object") {
+        resolvedWallet = wallet;
+      } else {
+        const windowAny = window;
+        if ("ethereum" in windowAny && typeof windowAny.ethereum === "object" && "request" in windowAny.ethereum && typeof windowAny.ethereum.request === "function") {
+          resolvedWallet = windowAny.ethereum;
+        } else {
+          throw new Error(`@supabase/auth-js: No compatible Ethereum wallet interface on the window object (window.ethereum) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'ethereum', wallet: resolvedUserWallet }) instead.`);
+        }
+      }
+      const url = new URL((_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : window.location.href);
+      const accounts = await resolvedWallet.request({
+        method: "eth_requestAccounts"
+      }).then((accs) => accs).catch(() => {
+        throw new Error(`@supabase/auth-js: Wallet method eth_requestAccounts is missing or invalid`);
+      });
+      if (!accounts || accounts.length === 0) {
+        throw new Error(`@supabase/auth-js: No accounts available. Please ensure the wallet is connected.`);
+      }
+      const address = getAddress(accounts[0]);
+      let chainId = (_b = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _b === void 0 ? void 0 : _b.chainId;
+      if (!chainId) {
+        const chainIdHex = await resolvedWallet.request({
+          method: "eth_chainId"
+        });
+        chainId = fromHex(chainIdHex);
+      }
+      const siweMessage = {
+        domain: url.host,
+        address,
+        statement,
+        uri: url.href,
+        version: "1",
+        chainId,
+        nonce: (_c = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _c === void 0 ? void 0 : _c.nonce,
+        issuedAt: (_e = (_d = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _d === void 0 ? void 0 : _d.issuedAt) !== null && _e !== void 0 ? _e : /* @__PURE__ */ new Date(),
+        expirationTime: (_f = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _f === void 0 ? void 0 : _f.expirationTime,
+        notBefore: (_g = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _g === void 0 ? void 0 : _g.notBefore,
+        requestId: (_h = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _h === void 0 ? void 0 : _h.requestId,
+        resources: (_j = options === null || options === void 0 ? void 0 : options.signInWithEthereum) === null || _j === void 0 ? void 0 : _j.resources
+      };
+      message = createSiweMessage(siweMessage);
+      signature = await resolvedWallet.request({
+        method: "personal_sign",
+        params: [toHex(message), address]
+      });
+    }
+    try {
+      const { data, error } = await _request(this.fetch, "POST", `${this.url}/token?grant_type=web3`, {
+        headers: this.headers,
+        body: Object.assign({
+          chain: "ethereum",
+          message,
+          signature
+        }, ((_k = credentials.options) === null || _k === void 0 ? void 0 : _k.captchaToken) ? { gotrue_meta_security: { captcha_token: (_l = credentials.options) === null || _l === void 0 ? void 0 : _l.captchaToken } } : null),
+        xform: _sessionResponse
+      });
+      if (error) {
+        throw error;
+      }
+      if (!data || !data.session || !data.user) {
+        const invalidTokenError = new AuthInvalidTokenResponseError();
+        return this._returnResult({ data: { user: null, session: null }, error: invalidTokenError });
+      }
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", data.session);
+      }
+      return this._returnResult({ data: Object.assign({}, data), error });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  async signInWithSolana(credentials) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+    let message;
+    let signature;
+    if ("message" in credentials) {
+      message = credentials.message;
+      signature = credentials.signature;
+    } else {
+      const { chain, wallet, statement, options } = credentials;
+      let resolvedWallet;
+      if (!isBrowser()) {
+        if (typeof wallet !== "object" || !(options === null || options === void 0 ? void 0 : options.url)) {
+          throw new Error("@supabase/auth-js: Both wallet and url must be specified in non-browser environments.");
+        }
+        resolvedWallet = wallet;
+      } else if (typeof wallet === "object") {
+        resolvedWallet = wallet;
+      } else {
+        const windowAny = window;
+        if ("solana" in windowAny && typeof windowAny.solana === "object" && ("signIn" in windowAny.solana && typeof windowAny.solana.signIn === "function" || "signMessage" in windowAny.solana && typeof windowAny.solana.signMessage === "function")) {
+          resolvedWallet = windowAny.solana;
+        } else {
+          throw new Error(`@supabase/auth-js: No compatible Solana wallet interface on the window object (window.solana) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'solana', wallet: resolvedUserWallet }) instead.`);
+        }
+      }
+      const url = new URL((_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : window.location.href);
+      if ("signIn" in resolvedWallet && resolvedWallet.signIn) {
+        const output = await resolvedWallet.signIn(Object.assign(Object.assign(Object.assign({ issuedAt: (/* @__PURE__ */ new Date()).toISOString() }, options === null || options === void 0 ? void 0 : options.signInWithSolana), {
+          // non-overridable properties
+          version: "1",
+          domain: url.host,
+          uri: url.href
+        }), statement ? { statement } : null));
+        let outputToProcess;
+        if (Array.isArray(output) && output[0] && typeof output[0] === "object") {
+          outputToProcess = output[0];
+        } else if (output && typeof output === "object" && "signedMessage" in output && "signature" in output) {
+          outputToProcess = output;
+        } else {
+          throw new Error("@supabase/auth-js: Wallet method signIn() returned unrecognized value");
+        }
+        if ("signedMessage" in outputToProcess && "signature" in outputToProcess && (typeof outputToProcess.signedMessage === "string" || outputToProcess.signedMessage instanceof Uint8Array) && outputToProcess.signature instanceof Uint8Array) {
+          message = typeof outputToProcess.signedMessage === "string" ? outputToProcess.signedMessage : new TextDecoder().decode(outputToProcess.signedMessage);
+          signature = outputToProcess.signature;
+        } else {
+          throw new Error("@supabase/auth-js: Wallet method signIn() API returned object without signedMessage and signature fields");
+        }
+      } else {
+        if (!("signMessage" in resolvedWallet) || typeof resolvedWallet.signMessage !== "function" || !("publicKey" in resolvedWallet) || typeof resolvedWallet !== "object" || !resolvedWallet.publicKey || !("toBase58" in resolvedWallet.publicKey) || typeof resolvedWallet.publicKey.toBase58 !== "function") {
+          throw new Error("@supabase/auth-js: Wallet does not have a compatible signMessage() and publicKey.toBase58() API");
+        }
+        message = [
+          `${url.host} wants you to sign in with your Solana account:`,
+          resolvedWallet.publicKey.toBase58(),
+          ...statement ? ["", statement, ""] : [""],
+          "Version: 1",
+          `URI: ${url.href}`,
+          `Issued At: ${(_c = (_b = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _b === void 0 ? void 0 : _b.issuedAt) !== null && _c !== void 0 ? _c : (/* @__PURE__ */ new Date()).toISOString()}`,
+          ...((_d = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _d === void 0 ? void 0 : _d.notBefore) ? [`Not Before: ${options.signInWithSolana.notBefore}`] : [],
+          ...((_e = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _e === void 0 ? void 0 : _e.expirationTime) ? [`Expiration Time: ${options.signInWithSolana.expirationTime}`] : [],
+          ...((_f = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _f === void 0 ? void 0 : _f.chainId) ? [`Chain ID: ${options.signInWithSolana.chainId}`] : [],
+          ...((_g = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _g === void 0 ? void 0 : _g.nonce) ? [`Nonce: ${options.signInWithSolana.nonce}`] : [],
+          ...((_h = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _h === void 0 ? void 0 : _h.requestId) ? [`Request ID: ${options.signInWithSolana.requestId}`] : [],
+          ...((_k = (_j = options === null || options === void 0 ? void 0 : options.signInWithSolana) === null || _j === void 0 ? void 0 : _j.resources) === null || _k === void 0 ? void 0 : _k.length) ? [
+            "Resources",
+            ...options.signInWithSolana.resources.map((resource) => `- ${resource}`)
+          ] : []
+        ].join("\n");
+        const maybeSignature = await resolvedWallet.signMessage(new TextEncoder().encode(message), "utf8");
+        if (!maybeSignature || !(maybeSignature instanceof Uint8Array)) {
+          throw new Error("@supabase/auth-js: Wallet signMessage() API returned an recognized value");
+        }
+        signature = maybeSignature;
+      }
+    }
+    try {
+      const { data, error } = await _request(this.fetch, "POST", `${this.url}/token?grant_type=web3`, {
+        headers: this.headers,
+        body: Object.assign({ chain: "solana", message, signature: bytesToBase64URL(signature) }, ((_l = credentials.options) === null || _l === void 0 ? void 0 : _l.captchaToken) ? { gotrue_meta_security: { captcha_token: (_m = credentials.options) === null || _m === void 0 ? void 0 : _m.captchaToken } } : null),
+        xform: _sessionResponse
+      });
+      if (error) {
+        throw error;
+      }
+      if (!data || !data.session || !data.user) {
+        const invalidTokenError = new AuthInvalidTokenResponseError();
+        return this._returnResult({ data: { user: null, session: null }, error: invalidTokenError });
+      }
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", data.session);
+      }
+      return this._returnResult({ data: Object.assign({}, data), error });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  async _exchangeCodeForSession(authCode) {
+    const storageItem = await getItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+    const [codeVerifier, redirectType] = (storageItem !== null && storageItem !== void 0 ? storageItem : "").split("/");
+    try {
+      if (!codeVerifier && this.flowType === "pkce") {
+        throw new AuthPKCECodeVerifierMissingError();
+      }
+      const { data, error } = await _request(this.fetch, "POST", `${this.url}/token?grant_type=pkce`, {
+        headers: this.headers,
+        body: {
+          auth_code: authCode,
+          code_verifier: codeVerifier
+        },
+        xform: _sessionResponse
+      });
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (error) {
+        throw error;
+      }
+      if (!data || !data.session || !data.user) {
+        const invalidTokenError = new AuthInvalidTokenResponseError();
+        return this._returnResult({
+          data: { user: null, session: null, redirectType: null },
+          error: invalidTokenError
+        });
+      }
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", data.session);
+      }
+      return this._returnResult({ data: Object.assign(Object.assign({}, data), { redirectType: redirectType !== null && redirectType !== void 0 ? redirectType : null }), error });
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({
+          data: { user: null, session: null, redirectType: null },
+          error
+        });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Allows signing in with an OIDC ID token. The authentication provider used
+   * should be enabled and configured.
+   */
+  async signInWithIdToken(credentials) {
+    try {
+      const { options, provider, token, access_token, nonce } = credentials;
+      const res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=id_token`, {
+        headers: this.headers,
+        body: {
+          provider,
+          id_token: token,
+          access_token,
+          nonce,
+          gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+        },
+        xform: _sessionResponse
+      });
+      const { data, error } = res;
+      if (error) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      } else if (!data || !data.session || !data.user) {
+        const invalidTokenError = new AuthInvalidTokenResponseError();
+        return this._returnResult({ data: { user: null, session: null }, error: invalidTokenError });
+      }
+      if (data.session) {
+        await this._saveSession(data.session);
+        await this._notifyAllSubscribers("SIGNED_IN", data.session);
+      }
+      return this._returnResult({ data, error });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Log in a user using magiclink or a one-time password (OTP).
+   *
+   * If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
+   * If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
+   * If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+   *
+   * Be aware that you may get back an error message that will not distinguish
+   * between the cases where the account does not exist or, that the account
+   * can only be accessed via social login.
+   *
+   * Do note that you will need to configure a Whatsapp sender on Twilio
+   * if you are using phone sign in with the 'whatsapp' channel. The whatsapp
+   * channel is not supported on other providers
+   * at this time.
+   * This method supports PKCE when an email is passed.
+   */
+  async signInWithOtp(credentials) {
+    var _a, _b, _c, _d, _e;
+    try {
+      if ("email" in credentials) {
+        const { email, options } = credentials;
+        let codeChallenge = null;
+        let codeChallengeMethod = null;
+        if (this.flowType === "pkce") {
+          ;
+          [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
+        }
+        const { error } = await _request(this.fetch, "POST", `${this.url}/otp`, {
+          headers: this.headers,
+          body: {
+            email,
+            data: (_a = options === null || options === void 0 ? void 0 : options.data) !== null && _a !== void 0 ? _a : {},
+            create_user: (_b = options === null || options === void 0 ? void 0 : options.shouldCreateUser) !== null && _b !== void 0 ? _b : true,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
+            code_challenge: codeChallenge,
+            code_challenge_method: codeChallengeMethod
+          },
+          redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo
+        });
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      if ("phone" in credentials) {
+        const { phone, options } = credentials;
+        const { data, error } = await _request(this.fetch, "POST", `${this.url}/otp`, {
+          headers: this.headers,
+          body: {
+            phone,
+            data: (_c = options === null || options === void 0 ? void 0 : options.data) !== null && _c !== void 0 ? _c : {},
+            create_user: (_d = options === null || options === void 0 ? void 0 : options.shouldCreateUser) !== null && _d !== void 0 ? _d : true,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken },
+            channel: (_e = options === null || options === void 0 ? void 0 : options.channel) !== null && _e !== void 0 ? _e : "sms"
+          }
+        });
+        return this._returnResult({
+          data: { user: null, session: null, messageId: data === null || data === void 0 ? void 0 : data.message_id },
+          error
+        });
+      }
+      throw new AuthInvalidCredentialsError("You must provide either an email or phone number.");
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Log in a user given a User supplied OTP or TokenHash received through mobile or email.
+   */
+  async verifyOtp(params) {
+    var _a, _b;
+    try {
+      let redirectTo = void 0;
+      let captchaToken = void 0;
+      if ("options" in params) {
+        redirectTo = (_a = params.options) === null || _a === void 0 ? void 0 : _a.redirectTo;
+        captchaToken = (_b = params.options) === null || _b === void 0 ? void 0 : _b.captchaToken;
+      }
+      const { data, error } = await _request(this.fetch, "POST", `${this.url}/verify`, {
+        headers: this.headers,
+        body: Object.assign(Object.assign({}, params), { gotrue_meta_security: { captcha_token: captchaToken } }),
+        redirectTo,
+        xform: _sessionResponse
+      });
+      if (error) {
+        throw error;
+      }
+      if (!data) {
+        const tokenVerificationError = new Error("An error occurred on token verification.");
+        throw tokenVerificationError;
+      }
+      const session = data.session;
+      const user = data.user;
+      if (session === null || session === void 0 ? void 0 : session.access_token) {
+        await this._saveSession(session);
+        await this._notifyAllSubscribers(params.type == "recovery" ? "PASSWORD_RECOVERY" : "SIGNED_IN", session);
+      }
+      return this._returnResult({ data: { user, session }, error: null });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Attempts a single-sign on using an enterprise Identity Provider. A
+   * successful SSO attempt will redirect the current page to the identity
+   * provider authorization page. The redirect URL is implementation and SSO
+   * protocol specific.
+   *
+   * You can use it by providing a SSO domain. Typically you can extract this
+   * domain by asking users for their email address. If this domain is
+   * registered on the Auth instance the redirect will use that organization's
+   * currently active SSO Identity Provider for the login.
+   *
+   * If you have built an organization-specific login page, you can use the
+   * organization's SSO Identity Provider UUID directly instead.
+   */
+  async signInWithSSO(params) {
+    var _a, _b, _c, _d, _e;
+    try {
+      let codeChallenge = null;
+      let codeChallengeMethod = null;
+      if (this.flowType === "pkce") {
+        ;
+        [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
+      }
+      const result = await _request(this.fetch, "POST", `${this.url}/sso`, {
+        body: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, "providerId" in params ? { provider_id: params.providerId } : null), "domain" in params ? { domain: params.domain } : null), { redirect_to: (_b = (_a = params.options) === null || _a === void 0 ? void 0 : _a.redirectTo) !== null && _b !== void 0 ? _b : void 0 }), ((_c = params === null || params === void 0 ? void 0 : params.options) === null || _c === void 0 ? void 0 : _c.captchaToken) ? { gotrue_meta_security: { captcha_token: params.options.captchaToken } } : null), { skip_http_redirect: true, code_challenge: codeChallenge, code_challenge_method: codeChallengeMethod }),
+        headers: this.headers,
+        xform: _ssoResponse
+      });
+      if (((_d = result.data) === null || _d === void 0 ? void 0 : _d.url) && isBrowser() && !((_e = params.options) === null || _e === void 0 ? void 0 : _e.skipBrowserRedirect)) {
+        window.location.assign(result.data.url);
+      }
+      return this._returnResult(result);
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Sends a reauthentication OTP to the user's email or phone number.
+   * Requires the user to be signed-in.
+   */
+  async reauthenticate() {
+    await this.initializePromise;
+    return await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._reauthenticate();
+    });
+  }
+  async _reauthenticate() {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError)
+          throw sessionError;
+        if (!session)
+          throw new AuthSessionMissingError();
+        const { error } = await _request(this.fetch, "GET", `${this.url}/reauthenticate`, {
+          headers: this.headers,
+          jwt: session.access_token
+        });
+        return this._returnResult({ data: { user: null, session: null }, error });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Resends an existing signup confirmation email, email change email, SMS OTP or phone change OTP.
+   */
+  async resend(credentials) {
+    try {
+      const endpoint = `${this.url}/resend`;
+      if ("email" in credentials) {
+        const { email, type, options } = credentials;
+        const { error } = await _request(this.fetch, "POST", endpoint, {
+          headers: this.headers,
+          body: {
+            email,
+            type,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          },
+          redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo
+        });
+        return this._returnResult({ data: { user: null, session: null }, error });
+      } else if ("phone" in credentials) {
+        const { phone, type, options } = credentials;
+        const { data, error } = await _request(this.fetch, "POST", endpoint, {
+          headers: this.headers,
+          body: {
+            phone,
+            type,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          }
+        });
+        return this._returnResult({
+          data: { user: null, session: null, messageId: data === null || data === void 0 ? void 0 : data.message_id },
+          error
+        });
+      }
+      throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a type");
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Returns the session, refreshing it if necessary.
+   *
+   * The session returned can be null if the session is not detected which can happen in the event a user is not signed-in or has logged out.
+   *
+   * **IMPORTANT:** This method loads values directly from the storage attached
+   * to the client. If that storage is based on request cookies for example,
+   * the values in it may not be authentic and therefore it's strongly advised
+   * against using this method and its results in such circumstances. A warning
+   * will be emitted if this is detected. Use {@link #getUser()} instead.
+   */
+  async getSession() {
+    await this.initializePromise;
+    const result = await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return this._useSession(async (result2) => {
+        return result2;
+      });
+    });
+    return result;
+  }
+  /**
+   * Acquires a global lock based on the storage key.
+   */
+  async _acquireLock(acquireTimeout, fn) {
+    this._debug("#_acquireLock", "begin", acquireTimeout);
+    try {
+      if (this.lockAcquired) {
+        const last2 = this.pendingInLock.length ? this.pendingInLock[this.pendingInLock.length - 1] : Promise.resolve();
+        const result = (async () => {
+          await last2;
+          return await fn();
+        })();
+        this.pendingInLock.push((async () => {
+          try {
+            await result;
+          } catch (e) {
+          }
+        })());
+        return result;
+      }
+      return await this.lock(`lock:${this.storageKey}`, acquireTimeout, async () => {
+        this._debug("#_acquireLock", "lock acquired for storage key", this.storageKey);
+        try {
+          this.lockAcquired = true;
+          const result = fn();
+          this.pendingInLock.push((async () => {
+            try {
+              await result;
+            } catch (e) {
+            }
+          })());
+          await result;
+          while (this.pendingInLock.length) {
+            const waitOn = [...this.pendingInLock];
+            await Promise.all(waitOn);
+            this.pendingInLock.splice(0, waitOn.length);
+          }
+          return await result;
+        } finally {
+          this._debug("#_acquireLock", "lock released for storage key", this.storageKey);
+          this.lockAcquired = false;
+        }
+      });
+    } finally {
+      this._debug("#_acquireLock", "end");
+    }
+  }
+  /**
+   * Use instead of {@link #getSession} inside the library. It is
+   * semantically usually what you want, as getting a session involves some
+   * processing afterwards that requires only one client operating on the
+   * session at once across multiple tabs or processes.
+   */
+  async _useSession(fn) {
+    this._debug("#_useSession", "begin");
+    try {
+      const result = await this.__loadSession();
+      return await fn(result);
+    } finally {
+      this._debug("#_useSession", "end");
+    }
+  }
+  /**
+   * NEVER USE DIRECTLY!
+   *
+   * Always use {@link #_useSession}.
+   */
+  async __loadSession() {
+    this._debug("#__loadSession()", "begin");
+    if (!this.lockAcquired) {
+      this._debug("#__loadSession()", "used outside of an acquired lock!", new Error().stack);
+    }
+    try {
+      let currentSession = null;
+      const maybeSession = await getItemAsync(this.storage, this.storageKey);
+      this._debug("#getSession()", "session from storage", maybeSession);
+      if (maybeSession !== null) {
+        if (this._isValidSession(maybeSession)) {
+          currentSession = maybeSession;
+        } else {
+          this._debug("#getSession()", "session from storage is not valid");
+          await this._removeSession();
+        }
+      }
+      if (!currentSession) {
+        return { data: { session: null }, error: null };
+      }
+      const hasExpired = currentSession.expires_at ? currentSession.expires_at * 1e3 - Date.now() < EXPIRY_MARGIN_MS : false;
+      this._debug("#__loadSession()", `session has${hasExpired ? "" : " not"} expired`, "expires_at", currentSession.expires_at);
+      if (!hasExpired) {
+        if (this.userStorage) {
+          const maybeUser = await getItemAsync(this.userStorage, this.storageKey + "-user");
+          if (maybeUser === null || maybeUser === void 0 ? void 0 : maybeUser.user) {
+            currentSession.user = maybeUser.user;
+          } else {
+            currentSession.user = userNotAvailableProxy();
+          }
+        }
+        if (this.storage.isServer && currentSession.user && !currentSession.user.__isUserNotAvailableProxy) {
+          const suppressWarningRef = { value: this.suppressGetSessionWarning };
+          currentSession.user = insecureUserWarningProxy(currentSession.user, suppressWarningRef);
+          if (suppressWarningRef.value) {
+            this.suppressGetSessionWarning = true;
+          }
+        }
+        return { data: { session: currentSession }, error: null };
+      }
+      const { data: session, error } = await this._callRefreshToken(currentSession.refresh_token);
+      if (error) {
+        return this._returnResult({ data: { session: null }, error });
+      }
+      return this._returnResult({ data: { session }, error: null });
+    } finally {
+      this._debug("#__loadSession()", "end");
+    }
+  }
+  /**
+   * Gets the current user details if there is an existing session. This method
+   * performs a network request to the Supabase Auth server, so the returned
+   * value is authentic and can be used to base authorization rules on.
+   *
+   * @param jwt Takes in an optional access token JWT. If no JWT is provided, the JWT from the current session is used.
+   */
+  async getUser(jwt) {
+    if (jwt) {
+      return await this._getUser(jwt);
+    }
+    await this.initializePromise;
+    const result = await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._getUser();
+    });
+    if (result.data.user) {
+      this.suppressGetSessionWarning = true;
+    }
+    return result;
+  }
+  async _getUser(jwt) {
+    try {
+      if (jwt) {
+        return await _request(this.fetch, "GET", `${this.url}/user`, {
+          headers: this.headers,
+          jwt,
+          xform: _userResponse
+        });
+      }
+      return await this._useSession(async (result) => {
+        var _a, _b, _c;
+        const { data, error } = result;
+        if (error) {
+          throw error;
+        }
+        if (!((_a = data.session) === null || _a === void 0 ? void 0 : _a.access_token) && !this.hasCustomAuthorizationHeader) {
+          return { data: { user: null }, error: new AuthSessionMissingError() };
+        }
+        return await _request(this.fetch, "GET", `${this.url}/user`, {
+          headers: this.headers,
+          jwt: (_c = (_b = data.session) === null || _b === void 0 ? void 0 : _b.access_token) !== null && _c !== void 0 ? _c : void 0,
+          xform: _userResponse
+        });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        if (isAuthSessionMissingError(error)) {
+          await this._removeSession();
+          await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+        }
+        return this._returnResult({ data: { user: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Updates user data for a logged in user.
+   */
+  async updateUser(attributes, options = {}) {
+    await this.initializePromise;
+    return await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._updateUser(attributes, options);
+    });
+  }
+  async _updateUser(attributes, options = {}) {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: sessionData, error: sessionError } = result;
+        if (sessionError) {
+          throw sessionError;
+        }
+        if (!sessionData.session) {
+          throw new AuthSessionMissingError();
+        }
+        const session = sessionData.session;
+        let codeChallenge = null;
+        let codeChallengeMethod = null;
+        if (this.flowType === "pkce" && attributes.email != null) {
+          ;
+          [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
+        }
+        const { data, error: userError } = await _request(this.fetch, "PUT", `${this.url}/user`, {
+          headers: this.headers,
+          redirectTo: options === null || options === void 0 ? void 0 : options.emailRedirectTo,
+          body: Object.assign(Object.assign({}, attributes), { code_challenge: codeChallenge, code_challenge_method: codeChallengeMethod }),
+          jwt: session.access_token,
+          xform: _userResponse
+        });
+        if (userError) {
+          throw userError;
+        }
+        session.user = data.user;
+        await this._saveSession(session);
+        await this._notifyAllSubscribers("USER_UPDATED", session);
+        return this._returnResult({ data: { user: session.user }, error: null });
+      });
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Sets the session data from the current session. If the current session is expired, setSession will take care of refreshing it to obtain a new session.
+   * If the refresh token or access token in the current session is invalid, an error will be thrown.
+   * @param currentSession The current session that minimally contains an access token and refresh token.
+   */
+  async setSession(currentSession) {
+    await this.initializePromise;
+    return await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._setSession(currentSession);
+    });
+  }
+  async _setSession(currentSession) {
+    try {
+      if (!currentSession.access_token || !currentSession.refresh_token) {
+        throw new AuthSessionMissingError();
+      }
+      const timeNow = Date.now() / 1e3;
+      let expiresAt2 = timeNow;
+      let hasExpired = true;
+      let session = null;
+      const { payload } = decodeJWT(currentSession.access_token);
+      if (payload.exp) {
+        expiresAt2 = payload.exp;
+        hasExpired = expiresAt2 <= timeNow;
+      }
+      if (hasExpired) {
+        const { data: refreshedSession, error } = await this._callRefreshToken(currentSession.refresh_token);
+        if (error) {
+          return this._returnResult({ data: { user: null, session: null }, error });
+        }
+        if (!refreshedSession) {
+          return { data: { user: null, session: null }, error: null };
+        }
+        session = refreshedSession;
+      } else {
+        const { data, error } = await this._getUser(currentSession.access_token);
+        if (error) {
+          return this._returnResult({ data: { user: null, session: null }, error });
+        }
+        session = {
+          access_token: currentSession.access_token,
+          refresh_token: currentSession.refresh_token,
+          user: data.user,
+          token_type: "bearer",
+          expires_in: expiresAt2 - timeNow,
+          expires_at: expiresAt2
+        };
+        await this._saveSession(session);
+        await this._notifyAllSubscribers("SIGNED_IN", session);
+      }
+      return this._returnResult({ data: { user: session.user, session }, error: null });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { session: null, user: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Returns a new session, regardless of expiry status.
+   * Takes in an optional current session. If not passed in, then refreshSession() will attempt to retrieve it from getSession().
+   * If the current session's refresh token is invalid, an error will be thrown.
+   * @param currentSession The current session. If passed in, it must contain a refresh token.
+   */
+  async refreshSession(currentSession) {
+    await this.initializePromise;
+    return await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._refreshSession(currentSession);
+    });
+  }
+  async _refreshSession(currentSession) {
+    try {
+      return await this._useSession(async (result) => {
+        var _a;
+        if (!currentSession) {
+          const { data, error: error2 } = result;
+          if (error2) {
+            throw error2;
+          }
+          currentSession = (_a = data.session) !== null && _a !== void 0 ? _a : void 0;
+        }
+        if (!(currentSession === null || currentSession === void 0 ? void 0 : currentSession.refresh_token)) {
+          throw new AuthSessionMissingError();
+        }
+        const { data: session, error } = await this._callRefreshToken(currentSession.refresh_token);
+        if (error) {
+          return this._returnResult({ data: { user: null, session: null }, error });
+        }
+        if (!session) {
+          return this._returnResult({ data: { user: null, session: null }, error: null });
+        }
+        return this._returnResult({ data: { user: session.user, session }, error: null });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { user: null, session: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Gets the session data from a URL string
+   */
+  async _getSessionFromURL(params, callbackUrlType) {
+    try {
+      if (!isBrowser())
+        throw new AuthImplicitGrantRedirectError("No browser detected.");
+      if (params.error || params.error_description || params.error_code) {
+        throw new AuthImplicitGrantRedirectError(params.error_description || "Error in URL with unspecified error_description", {
+          error: params.error || "unspecified_error",
+          code: params.error_code || "unspecified_code"
+        });
+      }
+      switch (callbackUrlType) {
+        case "implicit":
+          if (this.flowType === "pkce") {
+            throw new AuthPKCEGrantCodeExchangeError("Not a valid PKCE flow url.");
+          }
+          break;
+        case "pkce":
+          if (this.flowType === "implicit") {
+            throw new AuthImplicitGrantRedirectError("Not a valid implicit grant flow url.");
+          }
+          break;
+        default:
+      }
+      if (callbackUrlType === "pkce") {
+        this._debug("#_initialize()", "begin", "is PKCE flow", true);
+        if (!params.code)
+          throw new AuthPKCEGrantCodeExchangeError("No code detected.");
+        const { data: data2, error: error2 } = await this._exchangeCodeForSession(params.code);
+        if (error2)
+          throw error2;
+        const url = new URL(window.location.href);
+        url.searchParams.delete("code");
+        window.history.replaceState(window.history.state, "", url.toString());
+        return { data: { session: data2.session, redirectType: null }, error: null };
+      }
+      const { provider_token, provider_refresh_token, access_token, refresh_token, expires_in, expires_at, token_type } = params;
+      if (!access_token || !expires_in || !refresh_token || !token_type) {
+        throw new AuthImplicitGrantRedirectError("No session defined in URL");
+      }
+      const timeNow = Math.round(Date.now() / 1e3);
+      const expiresIn = parseInt(expires_in);
+      let expiresAt2 = timeNow + expiresIn;
+      if (expires_at) {
+        expiresAt2 = parseInt(expires_at);
+      }
+      const actuallyExpiresIn = expiresAt2 - timeNow;
+      if (actuallyExpiresIn * 1e3 <= AUTO_REFRESH_TICK_DURATION_MS) {
+        console.warn(`@supabase/gotrue-js: Session as retrieved from URL expires in ${actuallyExpiresIn}s, should have been closer to ${expiresIn}s`);
+      }
+      const issuedAt = expiresAt2 - expiresIn;
+      if (timeNow - issuedAt >= 120) {
+        console.warn("@supabase/gotrue-js: Session as retrieved from URL was issued over 120s ago, URL could be stale", issuedAt, expiresAt2, timeNow);
+      } else if (timeNow - issuedAt < 0) {
+        console.warn("@supabase/gotrue-js: Session as retrieved from URL was issued in the future? Check the device clock for skew", issuedAt, expiresAt2, timeNow);
+      }
+      const { data, error } = await this._getUser(access_token);
+      if (error)
+        throw error;
+      const session = {
+        provider_token,
+        provider_refresh_token,
+        access_token,
+        expires_in: expiresIn,
+        expires_at: expiresAt2,
+        refresh_token,
+        token_type,
+        user: data.user
+      };
+      window.location.hash = "";
+      this._debug("#_getSessionFromURL()", "clearing window.location.hash");
+      return this._returnResult({ data: { session, redirectType: params.type }, error: null });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { session: null, redirectType: null }, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Checks if the current URL contains parameters given by an implicit oauth grant flow (https://www.rfc-editor.org/rfc/rfc6749.html#section-4.2)
+   *
+   * If `detectSessionInUrl` is a function, it will be called with the URL and params to determine
+   * if the URL should be processed as a Supabase auth callback. This allows users to exclude
+   * URLs from other OAuth providers (e.g., Facebook Login) that also return access_token in the fragment.
+   */
+  _isImplicitGrantCallback(params) {
+    if (typeof this.detectSessionInUrl === "function") {
+      return this.detectSessionInUrl(new URL(window.location.href), params);
+    }
+    return Boolean(params.access_token || params.error_description);
+  }
+  /**
+   * Checks if the current URL and backing storage contain parameters given by a PKCE flow
+   */
+  async _isPKCECallback(params) {
+    const currentStorageContent = await getItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+    return !!(params.code && currentStorageContent);
+  }
+  /**
+   * Inside a browser context, `signOut()` will remove the logged in user from the browser session and log them out - removing all items from localstorage and then trigger a `"SIGNED_OUT"` event.
+   *
+   * For server-side management, you can revoke all refresh tokens for a user by passing a user's JWT through to `auth.api.signOut(JWT: string)`.
+   * There is no way to revoke a user's access token jwt until it expires. It is recommended to set a shorter expiry on the jwt for this reason.
+   *
+   * If using `others` scope, no `SIGNED_OUT` event is fired!
+   */
+  async signOut(options = { scope: "global" }) {
+    await this.initializePromise;
+    return await this._acquireLock(this.lockAcquireTimeout, async () => {
+      return await this._signOut(options);
+    });
+  }
+  async _signOut({ scope } = { scope: "global" }) {
+    return await this._useSession(async (result) => {
+      var _a;
+      const { data, error: sessionError } = result;
+      if (sessionError && !isAuthSessionMissingError(sessionError)) {
+        return this._returnResult({ error: sessionError });
+      }
+      const accessToken = (_a = data.session) === null || _a === void 0 ? void 0 : _a.access_token;
+      if (accessToken) {
+        const { error } = await this.admin.signOut(accessToken, scope);
+        if (error) {
+          if (!(isAuthApiError(error) && (error.status === 404 || error.status === 401 || error.status === 403) || isAuthSessionMissingError(error))) {
+            return this._returnResult({ error });
+          }
+        }
+      }
+      if (scope !== "others") {
+        await this._removeSession();
+        await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      }
+      return this._returnResult({ error: null });
+    });
+  }
+  onAuthStateChange(callback) {
+    const id = generateCallbackId();
+    const subscription = {
+      id,
+      callback,
+      unsubscribe: () => {
+        this._debug("#unsubscribe()", "state change callback with id removed", id);
+        this.stateChangeEmitters.delete(id);
+      }
+    };
+    this._debug("#onAuthStateChange()", "registered callback with id", id);
+    this.stateChangeEmitters.set(id, subscription);
+    (async () => {
+      await this.initializePromise;
+      await this._acquireLock(this.lockAcquireTimeout, async () => {
+        this._emitInitialSession(id);
+      });
+    })();
+    return { data: { subscription } };
+  }
+  async _emitInitialSession(id) {
+    return await this._useSession(async (result) => {
+      var _a, _b;
+      try {
+        const { data: { session }, error } = result;
+        if (error)
+          throw error;
+        await ((_a = this.stateChangeEmitters.get(id)) === null || _a === void 0 ? void 0 : _a.callback("INITIAL_SESSION", session));
+        this._debug("INITIAL_SESSION", "callback id", id, "session", session);
+      } catch (err) {
+        await ((_b = this.stateChangeEmitters.get(id)) === null || _b === void 0 ? void 0 : _b.callback("INITIAL_SESSION", null));
+        this._debug("INITIAL_SESSION", "callback id", id, "error", err);
+        console.error(err);
+      }
+    });
+  }
+  /**
+   * Sends a password reset request to an email address. This method supports the PKCE flow.
+   *
+   * @param email The email address of the user.
+   * @param options.redirectTo The URL to send the user to after they click the password reset link.
+   * @param options.captchaToken Verification token received when the user completes the captcha on the site.
+   */
+  async resetPasswordForEmail(email, options = {}) {
+    let codeChallenge = null;
+    let codeChallengeMethod = null;
+    if (this.flowType === "pkce") {
+      ;
+      [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(
+        this.storage,
+        this.storageKey,
+        true
+        // isPasswordRecovery
+      );
+    }
+    try {
+      return await _request(this.fetch, "POST", `${this.url}/recover`, {
+        body: {
+          email,
+          code_challenge: codeChallenge,
+          code_challenge_method: codeChallengeMethod,
+          gotrue_meta_security: { captcha_token: options.captchaToken }
+        },
+        headers: this.headers,
+        redirectTo: options.redirectTo
+      });
+    } catch (error) {
+      await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Gets all the identities linked to a user.
+   */
+  async getUserIdentities() {
+    var _a;
+    try {
+      const { data, error } = await this.getUser();
+      if (error)
+        throw error;
+      return this._returnResult({ data: { identities: (_a = data.user.identities) !== null && _a !== void 0 ? _a : [] }, error: null });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  async linkIdentity(credentials) {
+    if ("token" in credentials) {
+      return this.linkIdentityIdToken(credentials);
+    }
+    return this.linkIdentityOAuth(credentials);
+  }
+  async linkIdentityOAuth(credentials) {
+    var _a;
+    try {
+      const { data, error } = await this._useSession(async (result) => {
+        var _a2, _b, _c, _d, _e;
+        const { data: data2, error: error2 } = result;
+        if (error2)
+          throw error2;
+        const url = await this._getUrlForProvider(`${this.url}/user/identities/authorize`, credentials.provider, {
+          redirectTo: (_a2 = credentials.options) === null || _a2 === void 0 ? void 0 : _a2.redirectTo,
+          scopes: (_b = credentials.options) === null || _b === void 0 ? void 0 : _b.scopes,
+          queryParams: (_c = credentials.options) === null || _c === void 0 ? void 0 : _c.queryParams,
+          skipBrowserRedirect: true
+        });
+        return await _request(this.fetch, "GET", url, {
+          headers: this.headers,
+          jwt: (_e = (_d = data2.session) === null || _d === void 0 ? void 0 : _d.access_token) !== null && _e !== void 0 ? _e : void 0
+        });
+      });
+      if (error)
+        throw error;
+      if (isBrowser() && !((_a = credentials.options) === null || _a === void 0 ? void 0 : _a.skipBrowserRedirect)) {
+        window.location.assign(data === null || data === void 0 ? void 0 : data.url);
+      }
+      return this._returnResult({
+        data: { provider: credentials.provider, url: data === null || data === void 0 ? void 0 : data.url },
+        error: null
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { provider: credentials.provider, url: null }, error });
+      }
+      throw error;
+    }
+  }
+  async linkIdentityIdToken(credentials) {
+    return await this._useSession(async (result) => {
+      var _a;
+      try {
+        const { error: sessionError, data: { session } } = result;
+        if (sessionError)
+          throw sessionError;
+        const { options, provider, token, access_token, nonce } = credentials;
+        const res = await _request(this.fetch, "POST", `${this.url}/token?grant_type=id_token`, {
+          headers: this.headers,
+          jwt: (_a = session === null || session === void 0 ? void 0 : session.access_token) !== null && _a !== void 0 ? _a : void 0,
+          body: {
+            provider,
+            id_token: token,
+            access_token,
+            nonce,
+            link_identity: true,
+            gotrue_meta_security: { captcha_token: options === null || options === void 0 ? void 0 : options.captchaToken }
+          },
+          xform: _sessionResponse
+        });
+        const { data, error } = res;
+        if (error) {
+          return this._returnResult({ data: { user: null, session: null }, error });
+        } else if (!data || !data.session || !data.user) {
+          return this._returnResult({
+            data: { user: null, session: null },
+            error: new AuthInvalidTokenResponseError()
+          });
+        }
+        if (data.session) {
+          await this._saveSession(data.session);
+          await this._notifyAllSubscribers("USER_UPDATED", data.session);
+        }
+        return this._returnResult({ data, error });
+      } catch (error) {
+        await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+        if (isAuthError(error)) {
+          return this._returnResult({ data: { user: null, session: null }, error });
+        }
+        throw error;
+      }
+    });
+  }
+  /**
+   * Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.
+   */
+  async unlinkIdentity(identity4) {
+    try {
+      return await this._useSession(async (result) => {
+        var _a, _b;
+        const { data, error } = result;
+        if (error) {
+          throw error;
+        }
+        return await _request(this.fetch, "DELETE", `${this.url}/user/identities/${identity4.identity_id}`, {
+          headers: this.headers,
+          jwt: (_b = (_a = data.session) === null || _a === void 0 ? void 0 : _a.access_token) !== null && _b !== void 0 ? _b : void 0
+        });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Generates a new JWT.
+   * @param refreshToken A valid refresh token that was returned on login.
+   */
+  async _refreshAccessToken(refreshToken) {
+    const debugName = `#_refreshAccessToken(${refreshToken.substring(0, 5)}...)`;
+    this._debug(debugName, "begin");
+    try {
+      const startedAt = Date.now();
+      return await retryable(async (attempt) => {
+        if (attempt > 0) {
+          await sleep(200 * Math.pow(2, attempt - 1));
+        }
+        this._debug(debugName, "refreshing attempt", attempt);
+        return await _request(this.fetch, "POST", `${this.url}/token?grant_type=refresh_token`, {
+          body: { refresh_token: refreshToken },
+          headers: this.headers,
+          xform: _sessionResponse
+        });
+      }, (attempt, error) => {
+        const nextBackOffInterval = 200 * Math.pow(2, attempt);
+        return error && isAuthRetryableFetchError(error) && // retryable only if the request can be sent before the backoff overflows the tick duration
+        Date.now() + nextBackOffInterval - startedAt < AUTO_REFRESH_TICK_DURATION_MS;
+      });
+    } catch (error) {
+      this._debug(debugName, "error", error);
+      if (isAuthError(error)) {
+        return this._returnResult({ data: { session: null, user: null }, error });
+      }
+      throw error;
+    } finally {
+      this._debug(debugName, "end");
+    }
+  }
+  _isValidSession(maybeSession) {
+    const isValidSession = typeof maybeSession === "object" && maybeSession !== null && "access_token" in maybeSession && "refresh_token" in maybeSession && "expires_at" in maybeSession;
+    return isValidSession;
+  }
+  async _handleProviderSignIn(provider, options) {
+    const url = await this._getUrlForProvider(`${this.url}/authorize`, provider, {
+      redirectTo: options.redirectTo,
+      scopes: options.scopes,
+      queryParams: options.queryParams
+    });
+    this._debug("#_handleProviderSignIn()", "provider", provider, "options", options, "url", url);
+    if (isBrowser() && !options.skipBrowserRedirect) {
+      window.location.assign(url);
+    }
+    return { data: { provider, url }, error: null };
+  }
+  /**
+   * Recovers the session from LocalStorage and refreshes the token
+   * Note: this method is async to accommodate for AsyncStorage e.g. in React native.
+   */
+  async _recoverAndRefresh() {
+    var _a, _b;
+    const debugName = "#_recoverAndRefresh()";
+    this._debug(debugName, "begin");
+    try {
+      const currentSession = await getItemAsync(this.storage, this.storageKey);
+      if (currentSession && this.userStorage) {
+        let maybeUser = await getItemAsync(this.userStorage, this.storageKey + "-user");
+        if (!this.storage.isServer && Object.is(this.storage, this.userStorage) && !maybeUser) {
+          maybeUser = { user: currentSession.user };
+          await setItemAsync(this.userStorage, this.storageKey + "-user", maybeUser);
+        }
+        currentSession.user = (_a = maybeUser === null || maybeUser === void 0 ? void 0 : maybeUser.user) !== null && _a !== void 0 ? _a : userNotAvailableProxy();
+      } else if (currentSession && !currentSession.user) {
+        if (!currentSession.user) {
+          const separateUser = await getItemAsync(this.storage, this.storageKey + "-user");
+          if (separateUser && (separateUser === null || separateUser === void 0 ? void 0 : separateUser.user)) {
+            currentSession.user = separateUser.user;
+            await removeItemAsync(this.storage, this.storageKey + "-user");
+            await setItemAsync(this.storage, this.storageKey, currentSession);
+          } else {
+            currentSession.user = userNotAvailableProxy();
+          }
+        }
+      }
+      this._debug(debugName, "session from storage", currentSession);
+      if (!this._isValidSession(currentSession)) {
+        this._debug(debugName, "session is not valid");
+        if (currentSession !== null) {
+          await this._removeSession();
+        }
+        return;
+      }
+      const expiresWithMargin = ((_b = currentSession.expires_at) !== null && _b !== void 0 ? _b : Infinity) * 1e3 - Date.now() < EXPIRY_MARGIN_MS;
+      this._debug(debugName, `session has${expiresWithMargin ? "" : " not"} expired with margin of ${EXPIRY_MARGIN_MS}s`);
+      if (expiresWithMargin) {
+        if (this.autoRefreshToken && currentSession.refresh_token) {
+          const { error } = await this._callRefreshToken(currentSession.refresh_token);
+          if (error) {
+            console.error(error);
+            if (!isAuthRetryableFetchError(error)) {
+              this._debug(debugName, "refresh failed with a non-retryable error, removing the session", error);
+              await this._removeSession();
+            }
+          }
+        }
+      } else if (currentSession.user && currentSession.user.__isUserNotAvailableProxy === true) {
+        try {
+          const { data, error: userError } = await this._getUser(currentSession.access_token);
+          if (!userError && (data === null || data === void 0 ? void 0 : data.user)) {
+            currentSession.user = data.user;
+            await this._saveSession(currentSession);
+            await this._notifyAllSubscribers("SIGNED_IN", currentSession);
+          } else {
+            this._debug(debugName, "could not get user data, skipping SIGNED_IN notification");
+          }
+        } catch (getUserError) {
+          console.error("Error getting user data:", getUserError);
+          this._debug(debugName, "error getting user data, skipping SIGNED_IN notification", getUserError);
+        }
+      } else {
+        await this._notifyAllSubscribers("SIGNED_IN", currentSession);
+      }
+    } catch (err) {
+      this._debug(debugName, "error", err);
+      console.error(err);
+      return;
+    } finally {
+      this._debug(debugName, "end");
+    }
+  }
+  async _callRefreshToken(refreshToken) {
+    var _a, _b;
+    if (!refreshToken) {
+      throw new AuthSessionMissingError();
+    }
+    if (this.refreshingDeferred) {
+      return this.refreshingDeferred.promise;
+    }
+    const debugName = `#_callRefreshToken(${refreshToken.substring(0, 5)}...)`;
+    this._debug(debugName, "begin");
+    try {
+      this.refreshingDeferred = new Deferred();
+      const { data, error } = await this._refreshAccessToken(refreshToken);
+      if (error)
+        throw error;
+      if (!data.session)
+        throw new AuthSessionMissingError();
+      await this._saveSession(data.session);
+      await this._notifyAllSubscribers("TOKEN_REFRESHED", data.session);
+      const result = { data: data.session, error: null };
+      this.refreshingDeferred.resolve(result);
+      return result;
+    } catch (error) {
+      this._debug(debugName, "error", error);
+      if (isAuthError(error)) {
+        const result = { data: null, error };
+        if (!isAuthRetryableFetchError(error)) {
+          await this._removeSession();
+        }
+        (_a = this.refreshingDeferred) === null || _a === void 0 ? void 0 : _a.resolve(result);
+        return result;
+      }
+      (_b = this.refreshingDeferred) === null || _b === void 0 ? void 0 : _b.reject(error);
+      throw error;
+    } finally {
+      this.refreshingDeferred = null;
+      this._debug(debugName, "end");
+    }
+  }
+  async _notifyAllSubscribers(event, session, broadcast = true) {
+    const debugName = `#_notifyAllSubscribers(${event})`;
+    this._debug(debugName, "begin", session, `broadcast = ${broadcast}`);
+    try {
+      if (this.broadcastChannel && broadcast) {
+        this.broadcastChannel.postMessage({ event, session });
+      }
+      const errors3 = [];
+      const promises = Array.from(this.stateChangeEmitters.values()).map(async (x2) => {
+        try {
+          await x2.callback(event, session);
+        } catch (e) {
+          errors3.push(e);
+        }
+      });
+      await Promise.all(promises);
+      if (errors3.length > 0) {
+        for (let i = 0; i < errors3.length; i += 1) {
+          console.error(errors3[i]);
+        }
+        throw errors3[0];
+      }
+    } finally {
+      this._debug(debugName, "end");
+    }
+  }
+  /**
+   * set currentSession and currentUser
+   * process to _startAutoRefreshToken if possible
+   */
+  async _saveSession(session) {
+    this._debug("#_saveSession()", session);
+    this.suppressGetSessionWarning = true;
+    await removeItemAsync(this.storage, `${this.storageKey}-code-verifier`);
+    const sessionToProcess = Object.assign({}, session);
+    const userIsProxy = sessionToProcess.user && sessionToProcess.user.__isUserNotAvailableProxy === true;
+    if (this.userStorage) {
+      if (!userIsProxy && sessionToProcess.user) {
+        await setItemAsync(this.userStorage, this.storageKey + "-user", {
+          user: sessionToProcess.user
+        });
+      } else if (userIsProxy) {
+      }
+      const mainSessionData = Object.assign({}, sessionToProcess);
+      delete mainSessionData.user;
+      const clonedMainSessionData = deepClone(mainSessionData);
+      await setItemAsync(this.storage, this.storageKey, clonedMainSessionData);
+    } else {
+      const clonedSession = deepClone(sessionToProcess);
+      await setItemAsync(this.storage, this.storageKey, clonedSession);
+    }
+  }
+  async _removeSession() {
+    this._debug("#_removeSession()");
+    this.suppressGetSessionWarning = false;
+    await removeItemAsync(this.storage, this.storageKey);
+    await removeItemAsync(this.storage, this.storageKey + "-code-verifier");
+    await removeItemAsync(this.storage, this.storageKey + "-user");
+    if (this.userStorage) {
+      await removeItemAsync(this.userStorage, this.storageKey + "-user");
+    }
+    await this._notifyAllSubscribers("SIGNED_OUT", null);
+  }
+  /**
+   * Removes any registered visibilitychange callback.
+   *
+   * {@see #startAutoRefresh}
+   * {@see #stopAutoRefresh}
+   */
+  _removeVisibilityChangedCallback() {
+    this._debug("#_removeVisibilityChangedCallback()");
+    const callback = this.visibilityChangedCallback;
+    this.visibilityChangedCallback = null;
+    try {
+      if (callback && isBrowser() && (window === null || window === void 0 ? void 0 : window.removeEventListener)) {
+        window.removeEventListener("visibilitychange", callback);
+      }
+    } catch (e) {
+      console.error("removing visibilitychange callback failed", e);
+    }
+  }
+  /**
+   * This is the private implementation of {@link #startAutoRefresh}. Use this
+   * within the library.
+   */
+  async _startAutoRefresh() {
+    await this._stopAutoRefresh();
+    this._debug("#_startAutoRefresh()");
+    const ticker2 = setInterval(() => this._autoRefreshTokenTick(), AUTO_REFRESH_TICK_DURATION_MS);
+    this.autoRefreshTicker = ticker2;
+    if (ticker2 && typeof ticker2 === "object" && typeof ticker2.unref === "function") {
+      ticker2.unref();
+    } else if (typeof Deno !== "undefined" && typeof Deno.unrefTimer === "function") {
+      Deno.unrefTimer(ticker2);
+    }
+    const timeout = setTimeout(async () => {
+      await this.initializePromise;
+      await this._autoRefreshTokenTick();
+    }, 0);
+    this.autoRefreshTickTimeout = timeout;
+    if (timeout && typeof timeout === "object" && typeof timeout.unref === "function") {
+      timeout.unref();
+    } else if (typeof Deno !== "undefined" && typeof Deno.unrefTimer === "function") {
+      Deno.unrefTimer(timeout);
+    }
+  }
+  /**
+   * This is the private implementation of {@link #stopAutoRefresh}. Use this
+   * within the library.
+   */
+  async _stopAutoRefresh() {
+    this._debug("#_stopAutoRefresh()");
+    const ticker2 = this.autoRefreshTicker;
+    this.autoRefreshTicker = null;
+    if (ticker2) {
+      clearInterval(ticker2);
+    }
+    const timeout = this.autoRefreshTickTimeout;
+    this.autoRefreshTickTimeout = null;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+  }
+  /**
+   * Starts an auto-refresh process in the background. The session is checked
+   * every few seconds. Close to the time of expiration a process is started to
+   * refresh the session. If refreshing fails it will be retried for as long as
+   * necessary.
+   *
+   * If you set the {@link GoTrueClientOptions#autoRefreshToken} you don't need
+   * to call this function, it will be called for you.
+   *
+   * On browsers the refresh process works only when the tab/window is in the
+   * foreground to conserve resources as well as prevent race conditions and
+   * flooding auth with requests. If you call this method any managed
+   * visibility change callback will be removed and you must manage visibility
+   * changes on your own.
+   *
+   * On non-browser platforms the refresh process works *continuously* in the
+   * background, which may not be desirable. You should hook into your
+   * platform's foreground indication mechanism and call these methods
+   * appropriately to conserve resources.
+   *
+   * {@see #stopAutoRefresh}
+   */
+  async startAutoRefresh() {
+    this._removeVisibilityChangedCallback();
+    await this._startAutoRefresh();
+  }
+  /**
+   * Stops an active auto refresh process running in the background (if any).
+   *
+   * If you call this method any managed visibility change callback will be
+   * removed and you must manage visibility changes on your own.
+   *
+   * See {@link #startAutoRefresh} for more details.
+   */
+  async stopAutoRefresh() {
+    this._removeVisibilityChangedCallback();
+    await this._stopAutoRefresh();
+  }
+  /**
+   * Runs the auto refresh token tick.
+   */
+  async _autoRefreshTokenTick() {
+    this._debug("#_autoRefreshTokenTick()", "begin");
+    try {
+      await this._acquireLock(0, async () => {
+        try {
+          const now = Date.now();
+          try {
+            return await this._useSession(async (result) => {
+              const { data: { session } } = result;
+              if (!session || !session.refresh_token || !session.expires_at) {
+                this._debug("#_autoRefreshTokenTick()", "no session");
+                return;
+              }
+              const expiresInTicks = Math.floor((session.expires_at * 1e3 - now) / AUTO_REFRESH_TICK_DURATION_MS);
+              this._debug("#_autoRefreshTokenTick()", `access token expires in ${expiresInTicks} ticks, a tick lasts ${AUTO_REFRESH_TICK_DURATION_MS}ms, refresh threshold is ${AUTO_REFRESH_TICK_THRESHOLD} ticks`);
+              if (expiresInTicks <= AUTO_REFRESH_TICK_THRESHOLD) {
+                await this._callRefreshToken(session.refresh_token);
+              }
+            });
+          } catch (e) {
+            console.error("Auto refresh tick failed with error. This is likely a transient error.", e);
+          }
+        } finally {
+          this._debug("#_autoRefreshTokenTick()", "end");
+        }
+      });
+    } catch (e) {
+      if (e.isAcquireTimeout || e instanceof LockAcquireTimeoutError) {
+        this._debug("auto refresh token tick lock not available");
+      } else {
+        throw e;
+      }
+    }
+  }
+  /**
+   * Registers callbacks on the browser / platform, which in-turn run
+   * algorithms when the browser window/tab are in foreground. On non-browser
+   * platforms it assumes always foreground.
+   */
+  async _handleVisibilityChange() {
+    this._debug("#_handleVisibilityChange()");
+    if (!isBrowser() || !(window === null || window === void 0 ? void 0 : window.addEventListener)) {
+      if (this.autoRefreshToken) {
+        this.startAutoRefresh();
+      }
+      return false;
+    }
+    try {
+      this.visibilityChangedCallback = async () => {
+        try {
+          await this._onVisibilityChanged(false);
+        } catch (error) {
+          this._debug("#visibilityChangedCallback", "error", error);
+        }
+      };
+      window === null || window === void 0 ? void 0 : window.addEventListener("visibilitychange", this.visibilityChangedCallback);
+      await this._onVisibilityChanged(true);
+    } catch (error) {
+      console.error("_handleVisibilityChange", error);
+    }
+  }
+  /**
+   * Callback registered with `window.addEventListener('visibilitychange')`.
+   */
+  async _onVisibilityChanged(calledFromInitialize) {
+    const methodName = `#_onVisibilityChanged(${calledFromInitialize})`;
+    this._debug(methodName, "visibilityState", document.visibilityState);
+    if (document.visibilityState === "visible") {
+      if (this.autoRefreshToken) {
+        this._startAutoRefresh();
+      }
+      if (!calledFromInitialize) {
+        await this.initializePromise;
+        await this._acquireLock(this.lockAcquireTimeout, async () => {
+          if (document.visibilityState !== "visible") {
+            this._debug(methodName, "acquired the lock to recover the session, but the browser visibilityState is no longer visible, aborting");
+            return;
+          }
+          await this._recoverAndRefresh();
+        });
+      }
+    } else if (document.visibilityState === "hidden") {
+      if (this.autoRefreshToken) {
+        this._stopAutoRefresh();
+      }
+    }
+  }
+  /**
+   * Generates the relevant login URL for a third-party provider.
+   * @param options.redirectTo A URL or mobile address to send the user to after they are confirmed.
+   * @param options.scopes A space-separated list of scopes granted to the OAuth application.
+   * @param options.queryParams An object of key-value pairs containing query parameters granted to the OAuth application.
+   */
+  async _getUrlForProvider(url, provider, options) {
+    const urlParams = [`provider=${encodeURIComponent(provider)}`];
+    if (options === null || options === void 0 ? void 0 : options.redirectTo) {
+      urlParams.push(`redirect_to=${encodeURIComponent(options.redirectTo)}`);
+    }
+    if (options === null || options === void 0 ? void 0 : options.scopes) {
+      urlParams.push(`scopes=${encodeURIComponent(options.scopes)}`);
+    }
+    if (this.flowType === "pkce") {
+      const [codeChallenge, codeChallengeMethod] = await getCodeChallengeAndMethod(this.storage, this.storageKey);
+      const flowParams = new URLSearchParams({
+        code_challenge: `${encodeURIComponent(codeChallenge)}`,
+        code_challenge_method: `${encodeURIComponent(codeChallengeMethod)}`
+      });
+      urlParams.push(flowParams.toString());
+    }
+    if (options === null || options === void 0 ? void 0 : options.queryParams) {
+      const query = new URLSearchParams(options.queryParams);
+      urlParams.push(query.toString());
+    }
+    if (options === null || options === void 0 ? void 0 : options.skipBrowserRedirect) {
+      urlParams.push(`skip_http_redirect=${options.skipBrowserRedirect}`);
+    }
+    return `${url}?${urlParams.join("&")}`;
+  }
+  async _unenroll(params) {
+    try {
+      return await this._useSession(async (result) => {
+        var _a;
+        const { data: sessionData, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        return await _request(this.fetch, "DELETE", `${this.url}/factors/${params.factorId}`, {
+          headers: this.headers,
+          jwt: (_a = sessionData === null || sessionData === void 0 ? void 0 : sessionData.session) === null || _a === void 0 ? void 0 : _a.access_token
+        });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  async _enroll(params) {
+    try {
+      return await this._useSession(async (result) => {
+        var _a, _b;
+        const { data: sessionData, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        const body = Object.assign({ friendly_name: params.friendlyName, factor_type: params.factorType }, params.factorType === "phone" ? { phone: params.phone } : params.factorType === "totp" ? { issuer: params.issuer } : {});
+        const { data, error } = await _request(this.fetch, "POST", `${this.url}/factors`, {
+          body,
+          headers: this.headers,
+          jwt: (_a = sessionData === null || sessionData === void 0 ? void 0 : sessionData.session) === null || _a === void 0 ? void 0 : _a.access_token
+        });
+        if (error) {
+          return this._returnResult({ data: null, error });
+        }
+        if (params.factorType === "totp" && data.type === "totp" && ((_b = data === null || data === void 0 ? void 0 : data.totp) === null || _b === void 0 ? void 0 : _b.qr_code)) {
+          data.totp.qr_code = `data:image/svg+xml;utf-8,${data.totp.qr_code}`;
+        }
+        return this._returnResult({ data, error: null });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  async _verify(params) {
+    return this._acquireLock(this.lockAcquireTimeout, async () => {
+      try {
+        return await this._useSession(async (result) => {
+          var _a;
+          const { data: sessionData, error: sessionError } = result;
+          if (sessionError) {
+            return this._returnResult({ data: null, error: sessionError });
+          }
+          const body = Object.assign({ challenge_id: params.challengeId }, "webauthn" in params ? {
+            webauthn: Object.assign(Object.assign({}, params.webauthn), { credential_response: params.webauthn.type === "create" ? serializeCredentialCreationResponse(params.webauthn.credential_response) : serializeCredentialRequestResponse(params.webauthn.credential_response) })
+          } : { code: params.code });
+          const { data, error } = await _request(this.fetch, "POST", `${this.url}/factors/${params.factorId}/verify`, {
+            body,
+            headers: this.headers,
+            jwt: (_a = sessionData === null || sessionData === void 0 ? void 0 : sessionData.session) === null || _a === void 0 ? void 0 : _a.access_token
+          });
+          if (error) {
+            return this._returnResult({ data: null, error });
+          }
+          await this._saveSession(Object.assign({ expires_at: Math.round(Date.now() / 1e3) + data.expires_in }, data));
+          await this._notifyAllSubscribers("MFA_CHALLENGE_VERIFIED", data);
+          return this._returnResult({ data, error });
+        });
+      } catch (error) {
+        if (isAuthError(error)) {
+          return this._returnResult({ data: null, error });
+        }
+        throw error;
+      }
+    });
+  }
+  async _challenge(params) {
+    return this._acquireLock(this.lockAcquireTimeout, async () => {
+      try {
+        return await this._useSession(async (result) => {
+          var _a;
+          const { data: sessionData, error: sessionError } = result;
+          if (sessionError) {
+            return this._returnResult({ data: null, error: sessionError });
+          }
+          const response = await _request(this.fetch, "POST", `${this.url}/factors/${params.factorId}/challenge`, {
+            body: params,
+            headers: this.headers,
+            jwt: (_a = sessionData === null || sessionData === void 0 ? void 0 : sessionData.session) === null || _a === void 0 ? void 0 : _a.access_token
+          });
+          if (response.error) {
+            return response;
+          }
+          const { data } = response;
+          if (data.type !== "webauthn") {
+            return { data, error: null };
+          }
+          switch (data.webauthn.type) {
+            case "create":
+              return {
+                data: Object.assign(Object.assign({}, data), { webauthn: Object.assign(Object.assign({}, data.webauthn), { credential_options: Object.assign(Object.assign({}, data.webauthn.credential_options), { publicKey: deserializeCredentialCreationOptions(data.webauthn.credential_options.publicKey) }) }) }),
+                error: null
+              };
+            case "request":
+              return {
+                data: Object.assign(Object.assign({}, data), { webauthn: Object.assign(Object.assign({}, data.webauthn), { credential_options: Object.assign(Object.assign({}, data.webauthn.credential_options), { publicKey: deserializeCredentialRequestOptions(data.webauthn.credential_options.publicKey) }) }) }),
+                error: null
+              };
+          }
+        });
+      } catch (error) {
+        if (isAuthError(error)) {
+          return this._returnResult({ data: null, error });
+        }
+        throw error;
+      }
+    });
+  }
+  /**
+   * {@see GoTrueMFAApi#challengeAndVerify}
+   */
+  async _challengeAndVerify(params) {
+    const { data: challengeData, error: challengeError } = await this._challenge({
+      factorId: params.factorId
+    });
+    if (challengeError) {
+      return this._returnResult({ data: null, error: challengeError });
+    }
+    return await this._verify({
+      factorId: params.factorId,
+      challengeId: challengeData.id,
+      code: params.code
+    });
+  }
+  /**
+   * {@see GoTrueMFAApi#listFactors}
+   */
+  async _listFactors() {
+    var _a;
+    const { data: { user }, error: userError } = await this.getUser();
+    if (userError) {
+      return { data: null, error: userError };
+    }
+    const data = {
+      all: [],
+      phone: [],
+      totp: [],
+      webauthn: []
+    };
+    for (const factor of (_a = user === null || user === void 0 ? void 0 : user.factors) !== null && _a !== void 0 ? _a : []) {
+      data.all.push(factor);
+      if (factor.status === "verified") {
+        ;
+        data[factor.factor_type].push(factor);
+      }
+    }
+    return {
+      data,
+      error: null
+    };
+  }
+  /**
+   * {@see GoTrueMFAApi#getAuthenticatorAssuranceLevel}
+   */
+  async _getAuthenticatorAssuranceLevel(jwt) {
+    var _a, _b, _c, _d;
+    if (jwt) {
+      try {
+        const { payload: payload2 } = decodeJWT(jwt);
+        let currentLevel2 = null;
+        if (payload2.aal) {
+          currentLevel2 = payload2.aal;
+        }
+        let nextLevel2 = currentLevel2;
+        const { data: { user }, error: userError } = await this.getUser(jwt);
+        if (userError) {
+          return this._returnResult({ data: null, error: userError });
+        }
+        const verifiedFactors2 = (_b = (_a = user === null || user === void 0 ? void 0 : user.factors) === null || _a === void 0 ? void 0 : _a.filter((factor) => factor.status === "verified")) !== null && _b !== void 0 ? _b : [];
+        if (verifiedFactors2.length > 0) {
+          nextLevel2 = "aal2";
+        }
+        const currentAuthenticationMethods2 = payload2.amr || [];
+        return { data: { currentLevel: currentLevel2, nextLevel: nextLevel2, currentAuthenticationMethods: currentAuthenticationMethods2 }, error: null };
+      } catch (error) {
+        if (isAuthError(error)) {
+          return this._returnResult({ data: null, error });
+        }
+        throw error;
+      }
+    }
+    const { data: { session }, error: sessionError } = await this.getSession();
+    if (sessionError) {
+      return this._returnResult({ data: null, error: sessionError });
+    }
+    if (!session) {
+      return {
+        data: { currentLevel: null, nextLevel: null, currentAuthenticationMethods: [] },
+        error: null
+      };
+    }
+    const { payload } = decodeJWT(session.access_token);
+    let currentLevel = null;
+    if (payload.aal) {
+      currentLevel = payload.aal;
+    }
+    let nextLevel = currentLevel;
+    const verifiedFactors = (_d = (_c = session.user.factors) === null || _c === void 0 ? void 0 : _c.filter((factor) => factor.status === "verified")) !== null && _d !== void 0 ? _d : [];
+    if (verifiedFactors.length > 0) {
+      nextLevel = "aal2";
+    }
+    const currentAuthenticationMethods = payload.amr || [];
+    return { data: { currentLevel, nextLevel, currentAuthenticationMethods }, error: null };
+  }
+  /**
+   * Retrieves details about an OAuth authorization request.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   *
+   * Returns authorization details including client info, scopes, and user information.
+   * If the response includes only a redirect_url field, it means consent was already given - the caller
+   * should handle the redirect manually if needed.
+   */
+  async _getAuthorizationDetails(authorizationId) {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        if (!session) {
+          return this._returnResult({ data: null, error: new AuthSessionMissingError() });
+        }
+        return await _request(this.fetch, "GET", `${this.url}/oauth/authorizations/${authorizationId}`, {
+          headers: this.headers,
+          jwt: session.access_token,
+          xform: (data) => ({ data, error: null })
+        });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Approves an OAuth authorization request.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   */
+  async _approveAuthorization(authorizationId, options) {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        if (!session) {
+          return this._returnResult({ data: null, error: new AuthSessionMissingError() });
+        }
+        const response = await _request(this.fetch, "POST", `${this.url}/oauth/authorizations/${authorizationId}/consent`, {
+          headers: this.headers,
+          jwt: session.access_token,
+          body: { action: "approve" },
+          xform: (data) => ({ data, error: null })
+        });
+        if (response.data && response.data.redirect_url) {
+          if (isBrowser() && !(options === null || options === void 0 ? void 0 : options.skipBrowserRedirect)) {
+            window.location.assign(response.data.redirect_url);
+          }
+        }
+        return response;
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Denies an OAuth authorization request.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   */
+  async _denyAuthorization(authorizationId, options) {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        if (!session) {
+          return this._returnResult({ data: null, error: new AuthSessionMissingError() });
+        }
+        const response = await _request(this.fetch, "POST", `${this.url}/oauth/authorizations/${authorizationId}/consent`, {
+          headers: this.headers,
+          jwt: session.access_token,
+          body: { action: "deny" },
+          xform: (data) => ({ data, error: null })
+        });
+        if (response.data && response.data.redirect_url) {
+          if (isBrowser() && !(options === null || options === void 0 ? void 0 : options.skipBrowserRedirect)) {
+            window.location.assign(response.data.redirect_url);
+          }
+        }
+        return response;
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Lists all OAuth grants that the authenticated user has authorized.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   */
+  async _listOAuthGrants() {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        if (!session) {
+          return this._returnResult({ data: null, error: new AuthSessionMissingError() });
+        }
+        return await _request(this.fetch, "GET", `${this.url}/user/oauth/grants`, {
+          headers: this.headers,
+          jwt: session.access_token,
+          xform: (data) => ({ data, error: null })
+        });
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  /**
+   * Revokes a user's OAuth grant for a specific client.
+   * Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+   */
+  async _revokeOAuthGrant(options) {
+    try {
+      return await this._useSession(async (result) => {
+        const { data: { session }, error: sessionError } = result;
+        if (sessionError) {
+          return this._returnResult({ data: null, error: sessionError });
+        }
+        if (!session) {
+          return this._returnResult({ data: null, error: new AuthSessionMissingError() });
+        }
+        await _request(this.fetch, "DELETE", `${this.url}/user/oauth/grants`, {
+          headers: this.headers,
+          jwt: session.access_token,
+          query: { client_id: options.clientId },
+          noResolveJson: true
+        });
+        return { data: {}, error: null };
+      });
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+  async fetchJwk(kid, jwks = { keys: [] }) {
+    let jwk = jwks.keys.find((key) => key.kid === kid);
+    if (jwk) {
+      return jwk;
+    }
+    const now = Date.now();
+    jwk = this.jwks.keys.find((key) => key.kid === kid);
+    if (jwk && this.jwks_cached_at + JWKS_TTL > now) {
+      return jwk;
+    }
+    const { data, error } = await _request(this.fetch, "GET", `${this.url}/.well-known/jwks.json`, {
+      headers: this.headers
+    });
+    if (error) {
+      throw error;
+    }
+    if (!data.keys || data.keys.length === 0) {
+      return null;
+    }
+    this.jwks = data;
+    this.jwks_cached_at = now;
+    jwk = data.keys.find((key) => key.kid === kid);
+    if (!jwk) {
+      return null;
+    }
+    return jwk;
+  }
+  /**
+   * Extracts the JWT claims present in the access token by first verifying the
+   * JWT against the server's JSON Web Key Set endpoint
+   * `/.well-known/jwks.json` which is often cached, resulting in significantly
+   * faster responses. Prefer this method over {@link #getUser} which always
+   * sends a request to the Auth server for each JWT.
+   *
+   * If the project is not using an asymmetric JWT signing key (like ECC or
+   * RSA) it always sends a request to the Auth server (similar to {@link
+   * #getUser}) to verify the JWT.
+   *
+   * @param jwt An optional specific JWT you wish to verify, not the one you
+   *            can obtain from {@link #getSession}.
+   * @param options Various additional options that allow you to customize the
+   *                behavior of this method.
+   */
+  async getClaims(jwt, options = {}) {
+    try {
+      let token = jwt;
+      if (!token) {
+        const { data, error } = await this.getSession();
+        if (error || !data.session) {
+          return this._returnResult({ data: null, error });
+        }
+        token = data.session.access_token;
+      }
+      const { header, payload, signature, raw: { header: rawHeader, payload: rawPayload } } = decodeJWT(token);
+      if (!(options === null || options === void 0 ? void 0 : options.allowExpired)) {
+        validateExp(payload.exp);
+      }
+      const signingKey = !header.alg || header.alg.startsWith("HS") || !header.kid || !("crypto" in globalThis && "subtle" in globalThis.crypto) ? null : await this.fetchJwk(header.kid, (options === null || options === void 0 ? void 0 : options.keys) ? { keys: options.keys } : options === null || options === void 0 ? void 0 : options.jwks);
+      if (!signingKey) {
+        const { error } = await this.getUser(token);
+        if (error) {
+          throw error;
+        }
+        return {
+          data: {
+            claims: payload,
+            header,
+            signature
+          },
+          error: null
+        };
+      }
+      const algorithm = getAlgorithm(header.alg);
+      const publicKey = await crypto.subtle.importKey("jwk", signingKey, algorithm, true, [
+        "verify"
+      ]);
+      const isValid = await crypto.subtle.verify(algorithm, publicKey, signature, stringToUint8Array(`${rawHeader}.${rawPayload}`));
+      if (!isValid) {
+        throw new AuthInvalidJwtError("Invalid JWT signature");
+      }
+      return {
+        data: {
+          claims: payload,
+          header,
+          signature
+        },
+        error: null
+      };
+    } catch (error) {
+      if (isAuthError(error)) {
+        return this._returnResult({ data: null, error });
+      }
+      throw error;
+    }
+  }
+};
+GoTrueClient.nextInstanceID = {};
+var GoTrueClient_default = GoTrueClient;
+
+// node_modules/.pnpm/@supabase+auth-js@2.97.0/node_modules/@supabase/auth-js/dist/module/AuthClient.js
+var AuthClient = GoTrueClient_default;
+var AuthClient_default = AuthClient;
+
+// node_modules/.pnpm/@supabase+supabase-js@2.97.0/node_modules/@supabase/supabase-js/dist/index.mjs
+var version5 = "2.97.0";
+var JS_ENV = "";
+if (typeof Deno !== "undefined") JS_ENV = "deno";
+else if (typeof document !== "undefined") JS_ENV = "web";
+else if (typeof navigator !== "undefined" && navigator.product === "ReactNative") JS_ENV = "react-native";
+else JS_ENV = "node";
+var DEFAULT_HEADERS3 = { "X-Client-Info": `supabase-js-${JS_ENV}/${version5}` };
+var DEFAULT_GLOBAL_OPTIONS = { headers: DEFAULT_HEADERS3 };
+var DEFAULT_DB_OPTIONS = { schema: "public" };
+var DEFAULT_AUTH_OPTIONS = {
+  autoRefreshToken: true,
+  persistSession: true,
+  detectSessionInUrl: true,
+  flowType: "implicit"
+};
+var DEFAULT_REALTIME_OPTIONS = {};
+function _typeof3(o) {
+  "@babel/helpers - typeof";
+  return _typeof3 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o$1) {
+    return typeof o$1;
+  } : function(o$1) {
+    return o$1 && "function" == typeof Symbol && o$1.constructor === Symbol && o$1 !== Symbol.prototype ? "symbol" : typeof o$1;
+  }, _typeof3(o);
+}
+function toPrimitive3(t, r2) {
+  if ("object" != _typeof3(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r2 || "default");
+    if ("object" != _typeof3(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t);
+}
+function toPropertyKey3(t) {
+  var i = toPrimitive3(t, "string");
+  return "symbol" == _typeof3(i) ? i : i + "";
+}
+function _defineProperty36(e, r2, t) {
+  return (r2 = toPropertyKey3(r2)) in e ? Object.defineProperty(e, r2, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r2] = t, e;
+}
+function ownKeys34(e, r2) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r2 && (o = o.filter(function(r$1) {
+      return Object.getOwnPropertyDescriptor(e, r$1).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread212(e) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys34(Object(t), true).forEach(function(r$1) {
+      _defineProperty36(e, r$1, t[r$1]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys34(Object(t)).forEach(function(r$1) {
+      Object.defineProperty(e, r$1, Object.getOwnPropertyDescriptor(t, r$1));
+    });
+  }
+  return e;
+}
+var resolveFetch4 = (customFetch) => {
+  if (customFetch) return (...args) => customFetch(...args);
+  return (...args) => fetch(...args);
+};
+var resolveHeadersConstructor = () => {
+  return Headers;
+};
+var fetchWithAuth = (supabaseKey, getAccessToken, customFetch) => {
+  const fetch$1 = resolveFetch4(customFetch);
+  const HeadersConstructor = resolveHeadersConstructor();
+  return async (input, init) => {
+    var _await$getAccessToken;
+    const accessToken = (_await$getAccessToken = await getAccessToken()) !== null && _await$getAccessToken !== void 0 ? _await$getAccessToken : supabaseKey;
+    let headers = new HeadersConstructor(init === null || init === void 0 ? void 0 : init.headers);
+    if (!headers.has("apikey")) headers.set("apikey", supabaseKey);
+    if (!headers.has("Authorization")) headers.set("Authorization", `Bearer ${accessToken}`);
+    return fetch$1(input, _objectSpread212(_objectSpread212({}, init), {}, { headers }));
+  };
+};
+function ensureTrailingSlash(url) {
+  return url.endsWith("/") ? url : url + "/";
+}
+function applySettingDefaults(options, defaults) {
+  var _DEFAULT_GLOBAL_OPTIO, _globalOptions$header;
+  const { db: dbOptions, auth: authOptions, realtime: realtimeOptions, global: globalOptions } = options;
+  const { db: DEFAULT_DB_OPTIONS$1, auth: DEFAULT_AUTH_OPTIONS$1, realtime: DEFAULT_REALTIME_OPTIONS$1, global: DEFAULT_GLOBAL_OPTIONS$1 } = defaults;
+  const result = {
+    db: _objectSpread212(_objectSpread212({}, DEFAULT_DB_OPTIONS$1), dbOptions),
+    auth: _objectSpread212(_objectSpread212({}, DEFAULT_AUTH_OPTIONS$1), authOptions),
+    realtime: _objectSpread212(_objectSpread212({}, DEFAULT_REALTIME_OPTIONS$1), realtimeOptions),
+    storage: {},
+    global: _objectSpread212(_objectSpread212(_objectSpread212({}, DEFAULT_GLOBAL_OPTIONS$1), globalOptions), {}, { headers: _objectSpread212(_objectSpread212({}, (_DEFAULT_GLOBAL_OPTIO = DEFAULT_GLOBAL_OPTIONS$1 === null || DEFAULT_GLOBAL_OPTIONS$1 === void 0 ? void 0 : DEFAULT_GLOBAL_OPTIONS$1.headers) !== null && _DEFAULT_GLOBAL_OPTIO !== void 0 ? _DEFAULT_GLOBAL_OPTIO : {}), (_globalOptions$header = globalOptions === null || globalOptions === void 0 ? void 0 : globalOptions.headers) !== null && _globalOptions$header !== void 0 ? _globalOptions$header : {}) }),
+    accessToken: async () => ""
+  };
+  if (options.accessToken) result.accessToken = options.accessToken;
+  else delete result.accessToken;
+  return result;
+}
+function validateSupabaseUrl(supabaseUrl2) {
+  const trimmedUrl = supabaseUrl2 === null || supabaseUrl2 === void 0 ? void 0 : supabaseUrl2.trim();
+  if (!trimmedUrl) throw new Error("supabaseUrl is required.");
+  if (!trimmedUrl.match(/^https?:\/\//i)) throw new Error("Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.");
+  try {
+    return new URL(ensureTrailingSlash(trimmedUrl));
+  } catch (_unused) {
+    throw Error("Invalid supabaseUrl: Provided URL is malformed.");
+  }
+}
+var SupabaseAuthClient = class extends AuthClient_default {
+  constructor(options) {
+    super(options);
+  }
+};
+var SupabaseClient = class {
+  /**
+  * Create a new client for use in the browser.
+  * @param supabaseUrl The unique Supabase URL which is supplied when you create a new project in your project dashboard.
+  * @param supabaseKey The unique Supabase Key which is supplied when you create a new project in your project dashboard.
+  * @param options.db.schema You can switch in between schemas. The schema needs to be on the list of exposed schemas inside Supabase.
+  * @param options.auth.autoRefreshToken Set to "true" if you want to automatically refresh the token before expiring.
+  * @param options.auth.persistSession Set to "true" if you want to automatically save the user session into local storage.
+  * @param options.auth.detectSessionInUrl Set to "true" if you want to automatically detects OAuth grants in the URL and signs in the user.
+  * @param options.realtime Options passed along to realtime-js constructor.
+  * @param options.storage Options passed along to the storage-js constructor.
+  * @param options.global.fetch A custom fetch implementation.
+  * @param options.global.headers Any additional headers to send with each network request.
+  * @example
+  * ```ts
+  * import { createClient } from '@supabase/supabase-js'
+  *
+  * const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key')
+  * const { data } = await supabase.from('profiles').select('*')
+  * ```
+  */
+  constructor(supabaseUrl2, supabaseKey, options) {
+    var _settings$auth$storag, _settings$global$head;
+    this.supabaseUrl = supabaseUrl2;
+    this.supabaseKey = supabaseKey;
+    const baseUrl = validateSupabaseUrl(supabaseUrl2);
+    if (!supabaseKey) throw new Error("supabaseKey is required.");
+    this.realtimeUrl = new URL("realtime/v1", baseUrl);
+    this.realtimeUrl.protocol = this.realtimeUrl.protocol.replace("http", "ws");
+    this.authUrl = new URL("auth/v1", baseUrl);
+    this.storageUrl = new URL("storage/v1", baseUrl);
+    this.functionsUrl = new URL("functions/v1", baseUrl);
+    const defaultStorageKey = `sb-${baseUrl.hostname.split(".")[0]}-auth-token`;
+    const DEFAULTS = {
+      db: DEFAULT_DB_OPTIONS,
+      realtime: DEFAULT_REALTIME_OPTIONS,
+      auth: _objectSpread212(_objectSpread212({}, DEFAULT_AUTH_OPTIONS), {}, { storageKey: defaultStorageKey }),
+      global: DEFAULT_GLOBAL_OPTIONS
+    };
+    const settings = applySettingDefaults(options !== null && options !== void 0 ? options : {}, DEFAULTS);
+    this.storageKey = (_settings$auth$storag = settings.auth.storageKey) !== null && _settings$auth$storag !== void 0 ? _settings$auth$storag : "";
+    this.headers = (_settings$global$head = settings.global.headers) !== null && _settings$global$head !== void 0 ? _settings$global$head : {};
+    if (!settings.accessToken) {
+      var _settings$auth;
+      this.auth = this._initSupabaseAuthClient((_settings$auth = settings.auth) !== null && _settings$auth !== void 0 ? _settings$auth : {}, this.headers, settings.global.fetch);
+    } else {
+      this.accessToken = settings.accessToken;
+      this.auth = new Proxy({}, { get: (_, prop) => {
+        throw new Error(`@supabase/supabase-js: Supabase Client is configured with the accessToken option, accessing supabase.auth.${String(prop)} is not possible`);
+      } });
+    }
+    this.fetch = fetchWithAuth(supabaseKey, this._getAccessToken.bind(this), settings.global.fetch);
+    this.realtime = this._initRealtimeClient(_objectSpread212({
+      headers: this.headers,
+      accessToken: this._getAccessToken.bind(this)
+    }, settings.realtime));
+    if (this.accessToken) Promise.resolve(this.accessToken()).then((token) => this.realtime.setAuth(token)).catch((e) => console.warn("Failed to set initial Realtime auth token:", e));
+    this.rest = new PostgrestClient(new URL("rest/v1", baseUrl).href, {
+      headers: this.headers,
+      schema: settings.db.schema,
+      fetch: this.fetch,
+      timeout: settings.db.timeout,
+      urlLengthLimit: settings.db.urlLengthLimit
+    });
+    this.storage = new StorageClient(this.storageUrl.href, this.headers, this.fetch, options === null || options === void 0 ? void 0 : options.storage);
+    if (!settings.accessToken) this._listenForAuthEvents();
+  }
+  /**
+  * Supabase Functions allows you to deploy and invoke edge functions.
+  */
+  get functions() {
+    return new FunctionsClient(this.functionsUrl.href, {
+      headers: this.headers,
+      customFetch: this.fetch
+    });
+  }
+  /**
+  * Perform a query on a table or a view.
+  *
+  * @param relation - The table or view name to query
+  */
+  from(relation) {
+    return this.rest.from(relation);
+  }
+  /**
+  * Select a schema to query or perform an function (rpc) call.
+  *
+  * The schema needs to be on the list of exposed schemas inside Supabase.
+  *
+  * @param schema - The schema to query
+  */
+  schema(schema) {
+    return this.rest.schema(schema);
+  }
+  /**
+  * Perform a function call.
+  *
+  * @param fn - The function name to call
+  * @param args - The arguments to pass to the function call
+  * @param options - Named parameters
+  * @param options.head - When set to `true`, `data` will not be returned.
+  * Useful if you only need the count.
+  * @param options.get - When set to `true`, the function will be called with
+  * read-only access mode.
+  * @param options.count - Count algorithm to use to count rows returned by the
+  * function. Only applicable for [set-returning
+  * functions](https://www.postgresql.org/docs/current/functions-srf.html).
+  *
+  * `"exact"`: Exact but slow count algorithm. Performs a `COUNT(*)` under the
+  * hood.
+  *
+  * `"planned"`: Approximated but fast count algorithm. Uses the Postgres
+  * statistics under the hood.
+  *
+  * `"estimated"`: Uses exact count for low numbers and planned count for high
+  * numbers.
+  */
+  rpc(fn, args = {}, options = {
+    head: false,
+    get: false,
+    count: void 0
+  }) {
+    return this.rest.rpc(fn, args, options);
+  }
+  /**
+  * Creates a Realtime channel with Broadcast, Presence, and Postgres Changes.
+  *
+  * @param {string} name - The name of the Realtime channel.
+  * @param {Object} opts - The options to pass to the Realtime channel.
+  *
+  */
+  channel(name, opts = { config: {} }) {
+    return this.realtime.channel(name, opts);
+  }
+  /**
+  * Returns all Realtime channels.
+  */
+  getChannels() {
+    return this.realtime.getChannels();
+  }
+  /**
+  * Unsubscribes and removes Realtime channel from Realtime client.
+  *
+  * @param {RealtimeChannel} channel - The name of the Realtime channel.
+  *
+  */
+  removeChannel(channel) {
+    return this.realtime.removeChannel(channel);
+  }
+  /**
+  * Unsubscribes and removes all Realtime channels from Realtime client.
+  */
+  removeAllChannels() {
+    return this.realtime.removeAllChannels();
+  }
+  async _getAccessToken() {
+    var _this = this;
+    var _data$session$access_, _data$session;
+    if (_this.accessToken) return await _this.accessToken();
+    const { data } = await _this.auth.getSession();
+    return (_data$session$access_ = (_data$session = data.session) === null || _data$session === void 0 ? void 0 : _data$session.access_token) !== null && _data$session$access_ !== void 0 ? _data$session$access_ : _this.supabaseKey;
+  }
+  _initSupabaseAuthClient({ autoRefreshToken, persistSession, detectSessionInUrl, storage, userStorage, storageKey, flowType, lock, debug, throwOnError }, headers, fetch$1) {
+    const authHeaders = {
+      Authorization: `Bearer ${this.supabaseKey}`,
+      apikey: `${this.supabaseKey}`
+    };
+    return new SupabaseAuthClient({
+      url: this.authUrl.href,
+      headers: _objectSpread212(_objectSpread212({}, authHeaders), headers),
+      storageKey,
+      autoRefreshToken,
+      persistSession,
+      detectSessionInUrl,
+      storage,
+      userStorage,
+      flowType,
+      lock,
+      debug,
+      throwOnError,
+      fetch: fetch$1,
+      hasCustomAuthorizationHeader: Object.keys(this.headers).some((key) => key.toLowerCase() === "authorization")
+    });
+  }
+  _initRealtimeClient(options) {
+    return new RealtimeClient(this.realtimeUrl.href, _objectSpread212(_objectSpread212({}, options), {}, { params: _objectSpread212(_objectSpread212({}, { apikey: this.supabaseKey }), options === null || options === void 0 ? void 0 : options.params) }));
+  }
+  _listenForAuthEvents() {
+    return this.auth.onAuthStateChange((event, session) => {
+      this._handleTokenChanged(event, "CLIENT", session === null || session === void 0 ? void 0 : session.access_token);
+    });
+  }
+  _handleTokenChanged(event, source, token) {
+    if ((event === "TOKEN_REFRESHED" || event === "SIGNED_IN") && this.changedAccessToken !== token) {
+      this.changedAccessToken = token;
+      this.realtime.setAuth(token);
+    } else if (event === "SIGNED_OUT") {
+      this.realtime.setAuth();
+      if (source == "STORAGE") this.auth.signOut();
+      this.changedAccessToken = void 0;
+    }
+  }
+};
+var createClient = (supabaseUrl2, supabaseKey, options) => {
+  return new SupabaseClient(supabaseUrl2, supabaseKey, options);
+};
+function shouldShowDeprecationWarning() {
+  if (typeof window !== "undefined") return false;
+  const _process = globalThis["process"];
+  if (!_process) return false;
+  const processVersion = _process["version"];
+  if (processVersion === void 0 || processVersion === null) return false;
+  const versionMatch = processVersion.match(/^v(\d+)\./);
+  if (!versionMatch) return false;
+  return parseInt(versionMatch[1], 10) <= 18;
+}
+if (shouldShowDeprecationWarning()) console.warn("\u26A0\uFE0F  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217");
+
+// src/supabase.ts
+var supabaseUrl = window.SUPABASE_ENV?.url || import.meta.env?.VITE_SUPABASE_URL || "";
+var supabaseAnonKey = window.SUPABASE_ENV?.anonKey || import.meta.env?.VITE_SUPABASE_ANON_KEY || "";
+var supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+
+// src/components/LoginModal.tsx
+var import_react51 = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-var STORAGE_KEY = "MY_BUDGET_DATA";
+var COLORS = {
+  primary: "#1B4332",
+  primaryDark: "#0F2B1F",
+  primaryLight: "#2D6A4F",
+  accent: "#40916C",
+  accentLight: "#E8F5E9",
+  bg: "#F5F5F0",
+  card: "#FFFFFF",
+  border: "#E5E7EB",
+  borderLight: "#F0F0F0",
+  textMain: "#1A1A1A",
+  textSecondary: "#6B7280",
+  textMuted: "#9CA3AF",
+  error: "#DC2626",
+  errorBg: "#FEF2F2"
+};
+var LoginModal = ({ onClose, onLoginSuccess }) => {
+  const [email, setEmail] = (0, import_react51.useState)("");
+  const [otp, setOtp] = (0, import_react51.useState)("");
+  const [step, setStep] = (0, import_react51.useState)("EMAIL");
+  const [loading, setLoading] = (0, import_react51.useState)(false);
+  const [error, setError] = (0, import_react51.useState)("");
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!supabase) {
+      setError("Cloud sync is currently unavailable. Please try again later.");
+      return;
+    }
+    setLoading(true);
+    const { error: error2 } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true
+      }
+    });
+    setLoading(false);
+    if (error2) {
+      console.error("Supabase Auth Error:", error2);
+      if (error2.message?.toLowerCase().includes("rate limit") || error2.status === 429) {
+        setError("Please wait a moment before requesting another login code.");
+      } else {
+        setError(error2.message || "An unexpected error occurred. Please try again later.");
+      }
+    } else {
+      setStep("OTP");
+    }
+  };
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!supabase) return;
+    setLoading(true);
+    const { data, error: error2 } = await supabase.auth.verifyOtp({
+      email,
+      token: otp,
+      type: "email"
+    });
+    setLoading(false);
+    if (error2) {
+      console.error("Supabase Auth Verify Error:", error2);
+      if (error2.message?.toLowerCase().includes("rate limit") || error2.status === 429) {
+        setError("Please wait a moment before trying again.");
+      } else if (error2.message?.toLowerCase().includes("expired") || error2.message?.toLowerCase().includes("invalid")) {
+        setError("That code is incorrect or expired. Please check your email or request a new one.");
+      } else {
+        setError(error2.message || "Verification failed. Please try again.");
+      }
+    } else if (data.session) {
+      onLoginSuccess();
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+    position: "fixed",
+    inset: 0,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    backdropFilter: "blur(4px)",
+    zIndex: 9999,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20
+  }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      backgroundColor: COLORS.card,
+      borderRadius: 24,
+      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+      width: "100%",
+      maxWidth: 440,
+      overflow: "hidden",
+      animation: "fadeIn 0.2s ease-out"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "24px 32px 20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: step === "EMAIL" ? "Save & Sync" : "Verify Email" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? "Access your budget securely across all your devices." : `Enter the 6-digit code sent to ${email}` })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onClose, style: {
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 8,
+          margin: "-8px -8px 0 0",
+          color: COLORS.textMuted,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "50%",
+          transition: "background-color 0.2s"
+        }, onMouseEnter: (e) => e.currentTarget.style.backgroundColor = COLORS.bg, onMouseLeave: (e) => e.currentTarget.style.backgroundColor = "transparent", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 20 }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "0 32px 32px" }, children: [
+        error && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+          marginBottom: 20,
+          padding: "12px 16px",
+          backgroundColor: COLORS.errorBg,
+          borderRadius: 12,
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 12,
+          border: `1px solid ${COLORS.error}20`
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { size: 18, color: COLORS.error, style: { marginTop: 2, flexShrink: 0 } }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, color: COLORS.error, lineHeight: 1.5, fontWeight: 500 }, children: error })
+        ] }),
+        step === "EMAIL" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: handleSendOtp, style: { display: "flex", flexDirection: "column", gap: 20 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "email",
+                required: true,
+                value: email,
+                onChange: (e) => setEmail(e.target.value),
+                placeholder: "you@email.com",
+                style: {
+                  width: "100%",
+                  padding: "16px 16px 16px 48px",
+                  backgroundColor: "#F9FAFB",
+                  border: `1px solid ${COLORS.border}`,
+                  borderRadius: 16,
+                  fontSize: 15,
+                  color: COLORS.textMain,
+                  outline: "none",
+                  transition: "all 0.2s",
+                  boxSizing: "border-box"
+                },
+                onFocus: (e) => {
+                  e.target.style.borderColor = COLORS.primary;
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`;
+                },
+                onBlur: (e) => {
+                  e.target.style.borderColor = COLORS.border;
+                  e.target.style.backgroundColor = "#F9FAFB";
+                  e.target.style.boxShadow = "none";
+                },
+                autoFocus: true
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "button",
+            {
+              type: "submit",
+              disabled: loading || !email,
+              style: {
+                width: "100%",
+                backgroundColor: COLORS.primary,
+                color: "white",
+                padding: "16px",
+                borderRadius: 16,
+                fontSize: 16,
+                fontWeight: 600,
+                border: "none",
+                cursor: loading || !email ? "not-allowed" : "pointer",
+                opacity: loading || !email ? 0.7 : 1,
+                transition: "all 0.2s",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 8
+              },
+              onMouseEnter: (e) => {
+                if (!loading && email) e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.backgroundColor = COLORS.primaryDark;
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.backgroundColor = COLORS.primary;
+              },
+              children: loading ? "Sending Code..." : "Continue with Email"
+            }
+          )
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: handleVerifyOtp, style: { display: "flex", flexDirection: "column", gap: 20 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeyRound, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "text",
+                required: true,
+                value: otp,
+                onChange: (e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6)),
+                placeholder: "000 000",
+                style: {
+                  width: "100%",
+                  padding: "16px 16px 16px 48px",
+                  backgroundColor: "#F9FAFB",
+                  border: `1px solid ${COLORS.border}`,
+                  borderRadius: 16,
+                  fontSize: 18,
+                  color: COLORS.textMain,
+                  outline: "none",
+                  transition: "all 0.2s",
+                  textAlign: "center",
+                  letterSpacing: "0.4em",
+                  fontWeight: 600,
+                  boxSizing: "border-box"
+                },
+                onFocus: (e) => {
+                  e.target.style.borderColor = COLORS.primary;
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`;
+                },
+                onBlur: (e) => {
+                  e.target.style.borderColor = COLORS.border;
+                  e.target.style.backgroundColor = "#F9FAFB";
+                  e.target.style.boxShadow = "none";
+                },
+                autoFocus: true
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "button",
+            {
+              type: "submit",
+              disabled: loading || otp.length !== 6,
+              style: {
+                width: "100%",
+                backgroundColor: COLORS.primary,
+                color: "white",
+                padding: "16px",
+                borderRadius: 16,
+                fontSize: 16,
+                fontWeight: 600,
+                border: "none",
+                cursor: loading || otp.length !== 6 ? "not-allowed" : "pointer",
+                opacity: loading || otp.length !== 6 ? 0.7 : 1,
+                transition: "all 0.2s"
+              },
+              onMouseEnter: (e) => {
+                if (!loading && otp.length === 6) e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.backgroundColor = COLORS.primaryDark;
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.backgroundColor = COLORS.primary;
+              },
+              children: loading ? "Verifying..." : "Login Successfully"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center", marginTop: -8 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => setStep("EMAIL"), style: {
+            background: "none",
+            border: "none",
+            color: COLORS.textSecondary,
+            fontSize: 13,
+            cursor: "pointer",
+            textDecoration: "underline"
+          }, children: "Change email address" }) })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: scale(0.95) translateY(10px); }
+                        to { opacity: 1; transform: scale(1) translateY(0); }
+                    }
+                ` })
+  ] });
+};
+
+// src/MyBudget.tsx
+var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+var STORAGE_KEY2 = "MY_BUDGET_DATA";
 var BUDGETS_LIST_KEY = "MY_BUDGET_LIST";
 var generateId = () => Math.random().toString(36).substr(2, 9);
-var COLORS = {
+var COLORS2 = {
   primary: "#1B4332",
   primaryDark: "#0F2B1F",
   primaryLight: "#2D6A4F",
@@ -48845,7 +60683,7 @@ var saveBudgets = (budgets) => {
 };
 var loadCurrentBudget = () => {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data = localStorage.getItem(STORAGE_KEY2);
     if (data) return migrateBudget(JSON.parse(data));
   } catch {
   }
@@ -48853,7 +60691,7 @@ var loadCurrentBudget = () => {
 };
 var saveCurrentBudget = (budget) => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(budget));
+    localStorage.setItem(STORAGE_KEY2, JSON.stringify(budget));
   } catch {
   }
 };
@@ -48914,7 +60752,7 @@ var PRESETS = {
     { name: "Personal Expenses", emoji: "\u{1F6CD}\uFE0F" }
   ]
 };
-var SectionHeader = ({ title, icon, color: color2, bgColor, total, monthlyTotal, count, isOpen, onToggle }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: onToggle, style: {
+var SectionHeader = ({ title, icon, color: color2, bgColor, total, monthlyTotal, count, isOpen, onToggle }) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: onToggle, style: {
   width: "100%",
   display: "flex",
   alignItems: "center",
@@ -48926,36 +60764,36 @@ var SectionHeader = ({ title, icon, color: color2, bgColor, total, monthlyTotal,
   backgroundColor: bgColor,
   transition: "all 0.2s"
 }, children: [
-  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 36, height: 36, borderRadius: 10, backgroundColor: color2, color: "white", display: "flex", alignItems: "center", justifyContent: "center" }, children: icon }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { textAlign: "left" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 700, color: COLORS.textMain }, children: title }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary }, children: [
+  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { width: 36, height: 36, borderRadius: 10, backgroundColor: color2, color: "white", display: "flex", alignItems: "center", justifyContent: "center" }, children: icon }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { textAlign: "left" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 15, fontWeight: 700, color: COLORS2.textMain }, children: title }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 12, color: COLORS2.textSecondary }, children: [
         count,
         " item",
         count !== 1 ? "s" : ""
       ] })
     ] })
   ] }),
-  /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 12 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { textAlign: "right" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 16, fontWeight: 700, color: color2 }, children: fmt(total) }),
-      monthlyTotal !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary }, children: [
+  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 12 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { textAlign: "right" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 16, fontWeight: 700, color: color2 }, children: fmt(total) }),
+      monthlyTotal !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 11, color: COLORS2.textSecondary }, children: [
         fmt(monthlyTotal),
         "/mo"
       ] })
     ] }),
-    isOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { size: 18, color: COLORS.textSecondary }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { size: 18, color: COLORS.textSecondary })
+    isOpen ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ChevronUp, { size: 18, color: COLORS2.textSecondary }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ChevronDown, { size: 18, color: COLORS2.textSecondary })
   ] })
 ] });
 var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
-  const [query, setQuery] = (0, import_react51.useState)("");
-  const [results, setResults] = (0, import_react51.useState)([]);
-  const [loading, setLoading] = (0, import_react51.useState)(false);
-  const [showDropdown, setShowDropdown] = (0, import_react51.useState)(false);
-  const timerRef = (0, import_react51.useRef)(null);
-  const containerRef = (0, import_react51.useRef)(null);
-  (0, import_react51.useEffect)(() => {
+  const [query, setQuery] = (0, import_react52.useState)("");
+  const [results, setResults] = (0, import_react52.useState)([]);
+  const [loading, setLoading] = (0, import_react52.useState)(false);
+  const [showDropdown, setShowDropdown] = (0, import_react52.useState)(false);
+  const timerRef = (0, import_react52.useRef)(null);
+  const containerRef = (0, import_react52.useRef)(null);
+  (0, import_react52.useEffect)(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) setShowDropdown(false);
     };
@@ -48978,10 +60816,10 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
       setLoading(false);
     }, 300);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { position: "relative" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { size: 14, style: { position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted } }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: containerRef, style: { position: "relative" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { position: "relative" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Search, { size: 14, style: { position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", color: COLORS2.textMuted } }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         "input",
         {
           style: { ...inputStyle, paddingLeft: 28 },
@@ -48993,22 +60831,22 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
           placeholder: "Search crypto (e.g. bitcoin)"
         }
       ),
-      loading && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { size: 14, style: { position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", color: COLORS.textMuted, animation: "spin 1s linear infinite" } })
+      loading && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LoaderCircle, { size: 14, style: { position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", color: COLORS2.textMuted, animation: "spin 1s linear infinite" } })
     ] }),
-    showDropdown && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
+    showDropdown && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: {
       position: "absolute",
       top: "100%",
       left: 0,
       right: 0,
       zIndex: 50,
-      backgroundColor: COLORS.card,
+      backgroundColor: COLORS2.card,
       borderRadius: 8,
-      border: `1px solid ${COLORS.border}`,
+      border: `1px solid ${COLORS2.border}`,
       boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
       maxHeight: 200,
       overflowY: "auto",
       marginTop: 2
-    }, children: results.map((coin) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    }, children: results.map((coin) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
       "button",
       {
         onClick: () => {
@@ -49028,19 +60866,19 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
           cursor: "pointer",
           textAlign: "left",
           fontSize: 13,
-          color: COLORS.textMain,
-          borderBottom: `1px solid ${COLORS.borderLight}`
+          color: COLORS2.textMain,
+          borderBottom: `1px solid ${COLORS2.borderLight}`
         },
         onMouseEnter: (e) => {
-          e.currentTarget.style.backgroundColor = COLORS.assetBg;
+          e.currentTarget.style.backgroundColor = COLORS2.assetBg;
         },
         onMouseLeave: (e) => {
           e.currentTarget.style.backgroundColor = "transparent";
         },
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: coin.thumb, alt: "", style: { width: 20, height: 20, borderRadius: 10 } }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 600 }, children: coin.name }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.textMuted, fontSize: 11, textTransform: "uppercase" }, children: coin.symbol })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("img", { src: coin.thumb, alt: "", style: { width: 20, height: 20, borderRadius: 10 } }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontWeight: 600 }, children: coin.name }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { color: COLORS2.textMuted, fontSize: 11, textTransform: "uppercase" }, children: coin.symbol })
         ]
       },
       coin.id
@@ -49048,12 +60886,12 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
   ] });
 };
 var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
-  const [fetching, setFetching] = (0, import_react51.useState)(false);
-  const [tickerInput, setTickerInput] = (0, import_react51.useState)(draft.ticker || "");
-  const [priceInput, setPriceInput] = (0, import_react51.useState)(draft.livePrice ? String(draft.livePrice) : "");
-  const debounceRef = (0, import_react51.useRef)(null);
+  const [fetching, setFetching] = (0, import_react52.useState)(false);
+  const [tickerInput, setTickerInput] = (0, import_react52.useState)(draft.ticker || "");
+  const [priceInput, setPriceInput] = (0, import_react52.useState)(draft.livePrice ? String(draft.livePrice) : "");
+  const debounceRef = (0, import_react52.useRef)(null);
   const recalcAmount = (price, qty) => Math.round(price * qty * 100) / 100;
-  (0, import_react51.useEffect)(() => {
+  (0, import_react52.useEffect)(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const symbol = tickerInput.trim();
     if (symbol.length < 1) {
@@ -49083,9 +60921,9 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
     };
   }, [tickerInput]);
   const hasTicker = tickerInput.trim().length >= 1;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Ticker Symbol" }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "input",
       {
         style: { ...inputStyle, textTransform: "uppercase" },
@@ -49095,15 +60933,15 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         autoFocus: true
       }
     ),
-    fetching && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: "#2563EB", marginTop: 4 }, children: [
+    fetching && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 11, color: "#2563EB", marginTop: 4 }, children: [
       "Looking up ",
       tickerInput,
       "..."
     ] }),
-    hasTicker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Price / Share" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    hasTicker && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Price / Share" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "input",
           {
             style: inputStyle,
@@ -49120,9 +60958,9 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Shares" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "input",
           {
             style: inputStyle,
@@ -49140,22 +60978,22 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         )
       ] })
     ] }),
-    hasTicker && draft.livePrice && draft.quantity && draft.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 6, display: "flex", justifyContent: "space-between", padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+    hasTicker && draft.livePrice && draft.quantity && draft.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 12, color: COLORS2.textSecondary, marginTop: 6, display: "flex", justifyContent: "space-between", padding: "6px 10px", backgroundColor: "#2563EB10", borderRadius: 8, border: "1px solid #2563EB30" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
         "\u{1F4C8} ",
         draft.ticker,
         " \xD7 ",
         draft.quantity
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.amount) }) })
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { style: { color: color2 }, children: fmt(draft.amount) }) })
     ] })
   ] });
 };
 var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
   const isNew = !item.amount;
-  const [editing, setEditing] = (0, import_react51.useState)(isNew);
-  const [draft, setDraft] = (0, import_react51.useState)(item);
-  (0, import_react51.useEffect)(() => {
+  const [editing, setEditing] = (0, import_react52.useState)(isNew);
+  const [draft, setDraft] = (0, import_react52.useState)(item);
+  (0, import_react52.useEffect)(() => {
     setDraft(item);
   }, [item]);
   const save = () => {
@@ -49171,7 +61009,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
   const inputStyle = {
     padding: "8px 10px",
     borderRadius: 8,
-    border: `1px solid ${COLORS.border}`,
+    border: `1px solid ${COLORS2.border}`,
     fontSize: 13,
     width: "100%",
     boxSizing: "border-box",
@@ -49202,18 +61040,18 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
     }
   };
   if (editing) {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px", backgroundColor: COLORS.card, borderRadius: 10, border: `1px solid ${COLORS.border}`, marginBottom: 6 }, children: [
-      inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: "10px 12px", backgroundColor: COLORS2.card, borderRadius: 10, border: `1px solid ${COLORS2.border}`, marginBottom: 6 }, children: [
+      inputMode === "asset" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 6, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "button",
           {
             onClick: () => setDraft((d) => ({ ...d, assetType: "crypto" })),
             style: {
               padding: "4px 10px",
               borderRadius: 6,
-              border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS.border}`,
+              border: `1px solid ${draft.assetType === "crypto" ? "#F7931A" : COLORS2.border}`,
               backgroundColor: draft.assetType === "crypto" ? "#F7931A15" : "transparent",
-              color: draft.assetType === "crypto" ? "#F7931A" : COLORS.textSecondary,
+              color: draft.assetType === "crypto" ? "#F7931A" : COLORS2.textSecondary,
               fontSize: 11,
               fontWeight: 600,
               cursor: "pointer"
@@ -49221,16 +61059,16 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
             children: "\u20BF Crypto"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "button",
           {
             onClick: () => setDraft((d) => ({ ...d, assetType: "stock", ticker: void 0, livePrice: void 0 })),
             style: {
               padding: "4px 10px",
               borderRadius: 6,
-              border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS.border}`,
+              border: `1px solid ${draft.assetType === "stock" ? "#2563EB" : COLORS2.border}`,
               backgroundColor: draft.assetType === "stock" ? "#2563EB15" : "transparent",
-              color: draft.assetType === "stock" ? "#2563EB" : COLORS.textSecondary,
+              color: draft.assetType === "stock" ? "#2563EB" : COLORS2.textSecondary,
               fontSize: 11,
               fontWeight: 600,
               cursor: "pointer"
@@ -49238,16 +61076,16 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
             children: "\u{1F4C8} Stock"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "button",
           {
             onClick: () => setDraft((d) => ({ ...d, assetType: void 0, ticker: void 0, livePrice: void 0 })),
             style: {
               padding: "4px 10px",
               borderRadius: 6,
-              border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color2 : COLORS.border}`,
+              border: `1px solid ${!draft.assetType || draft.assetType === "manual" ? color2 : COLORS2.border}`,
               backgroundColor: !draft.assetType || draft.assetType === "manual" ? `${color2}15` : "transparent",
-              color: !draft.assetType || draft.assetType === "manual" ? color2 : COLORS.textSecondary,
+              color: !draft.assetType || draft.assetType === "manual" ? color2 : COLORS2.textSecondary,
               fontSize: 11,
               fontWeight: 600,
               cursor: "pointer"
@@ -49256,143 +61094,143 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
           }
         )
       ] }),
-      inputMode === "asset" && draft.assetType === "crypto" && !draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Search Cryptocurrency" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CoinSearchDropdown, { onSelect: handleCoinSelect, inputStyle })
+      inputMode === "asset" && draft.assetType === "crypto" && !draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Search Cryptocurrency" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CoinSearchDropdown, { onSelect: handleCoinSelect, inputStyle })
       ] }),
-      inputMode === "asset" && draft.assetType === "crypto" && draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#F7931A10", borderRadius: 8, border: "1px solid #F7931A30", marginBottom: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#F7931A" }, children: [
+      inputMode === "asset" && draft.assetType === "crypto" && draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#F7931A10", borderRadius: 8, border: "1px solid #F7931A30", marginBottom: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: "#F7931A" }, children: [
             "\u20BF ",
             draft.name
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 11, color: COLORS.textMuted }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 11, color: COLORS2.textMuted }, children: [
             "(",
             draft.ticker,
             ")"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setDraft((d) => ({ ...d, ticker: void 0, name: "", livePrice: void 0 })), style: { marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 14 }) })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setDraft((d) => ({ ...d, ticker: void 0, name: "", livePrice: void 0 })), style: { marginLeft: "auto", padding: 2, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(X, { size: 14 }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 4 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 4 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
             const qty = parseFloat(e.target.value) || 0;
             const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
             setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
           }, placeholder: "How many?", autoFocus: true })
         ] }),
-        draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        draft.livePrice ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 12, color: COLORS2.textSecondary, marginTop: 4, display: "flex", justifyContent: "space-between" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
             "Price: ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: fmtPrice(draft.livePrice) }),
             "/unit"
           ] }),
-          draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+          draft.quantity ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
             "Total: ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { style: { color: color2 }, children: fmt(draft.livePrice * draft.quantity) })
           ] }) : null
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 }, children: "Fetching price..." })
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 11, color: COLORS2.textMuted, marginTop: 4 }, children: "Fetching price..." })
       ] }),
-      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StockTickerInput, { draft, setDraft, inputStyle, color: color2 }),
-      (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
+      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(StockTickerInput, { draft, setDraft, inputStyle, color: color2 }),
+      (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
       ] }),
-      inputMode === "recurring" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Amount" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+      inputMode === "recurring" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Amount" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Frequency" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", { style: selectStyle, value: draft.frequency || "monthly", onChange: (e) => setDraft({ ...draft, frequency: e.target.value }), children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "monthly", children: "Monthly" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "yearly", children: "Yearly" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "one_time", children: "One-time" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Frequency" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("select", { style: selectStyle, value: draft.frequency || "monthly", onChange: (e) => setDraft({ ...draft, frequency: e.target.value }), children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", { value: "monthly", children: "Monthly" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", { value: "yearly", children: "Yearly" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", { value: "one_time", children: "One-time" })
           ] })
         ] })
       ] }),
-      inputMode === "asset" && (!draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+      inputMode === "asset" && (!draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Quantity (optional)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => setDraft({ ...draft, quantity: parseFloat(e.target.value) || void 0 }), placeholder: "Qty" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Quantity (optional)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => setDraft({ ...draft, quantity: parseFloat(e.target.value) || void 0 }), placeholder: "Qty" })
         ] })
       ] }),
-      inputMode === "value_only" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+      inputMode === "value_only" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 6, justifyContent: "flex-end" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 6, justifyContent: "flex-end" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
           if (!item.name && !item.amount) {
             onDelete();
           } else {
             setDraft(item);
             setEditing(false);
           }
-        }, style: { padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 12, cursor: "pointer", color: COLORS.textSecondary }, children: "Cancel" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: save, style: { padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: color2, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }, children: "Save" })
+        }, style: { padding: "6px 12px", borderRadius: 6, border: `1px solid ${COLORS2.border}`, backgroundColor: "white", fontSize: 12, cursor: "pointer", color: COLORS2.textSecondary }, children: "Cancel" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: save, style: { padding: "6px 12px", borderRadius: 6, border: "none", backgroundColor: color2, color: "white", fontSize: 12, fontWeight: 600, cursor: "pointer" }, children: "Save" })
       ] })
     ] });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     padding: "10px 6px 10px 4px",
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS2.card,
     borderRadius: 10,
-    border: `1px solid ${COLORS.borderLight}`,
+    border: `1px solid ${COLORS2.borderLight}`,
     marginBottom: 4,
     transition: "all 0.15s"
   }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "drag-handle", style: { padding: "4px 4px", cursor: "grab", color: COLORS.textMuted, display: "flex", flexShrink: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(GripVertical, { size: 16 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: 0, paddingLeft: 4 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }, children: [
-        item.assetType === "crypto" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#F7931A", fontWeight: 700 }, children: "\u20BF" }),
-        item.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, color: "#2563EB", fontWeight: 700 }, children: "\u{1F4C8}" }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "drag-handle", style: { padding: "4px 4px", cursor: "grab", color: COLORS2.textMuted, display: "flex", flexShrink: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(GripVertical, { size: 16 }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { flex: 1, minWidth: 0, paddingLeft: 4 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 14, fontWeight: 500, color: COLORS2.textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }, children: [
+        item.assetType === "crypto" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 11, color: "#F7931A", fontWeight: 700 }, children: "\u20BF" }),
+        item.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 11, color: "#2563EB", fontWeight: 700 }, children: "\u{1F4C8}" }),
         item.name || "Unnamed"
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 11, color: COLORS.textSecondary, display: "flex", gap: 8, marginTop: 2 }, children: [
-        item.quantity !== void 0 && item.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 11, color: COLORS2.textSecondary, display: "flex", gap: 8, marginTop: 2 }, children: [
+        item.quantity !== void 0 && item.quantity > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
           "Qty: ",
           item.quantity
         ] }),
-        (item.assetType === "crypto" || item.assetType === "stock") && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        (item.assetType === "crypto" || item.assetType === "stock") && item.livePrice && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
           "@ ",
           fmtPrice(item.livePrice)
         ] }),
-        inputMode === "recurring" && item.frequency !== "one_time" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        inputMode === "recurring" && item.frequency !== "one_time" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
           fmt(item.amount),
           freqLabel(item.frequency)
         ] }),
-        inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        inputMode === "recurring" && item.frequency === "yearly" && item.monthlyValue > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
           "(",
           fmt(item.monthlyValue),
           "/mo)"
         ] }),
-        inputMode === "recurring" && item.frequency === "monthly" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        inputMode === "recurring" && item.frequency === "monthly" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
           "(",
           fmt(item.totalValue),
           "/yr)"
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 700, color: color2, whiteSpace: "nowrap" }, children: fmtExact(item.totalValue) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setEditing(true), style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pen, { size: 14 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onDelete, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { size: 14 }) })
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 15, fontWeight: 700, color: color2, whiteSpace: "nowrap" }, children: fmtExact(item.totalValue) }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setEditing(true), style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Pen, { size: 14 }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: onDelete, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted, display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Trash2, { size: 14 }) })
     ] })
   ] });
 };
 var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onAdd, onAddPreset, onDelete, onReorder, inputMode, presets, footer }) => {
-  const [isOpen, setIsOpen] = (0, import_react51.useState)(false);
-  const [dragIdx, setDragIdx] = (0, import_react51.useState)(null);
-  const [overIdx, setOverIdx] = (0, import_react51.useState)(null);
+  const [isOpen, setIsOpen] = (0, import_react52.useState)(false);
+  const [dragIdx, setDragIdx] = (0, import_react52.useState)(null);
+  const [overIdx, setOverIdx] = (0, import_react52.useState)(null);
   const total = items.reduce((s, i) => s + i.totalValue, 0);
   const showMonthly = inputMode === "recurring";
   const monthlyTotal = showMonthly ? items.reduce((s, i) => s + i.monthlyValue, 0) : void 0;
@@ -49417,8 +61255,8 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
     setDragIdx(null);
     setOverIdx(null);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 12 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 12 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       SectionHeader,
       {
         title,
@@ -49432,8 +61270,8 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
         onToggle: () => setIsOpen(!isOpen)
       }
     ),
-    isOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "10px 12px 12px", border: `1px solid ${color2}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }, children: [
-      items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    isOpen && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: "10px 12px 12px", border: `1px solid ${color2}20`, borderRadius: "0 0 12px 12px", marginTop: -2 }, children: [
+      items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         "div",
         {
           draggable: true,
@@ -49442,7 +61280,7 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
           onDrop: (e) => handleDrop(e, idx),
           onDragEnd: handleDragEnd,
           style: { opacity: dragIdx === idx ? 0.4 : 1, borderTop: overIdx === idx && dragIdx !== null && dragIdx !== idx ? `2px solid ${color2}` : "2px solid transparent", transition: "opacity 0.15s" },
-          children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             ItemRow,
             {
               item,
@@ -49455,10 +61293,10 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
         },
         item.id
       )),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 12, marginBottom: 6 }, children: [
-        availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: [
-          availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginTop: 12, marginBottom: 6 }, children: [
+        availablePresets.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 6, paddingLeft: 2 }, children: "Quick add:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: [
+          availablePresets.map((p) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
             "button",
             {
               onClick: () => onAddPreset(p.name, p.assetType),
@@ -49483,14 +61321,14 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
                 e.target.style.backgroundColor = bgColor;
               },
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: p.emoji }),
                 " ",
                 p.name
               ]
             },
             p.name
           )),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
             "button",
             {
               onClick: onAdd,
@@ -49515,7 +61353,7 @@ var BudgetSection = ({ title, icon, color: color2, bgColor, items, onUpdate, onA
                 e.target.style.backgroundColor = "transparent";
               },
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Plus, { size: 14 }),
                 " Custom"
               ]
             }
@@ -49549,122 +61387,122 @@ var SummarySection = ({ budget }) => {
   const extRunwayYears = extRunwayMonths ? extRunwayMonths / 12 : null;
   const savingsRate = totalMonthlyIncome > 0 ? monthlyNet / totalMonthlyIncome * 100 : 0;
   const isPositive = monthlyNet >= 0;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 16 }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: {
-      backgroundColor: isPositive ? COLORS.incomeBg : COLORS.expenseBg,
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginTop: 16 }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: {
+      backgroundColor: isPositive ? COLORS2.incomeBg : COLORS2.expenseBg,
       borderRadius: 16,
       padding: "20px 16px",
       marginBottom: 12,
-      border: `1px solid ${isPositive ? COLORS.income : COLORS.expense}20`
-    }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 16, alignItems: "flex-start" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }, children: "Monthly Cash Flow" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "baseline", gap: 6, marginBottom: 2 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 28, fontWeight: 800, color: isPositive ? COLORS.positive : COLORS.negative }, children: [
+      border: `1px solid ${isPositive ? COLORS2.income : COLORS2.expense}20`
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 16, alignItems: "flex-start" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { flex: 1 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS2.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }, children: "Monthly Cash Flow" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "baseline", gap: 6, marginBottom: 2 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 28, fontWeight: 800, color: isPositive ? COLORS2.positive : COLORS2.negative }, children: [
             monthlyNet >= 0 ? "+" : "",
             fmt(monthlyNet)
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "/mo" })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 13, color: COLORS2.textSecondary }, children: "/mo" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 10 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 13, color: COLORS2.textSecondary, marginBottom: 10 }, children: [
           annualNet >= 0 ? "+" : "",
           fmt(annualNet),
           " /year"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 12, flexWrap: "wrap" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: COLORS.textMuted }, children: "Income" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.income }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 12, flexWrap: "wrap" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 10, color: COLORS2.textMuted }, children: "Income" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS2.income }, children: [
               fmt(totalMonthlyIncome),
               "/mo"
             ] })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: COLORS.textMuted }, children: "Expenses" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.expense }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 10, color: COLORS2.textMuted }, children: "Expenses" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS2.expense }, children: [
               fmt(totalMonthlyExpenses),
               "/mo"
             ] })
           ] }),
-          totalMonthlyLiabilityPayments > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: COLORS.textMuted }, children: "Liabilities" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.liability }, children: [
+          totalMonthlyLiabilityPayments > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 10, color: COLORS2.textMuted }, children: "Liabilities" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS2.liability }, children: [
               fmt(totalMonthlyLiabilityPayments),
               "/mo"
             ] })
           ] })
         ] })
       ] }),
-      runwayMonths !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderLeft: `1px solid ${isPositive ? COLORS.income : COLORS.expense}20`, paddingLeft: 16, minWidth: 120 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { size: 14, color: COLORS.expense }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, fontWeight: 700, color: COLORS.expense, textTransform: "uppercase" }, children: "Runway" })
+      runwayMonths !== null ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { borderLeft: `1px solid ${isPositive ? COLORS2.income : COLORS2.expense}20`, paddingLeft: 16, minWidth: 120 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Clock, { size: 14, color: COLORS2.expense }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 11, fontWeight: 700, color: COLORS2.expense, textTransform: "uppercase" }, children: "Runway" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: COLORS.textMuted, marginBottom: 1 }, children: "Liquid only" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 800, color: COLORS.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo` })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 10, color: COLORS2.textMuted, marginBottom: 1 }, children: "Liquid only" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 20, fontWeight: 800, color: COLORS2.expense }, children: runwayYears >= 1 ? `${runwayYears.toFixed(1)} yrs` : `${Math.round(runwayMonths)} mo` })
         ] }),
-        extRunwayMonths !== null && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: COLORS.textMuted, marginBottom: 1 }, children: "+ Non-liquid sold" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 20, fontWeight: 800, color: COLORS.nonLiquid }, children: extRunwayYears >= 1 ? `${extRunwayYears.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo` })
+        extRunwayMonths !== null && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginTop: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 10, color: COLORS2.textMuted, marginBottom: 1 }, children: "+ Non-liquid sold" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 20, fontWeight: 800, color: COLORS2.nonLiquid }, children: extRunwayYears >= 1 ? `${extRunwayYears.toFixed(1)} yrs` : `${Math.round(extRunwayMonths)} mo` })
         ] })
-      ] }) : isPositive && monthlyNet > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderLeft: `1px solid ${COLORS.income}20`, paddingLeft: 16, minWidth: 120 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpRight, { size: 14, color: COLORS.income }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, fontWeight: 700, color: COLORS.income, textTransform: "uppercase" }, children: "Growth" })
+      ] }) : isPositive && monthlyNet > 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { borderLeft: `1px solid ${COLORS2.income}20`, paddingLeft: 16, minWidth: 120 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4, marginBottom: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ArrowUpRight, { size: 14, color: COLORS2.income }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 11, fontWeight: 700, color: COLORS2.income, textTransform: "uppercase" }, children: "Growth" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 13, color: COLORS.textMain }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: fmt(annualNet) }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 13, color: COLORS2.textMain }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: fmt(annualNet) }),
           "/yr"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 10, color: COLORS.textSecondary, marginTop: 4 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 10, color: COLORS2.textSecondary, marginTop: 4 }, children: [
           "2yr: +",
           fmt(annualNet * 2),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("br", {}),
           "5yr: +",
           fmt(annualNet * 5)
         ] })
       ] }) : null
     ] }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-      backgroundColor: COLORS.card,
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
+      backgroundColor: COLORS2.card,
       borderRadius: 12,
       padding: "16px",
-      border: `1px solid ${COLORS.border}`,
+      border: `1px solid ${COLORS2.border}`,
       marginBottom: 12
     }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: "Asset Breakdown" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 6 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "Liquid assets" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.asset }, children: fmtExact(totalLiquidAssets) })
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS2.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: "Asset Breakdown" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 6 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 13, color: COLORS2.textSecondary }, children: "Liquid assets" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS2.asset }, children: fmtExact(totalLiquidAssets) })
         ] }),
-        oneTimeLiabilities > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, color: COLORS.textMuted }, children: "\u2212 One-time debts" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.liability }, children: [
+        oneTimeLiabilities > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 12, color: COLORS2.textMuted }, children: "\u2212 One-time debts" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS2.liability }, children: [
             "\u2212",
             fmtExact(oneTimeLiabilities)
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }, children: "= Liquid available" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(liquidAfterLiabilities) })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS2.textSecondary }, children: "= Liquid available" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: liquidAfterLiabilities >= 0 ? COLORS2.positive : COLORS2.negative }, children: fmtExact(liquidAfterLiabilities) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.borderLight}`, marginTop: 4, paddingTop: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { borderTop: `1px solid ${COLORS2.borderLight}`, marginTop: 4, paddingTop: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 13, color: COLORS2.textSecondary }, children: [
             "Non-liquid (at ",
             budget.nonLiquidDiscount,
             "% discount)"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.nonLiquid }, children: fmtExact(nonLiquidAtDiscount) })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS2.nonLiquid }, children: fmtExact(nonLiquidAtDiscount) })
         ] }),
-        totalRetirement > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, color: COLORS.textSecondary }, children: "401k / Retirement" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.retirement }, children: fmtExact(totalRetirement) })
+        totalRetirement > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 13, color: COLORS2.textSecondary }, children: "401k / Retirement" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS2.retirement }, children: fmtExact(totalRetirement) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { borderTop: `1px solid ${COLORS.border}`, marginTop: 4, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS.textMain }, children: "Net Worth" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 18, fontWeight: 800, color: netWorth >= 0 ? COLORS.positive : COLORS.negative }, children: fmtExact(netWorth) })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { borderTop: `1px solid ${COLORS2.border}`, marginTop: 4, paddingTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 14, fontWeight: 700, color: COLORS2.textMain }, children: "Net Worth" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 18, fontWeight: 800, color: netWorth >= 0 ? COLORS2.positive : COLORS2.negative }, children: fmtExact(netWorth) })
         ] })
       ] })
     ] }),
@@ -49704,69 +61542,69 @@ var SummarySection = ({ budget }) => {
         if (Math.abs(val) >= 1e3) return `$${(val / 1e3).toFixed(0)}K`;
         return `$${val}`;
       };
-      return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-        backgroundColor: COLORS.card,
+      return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
+        backgroundColor: COLORS2.card,
         borderRadius: 12,
         padding: "16px",
-        border: `1px solid ${COLORS.border}`,
+        border: `1px solid ${COLORS2.border}`,
         marginBottom: 12
       }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS2.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }, children: [
           monthlyBurn > 0 ? "Runway Projection" : "Wealth Projection",
           " \u2014 ",
           projectionYears,
           " Years"
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: 240, width: "100%", fontSize: 11 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ResponsiveContainer, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AreaChart, { data, margin: { top: 10, right: 10, left: -10, bottom: 0 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("defs", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "gradLiquid", x1: "0", y1: "0", x2: "0", y2: "1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "5%", stopColor: monthlyBurn > 0 ? COLORS.expense : COLORS.income, stopOpacity: 0.15 }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "95%", stopColor: monthlyBurn > 0 ? COLORS.expense : COLORS.income, stopOpacity: 0 })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { height: 240, width: "100%", fontSize: 11 }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ResponsiveContainer, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(AreaChart, { data, margin: { top: 10, right: 10, left: -10, bottom: 0 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("defs", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("linearGradient", { id: "gradLiquid", x1: "0", y1: "0", x2: "0", y2: "1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("stop", { offset: "5%", stopColor: monthlyBurn > 0 ? COLORS2.expense : COLORS2.income, stopOpacity: 0.15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("stop", { offset: "95%", stopColor: monthlyBurn > 0 ? COLORS2.expense : COLORS2.income, stopOpacity: 0 })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "gradExtended", x1: "0", y1: "0", x2: "0", y2: "1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "5%", stopColor: COLORS.nonLiquid, stopOpacity: 0.1 }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "95%", stopColor: COLORS.nonLiquid, stopOpacity: 0 })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("linearGradient", { id: "gradExtended", x1: "0", y1: "0", x2: "0", y2: "1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("stop", { offset: "5%", stopColor: COLORS2.nonLiquid, stopOpacity: 0.1 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("stop", { offset: "95%", stopColor: COLORS2.nonLiquid, stopOpacity: 0 })
             ] })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { strokeDasharray: "3 3", vertical: false, stroke: COLORS.borderLight }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CartesianGrid, { strokeDasharray: "3 3", vertical: false, stroke: COLORS2.borderLight }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             XAxis,
             {
               dataKey: "year",
-              tick: { fill: COLORS.textSecondary, fontSize: 11 },
+              tick: { fill: COLORS2.textSecondary, fontSize: 11 },
               tickLine: false,
-              axisLine: { stroke: COLORS.border },
+              axisLine: { stroke: COLORS2.border },
               tickFormatter: (v) => `Yr ${v}`
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             YAxis,
             {
-              tick: { fill: COLORS.textSecondary, fontSize: 11 },
+              tick: { fill: COLORS2.textSecondary, fontSize: 11 },
               tickFormatter: formatYAxis,
               tickLine: false,
               axisLine: false
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             Tooltip,
             {
               content: ({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   const liq = payload.find((p) => p.dataKey === "liquid")?.value;
                   const ext = payload.find((p) => p.dataKey === "extended")?.value;
-                  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: "white", padding: 12, borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: `1px solid ${COLORS.border}`, fontSize: 12 }, children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontWeight: 700, marginBottom: 6, color: COLORS.textMain }, children: [
+                  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { backgroundColor: "white", padding: 12, borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: `1px solid ${COLORS2.border}`, fontSize: 12 }, children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontWeight: 700, marginBottom: 6, color: COLORS2.textMain }, children: [
                       "Year ",
                       label
                     ] }),
-                    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 16, marginBottom: 3 }, children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: monthlyBurn > 0 ? COLORS.expense : COLORS.income, fontWeight: 600 }, children: "Liquid" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 700, color: liq >= 0 ? COLORS.positive : COLORS.negative }, children: fmt(liq) })
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 16, marginBottom: 3 }, children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { color: monthlyBurn > 0 ? COLORS2.expense : COLORS2.income, fontWeight: 600 }, children: "Liquid" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontWeight: 700, color: liq >= 0 ? COLORS2.positive : COLORS2.negative }, children: fmt(liq) })
                     ] }),
-                    nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 16 }, children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.nonLiquid, fontWeight: 600 }, children: "+ Non-liquid" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontWeight: 700, color: ext >= 0 ? COLORS.positive : COLORS.negative }, children: fmt(ext) })
+                    nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 16 }, children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { color: COLORS2.nonLiquid, fontWeight: 600 }, children: "+ Non-liquid" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontWeight: 700, color: ext >= 0 ? COLORS2.positive : COLORS2.negative }, children: fmt(ext) })
                     ] })
                   ] });
                 }
@@ -49774,30 +61612,30 @@ var SummarySection = ({ budget }) => {
               }
             }
           ),
-          nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Area, { type: "monotone", dataKey: "extended", stroke: COLORS.nonLiquid, fill: "url(#gradExtended)", strokeWidth: 2, strokeDasharray: "5 5", name: "Extended" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Area, { type: "monotone", dataKey: "liquid", stroke: monthlyBurn > 0 ? COLORS.expense : COLORS.income, fill: "url(#gradLiquid)", strokeWidth: 2, name: "Liquid" })
+          nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Area, { type: "monotone", dataKey: "extended", stroke: COLORS2.nonLiquid, fill: "url(#gradExtended)", strokeWidth: 2, strokeDasharray: "5 5", name: "Extended" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Area, { type: "monotone", dataKey: "liquid", stroke: monthlyBurn > 0 ? COLORS2.expense : COLORS2.income, fill: "url(#gradLiquid)", strokeWidth: 2, name: "Liquid" })
         ] }) }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "center", gap: 16, marginTop: 8, fontSize: 11 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 16, height: 3, backgroundColor: monthlyBurn > 0 ? COLORS.expense : COLORS.income, borderRadius: 2 } }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.textSecondary }, children: "Liquid assets" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "center", gap: 16, marginTop: 8, fontSize: 11 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { width: 16, height: 3, backgroundColor: monthlyBurn > 0 ? COLORS2.expense : COLORS2.income, borderRadius: 2 } }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { color: COLORS2.textSecondary }, children: "Liquid assets" })
           ] }),
-          nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 16, height: 3, backgroundColor: COLORS.nonLiquid, borderRadius: 2, borderTop: "1px dashed" } }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: COLORS.textSecondary }, children: "+ Non-liquid sold" })
+          nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { width: 16, height: 3, backgroundColor: COLORS2.nonLiquid, borderRadius: 2, borderTop: "1px dashed" } }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { color: COLORS2.textSecondary }, children: "+ Non-liquid sold" })
           ] })
         ] }),
-        monthlyBurn > 0 && (liquidZeroYear || extZeroYear) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 8, padding: "8px 12px", borderRadius: 8, backgroundColor: `${COLORS.expense}08`, fontSize: 11, color: COLORS.textSecondary }, children: [
-          liquidZeroYear && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+        monthlyBurn > 0 && (liquidZeroYear || extZeroYear) && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginTop: 8, padding: "8px 12px", borderRadius: 8, backgroundColor: `${COLORS2.expense}08`, fontSize: 11, color: COLORS2.textSecondary }, children: [
+          liquidZeroYear && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
             "Liquid assets depleted at ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("strong", { style: { color: COLORS.expense }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("strong", { style: { color: COLORS2.expense }, children: [
               "year ",
               liquidZeroYear
             ] })
           ] }),
-          extZeroYear && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          extZeroYear && nonLiquidAtDiscount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
             "All assets depleted at ",
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("strong", { style: { color: COLORS.nonLiquid }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("strong", { style: { color: COLORS2.nonLiquid }, children: [
               "year ",
               extZeroYear
             ] })
@@ -50006,41 +61844,92 @@ var hydrateFromInitialData = (data) => {
   return base;
 };
 function MyBudget({ initialData: initialData2 }) {
-  const [savedBudgets, setSavedBudgets] = (0, import_react51.useState)(() => loadBudgets());
-  const [currentView, setCurrentView] = (0, import_react51.useState)("budget");
-  const [budget, setBudget] = (0, import_react51.useState)(() => {
+  const [session, setSession] = (0, import_react52.useState)(null);
+  const [showLoginModal, setShowLoginModal] = (0, import_react52.useState)(false);
+  const [savedBudgets, setSavedBudgets] = (0, import_react52.useState)(() => loadBudgets());
+  const [currentView, setCurrentView] = (0, import_react52.useState)("budget");
+  const [budget, setBudget] = (0, import_react52.useState)(() => {
     const hydrated = hydrateFromInitialData(initialData2);
     if (hydrated) return hydrated;
     return loadCurrentBudget() || emptyBudget();
   });
-  const [editingName, setEditingName] = (0, import_react51.useState)(false);
-  const [nameInput, setNameInput] = (0, import_react51.useState)(budget.name);
-  const [refreshing, setRefreshing] = (0, import_react51.useState)(false);
-  const [showSubscribeModal, setShowSubscribeModal] = (0, import_react51.useState)(false);
-  const [subscribeEmail, setSubscribeEmail] = (0, import_react51.useState)("");
-  const [subscribeStatus, setSubscribeStatus] = (0, import_react51.useState)("idle");
-  const [subscribeMessage, setSubscribeMessage] = (0, import_react51.useState)("");
-  const [showFeedbackModal, setShowFeedbackModal] = (0, import_react51.useState)(false);
-  const [feedbackText, setFeedbackText] = (0, import_react51.useState)("");
-  const [feedbackStatus, setFeedbackStatus] = (0, import_react51.useState)("idle");
-  const [confirmDialog, setConfirmDialog] = (0, import_react51.useState)(null);
-  const [enjoyVote, setEnjoyVote] = (0, import_react51.useState)(null);
-  const [showNameBudgetModal, setShowNameBudgetModal] = (0, import_react51.useState)(false);
-  const [nameBudgetValue, setNameBudgetValue] = (0, import_react51.useState)("");
-  const [saveToast, setSaveToast] = (0, import_react51.useState)(false);
-  const containerRef = (0, import_react51.useRef)(null);
-  const [pillRight, setPillRight] = (0, import_react51.useState)(16);
-  (0, import_react51.useEffect)(() => {
+  const [editingName, setEditingName] = (0, import_react52.useState)(false);
+  const [nameInput, setNameInput] = (0, import_react52.useState)(budget.name);
+  const [refreshing, setRefreshing] = (0, import_react52.useState)(false);
+  const [showSubscribeModal, setShowSubscribeModal] = (0, import_react52.useState)(false);
+  const [subscribeEmail, setSubscribeEmail] = (0, import_react52.useState)("");
+  const [subscribeStatus, setSubscribeStatus] = (0, import_react52.useState)("idle");
+  const [subscribeMessage, setSubscribeMessage] = (0, import_react52.useState)("");
+  const [showFeedbackModal, setShowFeedbackModal] = (0, import_react52.useState)(false);
+  const [feedbackText, setFeedbackText] = (0, import_react52.useState)("");
+  const [feedbackStatus, setFeedbackStatus] = (0, import_react52.useState)("idle");
+  const [confirmDialog, setConfirmDialog] = (0, import_react52.useState)(null);
+  const [enjoyVote, setEnjoyVote] = (0, import_react52.useState)(null);
+  const [showNameBudgetModal, setShowNameBudgetModal] = (0, import_react52.useState)(false);
+  const [nameBudgetValue, setNameBudgetValue] = (0, import_react52.useState)("");
+  const [saveToast, setSaveToast] = (0, import_react52.useState)(false);
+  const containerRef = (0, import_react52.useRef)(null);
+  const [pillRight, setPillRight] = (0, import_react52.useState)(16);
+  (0, import_react52.useEffect)(() => {
     saveCurrentBudget(budget);
-  }, [budget]);
-  (0, import_react51.useEffect)(() => {
+    if (session && supabase && budget.id) {
+      const syncToCloud = async () => {
+        try {
+          await supabase.from("budgets").upsert({
+            id: budget.id,
+            user_id: session.user.id,
+            budget_data: budget,
+            updated_at: (/* @__PURE__ */ new Date()).toISOString()
+          });
+        } catch (e) {
+          console.error("Failed to sync budget to cloud", e);
+        }
+      };
+      syncToCloud();
+    }
+  }, [budget, session]);
+  (0, import_react52.useEffect)(() => {
+    if (!supabase) return;
+    const loadCloudData = async (userId) => {
+      try {
+        const { data, error } = await supabase.from("budgets").select("budget_data").eq("user_id", userId);
+        if (!error && data && data.length > 0) {
+          const cloudBudgets = data.map((row) => {
+            if (!row.budget_data.updatedAt) row.budget_data.updatedAt = Date.now();
+            return row.budget_data;
+          });
+          if (cloudBudgets.length > 0) {
+            setSavedBudgets(cloudBudgets);
+            const mostRecent = [...cloudBudgets].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+            setBudget(mostRecent);
+            saveCurrentBudget(mostRecent);
+            saveBudgets(cloudBudgets);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load cloud budgets", e);
+      }
+    };
+    supabase.auth.getSession().then(({ data: { session: session2 } }) => {
+      setSession(session2);
+      if (session2) loadCloudData(session2.user.id);
+    });
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((_event, session2) => {
+      setSession(session2);
+      if (session2) loadCloudData(session2.user.id);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+  (0, import_react52.useEffect)(() => {
     try {
       const v = localStorage.getItem("enjoyVote_budget");
       if (v === "up" || v === "down") setEnjoyVote(v);
     } catch {
     }
   }, []);
-  (0, import_react51.useEffect)(() => {
+  (0, import_react52.useEffect)(() => {
     const update = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -50068,7 +61957,7 @@ function MyBudget({ initialData: initialData2 }) {
     trackEvent("enjoy_vote", { vote, budgetName: budget.name || null });
     setShowFeedbackModal(true);
   };
-  const refreshPrices = (0, import_react51.useCallback)(async () => {
+  const refreshPrices = (0, import_react52.useCallback)(async () => {
     trackEvent("refresh_prices", { budgetName: budget.name || null });
     const allItems = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement];
     const cryptoItems = allItems.filter((i) => i.assetType === "crypto" && i.ticker);
@@ -50282,22 +62171,49 @@ function MyBudget({ initialData: initialData2 }) {
     window.print();
   };
   if (currentView === "home") {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "24px 20px", color: "white" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 28 }),
-          " The Personal Budget Planner"
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS2.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", overflow: "hidden", boxSizing: "border-box", border: `1px solid ${COLORS2.border}`, borderRadius: 16 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { backgroundColor: COLORS2.primary, padding: "24px 20px", color: "white" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("h1", { style: { margin: 0, fontSize: 22, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DollarSign, { size: 28 }),
+            " The Personal Budget Planner"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 20 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: {
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), style: {
+          padding: "6px 10px",
+          borderRadius: 6,
+          border: "none",
+          backgroundColor: "rgba(255,255,255,0.2)",
+          color: "white",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          fontSize: 11,
+          fontWeight: 600
+        }, children: "Log Out" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+          padding: "6px 10px",
+          borderRadius: 6,
+          border: "none",
+          backgroundColor: "white",
+          color: COLORS2.primary,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          fontSize: 11,
+          fontWeight: 600
+        }, children: "Log In" }) })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: 20 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: handleNewBudget, style: {
           width: "100%",
           padding: 16,
           borderRadius: 12,
-          border: `2px dashed ${COLORS.primary}`,
-          backgroundColor: COLORS.accentLight,
-          color: COLORS.primaryDark,
+          border: `2px dashed ${COLORS2.primary}`,
+          backgroundColor: COLORS2.accentLight,
+          color: COLORS2.primaryDark,
           fontSize: 15,
           fontWeight: 600,
           cursor: "pointer",
@@ -50307,42 +62223,42 @@ function MyBudget({ initialData: initialData2 }) {
           gap: 8,
           marginBottom: 20
         }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 20 }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Plus, { size: 20 }),
           " Create New Budget"
         ] }),
-        savedBudgets.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { textAlign: "center", padding: 40, color: COLORS.textSecondary }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PiggyBank, { size: 48, style: { opacity: 0.3, marginBottom: 16 } }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0 }, children: "No saved budgets yet" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: "4px 0 0", fontSize: 13 }, children: "Create your first budget to get started" })
+        savedBudgets.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { textAlign: "center", padding: 40, color: COLORS2.textSecondary }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(PiggyBank, { size: 48, style: { opacity: 0.3, marginBottom: 16 } }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { margin: 0 }, children: "No saved budgets yet" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { margin: "4px 0 0", fontSize: 13 }, children: "Create your first budget to get started" })
         ] }) : savedBudgets.map((b) => {
           const totalIncome = b.income.reduce((s, i) => s + i.monthlyValue, 0);
           const totalExpenses = b.expenses.reduce((s, i) => s + i.monthlyValue, 0);
           const net = totalIncome - totalExpenses;
-          return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
-            backgroundColor: COLORS.card,
+          return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
+            backgroundColor: COLORS2.card,
             borderRadius: 12,
             padding: "14px 16px",
-            border: `1px solid ${COLORS.border}`,
+            border: `1px solid ${COLORS2.border}`,
             marginBottom: 8,
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between"
           }, onClick: () => handleOpenBudget(b), children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS.textMain }, children: b.name }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 12, color: COLORS.textSecondary, marginTop: 2 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS2.textMain }, children: b.name }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 12, color: COLORS2.textSecondary, marginTop: 2 }, children: [
                 b.income.length + b.expenses.length + b.assets.length + b.nonLiquidAssets.length + (b.retirement || []).length + b.liabilities.length,
                 " items \xB7 Updated ",
                 new Date(b.updatedAt).toLocaleDateString()
               ] })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { textAlign: "right" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 15, fontWeight: 700, color: net >= 0 ? COLORS.positive : COLORS.negative }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { textAlign: "right" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { fontSize: 15, fontWeight: 700, color: net >= 0 ? COLORS2.positive : COLORS2.negative }, children: [
               net >= 0 ? "+" : "",
               fmt(net),
               "/mo"
             ] }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: (e) => {
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: (e) => {
               e.stopPropagation();
               handleDeleteBudget(b.id);
             }, style: {
@@ -50350,9 +62266,9 @@ function MyBudget({ initialData: initialData2 }) {
               border: "none",
               background: "none",
               cursor: "pointer",
-              color: COLORS.textMuted,
+              color: COLORS2.textMuted,
               marginLeft: 8
-            }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { size: 16 }) })
+            }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Trash2, { size: 16 }) })
           ] }, b.id);
         })
       ] })
@@ -50360,14 +62276,14 @@ function MyBudget({ initialData: initialData2 }) {
   }
   const hasBudgetContent = budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.nonLiquidAssets.length > 0 || budget.retirement.length > 0 || budget.liabilities.length > 0;
   const hasLiveAssets = [...budget.assets, ...budget.nonLiquidAssets, ...budget.retirement].some((i) => (i.assetType === "crypto" || i.assetType === "stock") && i.ticker);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS.border}`, borderRadius: 16, overflow: "hidden" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }` }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.primary, padding: "20px 16px", color: "white" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DollarSign, { size: 24 }),
-          editingName ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: nameInput, onChange: (e) => setNameInput(e.target.value), style: {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: containerRef, style: { backgroundColor: COLORS2.bg, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", maxWidth: 600, margin: "0 auto", boxSizing: "border-box", border: `1px solid ${COLORS2.border}`, borderRadius: 16, overflow: "hidden" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("style", { children: `@keyframes spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } } @keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }` }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { backgroundColor: COLORS2.primary, padding: "20px 16px", color: "white" }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DollarSign, { size: 24 }),
+          editingName ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { value: nameInput, onChange: (e) => setNameInput(e.target.value), style: {
               background: "rgba(255,255,255,0.2)",
               border: "none",
               color: "white",
@@ -50384,14 +62300,39 @@ function MyBudget({ initialData: initialData2 }) {
                 setEditingName(false);
               }
             } }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
               setBudget((b) => ({ ...b, name: nameInput }));
               setEditingName(false);
-            }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: "white", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 18 }) })
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { onClick: () => setEditingName(true), style: { margin: 0, fontSize: 20, fontWeight: 700, cursor: "pointer" }, children: budget.name })
+            }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: "white", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { size: 18 }) })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { onClick: () => setEditingName(true), style: { margin: 0, fontSize: 20, fontWeight: 700, cursor: "pointer" }, children: budget.name })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-          hasLiveAssets && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
+          session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), style: {
+            padding: "6px 10px",
+            borderRadius: 6,
+            border: "none",
+            backgroundColor: "rgba(255,255,255,0.2)",
+            color: "white",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 11,
+            fontWeight: 600
+          }, children: "Log Out" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+            padding: "6px 10px",
+            borderRadius: 6,
+            border: "none",
+            backgroundColor: "white",
+            color: COLORS2.primary,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 11,
+            fontWeight: 600
+          }, children: "Log In" }),
+          hasLiveAssets && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: refreshPrices, disabled: refreshing, style: {
             padding: "6px 10px",
             borderRadius: 6,
             border: "none",
@@ -50405,29 +62346,29 @@ function MyBudget({ initialData: initialData2 }) {
             fontWeight: 600,
             opacity: refreshing ? 0.7 : 1
           }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, { size: 14, style: refreshing ? { animation: "spinBtn 1s linear infinite" } : void 0 }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RefreshCw, { size: 14, style: refreshing ? { animation: "spinBtn 1s linear infinite" } : void 0 }),
             refreshing ? "Updating..." : "Refresh"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, { size: 16 }) }),
-          hasBudgetContent && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleSaveBudget, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { size: 16 }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: handleNewBudget, style: { padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { size: 14 }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: handleBackToHome, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(House, { size: 16 }) }),
+          hasBudgetContent && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: handleSaveBudget, style: { padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)", color: "white", cursor: "pointer", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Save, { size: 16 }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { onClick: handleNewBudget, style: { padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white", color: COLORS2.primary, fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Plus, { size: 14 }),
             " New"
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" }),
-        budget.lastPriceRefresh && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 10, opacity: 0.6 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { margin: 0, fontSize: 11, opacity: 0.8, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" }),
+        budget.lastPriceRefresh && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 10, opacity: 0.6 }, children: [
           "Prices: ",
           new Date(budget.lastPriceRefresh).toLocaleTimeString()
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
-      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 16 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textSecondary, marginBottom: 8, textAlign: "center" }, children: "Start with a template" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 6 }, children: BUDGET_PRESETS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
+      budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 16 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 13, fontWeight: 600, color: COLORS2.textSecondary, marginBottom: 8, textAlign: "center" }, children: "Start with a template" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { display: "flex", gap: 6 }, children: BUDGET_PRESETS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
             onClick: () => {
@@ -50453,8 +62394,8 @@ function MyBudget({ initialData: initialData2 }) {
               flex: 1,
               padding: "8px 4px",
               borderRadius: 10,
-              border: `1.5px solid ${COLORS.border}`,
-              backgroundColor: COLORS.card,
+              border: `1.5px solid ${COLORS2.border}`,
+              backgroundColor: COLORS2.card,
               cursor: "pointer",
               textAlign: "center",
               display: "flex",
@@ -50464,29 +62405,29 @@ function MyBudget({ initialData: initialData2 }) {
               transition: "border-color 0.15s, box-shadow 0.15s"
             },
             onMouseEnter: (e) => {
-              e.currentTarget.style.borderColor = COLORS.accent;
-              e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS.accent}20`;
+              e.currentTarget.style.borderColor = COLORS2.accent;
+              e.currentTarget.style.boxShadow = `0 2px 8px ${COLORS2.accent}20`;
             },
             onMouseLeave: (e) => {
-              e.currentTarget.style.borderColor = COLORS.border;
+              e.currentTarget.style.borderColor = COLORS2.border;
               e.currentTarget.style.boxShadow = "none";
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16 }, children: p.emoji }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textMain }, children: p.label }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 10, color: COLORS.textSecondary, lineHeight: 1.2 }, children: p.desc })
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 16 }, children: p.emoji }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 12, fontWeight: 700, color: COLORS2.textMain }, children: p.label }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 10, color: COLORS2.textSecondary, lineHeight: 1.2 }, children: p.desc })
             ]
           },
           p.key
         )) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "Income",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 18 }),
-          color: COLORS.income,
-          bgColor: COLORS.incomeBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TrendingUp, { size: 18 }),
+          color: COLORS2.income,
+          bgColor: COLORS2.incomeBg,
           items: budget.income,
           inputMode: "recurring",
           presets: PRESETS.income,
@@ -50497,13 +62438,13 @@ function MyBudget({ initialData: initialData2 }) {
           onReorder: (from2, to2) => reorderItems("income", from2, to2)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "Expenses",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingDown, { size: 18 }),
-          color: COLORS.expense,
-          bgColor: COLORS.expenseBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TrendingDown, { size: 18 }),
+          color: COLORS2.expense,
+          bgColor: COLORS2.expenseBg,
           items: budget.expenses,
           inputMode: "recurring",
           presets: PRESETS.expenses,
@@ -50514,13 +62455,13 @@ function MyBudget({ initialData: initialData2 }) {
           onReorder: (from2, to2) => reorderItems("expenses", from2, to2)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "Assets",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Wallet, { size: 18 }),
-          color: COLORS.asset,
-          bgColor: COLORS.assetBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Wallet, { size: 18 }),
+          color: COLORS2.asset,
+          bgColor: COLORS2.assetBg,
           items: budget.assets,
           inputMode: "asset",
           presets: PRESETS.assets,
@@ -50531,13 +62472,13 @@ function MyBudget({ initialData: initialData2 }) {
           onReorder: (from2, to2) => reorderItems("assets", from2, to2)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "Non-Liquid Assets",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Building2, { size: 18 }),
-          color: COLORS.nonLiquid,
-          bgColor: COLORS.nonLiquidBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Building2, { size: 18 }),
+          color: COLORS2.nonLiquid,
+          bgColor: COLORS2.nonLiquidBg,
           items: budget.nonLiquidAssets,
           inputMode: "value_only",
           presets: PRESETS.nonLiquidAssets,
@@ -50546,15 +62487,15 @@ function MyBudget({ initialData: initialData2 }) {
           onAddPreset: (name, at) => addPresetItem("nonLiquidAssets", name, "one_time", at),
           onDelete: (id) => deleteItem("nonLiquidAssets", id),
           onReorder: (from2, to2) => reorderItems("nonLiquidAssets", from2, to2),
-          footer: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { backgroundColor: COLORS.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS.borderLight}`, marginTop: 4 }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS.textSecondary }, children: "Discount Rate" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 700, color: COLORS.nonLiquid }, children: [
+          footer: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { backgroundColor: COLORS2.card, borderRadius: 10, padding: "10px 12px", border: `1px solid ${COLORS2.borderLight}`, marginTop: 4 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 12, fontWeight: 600, color: COLORS2.textSecondary }, children: "Discount Rate" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { fontSize: 13, fontWeight: 700, color: COLORS2.nonLiquid }, children: [
                 budget.nonLiquidDiscount,
                 "%"
               ] })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
               "input",
               {
                 type: "range",
@@ -50562,25 +62503,25 @@ function MyBudget({ initialData: initialData2 }) {
                 max: 75,
                 value: budget.nonLiquidDiscount,
                 onChange: (e) => setBudget((b) => ({ ...b, nonLiquidDiscount: parseInt(e.target.value) })),
-                style: { width: "100%", accentColor: COLORS.nonLiquid }
+                style: { width: "100%", accentColor: COLORS2.nonLiquid }
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "0%" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "25%" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "50%" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "75%" })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS2.textMuted }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "0%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "25%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "50%" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "75%" })
             ] })
           ] })
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "401k / Retirement",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Landmark, { size: 18 }),
-          color: COLORS.retirement,
-          bgColor: COLORS.retirementBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Landmark, { size: 18 }),
+          color: COLORS2.retirement,
+          bgColor: COLORS2.retirementBg,
           items: budget.retirement,
           inputMode: "value_only",
           presets: PRESETS.retirement,
@@ -50591,13 +62532,13 @@ function MyBudget({ initialData: initialData2 }) {
           onReorder: (from2, to2) => reorderItems("retirement", from2, to2)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         BudgetSection,
         {
           title: "Liabilities",
-          icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { size: 18 }),
-          color: COLORS.liability,
-          bgColor: COLORS.liabilityBg,
+          icon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TriangleAlert, { size: 18 }),
+          color: COLORS2.liability,
+          bgColor: COLORS2.liabilityBg,
           items: budget.liabilities,
           inputMode: "recurring",
           presets: PRESETS.liabilities,
@@ -50608,14 +62549,14 @@ function MyBudget({ initialData: initialData2 }) {
           onReorder: (from2, to2) => reorderItems("liabilities", from2, to2)
         }
       ),
-      (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SummarySection, { budget }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "16px 0", borderTop: `1px solid ${COLORS.borderLight}` }, className: "no-print", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }, children: "Related Apps" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", gap: 10, flexWrap: "wrap" }, children: [
+      (budget.income.length > 0 || budget.expenses.length > 0 || budget.assets.length > 0 || budget.liabilities.length > 0) && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(SummarySection, { budget }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: "16px 0", borderTop: `1px solid ${COLORS2.borderLight}` }, className: "no-print", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: COLORS2.textMuted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }, children: "Related Apps" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { display: "flex", gap: 10, flexWrap: "wrap" }, children: [
           { emoji: "\u2702\uFE0F", accent: "#EF4444", accentBg: "#FEF2F2", label: "Just Cancel It", desc: "Cancel your subscriptions for free" },
           { emoji: "\u{1F3D6}\uFE0F", accent: "#F59E0B", accentBg: "#FFFBEB", label: "Retirement Calculator", desc: "Plan your retirement with confidence" },
           { emoji: "\u{1F4CA}", accent: "#6366F1", accentBg: "#EEF2FF", label: "Portfolio Optimizer", desc: "Optimize your investment portfolio" }
-        ].map((app, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        ].map((app, i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
             onClick: () => trackEvent("related_app_click", { app: app.label }),
@@ -50643,116 +62584,116 @@ function MyBudget({ initialData: initialData2 }) {
               e.currentTarget.style.boxShadow = "";
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${app.accent}20, ${app.accent}08)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }, children: app.emoji }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS.textMain }, children: app.label }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 11, color: COLORS.textSecondary, marginTop: 2 }, children: app.desc })
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${app.accent}20, ${app.accent}08)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }, children: app.emoji }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 13, fontWeight: 700, color: COLORS2.textMain }, children: app.label }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 11, color: COLORS2.textSecondary, marginTop: 2 }, children: app.desc })
               ] })
             ]
           },
           i
         )) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
         marginTop: 16,
         padding: "16px 0",
-        borderTop: `1px solid ${COLORS.border}`,
+        borderTop: `1px solid ${COLORS2.border}`,
         display: "flex",
         justifyContent: "center",
         gap: 8,
         flexWrap: "wrap"
       }, className: "no-print", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
-            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: COLORS2.card, color: COLORS2.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
             onClick: () => {
               trackEvent("subscribe_click");
               setShowSubscribeModal(true);
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, { size: 15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Mail, { size: 15 }),
               " Subscribe"
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
-            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: COLORS2.card, color: COLORS2.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
             onClick: handleReset,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { size: 15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RotateCcw, { size: 15 }),
               " Reset"
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
-            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: COLORS2.card, color: COLORS2.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
             onClick: () => trackEvent("donate_click"),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { size: 15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Heart, { size: 15 }),
               " Donate"
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
-            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: COLORS2.card, color: COLORS2.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
             onClick: () => {
               trackEvent("feedback_click");
               setShowFeedbackModal(true);
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageSquare, { size: 15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MessageSquare, { size: 15 }),
               " Feedback"
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "button",
           {
-            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: COLORS.card, color: COLORS.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
+            style: { padding: "8px 14px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: COLORS2.card, color: COLORS2.textSecondary, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 },
             onClick: () => {
               trackEvent("print_click");
               window.print();
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 15 }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Printer, { size: 15 }),
               " Print"
             ]
           }
         )
       ] })
     ] }),
-    confirmDialog && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    confirmDialog && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
         style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
         onClick: () => setConfirmDialog(null),
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "div",
           {
-            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 340, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            style: { backgroundColor: COLORS2.card, borderRadius: 16, padding: 24, maxWidth: 340, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
             onClick: (e) => e.stopPropagation(),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS.textMain, marginBottom: 16 }, children: confirmDialog.message }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setConfirmDialog(null), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }, children: "Cancel" }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 15, fontWeight: 600, color: COLORS2.textMain, marginBottom: 16 }, children: confirmDialog.message }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setConfirmDialog(null), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS2.textSecondary }, children: "Cancel" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
                   confirmDialog.onConfirm();
                   setConfirmDialog(null);
-                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.expense, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Confirm" })
+                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS2.expense, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Confirm" })
               ] })
             ]
           }
         )
       }
     ),
-    showSubscribeModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    showSubscribeModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
         style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
@@ -50762,24 +62703,24 @@ function MyBudget({ initialData: initialData2 }) {
           setSubscribeStatus("idle");
           setSubscribeMessage("");
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "div",
           {
-            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            style: { backgroundColor: COLORS2.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
             onClick: (e) => e.stopPropagation(),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Subscribe to Updates" }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS2.textMain }, children: "Subscribe to Updates" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
                   setShowSubscribeModal(false);
                   setSubscribeEmail("");
                   setSubscribeStatus("idle");
                   setSubscribeMessage("");
-                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(X, { size: 18 }) })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 13, color: COLORS.textSecondary, margin: "0 0 12px" }, children: "Get notified about new features and updates." }),
-              subscribeStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: subscribeMessage || "Subscribed!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { fontSize: 13, color: COLORS2.textSecondary, margin: "0 0 12px" }, children: "Get notified about new features and updates." }),
+              subscribeStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS2.income}10`, color: COLORS2.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: subscribeMessage || "Subscribed!" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                   "input",
                   {
                     value: subscribeEmail,
@@ -50789,16 +62730,16 @@ function MyBudget({ initialData: initialData2 }) {
                     },
                     placeholder: "your@email.com",
                     autoFocus: true,
-                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8 }
+                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8 }
                   }
                 ),
-                subscribeMessage && subscribeStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.expense, marginBottom: 8 }, children: subscribeMessage }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleSubscribe, disabled: subscribeStatus === "loading", style: {
+                subscribeMessage && subscribeStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 12, color: COLORS2.expense, marginBottom: 8 }, children: subscribeMessage }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: handleSubscribe, disabled: subscribeStatus === "loading", style: {
                   width: "100%",
                   padding: "10px 16px",
                   borderRadius: 8,
                   border: "none",
-                  backgroundColor: COLORS.primary,
+                  backgroundColor: COLORS2.primary,
                   color: "white",
                   fontSize: 14,
                   fontWeight: 600,
@@ -50811,7 +62752,7 @@ function MyBudget({ initialData: initialData2 }) {
         )
       }
     ),
-    showFeedbackModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    showFeedbackModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
         style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
@@ -50820,37 +62761,37 @@ function MyBudget({ initialData: initialData2 }) {
           setFeedbackText("");
           setFeedbackStatus("idle");
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "div",
           {
-            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            style: { backgroundColor: COLORS2.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
             onClick: (e) => e.stopPropagation(),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Send Feedback" }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS2.textMain }, children: "Send Feedback" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
                   setShowFeedbackModal(false);
                   setFeedbackText("");
                   setFeedbackStatus("idle");
-                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+                }, style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(X, { size: 18 }) })
               ] }),
-              enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+              enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
                 padding: "8px 12px",
                 borderRadius: 8,
                 marginBottom: 12,
-                backgroundColor: enjoyVote === "up" ? `${COLORS.income}10` : `${COLORS.expense}10`,
-                color: enjoyVote === "up" ? COLORS.income : COLORS.expense,
+                backgroundColor: enjoyVote === "up" ? `${COLORS2.income}10` : `${COLORS2.expense}10`,
+                color: enjoyVote === "up" ? COLORS2.income : COLORS2.expense,
                 fontSize: 13,
                 fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
                 gap: 6
               }, children: [
-                enjoyVote === "up" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsUp, { size: 14 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsDown, { size: 14 }),
+                enjoyVote === "up" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ThumbsUp, { size: 14 }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ThumbsDown, { size: 14 }),
                 enjoyVote === "up" ? "Glad you're enjoying it!" : "Sorry to hear that."
               ] }),
-              feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS.income}10`, color: COLORS.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: "Thank you for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              feedbackStatus === "success" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { padding: 12, borderRadius: 8, backgroundColor: `${COLORS2.income}10`, color: COLORS2.income, fontSize: 13, fontWeight: 600, textAlign: "center" }, children: "Thank you for your feedback!" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                   "textarea",
                   {
                     value: feedbackText,
@@ -50858,16 +62799,16 @@ function MyBudget({ initialData: initialData2 }) {
                     placeholder: enjoyVote === "up" ? "What do you like most? Any features you'd love to see?" : enjoyVote === "down" ? "What went wrong? How can we improve?" : "What can we improve? Bug reports, feature requests, anything...",
                     autoFocus: true,
                     rows: 4,
-                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }
+                    style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 8, resize: "vertical" }
                   }
                 ),
-                feedbackStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, color: COLORS.expense, marginBottom: 8 }, children: "Failed to send. Please try again." }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: handleFeedbackSubmit, disabled: feedbackStatus === "submitting" || !feedbackText.trim(), style: {
+                feedbackStatus === "error" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 12, color: COLORS2.expense, marginBottom: 8 }, children: "Failed to send. Please try again." }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: handleFeedbackSubmit, disabled: feedbackStatus === "submitting" || !feedbackText.trim(), style: {
                   width: "100%",
                   padding: "10px 16px",
                   borderRadius: 8,
                   border: "none",
-                  backgroundColor: COLORS.primary,
+                  backgroundColor: COLORS2.primary,
                   color: "white",
                   fontSize: 14,
                   fontWeight: 600,
@@ -50880,22 +62821,22 @@ function MyBudget({ initialData: initialData2 }) {
         )
       }
     ),
-    showNameBudgetModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    showNameBudgetModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
         style: { position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1e3 },
         onClick: () => setShowNameBudgetModal(false),
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
           "div",
           {
-            style: { backgroundColor: COLORS.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
+            style: { backgroundColor: COLORS2.card, borderRadius: 16, padding: 24, maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" },
             onClick: (e) => e.stopPropagation(),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS.textMain }, children: "Name Your Budget" }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 18 }) })
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h3", { style: { margin: 0, fontSize: 17, fontWeight: 700, color: COLORS2.textMain }, children: "Name Your Budget" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: 4, border: "none", background: "none", cursor: "pointer", color: COLORS2.textMuted }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(X, { size: 18 }) })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                 "input",
                 {
                   value: nameBudgetValue,
@@ -50911,32 +62852,32 @@ function MyBudget({ initialData: initialData2 }) {
                   },
                   placeholder: "e.g. Monthly Budget, Household, Side Hustle",
                   autoFocus: true,
-                  style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }
+                  style: { width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, fontSize: 14, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS.textSecondary }, children: "Cancel" }),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => {
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowNameBudgetModal(false), style: { padding: "8px 16px", borderRadius: 8, border: `1px solid ${COLORS2.border}`, backgroundColor: "white", fontSize: 13, cursor: "pointer", color: COLORS2.textSecondary }, children: "Cancel" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
                   const name = nameBudgetValue.trim() || "My Budget";
                   const named2 = { ...budget, name };
                   setBudget(named2);
                   setNameInput(name);
                   doSaveBudget(named2);
                   setShowNameBudgetModal(false);
-                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Save" })
+                }, style: { padding: "8px 16px", borderRadius: 8, border: "none", backgroundColor: COLORS2.primary, color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }, children: "Save" })
               ] })
             ]
           }
         )
       }
     ),
-    saveToast && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+    saveToast && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
       position: "fixed",
       top: 20,
       left: "50%",
       transform: "translateX(-50%)",
       zIndex: 1100,
-      backgroundColor: COLORS.primary,
+      backgroundColor: COLORS2.primary,
       color: "white",
       padding: "10px 20px",
       borderRadius: 12,
@@ -50948,46 +62889,55 @@ function MyBudget({ initialData: initialData2 }) {
       gap: 8,
       animation: "fadeInOut 1.5s ease"
     }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 16 }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { size: 16 }),
       " Budget saved!"
     ] }),
-    !enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "fixed", bottom: 20, right: pillRight, zIndex: 900, pointerEvents: "none" }, className: "no-print", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+    !enjoyVote && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { position: "fixed", bottom: 20, right: pillRight, zIndex: 900, pointerEvents: "none" }, className: "no-print", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
       pointerEvents: "auto",
-      backgroundColor: COLORS.card,
+      backgroundColor: COLORS2.card,
       borderRadius: 24,
       padding: "10px 16px",
       boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
-      border: `1px solid ${COLORS.border}`,
+      border: `1px solid ${COLORS2.border}`,
       display: "flex",
       alignItems: "center",
       gap: 10
     }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS.textMain }, children: "Enjoying this app?" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => handleEnjoyVote("up"), style: {
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: COLORS2.textMain }, children: "Enjoying this app?" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => handleEnjoyVote("up"), style: {
         padding: 6,
         borderRadius: 8,
-        border: `1px solid ${COLORS.border}`,
+        border: `1px solid ${COLORS2.border}`,
         backgroundColor: "white",
         cursor: "pointer",
         display: "flex",
-        color: COLORS.income
-      }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsUp, { size: 16 }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => handleEnjoyVote("down"), style: {
+        color: COLORS2.income
+      }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ThumbsUp, { size: 16 }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => handleEnjoyVote("down"), style: {
         padding: 6,
         borderRadius: 8,
-        border: `1px solid ${COLORS.border}`,
+        border: `1px solid ${COLORS2.border}`,
         backgroundColor: "white",
         cursor: "pointer",
         display: "flex",
-        color: COLORS.expense
-      }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsDown, { size: 16 }) })
-    ] }) })
+        color: COLORS2.expense
+      }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ThumbsDown, { size: 16 }) })
+    ] }) }),
+    showLoginModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      LoginModal,
+      {
+        onClose: () => setShowLoginModal(false),
+        onLoginSuccess: () => {
+          setShowLoginModal(false);
+        }
+      }
+    )
   ] });
 }
 
 // src/main.tsx
-var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-var ErrorBoundary = class extends import_react52.default.Component {
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var ErrorBoundary = class extends import_react53.default.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -51015,14 +62965,14 @@ var ErrorBoundary = class extends import_react52.default.Component {
   }
   render() {
     if (this.state.hasError) {
-      return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: 20, textAlign: "center", fontFamily: "sans-serif", color: "#DC2626", wordBreak: "break-word" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h3", { children: "Something went wrong." }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: "Please try refreshing the page." }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("details", { style: { marginTop: 10, textAlign: "left", fontSize: "12px", color: "#666" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("summary", { children: "Debug Error Details" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("pre", { style: { whiteSpace: "pre-wrap", background: "#f5f5f5", padding: 10, borderRadius: 4 }, children: [
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { style: { padding: 20, textAlign: "center", fontFamily: "sans-serif", color: "#DC2626", wordBreak: "break-word" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h3", { children: "Something went wrong." }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "Please try refreshing the page." }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("details", { style: { marginTop: 10, textAlign: "left", fontSize: "12px", color: "#666" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("summary", { children: "Debug Error Details" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("pre", { style: { whiteSpace: "pre-wrap", background: "#f5f5f5", padding: 10, borderRadius: 4 }, children: [
             this.state.error?.toString(),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("br", {}),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
             this.state.error?.stack
           ] })
         ] })
@@ -51060,7 +63010,7 @@ var getHydrationData = () => {
 };
 console.log("[Main] My Budget main.tsx loading...");
 function App({ initialData: initialData2 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MyBudget, { initialData: initialData2 });
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MyBudget, { initialData: initialData2 });
 }
 var container = document.getElementById("my-budget-root");
 if (!container) {
@@ -51069,7 +63019,7 @@ if (!container) {
 var root = (0, import_client.createRoot)(container);
 var renderApp = (data) => {
   root.render(
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react52.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ErrorBoundary, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, { initialData: data }, Date.now()) }) })
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_react53.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ErrorBoundary, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(App, { initialData: data }, Date.now()) }) })
   );
 };
 var initialData = getHydrationData();
@@ -51277,6 +63227,14 @@ lucide-react/dist/esm/icons/chevron-up.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/circle-alert.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/clock.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -51310,6 +63268,14 @@ lucide-react/dist/esm/icons/heart.js:
    *)
 
 lucide-react/dist/esm/icons/house.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/key-round.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
