@@ -27542,15 +27542,23 @@ var __iconNode8 = [
 ];
 var Clock = createLucideIcon("clock", __iconNode8);
 
-// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/dollar-sign.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/cloud-upload.js
 var __iconNode9 = [
+  ["path", { d: "M12 13v8", key: "1l5pq0" }],
+  ["path", { d: "M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242", key: "1pljnt" }],
+  ["path", { d: "m8 17 4-4 4 4", key: "1quai1" }]
+];
+var CloudUpload = createLucideIcon("cloud-upload", __iconNode9);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/dollar-sign.js
+var __iconNode10 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-var DollarSign = createLucideIcon("dollar-sign", __iconNode9);
+var DollarSign = createLucideIcon("dollar-sign", __iconNode10);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/grip-vertical.js
-var __iconNode10 = [
+var __iconNode11 = [
   ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
   ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
   ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
@@ -27558,10 +27566,10 @@ var __iconNode10 = [
   ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
   ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
 ];
-var GripVertical = createLucideIcon("grip-vertical", __iconNode10);
+var GripVertical = createLucideIcon("grip-vertical", __iconNode11);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/heart.js
-var __iconNode11 = [
+var __iconNode12 = [
   [
     "path",
     {
@@ -27570,10 +27578,10 @@ var __iconNode11 = [
     }
   ]
 ];
-var Heart = createLucideIcon("heart", __iconNode11);
+var Heart = createLucideIcon("heart", __iconNode12);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/house.js
-var __iconNode12 = [
+var __iconNode13 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -27583,10 +27591,10 @@ var __iconNode12 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode12);
+var House = createLucideIcon("house", __iconNode13);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/landmark.js
-var __iconNode13 = [
+var __iconNode14 = [
   ["path", { d: "M10 18v-7", key: "wt116b" }],
   [
     "path",
@@ -27600,28 +27608,36 @@ var __iconNode13 = [
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M6 18v-7", key: "1ivflk" }]
 ];
-var Landmark = createLucideIcon("landmark", __iconNode13);
+var Landmark = createLucideIcon("landmark", __iconNode14);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode14 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode14);
+var __iconNode15 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode15);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/lock.js
-var __iconNode15 = [
+var __iconNode16 = [
   ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
   ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
 ];
-var Lock = createLucideIcon("lock", __iconNode15);
+var Lock = createLucideIcon("lock", __iconNode16);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/log-out.js
+var __iconNode17 = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+var LogOut = createLucideIcon("log-out", __iconNode17);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/mail.js
-var __iconNode16 = [
+var __iconNode18 = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-var Mail = createLucideIcon("mail", __iconNode16);
+var Mail = createLucideIcon("mail", __iconNode18);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/message-square.js
-var __iconNode17 = [
+var __iconNode19 = [
   [
     "path",
     {
@@ -27630,10 +27646,10 @@ var __iconNode17 = [
     }
   ]
 ];
-var MessageSquare = createLucideIcon("message-square", __iconNode17);
+var MessageSquare = createLucideIcon("message-square", __iconNode19);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode18 = [
+var __iconNode20 = [
   [
     "path",
     {
@@ -27642,10 +27658,10 @@ var __iconNode18 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode18);
+var Pen = createLucideIcon("pen", __iconNode20);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode19 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -27656,17 +27672,17 @@ var __iconNode19 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode19);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode21);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode20 = [
+var __iconNode22 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode20);
+var Plus = createLucideIcon("plus", __iconNode22);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode21 = [
+var __iconNode23 = [
   [
     "path",
     {
@@ -27677,26 +27693,26 @@ var __iconNode21 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode21);
+var Printer = createLucideIcon("printer", __iconNode23);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode22 = [
+var __iconNode24 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode22);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode24);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode23 = [
+var __iconNode25 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode23);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode25);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode24 = [
+var __iconNode26 = [
   [
     "path",
     {
@@ -27707,17 +27723,17 @@ var __iconNode24 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode24);
+var Save = createLucideIcon("save", __iconNode26);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode25 = [
+var __iconNode27 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode25);
+var Search = createLucideIcon("search", __iconNode27);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-down.js
-var __iconNode26 = [
+var __iconNode28 = [
   ["path", { d: "M17 14V2", key: "8ymqnk" }],
   [
     "path",
@@ -27727,10 +27743,10 @@ var __iconNode26 = [
     }
   ]
 ];
-var ThumbsDown = createLucideIcon("thumbs-down", __iconNode26);
+var ThumbsDown = createLucideIcon("thumbs-down", __iconNode28);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-up.js
-var __iconNode27 = [
+var __iconNode29 = [
   ["path", { d: "M7 10v12", key: "1qc93n" }],
   [
     "path",
@@ -27740,34 +27756,34 @@ var __iconNode27 = [
     }
   ]
 ];
-var ThumbsUp = createLucideIcon("thumbs-up", __iconNode27);
+var ThumbsUp = createLucideIcon("thumbs-up", __iconNode29);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode28 = [
+var __iconNode30 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode28);
+var Trash2 = createLucideIcon("trash-2", __iconNode30);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode29 = [
+var __iconNode31 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode29);
+var TrendingDown = createLucideIcon("trending-down", __iconNode31);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode30 = [
+var __iconNode32 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode30);
+var TrendingUp = createLucideIcon("trending-up", __iconNode32);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode31 = [
+var __iconNode33 = [
   [
     "path",
     {
@@ -27778,10 +27794,10 @@ var __iconNode31 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode31);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode33);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode32 = [
+var __iconNode34 = [
   [
     "path",
     {
@@ -27791,14 +27807,14 @@ var __iconNode32 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode32);
+var Wallet = createLucideIcon("wallet", __iconNode34);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode33 = [
+var __iconNode35 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode33);
+var X = createLucideIcon("x", __iconNode35);
 
 // node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/Surface.js
 var React = __toESM(require_react());
@@ -61871,19 +61887,29 @@ function MyBudget({ initialData: initialData2 }) {
   const [saveToast, setSaveToast] = (0, import_react52.useState)(false);
   const containerRef = (0, import_react52.useRef)(null);
   const [pillRight, setPillRight] = (0, import_react52.useState)(16);
+  const [syncStatus, setSyncStatus] = (0, import_react52.useState)("idle");
   (0, import_react52.useEffect)(() => {
     saveCurrentBudget(budget);
     if (session && supabase && budget.id) {
+      setSyncStatus("syncing");
       const syncToCloud = async () => {
         try {
-          await supabase.from("budgets").upsert({
+          const { error } = await supabase.from("budgets").upsert({
             id: budget.id,
             user_id: session.user.id,
             budget_data: budget,
             updated_at: (/* @__PURE__ */ new Date()).toISOString()
           });
+          if (error) {
+            console.error("Supabase upsert error:", error.message, error.details, error.hint);
+            setSyncStatus("idle");
+          } else {
+            console.log("Budget synced to cloud:", budget.id);
+            setSyncStatus("synced");
+          }
         } catch (e) {
           console.error("Failed to sync budget to cloud", e);
+          setSyncStatus("idle");
         }
       };
       syncToCloud();
@@ -61891,35 +61917,68 @@ function MyBudget({ initialData: initialData2 }) {
   }, [budget, session]);
   (0, import_react52.useEffect)(() => {
     if (!supabase) return;
-    const loadCloudData = async (userId) => {
+    const syncWithCloud = async (userId) => {
       try {
-        const { data, error } = await supabase.from("budgets").select("budget_data").eq("user_id", userId);
-        if (!error && data && data.length > 0) {
-          const cloudBudgets = data.map((row) => {
-            if (!row.budget_data.updatedAt) row.budget_data.updatedAt = Date.now();
-            return row.budget_data;
-          });
-          if (cloudBudgets.length > 0) {
-            setSavedBudgets(cloudBudgets);
-            const mostRecent = [...cloudBudgets].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+        const { data: cloudRows, error: fetchError } = await supabase.from("budgets").select("id, budget_data").eq("user_id", userId);
+        if (fetchError) {
+          console.error("Failed to fetch cloud budgets:", fetchError.message);
+          return;
+        }
+        const cloudBudgetMap = /* @__PURE__ */ new Map();
+        if (cloudRows) {
+          for (const row of cloudRows) {
+            const b = row.budget_data;
+            if (!b.updatedAt) b.updatedAt = Date.now();
+            cloudBudgetMap.set(row.id, b);
+          }
+        }
+        const localBudgets = loadBudgets();
+        const mergedMap = /* @__PURE__ */ new Map();
+        for (const [id, b] of cloudBudgetMap) {
+          mergedMap.set(id, b);
+        }
+        for (const lb of localBudgets) {
+          if (!lb.id) continue;
+          const existing = mergedMap.get(lb.id);
+          if (!existing || lb.updatedAt && existing.updatedAt && lb.updatedAt > existing.updatedAt) {
+            mergedMap.set(lb.id, lb);
+          }
+        }
+        const mergedBudgets = Array.from(mergedMap.values());
+        if (mergedBudgets.length > 0) {
+          const rows = mergedBudgets.map((b) => ({
+            id: b.id,
+            user_id: userId,
+            budget_data: b,
+            updated_at: (/* @__PURE__ */ new Date()).toISOString()
+          }));
+          const { error: upsertError } = await supabase.from("budgets").upsert(rows);
+          if (upsertError) {
+            console.error("Failed to sync budgets to cloud:", upsertError.message, upsertError.details);
+          } else {
+            console.log(`Synced ${rows.length} budget(s) to cloud`);
+          }
+          setSavedBudgets(mergedBudgets);
+          saveBudgets(mergedBudgets);
+          const mostRecent = [...mergedBudgets].sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))[0];
+          if (mostRecent) {
             setBudget(mostRecent);
             saveCurrentBudget(mostRecent);
-            saveBudgets(cloudBudgets);
           }
         }
       } catch (e) {
-        console.error("Failed to load cloud budgets", e);
+        console.error("Cloud sync failed:", e);
       }
     };
     supabase.auth.getSession().then(({ data: { session: session2 } }) => {
       setSession(session2);
-      if (session2) loadCloudData(session2.user.id);
+      if (session2) syncWithCloud(session2.user.id);
     });
     const {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((_event, session2) => {
       setSession(session2);
-      if (session2) loadCloudData(session2.user.id);
+      if (session2) syncWithCloud(session2.user.id);
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -62181,19 +62240,33 @@ function MyBudget({ initialData: initialData2 }) {
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { style: { margin: "6px 0 0", fontSize: 12, opacity: 0.85, letterSpacing: 0.2 }, children: "Built on the 50/30/20 rule used by financial advisors" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), style: {
-          padding: "6px 10px",
-          borderRadius: 6,
-          border: "none",
-          backgroundColor: "rgba(255,255,255,0.2)",
-          color: "white",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          gap: 4,
-          fontSize: 11,
-          fontWeight: 600
-        }, children: "Log Out" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
+            padding: "4px 8px",
+            borderRadius: 6,
+            backgroundColor: "rgba(5,150,105,0.25)",
+            color: "#6EE7B7",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 10,
+            fontWeight: 600,
+            letterSpacing: 0.3
+          }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CloudUpload, { size: 12 }),
+            syncStatus === "syncing" ? "Syncing..." : "Backed Up"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), title: "Log Out", style: {
+            padding: 6,
+            borderRadius: 6,
+            border: "none",
+            backgroundColor: "rgba(255,255,255,0.2)",
+            color: "white",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center"
+          }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LogOut, { size: 14 }) })
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
           padding: "6px 10px",
           borderRadius: 6,
           border: "none",
@@ -62308,19 +62381,33 @@ function MyBudget({ initialData: initialData2 }) {
           ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { onClick: () => setEditingName(true), style: { margin: 0, fontSize: 20, fontWeight: 700, cursor: "pointer" }, children: budget.name })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6 }, children: [
-          session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), style: {
-            padding: "6px 10px",
-            borderRadius: 6,
-            border: "none",
-            backgroundColor: "rgba(255,255,255,0.2)",
-            color: "white",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            fontSize: 11,
-            fontWeight: 600
-          }, children: "Log Out" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
+          session ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: {
+              padding: "4px 8px",
+              borderRadius: 6,
+              backgroundColor: "rgba(5,150,105,0.25)",
+              color: "#6EE7B7",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: 0.3
+            }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CloudUpload, { size: 12 }),
+              syncStatus === "syncing" ? "Syncing..." : "Backed Up"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => supabase?.auth.signOut(), title: "Log Out", style: {
+              padding: 6,
+              borderRadius: 6,
+              border: "none",
+              backgroundColor: "rgba(255,255,255,0.2)",
+              color: "white",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center"
+            }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LogOut, { size: 14 }) })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => setShowLoginModal(true), style: {
             padding: "6px 10px",
             borderRadius: 6,
             border: "none",
@@ -63252,6 +63339,14 @@ lucide-react/dist/esm/icons/clock.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/cloud-upload.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/dollar-sign.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -63301,6 +63396,14 @@ lucide-react/dist/esm/icons/loader-circle.js:
    *)
 
 lucide-react/dist/esm/icons/lock.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/log-out.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *

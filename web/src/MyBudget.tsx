@@ -4,7 +4,7 @@ import {
   DollarSign, TrendingUp, TrendingDown, PiggyBank, Building2,
   Landmark, AlertTriangle, ChevronDown, ChevronUp, Edit2, Check,
   Wallet, Clock, ArrowUpRight, ArrowDownRight, RefreshCw, Search, Loader2, GripVertical,
-  Mail, Heart, MessageSquare, ThumbsUp, ThumbsDown
+  Mail, Heart, MessageSquare, ThumbsUp, ThumbsDown, LogOut, CloudUpload
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -1475,6 +1475,7 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
   const [saveToast, setSaveToast] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [pillRight, setPillRight] = useState(16);
+  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'synced'>('idle');
 
   // Persist budget on change
   useEffect(() => {
@@ -1482,62 +1483,118 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
 
     // Auto-save to Supabase if logged in
     if (session && supabase && budget.id) {
+      setSyncStatus('syncing');
       const syncToCloud = async () => {
         try {
-          await supabase!.from('budgets').upsert({
+          const { error } = await supabase!.from('budgets').upsert({
             id: budget.id,
             user_id: session.user.id,
             budget_data: budget,
             updated_at: new Date().toISOString()
           });
+          if (error) {
+            console.error("Supabase upsert error:", error.message, error.details, error.hint);
+            setSyncStatus('idle');
+          } else {
+            console.log("Budget synced to cloud:", budget.id);
+            setSyncStatus('synced');
+          }
         } catch (e) {
           console.error("Failed to sync budget to cloud", e);
+          setSyncStatus('idle');
         }
       };
-      // Debounce slightly by just running it (in a real app we'd debounce this)
       syncToCloud();
     }
   }, [budget, session]);
 
-  // Supabase Auth Listener & Initial Cloud Load
+  // Supabase Auth Listener & Initial Cloud Sync
   useEffect(() => {
     if (!supabase) return;
 
-    const loadCloudData = async (userId: string) => {
+    const syncWithCloud = async (userId: string) => {
       try {
-        const { data, error } = await supabase!.from('budgets')
-          .select('budget_data')
+        // 1. Load existing cloud data
+        const { data: cloudRows, error: fetchError } = await supabase!.from('budgets')
+          .select('id, budget_data')
           .eq('user_id', userId);
 
-        if (!error && data && data.length > 0) {
-          const cloudBudgets: Budget[] = data.map(row => {
-            if (!row.budget_data.updatedAt) row.budget_data.updatedAt = Date.now();
-            return row.budget_data as Budget;
-          });
+        if (fetchError) {
+          console.error("Failed to fetch cloud budgets:", fetchError.message);
+          return;
+        }
 
-          if (cloudBudgets.length > 0) {
-            setSavedBudgets(cloudBudgets);
-            const mostRecent = [...cloudBudgets].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+        const cloudBudgetMap = new Map<string, Budget>();
+        if (cloudRows) {
+          for (const row of cloudRows) {
+            const b = row.budget_data as Budget;
+            if (!b.updatedAt) b.updatedAt = Date.now();
+            cloudBudgetMap.set(row.id, b);
+          }
+        }
+
+        // 2. Get current local budgets
+        const localBudgets = loadBudgets();
+
+        // 3. Merge: take the most recently updated version of each budget
+        const mergedMap = new Map<string, Budget>();
+
+        // Add all cloud budgets
+        for (const [id, b] of cloudBudgetMap) {
+          mergedMap.set(id, b);
+        }
+
+        // Merge local budgets (local wins if newer, otherwise cloud wins)
+        for (const lb of localBudgets) {
+          if (!lb.id) continue;
+          const existing = mergedMap.get(lb.id);
+          if (!existing || (lb.updatedAt && existing.updatedAt && lb.updatedAt > existing.updatedAt)) {
+            mergedMap.set(lb.id, lb);
+          }
+        }
+
+        const mergedBudgets = Array.from(mergedMap.values());
+
+        // 4. Push ALL merged budgets to cloud
+        if (mergedBudgets.length > 0) {
+          const rows = mergedBudgets.map(b => ({
+            id: b.id,
+            user_id: userId,
+            budget_data: b,
+            updated_at: new Date().toISOString()
+          }));
+
+          const { error: upsertError } = await supabase!.from('budgets').upsert(rows);
+          if (upsertError) {
+            console.error("Failed to sync budgets to cloud:", upsertError.message, upsertError.details);
+          } else {
+            console.log(`Synced ${rows.length} budget(s) to cloud`);
+          }
+
+          // 5. Update local state with merged data
+          setSavedBudgets(mergedBudgets);
+          saveBudgets(mergedBudgets);
+          const mostRecent = [...mergedBudgets].sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))[0];
+          if (mostRecent) {
             setBudget(mostRecent);
             saveCurrentBudget(mostRecent);
-            saveBudgets(cloudBudgets);
           }
         }
       } catch (e) {
-        console.error("Failed to load cloud budgets", e);
+        console.error("Cloud sync failed:", e);
       }
     };
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      if (session) loadCloudData(session.user.id);
+      if (session) syncWithCloud(session.user.id);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      if (session) loadCloudData(session.user.id);
+      if (session) syncWithCloud(session.user.id);
     });
 
     return () => subscription.unsubscribe();
@@ -1816,12 +1873,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               {session ? (
-                <button onClick={() => supabase?.auth.signOut()} style={{
-                  padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
-                  color: "white", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
-                }}>
-                  Log Out
-                </button>
+                <>
+                  <div style={{
+                    padding: "4px 8px", borderRadius: 6, backgroundColor: "rgba(5,150,105,0.25)",
+                    color: "#6EE7B7", display: "flex", alignItems: "center", gap: 4, fontSize: 10, fontWeight: 600, letterSpacing: 0.3
+                  }}>
+                    <CloudUpload size={12} />
+                    {syncStatus === 'syncing' ? 'Syncing...' : 'Backed Up'}
+                  </div>
+                  <button onClick={() => supabase?.auth.signOut()} title="Log Out" style={{
+                    padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
+                    color: "white", cursor: "pointer", display: "flex", alignItems: "center"
+                  }}>
+                    <LogOut size={14} />
+                  </button>
+                </>
               ) : (
                 <button onClick={() => setShowLoginModal(true)} style={{
                   padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
@@ -1910,12 +1976,21 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             {session ? (
-              <button onClick={() => supabase?.auth.signOut()} style={{
-                padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
-                color: "white", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600
-              }}>
-                Log Out
-              </button>
+              <>
+                <div style={{
+                  padding: "4px 8px", borderRadius: 6, backgroundColor: "rgba(5,150,105,0.25)",
+                  color: "#6EE7B7", display: "flex", alignItems: "center", gap: 4, fontSize: 10, fontWeight: 600, letterSpacing: 0.3
+                }}>
+                  <CloudUpload size={12} />
+                  {syncStatus === 'syncing' ? 'Syncing...' : 'Backed Up'}
+                </div>
+                <button onClick={() => supabase?.auth.signOut()} title="Log Out" style={{
+                  padding: 6, borderRadius: 6, border: "none", backgroundColor: "rgba(255,255,255,0.2)",
+                  color: "white", cursor: "pointer", display: "flex", alignItems: "center"
+                }}>
+                  <LogOut size={14} />
+                </button>
+              </>
             ) : (
               <button onClick={() => setShowLoginModal(true)} style={{
                 padding: "6px 10px", borderRadius: 6, border: "none", backgroundColor: "white",
