@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../supabase';
-import { X, Mail, KeyRound, AlertCircle } from 'lucide-react';
+import { X, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
 
 const COLORS = {
     primary: "#1B4332",
@@ -17,6 +17,8 @@ const COLORS = {
     textMuted: "#9CA3AF",
     error: "#DC2626",
     errorBg: "#FEF2F2",
+    success: "#059669",
+    successBg: "#ECFDF5",
 };
 
 interface LoginModalProps {
@@ -24,17 +26,29 @@ interface LoginModalProps {
     onLoginSuccess: () => void;
 }
 
+const inputStyle = (focused: boolean) => ({
+    width: '100%', padding: '16px 16px 16px 48px', backgroundColor: focused ? '#FFFFFF' : '#F9FAFB',
+    border: `1px solid ${focused ? COLORS.primary : COLORS.border}`,
+    borderRadius: 16, fontSize: 15, color: COLORS.textMain, outline: 'none', transition: 'all 0.2s', boxSizing: 'border-box' as const,
+    boxShadow: focused ? `0 0 0 4px ${COLORS.accentLight}` : 'none',
+});
+
 export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess }) => {
     const [mode, setMode] = useState<'LOGIN' | 'SIGNUP'>('LOGIN');
     const [email, setEmail] = useState('');
-    const [otp, setOtp] = useState('');
-    const [step, setStep] = useState<'EMAIL' | 'OTP'>('EMAIL');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [emailFocused, setEmailFocused] = useState(false);
+    const [passwordFocused, setPasswordFocused] = useState(false);
+    const [confirmFocused, setConfirmFocused] = useState(false);
 
-    const handleSendOtp = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
 
         if (!supabase) {
             setError('Cloud sync is currently unavailable. Please try again later.');
@@ -42,52 +56,72 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
         }
 
         setLoading(true);
-        const { error } = await supabase.auth.signInWithOtp({
-            email,
-            options: {
-                shouldCreateUser: true
-            }
-        });
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
         setLoading(false);
 
         if (error) {
-            console.error("Supabase Auth Error:", error);
-            if (error.message?.toLowerCase().includes('rate limit') || (error as any).status === 429) {
-                setError("Please wait a moment before requesting another login code.");
+            console.error("Login error:", error);
+            if (error.message?.toLowerCase().includes('invalid login credentials')) {
+                setError('Invalid email or password. Please try again.');
+            } else if (error.message?.toLowerCase().includes('email not confirmed')) {
+                setError('Please check your inbox and confirm your email before logging in.');
             } else {
-                setError(error.message || 'An unexpected error occurred. Please try again later.');
+                setError(error.message || 'Login failed. Please try again.');
             }
         } else {
-            setStep('OTP');
+            onLoginSuccess();
         }
     };
 
-    const handleVerifyOtp = async (e: React.FormEvent) => {
+    const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
 
-        if (!supabase) return;
+        if (!supabase) {
+            setError('Cloud sync is currently unavailable. Please try again later.');
+            return;
+        }
+
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            return;
+        }
 
         setLoading(true);
-        const { data, error } = await supabase.auth.verifyOtp({
-            email,
-            token: otp,
-            type: 'email'
-        });
+        const { data, error } = await supabase.auth.signUp({ email, password });
         setLoading(false);
 
         if (error) {
-            console.error("Supabase Auth Verify Error:", error);
-            if (error.message?.toLowerCase().includes('rate limit') || (error as any).status === 429) {
-                setError("Please wait a moment before trying again.");
-            } else if (error.message?.toLowerCase().includes('expired') || error.message?.toLowerCase().includes('invalid')) {
-                setError("That code is incorrect or expired. Please check your email or request a new one.");
+            console.error("Sign up error:", error);
+            if (error.message?.toLowerCase().includes('already registered')) {
+                setError('An account with this email already exists. Try logging in instead.');
             } else {
-                setError(error.message || 'Verification failed. Please try again.');
+                setError(error.message || 'Sign up failed. Please try again.');
             }
         } else if (data.session) {
+            // Auto-confirmed (email confirmation disabled in Supabase)
             onLoginSuccess();
+        } else {
+            // Email confirmation required
+            setSuccess('Account created! Please check your email to confirm your account, then log in.');
+            setMode('LOGIN');
+            setPassword('');
+            setConfirmPassword('');
         }
+    };
+
+    const switchMode = () => {
+        setMode(mode === 'LOGIN' ? 'SIGNUP' : 'LOGIN');
+        setError('');
+        setSuccess('');
+        setPassword('');
+        setConfirmPassword('');
     };
 
     return (
@@ -99,17 +133,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                 backgroundColor: COLORS.card, borderRadius: 24, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                 width: '100%', maxWidth: 440, overflow: 'hidden', animation: 'fadeIn 0.2s ease-out'
             }}>
+                {/* Header */}
                 <div style={{ padding: '24px 32px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
                         <h2 style={{ fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: '0 0 8px 0', letterSpacing: '-0.02em' }}>
-                            {step === 'EMAIL' ? (mode === 'LOGIN' ? 'Login' : 'Sign Up') : 'Verify Email'}
+                            {mode === 'LOGIN' ? 'Login' : 'Sign Up'}
                         </h2>
                         <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }}>
-                            {step === 'EMAIL'
-                                ? (mode === 'LOGIN'
-                                    ? 'Enter your email to receive a 6-digit secure login code.'
-                                    : 'Enter your email to receive a 6-digit code to create your account.')
-                                : `Enter the 6-digit code sent to ${email}`}
+                            {mode === 'LOGIN'
+                                ? 'Sign in to sync your budget across devices.'
+                                : 'Create an account to save and sync your budget.'}
                         </p>
                     </div>
                     <button onClick={onClose} style={{
@@ -120,108 +153,113 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                     </button>
                 </div>
 
+                {/* Body */}
                 <div style={{ padding: '0 32px 32px' }}>
+                    {/* Error */}
                     {error && (
                         <div style={{
                             marginBottom: 20, padding: '12px 16px', backgroundColor: COLORS.errorBg, borderRadius: 12,
                             display: 'flex', alignItems: 'flex-start', gap: 12, border: `1px solid ${COLORS.error}20`
                         }}>
                             <AlertCircle size={18} color={COLORS.error} style={{ marginTop: 2, flexShrink: 0 }} />
-                            <div style={{ fontSize: 13, color: COLORS.error, lineHeight: 1.5, fontWeight: 500 }}>
-                                {error}
-                            </div>
+                            <div style={{ fontSize: 13, color: COLORS.error, lineHeight: 1.5, fontWeight: 500 }}>{error}</div>
                         </div>
                     )}
 
-                    {step === 'EMAIL' ? (
-                        <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    {/* Success */}
+                    {success && (
+                        <div style={{
+                            marginBottom: 20, padding: '12px 16px', backgroundColor: COLORS.successBg, borderRadius: 12,
+                            display: 'flex', alignItems: 'flex-start', gap: 12, border: `1px solid ${COLORS.success}20`
+                        }}>
+                            <CheckCircle size={18} color={COLORS.success} style={{ marginTop: 2, flexShrink: 0 }} />
+                            <div style={{ fontSize: 13, color: COLORS.success, lineHeight: 1.5, fontWeight: 500 }}>{success}</div>
+                        </div>
+                    )}
+
+                    {/* Form */}
+                    <form onSubmit={mode === 'LOGIN' ? handleLogin : handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        {/* Email */}
+                        <div style={{ position: 'relative' }}>
+                            <Mail size={18} color={COLORS.textMuted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="you@email.com"
+                                style={inputStyle(emailFocused)}
+                                onFocus={() => setEmailFocused(true)}
+                                onBlur={() => setEmailFocused(false)}
+                                autoFocus
+                            />
+                        </div>
+
+                        {/* Password */}
+                        <div style={{ position: 'relative' }}>
+                            <Lock size={18} color={COLORS.textMuted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
+                            <input
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Password"
+                                style={inputStyle(passwordFocused)}
+                                onFocus={() => setPasswordFocused(true)}
+                                onBlur={() => setPasswordFocused(false)}
+                            />
+                        </div>
+
+                        {/* Confirm Password (Sign Up only) */}
+                        {mode === 'SIGNUP' && (
                             <div style={{ position: 'relative' }}>
-                                <Mail size={18} color={COLORS.textMuted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
+                                <Lock size={18} color={COLORS.textMuted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
                                 <input
-                                    type="email"
+                                    type="password"
                                     required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="you@email.com"
-                                    style={{
-                                        width: '100%', padding: '16px 16px 16px 48px', backgroundColor: '#F9FAFB', border: `1px solid ${COLORS.border}`,
-                                        borderRadius: 16, fontSize: 15, color: COLORS.textMain, outline: 'none', transition: 'all 0.2s', boxSizing: 'border-box'
-                                    }}
-                                    onFocus={e => { e.target.style.borderColor = COLORS.primary; e.target.style.backgroundColor = '#FFFFFF'; e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`; }}
-                                    onBlur={e => { e.target.style.borderColor = COLORS.border; e.target.style.backgroundColor = '#F9FAFB'; e.target.style.boxShadow = 'none'; }}
-                                    autoFocus
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    placeholder="Confirm Password"
+                                    style={inputStyle(confirmFocused)}
+                                    onFocus={() => setConfirmFocused(true)}
+                                    onBlur={() => setConfirmFocused(false)}
                                 />
                             </div>
-                            <button
-                                type="submit"
-                                disabled={loading || !email}
-                                style={{
-                                    width: '100%', backgroundColor: COLORS.primary, color: 'white', padding: '16px', borderRadius: 16,
-                                    fontSize: 16, fontWeight: 600, border: 'none', cursor: loading || !email ? 'not-allowed' : 'pointer',
-                                    opacity: loading || !email ? 0.7 : 1, transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8
-                                }}
-                                onMouseEnter={e => { if (!loading && email) e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.backgroundColor = COLORS.primaryDark; }}
-                                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = COLORS.primary; }}
-                            >
-                                {loading ? 'Sending Code...' : 'Send Login Code'}
-                            </button>
+                        )}
 
-                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -4 }}>
-                                <div style={{ fontSize: 14, color: COLORS.textSecondary }}>
-                                    {mode === 'LOGIN' ? "Don't have an account? " : "Already have an account? "}
-                                    <button
-                                        type="button"
-                                        onClick={() => setMode(mode === 'LOGIN' ? 'SIGNUP' : 'LOGIN')}
-                                        style={{ background: 'none', border: 'none', color: COLORS.primary, fontWeight: 600, cursor: 'pointer', padding: 0 }}
-                                    >
-                                        {mode === 'LOGIN' ? 'Sign Up' : 'Login'}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    ) : (
-                        <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                            <div style={{ position: 'relative' }}>
-                                <KeyRound size={18} color={COLORS.textMuted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
-                                <input
-                                    type="text"
-                                    required
-                                    value={otp}
-                                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                    placeholder="000 000"
-                                    style={{
-                                        width: '100%', padding: '16px 16px 16px 48px', backgroundColor: '#F9FAFB', border: `1px solid ${COLORS.border}`,
-                                        borderRadius: 16, fontSize: 18, color: COLORS.textMain, outline: 'none', transition: 'all 0.2s',
-                                        textAlign: 'center', letterSpacing: '0.4em', fontWeight: 600, boxSizing: 'border-box'
-                                    }}
-                                    onFocus={e => { e.target.style.borderColor = COLORS.primary; e.target.style.backgroundColor = '#FFFFFF'; e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`; }}
-                                    onBlur={e => { e.target.style.borderColor = COLORS.border; e.target.style.backgroundColor = '#F9FAFB'; e.target.style.boxShadow = 'none'; }}
-                                    autoFocus
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                disabled={loading || otp.length !== 6}
-                                style={{
-                                    width: '100%', backgroundColor: COLORS.primary, color: 'white', padding: '16px', borderRadius: 16,
-                                    fontSize: 16, fontWeight: 600, border: 'none', cursor: loading || otp.length !== 6 ? 'not-allowed' : 'pointer',
-                                    opacity: loading || otp.length !== 6 ? 0.7 : 1, transition: 'all 0.2s'
-                                }}
-                                onMouseEnter={e => { if (!loading && otp.length === 6) e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.backgroundColor = COLORS.primaryDark; }}
-                                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = COLORS.primary; }}
-                            >
-                                {loading ? 'Verifying...' : 'Login Successfully'}
-                            </button>
+                        {/* Submit */}
+                        <button
+                            type="submit"
+                            disabled={loading || !email || !password || (mode === 'SIGNUP' && !confirmPassword)}
+                            style={{
+                                width: '100%', backgroundColor: COLORS.primary, color: 'white', padding: '16px', borderRadius: 16,
+                                fontSize: 16, fontWeight: 600, border: 'none',
+                                cursor: loading ? 'not-allowed' : 'pointer',
+                                opacity: loading || !email || !password ? 0.7 : 1,
+                                transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 4
+                            }}
+                            onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.backgroundColor = COLORS.primaryDark; } }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = COLORS.primary; }}
+                        >
+                            {loading
+                                ? (mode === 'LOGIN' ? 'Logging in...' : 'Creating account...')
+                                : (mode === 'LOGIN' ? 'Login' : 'Create Account')}
+                        </button>
 
-                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
-                                <button type="button" onClick={() => setStep('EMAIL')} style={{
-                                    background: 'none', border: 'none', color: COLORS.textSecondary, fontSize: 13, cursor: 'pointer', textDecoration: 'underline'
-                                }}>
-                                    Change email address
+                        {/* Toggle */}
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: -4 }}>
+                            <div style={{ fontSize: 14, color: COLORS.textSecondary }}>
+                                {mode === 'LOGIN' ? "Don't have an account? " : "Already have an account? "}
+                                <button
+                                    type="button"
+                                    onClick={switchMode}
+                                    style={{ background: 'none', border: 'none', color: COLORS.primary, fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                                >
+                                    {mode === 'LOGIN' ? 'Sign Up' : 'Login'}
                                 </button>
                             </div>
-                        </form>
-                    )}
+                        </div>
+                    </form>
                 </div>
             </div>
             <style>

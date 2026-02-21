@@ -27528,22 +27528,29 @@ var __iconNode6 = [
 ];
 var CircleAlert = createLucideIcon("circle-alert", __iconNode6);
 
-// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/clock.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/circle-check-big.js
 var __iconNode7 = [
+  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+var CircleCheckBig = createLucideIcon("circle-check-big", __iconNode7);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/clock.js
+var __iconNode8 = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-var Clock = createLucideIcon("clock", __iconNode7);
+var Clock = createLucideIcon("clock", __iconNode8);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/dollar-sign.js
-var __iconNode8 = [
+var __iconNode9 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-var DollarSign = createLucideIcon("dollar-sign", __iconNode8);
+var DollarSign = createLucideIcon("dollar-sign", __iconNode9);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/grip-vertical.js
-var __iconNode9 = [
+var __iconNode10 = [
   ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
   ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
   ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
@@ -27551,10 +27558,10 @@ var __iconNode9 = [
   ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
   ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
 ];
-var GripVertical = createLucideIcon("grip-vertical", __iconNode9);
+var GripVertical = createLucideIcon("grip-vertical", __iconNode10);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/heart.js
-var __iconNode10 = [
+var __iconNode11 = [
   [
     "path",
     {
@@ -27563,10 +27570,10 @@ var __iconNode10 = [
     }
   ]
 ];
-var Heart = createLucideIcon("heart", __iconNode10);
+var Heart = createLucideIcon("heart", __iconNode11);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/house.js
-var __iconNode11 = [
+var __iconNode12 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -27576,20 +27583,7 @@ var __iconNode11 = [
     }
   ]
 ];
-var House = createLucideIcon("house", __iconNode11);
-
-// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/key-round.js
-var __iconNode12 = [
-  [
-    "path",
-    {
-      d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z",
-      key: "1s6t7t"
-    }
-  ],
-  ["circle", { cx: "16.5", cy: "7.5", r: ".5", fill: "currentColor", key: "w0ekpg" }]
-];
-var KeyRound = createLucideIcon("key-round", __iconNode12);
+var House = createLucideIcon("house", __iconNode12);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/landmark.js
 var __iconNode13 = [
@@ -27612,15 +27606,22 @@ var Landmark = createLucideIcon("landmark", __iconNode13);
 var __iconNode14 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
 var LoaderCircle = createLucideIcon("loader-circle", __iconNode14);
 
-// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/mail.js
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/lock.js
 var __iconNode15 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+var Lock = createLucideIcon("lock", __iconNode15);
+
+// node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/mail.js
+var __iconNode16 = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-var Mail = createLucideIcon("mail", __iconNode15);
+var Mail = createLucideIcon("mail", __iconNode16);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/message-square.js
-var __iconNode16 = [
+var __iconNode17 = [
   [
     "path",
     {
@@ -27629,10 +27630,10 @@ var __iconNode16 = [
     }
   ]
 ];
-var MessageSquare = createLucideIcon("message-square", __iconNode16);
+var MessageSquare = createLucideIcon("message-square", __iconNode17);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/pen.js
-var __iconNode17 = [
+var __iconNode18 = [
   [
     "path",
     {
@@ -27641,10 +27642,10 @@ var __iconNode17 = [
     }
   ]
 ];
-var Pen = createLucideIcon("pen", __iconNode17);
+var Pen = createLucideIcon("pen", __iconNode18);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/piggy-bank.js
-var __iconNode18 = [
+var __iconNode19 = [
   [
     "path",
     {
@@ -27655,17 +27656,17 @@ var __iconNode18 = [
   ["path", { d: "M16 10h.01", key: "1m94wz" }],
   ["path", { d: "M2 8v1a2 2 0 0 0 2 2h1", key: "1env43" }]
 ];
-var PiggyBank = createLucideIcon("piggy-bank", __iconNode18);
+var PiggyBank = createLucideIcon("piggy-bank", __iconNode19);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode19 = [
+var __iconNode20 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode19);
+var Plus = createLucideIcon("plus", __iconNode20);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode20 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -27676,26 +27677,26 @@ var __iconNode20 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("printer", __iconNode20);
+var Printer = createLucideIcon("printer", __iconNode21);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode21 = [
+var __iconNode22 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("refresh-cw", __iconNode21);
+var RefreshCw = createLucideIcon("refresh-cw", __iconNode22);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode22 = [
+var __iconNode23 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("rotate-ccw", __iconNode22);
+var RotateCcw = createLucideIcon("rotate-ccw", __iconNode23);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode23 = [
+var __iconNode24 = [
   [
     "path",
     {
@@ -27706,17 +27707,17 @@ var __iconNode23 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save = createLucideIcon("save", __iconNode23);
+var Save = createLucideIcon("save", __iconNode24);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode24 = [
+var __iconNode25 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode24);
+var Search = createLucideIcon("search", __iconNode25);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-down.js
-var __iconNode25 = [
+var __iconNode26 = [
   ["path", { d: "M17 14V2", key: "8ymqnk" }],
   [
     "path",
@@ -27726,10 +27727,10 @@ var __iconNode25 = [
     }
   ]
 ];
-var ThumbsDown = createLucideIcon("thumbs-down", __iconNode25);
+var ThumbsDown = createLucideIcon("thumbs-down", __iconNode26);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/thumbs-up.js
-var __iconNode26 = [
+var __iconNode27 = [
   ["path", { d: "M7 10v12", key: "1qc93n" }],
   [
     "path",
@@ -27739,34 +27740,34 @@ var __iconNode26 = [
     }
   ]
 ];
-var ThumbsUp = createLucideIcon("thumbs-up", __iconNode26);
+var ThumbsUp = createLucideIcon("thumbs-up", __iconNode27);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode27 = [
+var __iconNode28 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode27);
+var Trash2 = createLucideIcon("trash-2", __iconNode28);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode28 = [
+var __iconNode29 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode28);
+var TrendingDown = createLucideIcon("trending-down", __iconNode29);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode29 = [
+var __iconNode30 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode29);
+var TrendingUp = createLucideIcon("trending-up", __iconNode30);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode30 = [
+var __iconNode31 = [
   [
     "path",
     {
@@ -27777,10 +27778,10 @@ var __iconNode30 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode30);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode31);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/wallet.js
-var __iconNode31 = [
+var __iconNode32 = [
   [
     "path",
     {
@@ -27790,14 +27791,14 @@ var __iconNode31 = [
   ],
   ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
 ];
-var Wallet = createLucideIcon("wallet", __iconNode31);
+var Wallet = createLucideIcon("wallet", __iconNode32);
 
 // node_modules/.pnpm/lucide-react@0.554.0_react@18.3.1/node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode32 = [
+var __iconNode33 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode32);
+var X = createLucideIcon("x", __iconNode33);
 
 // node_modules/.pnpm/recharts@3.5.1_@types+react@18.3.27_react-dom@18.3.1_react@18.3.1__react-is@19.2.0_react@18.3.1_redux@5.0.1/node_modules/recharts/es6/container/Surface.js
 var React = __toESM(require_react());
@@ -60159,64 +60160,99 @@ var COLORS = {
   textSecondary: "#6B7280",
   textMuted: "#9CA3AF",
   error: "#DC2626",
-  errorBg: "#FEF2F2"
+  errorBg: "#FEF2F2",
+  success: "#059669",
+  successBg: "#ECFDF5"
 };
+var inputStyle = (focused) => ({
+  width: "100%",
+  padding: "16px 16px 16px 48px",
+  backgroundColor: focused ? "#FFFFFF" : "#F9FAFB",
+  border: `1px solid ${focused ? COLORS.primary : COLORS.border}`,
+  borderRadius: 16,
+  fontSize: 15,
+  color: COLORS.textMain,
+  outline: "none",
+  transition: "all 0.2s",
+  boxSizing: "border-box",
+  boxShadow: focused ? `0 0 0 4px ${COLORS.accentLight}` : "none"
+});
 var LoginModal = ({ onClose, onLoginSuccess }) => {
   const [mode, setMode] = (0, import_react51.useState)("LOGIN");
   const [email, setEmail] = (0, import_react51.useState)("");
-  const [otp, setOtp] = (0, import_react51.useState)("");
-  const [step, setStep] = (0, import_react51.useState)("EMAIL");
+  const [password, setPassword] = (0, import_react51.useState)("");
+  const [confirmPassword, setConfirmPassword] = (0, import_react51.useState)("");
   const [loading, setLoading] = (0, import_react51.useState)(false);
   const [error, setError] = (0, import_react51.useState)("");
-  const handleSendOtp = async (e) => {
+  const [success, setSuccess] = (0, import_react51.useState)("");
+  const [emailFocused, setEmailFocused] = (0, import_react51.useState)(false);
+  const [passwordFocused, setPasswordFocused] = (0, import_react51.useState)(false);
+  const [confirmFocused, setConfirmFocused] = (0, import_react51.useState)(false);
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     if (!supabase) {
       setError("Cloud sync is currently unavailable. Please try again later.");
       return;
     }
     setLoading(true);
-    const { error: error2 } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: true
-      }
-    });
+    const { error: error2 } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error2) {
-      console.error("Supabase Auth Error:", error2);
-      if (error2.message?.toLowerCase().includes("rate limit") || error2.status === 429) {
-        setError("Please wait a moment before requesting another login code.");
+      console.error("Login error:", error2);
+      if (error2.message?.toLowerCase().includes("invalid login credentials")) {
+        setError("Invalid email or password. Please try again.");
+      } else if (error2.message?.toLowerCase().includes("email not confirmed")) {
+        setError("Please check your inbox and confirm your email before logging in.");
       } else {
-        setError(error2.message || "An unexpected error occurred. Please try again later.");
+        setError(error2.message || "Login failed. Please try again.");
       }
     } else {
-      setStep("OTP");
+      onLoginSuccess();
     }
   };
-  const handleVerifyOtp = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
-    if (!supabase) return;
+    setSuccess("");
+    if (!supabase) {
+      setError("Cloud sync is currently unavailable. Please try again later.");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
     setLoading(true);
-    const { data, error: error2 } = await supabase.auth.verifyOtp({
-      email,
-      token: otp,
-      type: "email"
-    });
+    const { data, error: error2 } = await supabase.auth.signUp({ email, password });
     setLoading(false);
     if (error2) {
-      console.error("Supabase Auth Verify Error:", error2);
-      if (error2.message?.toLowerCase().includes("rate limit") || error2.status === 429) {
-        setError("Please wait a moment before trying again.");
-      } else if (error2.message?.toLowerCase().includes("expired") || error2.message?.toLowerCase().includes("invalid")) {
-        setError("That code is incorrect or expired. Please check your email or request a new one.");
+      console.error("Sign up error:", error2);
+      if (error2.message?.toLowerCase().includes("already registered")) {
+        setError("An account with this email already exists. Try logging in instead.");
       } else {
-        setError(error2.message || "Verification failed. Please try again.");
+        setError(error2.message || "Sign up failed. Please try again.");
       }
     } else if (data.session) {
       onLoginSuccess();
+    } else {
+      setSuccess("Account created! Please check your email to confirm your account, then log in.");
+      setMode("LOGIN");
+      setPassword("");
+      setConfirmPassword("");
     }
+  };
+  const switchMode = () => {
+    setMode(mode === "LOGIN" ? "SIGNUP" : "LOGIN");
+    setError("");
+    setSuccess("");
+    setPassword("");
+    setConfirmPassword("");
   };
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
     position: "fixed",
@@ -60240,8 +60276,8 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
     }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "24px 32px 20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: step === "EMAIL" ? mode === "LOGIN" ? "Login" : "Sign Up" : "Verify Email" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? mode === "LOGIN" ? "Enter your email to receive a 6-digit secure login code." : "Enter your email to receive a 6-digit code to create your account." : `Enter the 6-digit code sent to ${email}` })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: mode === "LOGIN" ? "Login" : "Sign Up" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: mode === "LOGIN" ? "Sign in to sync your budget across devices." : "Create an account to save and sync your budget." })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onClose, style: {
           background: "none",
@@ -60271,7 +60307,20 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { size: 18, color: COLORS.error, style: { marginTop: 2, flexShrink: 0 } }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, color: COLORS.error, lineHeight: 1.5, fontWeight: 500 }, children: error })
         ] }),
-        step === "EMAIL" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: handleSendOtp, style: { display: "flex", flexDirection: "column", gap: 20 }, children: [
+        success && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: {
+          marginBottom: 20,
+          padding: "12px 16px",
+          backgroundColor: COLORS.successBg,
+          borderRadius: 12,
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 12,
+          border: `1px solid ${COLORS.success}20`
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheckBig, { size: 18, color: COLORS.success, style: { marginTop: 2, flexShrink: 0 } }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 13, color: COLORS.success, lineHeight: 1.5, fontWeight: 500 }, children: success })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: mode === "LOGIN" ? handleLogin : handleSignUp, style: { display: "flex", flexDirection: "column", gap: 16 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
@@ -60282,29 +60331,42 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
                 value: email,
                 onChange: (e) => setEmail(e.target.value),
                 placeholder: "you@email.com",
-                style: {
-                  width: "100%",
-                  padding: "16px 16px 16px 48px",
-                  backgroundColor: "#F9FAFB",
-                  border: `1px solid ${COLORS.border}`,
-                  borderRadius: 16,
-                  fontSize: 15,
-                  color: COLORS.textMain,
-                  outline: "none",
-                  transition: "all 0.2s",
-                  boxSizing: "border-box"
-                },
-                onFocus: (e) => {
-                  e.target.style.borderColor = COLORS.primary;
-                  e.target.style.backgroundColor = "#FFFFFF";
-                  e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`;
-                },
-                onBlur: (e) => {
-                  e.target.style.borderColor = COLORS.border;
-                  e.target.style.backgroundColor = "#F9FAFB";
-                  e.target.style.boxShadow = "none";
-                },
+                style: inputStyle(emailFocused),
+                onFocus: () => setEmailFocused(true),
+                onBlur: () => setEmailFocused(false),
                 autoFocus: true
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lock, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "password",
+                required: true,
+                value: password,
+                onChange: (e) => setPassword(e.target.value),
+                placeholder: "Password",
+                style: inputStyle(passwordFocused),
+                onFocus: () => setPasswordFocused(true),
+                onBlur: () => setPasswordFocused(false)
+              }
+            )
+          ] }),
+          mode === "SIGNUP" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lock, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                type: "password",
+                required: true,
+                value: confirmPassword,
+                onChange: (e) => setConfirmPassword(e.target.value),
+                placeholder: "Confirm Password",
+                style: inputStyle(confirmFocused),
+                onFocus: () => setConfirmFocused(true),
+                onBlur: () => setConfirmFocused(false)
               }
             )
           ] }),
@@ -60312,7 +60374,7 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
             "button",
             {
               type: "submit",
-              disabled: loading || !email,
+              disabled: loading || !email || !password || mode === "SIGNUP" && !confirmPassword,
               style: {
                 width: "100%",
                 backgroundColor: COLORS.primary,
@@ -60322,23 +60384,26 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
                 fontSize: 16,
                 fontWeight: 600,
                 border: "none",
-                cursor: loading || !email ? "not-allowed" : "pointer",
-                opacity: loading || !email ? 0.7 : 1,
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading || !email || !password ? 0.7 : 1,
                 transition: "all 0.2s",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 8
+                gap: 8,
+                marginTop: 4
               },
               onMouseEnter: (e) => {
-                if (!loading && email) e.currentTarget.style.transform = "translateY(-1px)";
-                e.currentTarget.style.backgroundColor = COLORS.primaryDark;
+                if (!loading) {
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.backgroundColor = COLORS.primaryDark;
+                }
               },
               onMouseLeave: (e) => {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.backgroundColor = COLORS.primary;
               },
-              children: loading ? "Sending Code..." : "Send Login Code"
+              children: loading ? mode === "LOGIN" ? "Logging in..." : "Creating account..." : mode === "LOGIN" ? "Login" : "Create Account"
             }
           ),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center", marginTop: -4 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textSecondary }, children: [
@@ -60347,89 +60412,12 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
               "button",
               {
                 type: "button",
-                onClick: () => setMode(mode === "LOGIN" ? "SIGNUP" : "LOGIN"),
+                onClick: switchMode,
                 style: { background: "none", border: "none", color: COLORS.primary, fontWeight: 600, cursor: "pointer", padding: 0 },
                 children: mode === "LOGIN" ? "Sign Up" : "Login"
               }
             )
           ] }) })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: handleVerifyOtp, style: { display: "flex", flexDirection: "column", gap: 20 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeyRound, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-              "input",
-              {
-                type: "text",
-                required: true,
-                value: otp,
-                onChange: (e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6)),
-                placeholder: "000 000",
-                style: {
-                  width: "100%",
-                  padding: "16px 16px 16px 48px",
-                  backgroundColor: "#F9FAFB",
-                  border: `1px solid ${COLORS.border}`,
-                  borderRadius: 16,
-                  fontSize: 18,
-                  color: COLORS.textMain,
-                  outline: "none",
-                  transition: "all 0.2s",
-                  textAlign: "center",
-                  letterSpacing: "0.4em",
-                  fontWeight: 600,
-                  boxSizing: "border-box"
-                },
-                onFocus: (e) => {
-                  e.target.style.borderColor = COLORS.primary;
-                  e.target.style.backgroundColor = "#FFFFFF";
-                  e.target.style.boxShadow = `0 0 0 4px ${COLORS.accentLight}`;
-                },
-                onBlur: (e) => {
-                  e.target.style.borderColor = COLORS.border;
-                  e.target.style.backgroundColor = "#F9FAFB";
-                  e.target.style.boxShadow = "none";
-                },
-                autoFocus: true
-              }
-            )
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            "button",
-            {
-              type: "submit",
-              disabled: loading || otp.length !== 6,
-              style: {
-                width: "100%",
-                backgroundColor: COLORS.primary,
-                color: "white",
-                padding: "16px",
-                borderRadius: 16,
-                fontSize: 16,
-                fontWeight: 600,
-                border: "none",
-                cursor: loading || otp.length !== 6 ? "not-allowed" : "pointer",
-                opacity: loading || otp.length !== 6 ? 0.7 : 1,
-                transition: "all 0.2s"
-              },
-              onMouseEnter: (e) => {
-                if (!loading && otp.length === 6) e.currentTarget.style.transform = "translateY(-1px)";
-                e.currentTarget.style.backgroundColor = COLORS.primaryDark;
-              },
-              onMouseLeave: (e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.backgroundColor = COLORS.primary;
-              },
-              children: loading ? "Verifying..." : "Login Successfully"
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center", marginTop: -8 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => setStep("EMAIL"), style: {
-            background: "none",
-            border: "none",
-            color: COLORS.textSecondary,
-            fontSize: 13,
-            cursor: "pointer",
-            textDecoration: "underline"
-          }, children: "Change email address" }) })
         ] })
       ] })
     ] }),
@@ -60799,7 +60787,7 @@ var SectionHeader = ({ title, icon, color: color2, bgColor, total, monthlyTotal,
     isOpen ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ChevronUp, { size: 18, color: COLORS2.textSecondary }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ChevronDown, { size: 18, color: COLORS2.textSecondary })
   ] })
 ] });
-var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
+var CoinSearchDropdown = ({ onSelect, inputStyle: inputStyle2 }) => {
   const [query, setQuery] = (0, import_react52.useState)("");
   const [results, setResults] = (0, import_react52.useState)([]);
   const [loading, setLoading] = (0, import_react52.useState)(false);
@@ -60835,7 +60823,7 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         "input",
         {
-          style: { ...inputStyle, paddingLeft: 28 },
+          style: { ...inputStyle2, paddingLeft: 28 },
           value: query,
           onChange: (e) => handleSearch(e.target.value),
           onFocus: () => {
@@ -60898,7 +60886,7 @@ var CoinSearchDropdown = ({ onSelect, inputStyle }) => {
     )) })
   ] });
 };
-var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
+var StockTickerInput = ({ draft, setDraft, inputStyle: inputStyle2, color: color2 }) => {
   const [fetching, setFetching] = (0, import_react52.useState)(false);
   const [tickerInput, setTickerInput] = (0, import_react52.useState)(draft.ticker || "");
   const [priceInput, setPriceInput] = (0, import_react52.useState)(draft.livePrice ? String(draft.livePrice) : "");
@@ -60939,7 +60927,7 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "input",
       {
-        style: { ...inputStyle, textTransform: "uppercase" },
+        style: { ...inputStyle2, textTransform: "uppercase" },
         value: tickerInput,
         onChange: (e) => setTickerInput(e.target.value.toUpperCase().replace(/[^A-Z.]/g, "")),
         placeholder: "e.g. AAPL, TSLA, VOO",
@@ -60957,7 +60945,7 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "input",
           {
-            style: inputStyle,
+            style: inputStyle2,
             type: "number",
             step: "any",
             value: priceInput,
@@ -60976,7 +60964,7 @@ var StockTickerInput = ({ draft, setDraft, inputStyle, color: color2 }) => {
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "input",
           {
-            style: inputStyle,
+            style: inputStyle2,
             type: "number",
             step: "any",
             value: draft.quantity || "",
@@ -61019,7 +61007,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
     onUpdate({ ...draft, amount, frequency: freq, ...computed });
     setEditing(false);
   };
-  const inputStyle = {
+  const inputStyle2 = {
     padding: "8px 10px",
     borderRadius: 8,
     border: `1px solid ${COLORS2.border}`,
@@ -61030,7 +61018,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
     outline: "none"
   };
   const selectStyle = {
-    ...inputStyle,
+    ...inputStyle2,
     appearance: "none",
     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
     backgroundRepeat: "no-repeat",
@@ -61109,7 +61097,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
       ] }),
       inputMode === "asset" && draft.assetType === "crypto" && !draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Search Cryptocurrency" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CoinSearchDropdown, { onSelect: handleCoinSelect, inputStyle })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CoinSearchDropdown, { onSelect: handleCoinSelect, inputStyle: inputStyle2 })
       ] }),
       inputMode === "asset" && draft.assetType === "crypto" && draft.ticker && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", backgroundColor: "#F7931A10", borderRadius: 8, border: "1px solid #F7931A30", marginBottom: 8 }, children: [
@@ -61126,7 +61114,7 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 4 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Quantity" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle2, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => {
             const qty = parseFloat(e.target.value) || 0;
             const newAmount = draft.livePrice ? Math.round(draft.livePrice * qty * 100) / 100 : draft.amount;
             setDraft((d) => ({ ...d, quantity: qty || void 0, amount: newAmount }));
@@ -61144,15 +61132,15 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
           ] }) : null
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { fontSize: 11, color: COLORS2.textMuted, marginTop: 4 }, children: "Fetching price..." })
       ] }),
-      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(StockTickerInput, { draft, setDraft, inputStyle, color: color2 }),
+      inputMode === "asset" && draft.assetType === "stock" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(StockTickerInput, { draft, setDraft, inputStyle: inputStyle2, color: color2 }),
       (inputMode !== "asset" || !draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Name" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !draft.name, style: inputStyle, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !draft.name, style: inputStyle2, value: draft.name, onChange: (e) => setDraft({ ...draft, name: e.target.value }), placeholder: "Description" })
       ] }),
       inputMode === "recurring" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Amount" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle2, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Frequency" }),
@@ -61166,16 +61154,16 @@ var ItemRow = ({ item, onUpdate, onDelete, inputMode, color: color2 }) => {
       inputMode === "asset" && (!draft.assetType || draft.assetType === "manual") && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle2, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Quantity (optional)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => setDraft({ ...draft, quantity: parseFloat(e.target.value) || void 0 }), placeholder: "Qty" })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { style: inputStyle2, type: "number", step: "any", value: draft.quantity || "", onChange: (e) => setDraft({ ...draft, quantity: parseFloat(e.target.value) || void 0 }), placeholder: "Qty" })
         ] })
       ] }),
       inputMode === "value_only" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 8 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("label", { style: { fontSize: 11, fontWeight: 600, color: COLORS2.textMuted, marginBottom: 2, display: "block" }, children: "Value" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { autoFocus: !!draft.name, style: inputStyle2, type: "number", value: draft.amount || "", onChange: (e) => setDraft({ ...draft, amount: parseFloat(e.target.value) || 0 }), placeholder: "$0" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", gap: 6, justifyContent: "flex-end" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { onClick: () => {
@@ -63248,6 +63236,14 @@ lucide-react/dist/esm/icons/circle-alert.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
+lucide-react/dist/esm/icons/circle-check-big.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
 lucide-react/dist/esm/icons/clock.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -63288,14 +63284,6 @@ lucide-react/dist/esm/icons/house.js:
    * See the LICENSE file in the root directory of this source tree.
    *)
 
-lucide-react/dist/esm/icons/key-round.js:
-  (**
-   * @license lucide-react v0.554.0 - ISC
-   *
-   * This source code is licensed under the ISC license.
-   * See the LICENSE file in the root directory of this source tree.
-   *)
-
 lucide-react/dist/esm/icons/landmark.js:
   (**
    * @license lucide-react v0.554.0 - ISC
@@ -63305,6 +63293,14 @@ lucide-react/dist/esm/icons/landmark.js:
    *)
 
 lucide-react/dist/esm/icons/loader-circle.js:
+  (**
+   * @license lucide-react v0.554.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/icons/lock.js:
   (**
    * @license lucide-react v0.554.0 - ISC
    *
