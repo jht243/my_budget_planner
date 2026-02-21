@@ -60162,6 +60162,7 @@ var COLORS = {
   errorBg: "#FEF2F2"
 };
 var LoginModal = ({ onClose, onLoginSuccess }) => {
+  const [mode, setMode] = (0, import_react51.useState)("LOGIN");
   const [email, setEmail] = (0, import_react51.useState)("");
   const [otp, setOtp] = (0, import_react51.useState)("");
   const [step, setStep] = (0, import_react51.useState)("EMAIL");
@@ -60239,8 +60240,8 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
     }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "24px 32px 20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: step === "EMAIL" ? "Save & Sync" : "Verify Email" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? "Access your budget securely across all your devices." : `Enter the 6-digit code sent to ${email}` })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: { fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: "0 0 8px 0", letterSpacing: "-0.02em" }, children: step === "EMAIL" ? mode === "LOGIN" ? "Login" : "Sign Up" : "Verify Email" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }, children: step === "EMAIL" ? "Enter your email and we will send you a secure link and code to log in." : `Enter the 6-digit code sent to ${email}` })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onClose, style: {
           background: "none",
@@ -60337,9 +60338,21 @@ var LoginModal = ({ onClose, onLoginSuccess }) => {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.backgroundColor = COLORS.primary;
               },
-              children: loading ? "Sending Code..." : "Continue with Email"
+              children: loading ? "Sending Link..." : "Continue with Email"
             }
-          )
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { display: "flex", justifyContent: "center", marginTop: -4 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 14, color: COLORS.textSecondary }, children: [
+            mode === "LOGIN" ? "Don't have an account? " : "Already have an account? ",
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "button",
+              {
+                type: "button",
+                onClick: () => setMode(mode === "LOGIN" ? "SIGNUP" : "LOGIN"),
+                style: { background: "none", border: "none", color: COLORS.primary, fontWeight: 600, cursor: "pointer", padding: 0 },
+                children: mode === "LOGIN" ? "Sign Up" : "Login"
+              }
+            )
+          ] }) })
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { onSubmit: handleVerifyOtp, style: { display: "flex", flexDirection: "column", gap: 20 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { position: "relative" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeyRound, { size: 18, color: COLORS.textMuted, style: { position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" } }),

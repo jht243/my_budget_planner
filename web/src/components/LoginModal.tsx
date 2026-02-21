@@ -25,6 +25,7 @@ interface LoginModalProps {
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess }) => {
+    const [mode, setMode] = useState<'LOGIN' | 'SIGNUP'>('LOGIN');
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [step, setStep] = useState<'EMAIL' | 'OTP'>('EMAIL');
@@ -101,10 +102,10 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                 <div style={{ padding: '24px 32px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
                         <h2 style={{ fontSize: 24, fontWeight: 700, color: COLORS.textMain, margin: '0 0 8px 0', letterSpacing: '-0.02em' }}>
-                            {step === 'EMAIL' ? 'Save & Sync' : 'Verify Email'}
+                            {step === 'EMAIL' ? (mode === 'LOGIN' ? 'Login' : 'Sign Up') : 'Verify Email'}
                         </h2>
                         <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.5 }}>
-                            {step === 'EMAIL' ? 'Access your budget securely across all your devices.' : `Enter the 6-digit code sent to ${email}`}
+                            {step === 'EMAIL' ? 'Enter your email and we will send you a secure link and code to log in.' : `Enter the 6-digit code sent to ${email}`}
                         </p>
                     </div>
                     <button onClick={onClose} style={{
@@ -158,8 +159,21 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess 
                                 onMouseEnter={e => { if (!loading && email) e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.backgroundColor = COLORS.primaryDark; }}
                                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = COLORS.primary; }}
                             >
-                                {loading ? 'Sending Code...' : 'Continue with Email'}
+                                {loading ? 'Sending Link...' : 'Continue with Email'}
                             </button>
+
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -4 }}>
+                                <div style={{ fontSize: 14, color: COLORS.textSecondary }}>
+                                    {mode === 'LOGIN' ? "Don't have an account? " : "Already have an account? "}
+                                    <button
+                                        type="button"
+                                        onClick={() => setMode(mode === 'LOGIN' ? 'SIGNUP' : 'LOGIN')}
+                                        style={{ background: 'none', border: 'none', color: COLORS.primary, fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                                    >
+                                        {mode === 'LOGIN' ? 'Sign Up' : 'Login'}
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     ) : (
                         <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
