@@ -62451,7 +62451,27 @@ function MyBudget({ initialData: initialData2 }) {
           "Prices: ",
           new Date(budget.lastPriceRefresh).toLocaleTimeString()
         ] })
-      ] })
+      ] }),
+      !session && hasBudgetContent && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+        "div",
+        {
+          onClick: () => setShowLoginModal(true),
+          title: "Your data is saved locally for now. Login to store it in the cloud and access from all devices.",
+          style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            marginTop: 6,
+            cursor: "pointer",
+            opacity: 0.9
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TriangleAlert, { size: 12, color: "#FBBF24" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { fontSize: 10, fontWeight: 600, color: "#FBBF24", letterSpacing: 0.3 }, children: "Login For Cloud Backup" })
+          ]
+        }
+      )
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { padding: "16px 16px 40px" }, children: [
       budget.income.length === 0 && budget.expenses.length === 0 && budget.assets.length === 0 && budget.nonLiquidAssets.length === 0 && budget.retirement.length === 0 && budget.liabilities.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { marginBottom: 16 }, children: [

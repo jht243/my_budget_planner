@@ -2021,6 +2021,19 @@ export default function MyBudget({ initialData }: { initialData?: any }) {
             <span style={{ fontSize: 10, opacity: 0.6 }}>Prices: {new Date(budget.lastPriceRefresh).toLocaleTimeString()}</span>
           )}
         </div>
+        {!session && hasBudgetContent && (
+          <div
+            onClick={() => setShowLoginModal(true)}
+            title="Your data is saved locally for now. Login to store it in the cloud and access from all devices."
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 5,
+              marginTop: 6, cursor: "pointer", opacity: 0.9,
+            }}
+          >
+            <AlertTriangle size={12} color="#FBBF24" />
+            <span style={{ fontSize: 10, fontWeight: 600, color: "#FBBF24", letterSpacing: 0.3 }}>Login For Cloud Backup</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
